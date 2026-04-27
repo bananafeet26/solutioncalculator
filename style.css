@@ -28,6 +28,7 @@ body {
     background: var(--bg);
     color: var(--text);
     margin: 0;
+    min-width: 420px;
 }
 
 /* Container for the form */
@@ -71,9 +72,9 @@ h1, h2, label {
 .compound-row {
     display: grid;
     grid-template-columns:
-        35%   /* selector */
-        25%   /* mL */
-        25%   /* g */
+        30%   /* selector */
+        20%   /* mL */
+        20%   /* g */
         30px ;  /* % */
     gap: 20px;
     align-items: center;

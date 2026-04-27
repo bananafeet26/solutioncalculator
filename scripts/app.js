@@ -20,7 +20,7 @@ function compoundApp() {
             this.settings.compounds[0] = prepareCompound(1, this.settings.totalVolume, 0,0,0, 2); //BA
             this.settings.compounds[1] = prepareCompound(0, this.settings.totalVolume, 0,0,0, 20); //BB
             this.settings.compounds[2] = prepareCompound(3, this.settings.totalVolume, 0,0,0, 52);
-            this.settings.compounds[3] = prepareCompound(6, this.settings.totalVolume, 0,0,250, 0);
+            this.settings.compounds[3] = prepareCompound(10, this.settings.totalVolume, 0,0,250, 0);
 
 
             for (let compound of this.settings.compounds) {
