@@ -1,0 +1,352 @@
+:root {
+    --bg: #f4f4f9;
+    --panel: #ffffff;
+    --text: #333;
+    --muted: #666;
+    --border: #ddd;
+}
+
+.dark {
+    --bg: #121212;
+    --panel: #302c2c;
+    --text: #e6e6e6;
+    --muted: #aaa;
+    --border: #474a57; /* 👈 better contrast than #333 */
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg-color: #1a1a1a;
+        --text-color: #e0e0e0;
+        --accent-color: #66b3ff;
+    }
+}
+
+/* General Body and Font Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+}
+
+/* Container for the form */
+.container {
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: var(--panel);
+}
+
+/* Header Style */
+h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1, h2, label {
+    color: var(--text);
+}
+
+.form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* When viewport gets wider */
+@media (min-width: 600px) {
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    }
+}
+
+@media (min-width: 900px) {
+    .form-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    }
+}
+.compound-row {
+    display: grid;
+    grid-template-columns:
+        35%   /* selector */
+        25%   /* mL */
+        25%   /* g */
+        30px ;  /* % */
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.input-field label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+
+.input-group {
+    position: relative;
+    display: inline-block;
+}
+
+.input-field input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #090909;
+    border-radius: 4px;
+    width: 30%;
+    box-sizing: border-box;
+}
+
+.input-group .unit {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 13px;
+    pointer-events: none;
+}
+.toggle-group label {
+    font-weight: normal;
+    font-size: 16px;
+    color: #555;
+}
+
+.toggle-group input {
+    margin-right: 10px;
+}
+
+/* Radio buttons */
+.toggle-group input[type="radio"] {
+    margin-right: 10px;
+}
+
+/* Chart Styling */
+#myChart {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 80%; /* Ensures canvas stretches to fit container */
+    display: block; /* Ensure block display so it can take up the full width */
+    border-radius: 6px; /* Rounded corners for the chart */
+    background: var(--panel);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Shadow to match the form */
+    max-height: 40%;
+}
+
+/* Settings Display */
+.settings-display {
+    background-color: var(--panel);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.settings-display h2 {
+    font-size: 18px;
+    color: #444;
+}
+
+pre {
+    background-color: #e60000;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    overflow: auto;
+    color: #333;
+}
+
+.field {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.field input,
+.field select {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 100%;
+    padding: 6px 8px;
+    font-size: 13px;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+label {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+input, select {
+    width: 100%;
+    padding: 6px 8px;
+    font-size: 13px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--panel);
+    color: var(--text);
+}
+
+/* POSITION TOP RIGHT */
+.theme-toggle {
+    position: static;
+    flex-shrink: 0;
+}
+
+/* SWITCH WRAPPER */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 28px;
+}
+
+.switch input {
+    display: none;
+}
+
+/* TRACK */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #ccc;
+    transition: .3s;
+    border-radius: 999px;
+}
+
+/* KNOB */
+.slider:before {
+    content: "";
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    transition: .3s;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* ACTIVE STATE */
+input:checked + .slider {
+    background-color: #4f46e5;
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+.header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+}
+
+.title {
+    margin: 0;
+    flex: 1;
+}
+
+.header-row h2 {
+    margin: 0;
+    font-size: 20px;
+}
+.warning-box {
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.warning-box.ok {
+    background: #e8fff0;
+    color: #1a7f37;
+    border: 1px solid #1a7f37;
+}
+
+.warning-box.danger {
+    background: #ffecec;
+    color: #b00020;
+    border: 1px solid #b00020;
+}
+.form-grid > div[style*="display:flex"] {
+    flex-wrap: wrap;
+}
+
+.form-grid select,
+.form-grid input {
+    min-width: 0;   /* 🔥 critical fix */
+    flex: 1 1 120px;
+}
+
+.form-grid button {
+    flex: 0 0 auto;
+}
+
+button {
+    padding: 6px 12px;
+    border: 1px solid #d0d5dd;
+    background: #ffffff;
+    color: #1f2937;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 13px;
+    transition: all 0.15s ease;
+}
+
+button:hover {
+    background: #f3f4f6;
+    border-color: #bfc6cf;
+}
+
+/* inactive / disabled */
+button.inactive,
+button:disabled {
+    background: #f3f4f6;
+    color: #9ca3af;
+    border-color: #e5e7eb;
+    cursor: not-allowed;
+}
+
+
+.simple-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.simple-table th {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 2px solid #ddd;
+    background: #f7f7f7;
+}
+
+.simple-table td {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+/* alternating rows */
+.simple-table tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* hover effect (optional but nice) */
+.simple-table tbody tr:hover {
+    background-color: #f0f0f0;
+}
