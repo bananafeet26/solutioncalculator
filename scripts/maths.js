@@ -167,7 +167,8 @@ function calculateFormulaProperties(compounds) {
     /*
     carrier oil viscosisty
     average viscosicty (how can i caluclate this including ester and components)
-    total weight melting point (of each compound)
+    total weight
+    melting point (of each compound)
     lowest flash point (so you dont burn off sterilants like Benzy alcohol)
     PSI to filter through .45um and .22um depending on filter diameter
      */
@@ -220,4 +221,24 @@ function calculateViscosity(compounds) {
     const totalVolume = volumes.reduce((a, b) => a + b, 0);
     const fractions = volumes.map(v => v / totalVolume);
     return calculateMixtureViscosity(viscosity, fractions);
+}
+// Usage example:
+const volumeLitres = 0.1; // liters
+const permeability = 1e-14; // example value in m^2
+const areaM2 = 0.00062; // 1 cm^2 in m^2
+const deltaP_Pa = 87 * 6894.76; // max pressure in Pa
+const viscosityCP = 5.16; // water viscosity
+const membraneThicknessM = 1e-4; // 0.1 mm
+
+function calculateFilterTimeDarcy(volume, viscosityCP) {
+    const viscosity = viscosityCP * 0.001; // Pa·s
+    const flowRate = (permeability * areaM2 * deltaP_Pa) / (viscosity * membraneThicknessM); // m^3/sec
+    const volumeM3 = volumeLitres / 1000; // convert liters to m^3
+    const timeSeconds = volumeM3 / flowRate;
+    const timeMinutes = timeSeconds / 60;
+
+    console.log(`volumeLitres: ${volumeM3}, permeability: ${permeability}, areaM2: ${areaM2}, deltaP_Pa: ${deltaP_Pa}, membraneThicknessM: ${membraneThicknessM}, viscosity: ${viscosity}, flowRate: ${flowRate}, volumeM3: ${volumeM3}, timeSeconds: ${timeSeconds}, timeMinutes: ${timeMinutes}`)
+    console.log(`Estimated filter time: ${timeMinutes.toFixed(2)} minutes`);
+    return timeMinutes;
+
 }

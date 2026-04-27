@@ -1,7 +1,7 @@
 var compounds = [
     {
         id: crypto.randomUUID(),
-        classOf: "excipient",
+        class: "excipient",
         name: "benzyl benzoate",
         pubchemid: null,
         self_id: "benzyl_benzoate",

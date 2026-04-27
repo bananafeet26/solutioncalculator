@@ -11,6 +11,7 @@ function compoundApp() {
         solutionData: {
             viscosity: 0
         },
+        solutionMeasurements: [],
         init() {
             const ctx = document.getElementById('myChart').getContext('2d');
             this.chart = new Chart(ctx, chartSettings);
@@ -102,12 +103,37 @@ function compoundApp() {
                     totalGrams += this.settings.compounds[i].grams;
             }
             this.settings.totalGrams = totalGrams;
+        },anaylseBatch() {
+            let solutionCalculatedMeasurements = {
+                id: crypto.randomUUID(),
+                viscosity: 0,
+                filterTime: 0,
+                title: "",
+                compounds: [],
+            }
+            solutionCalculatedMeasurements.viscosity = calculateViscosity(this.settings.compounds);
+            solutionCalculatedMeasurements.filterTime = calculateFilterTimeDarcy(this.settings.totalVolume, solutionCalculatedMeasurements.viscosity);
+            for (let i =0 ; i < this.settings.compounds.length; i++) {
+                if (this.settings.compounds[i].class === "excipient") {
+                    solutionCalculatedMeasurements.title += `${this.settings.compounds[i].name} ${this.settings.compounds[i].mls.toFixed(2)}ml, `;
+                }
+            }
+            solutionCalculatedMeasurements.compounds = this.settings.compounds;
+            this.solutionMeasurements.push(solutionCalculatedMeasurements);
+            console.log(solutionCalculatedMeasurements);
+            this.updateChart();
+        }, deleteBatch(uuid) {
+            console.log(`deleteBatch: ${uuid}`);
+            let index = this.solutionMeasurements.findIndex(
+                c => c.id === uuid
+            );
+            this.solutionMeasurements.splice(index, 1);
+            console.log(`index: ${index}`);
+            this.updateChart();
         },
         updateChart() {
             this.fillInMissingValues();
             let remainingVolume = this.calculateRemainingVolume()
-            this.solutionData.viscosity = calculateViscosity(this.settings.compounds);
-            console.log(`viscosity: ${this.solutionData.viscosity}`);
             this.settings.remainingVolume = remainingVolume;
             this.chart.data.datasets = [];
             this.chart.data.labels = [];
