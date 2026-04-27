@@ -117,10 +117,19 @@ function compoundApp() {
                 if (this.settings.compounds[i].class === "excipient") {
                     solutionCalculatedMeasurements.title += `${this.settings.compounds[i].name} ${this.settings.compounds[i].mls.toFixed(2)}ml, `;
                 }
+                let found = compounds.find(c => c.self_id === this.settings.compounds[i].self_id);
+                console.log(found.id);
+                let newCompound = compounds.find(c => c.self_id === found.self_id);
+                newCompound.mls = this.settings.compounds[i].mls;
+                newCompound.v_v_percent = this.settings.compounds[i].v_v_percent;
+                newCompound.mg_per_ml = this.settings.compounds[i].mg_per_ml;
+                newCompound.grams = this.settings.compounds[i].grams;
+                newCompound.id = crypto.randomUUID();
+                console.log(newCompound);
+                solutionCalculatedMeasurements.compounds.push(newCompound);
             }
-            solutionCalculatedMeasurements.compounds = this.settings.compounds;
+            console.log(this.solutionMeasurements);
             this.solutionMeasurements.push(solutionCalculatedMeasurements);
-            console.log(solutionCalculatedMeasurements);
             this.updateChart();
         }, deleteBatch(uuid) {
             console.log(`deleteBatch: ${uuid}`);

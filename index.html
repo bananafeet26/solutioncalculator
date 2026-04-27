@@ -183,33 +183,34 @@ updateChart();
                 <th>Concentration</th>
                 </thead>
                 <tbody>
-                <template x-for="compound in solutionMeasurement.compounds" :key="compound.self_id">
+                <template x-for="compound in solutionMeasurement.compounds" :key="compound.id">
                     <tr>
                         <td x-text="compound.name"></td>
-                        <template x-if="compound.basis === 'v_v_percent'">
-                            <td x-text="compound.basis === 'v_v_percent' ? compound.mls.toFixed(2) + ' mls ' : ''"></td>
-                            <td x-text="compound.basis === 'v_v_percent' ? compound.v_v_percent.toFixed(2) + ' % v/v ' : ''"></td>
-                        </template>
-                        <template x-if="compound.basis === 'q.s.'">
-                            <td x-text="compound.v_v_percent.toFixed(2) + ' mls'"></td>
-                            <td x-text="compound.v_v_percent.toFixed(2) + ' % v/v '"></td>
-                        </template>
-                        <template x-if="compound.basis === 'mg_per_ml'">
-                            <td x-text="compound.grams.toFixed(2) + ' grams'"></td>
-                            <td x-text="compound.mg_per_ml.toFixed(2) + ' mg/ml'"></td>
-                        </template>
-                    </tr>
-                    <tr>
+                    <template x-if="compound.basis === 'v_v_percent'">
+                        <td x-text="compound.mls.toFixed(2) + ' mls '"></td>
+                    </template>
+                    <template x-if="compound.basis === 'v_v_percent'">
+                        <td x-text="compound.v_v_percent.toFixed(2) + ' % v/v '"></td>
+                    </template>
+                    <template x-if="compound.basis === 'q.s.'">
+                        <td x-text="compound.v_v_percent.toFixed(2) + ' mls'"></td>
+                    </template>
+                    <template x-if="compound.basis === 'q.s.'">
+                        <td x-text="compound.v_v_percent.toFixed(2) + ' % v/v '"></td>
+                    </template>
+                    <template x-if="compound.basis === 'mg_per_ml'">
+                        <td x-text="compound.grams.toFixed(2) + ' grams'"></td>
+                    </template>
+                    <template x-if="compound.basis === 'mg_per_ml'">
+                        <td x-text="compound.mg_per_ml.toFixed(2) + ' mg/ml'"></td>
+                    </template>
                     </tr>
                 </template>
                 </tbody>
             </table>
-    <button @click="deleteBatch(solutionMeasurement.id)">Delete Batch</button>
+            <button @click="deleteBatch(solutionMeasurement.id)">Delete Batch</button>
+        </div>
     </template>
-
-</div>
-</template>
-</div>
 </div>
 </body>
 </html>
