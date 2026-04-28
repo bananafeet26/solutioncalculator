@@ -386,15 +386,15 @@ function checkSaturation(solutionEntry, compounds, totalVolume) {
     const value = solutionEntry.mg_per_ml;
     console.log(`value: ${value}, range: ${range}`);
     if (value <= range[0]) {
-        console.log("is-valid");
-        return "is-valid";
+        console.log("is-valid"); // the green tick is annoying
+        return "";
     } // too low
     if (value > range[1]) {
         console.log("is-invalid");
         return "is-invalid"; // too high
     }
 
-    return "is-valid"; // OK
+    return ""; // OK
 }
 function checkSolvents(solutionEntry, compounds, totalVolume) {
     let value = solutionEntry.v_v_percent;

@@ -12,6 +12,7 @@ function compoundApp() {
             solventPercentage:0,
             solventPercentageRating:0,
             stability: 0,
+            isSmall: true,
         },
         solutionData: {
             viscosity: 0
@@ -35,6 +36,9 @@ function compoundApp() {
                     compound.grams = compound.density * compound.mls;
                 }
             }
+            this.settings.isSmall = window.innerWidth < 576;
+            const update = () => this.settings.isSmall = window.innerWidth < 576;
+            window.addEventListener('resize', update);
         },
         view: "table",
         theme: localStorage.getItem('theme') || 'light',
@@ -148,6 +152,8 @@ function compoundApp() {
             this.solutionMeasurements.splice(index, 1);
             console.log(`index: ${index}`);
             this.updateChart();
+        }, get isSmall() {
+            return window.innerWidth < 576;
         },
         updateChart() {
             //this.fillInMissingValues();

@@ -52,7 +52,7 @@ var compounds = [
     {
         id: crypto.randomUUID(),
         class: "excipient",
-        name: "castor oil",
+        name: "castor",
         pubchemid: null,
         self_id: "castor",
         molecular_weight: null,
