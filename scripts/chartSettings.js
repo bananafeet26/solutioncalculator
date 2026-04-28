@@ -30,6 +30,22 @@ var chartSettings = {
                 },
             },
         },
+        plugins: {
+            legend: {
+                position: 'left', // 👈 moves legend to the left
+                labels: {
+                    boxWidth: 20,
+                    padding: 15
+                }
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return context.label + ': ' + context.raw + ' mL';
+                    }
+                }
+            }
+        }
     },
 };
 

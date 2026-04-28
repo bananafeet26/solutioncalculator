@@ -7,6 +7,11 @@ function compoundApp() {
             targetConcentrations: [250],
             totalGrams: 0,
             addRowSelectedCompoundId: 0,
+            viscosity: 0,
+            viscosityRating: 0,
+            solventPercentage:0,
+            solventPercentageRating:0,
+            stability: 0,
         },
         solutionData: {
             viscosity: 0
@@ -17,10 +22,12 @@ function compoundApp() {
             this.chart = new Chart(ctx, chartSettings);
 
             // Initiate basic recipe
-            this.settings.compounds[0] = prepareCompound(1, this.settings.totalVolume, 0,0,0, 2); //BA
-            this.settings.compounds[1] = prepareCompound(0, this.settings.totalVolume, 0,0,0, 20); //BB
-            this.settings.compounds[2] = prepareCompound(3, this.settings.totalVolume, 0,0,0, 52);
-            this.settings.compounds[3] = prepareCompound(10, this.settings.totalVolume, 0,0,250, 0);
+            this.settings.compounds[0] = prepareCompound(1, this.settings.totalVolume, 0, 0, 0, 2); //BA
+            this.settings.compounds[1] = prepareCompound(0, this.settings.totalVolume, 0, 0, 0, 20); //BB
+            this.settings.compounds[2] = prepareCompound(2, this.settings.totalVolume, 0, 0, 0, 26);
+            this.settings.compounds[3] = prepareCompound(3, this.settings.totalVolume, 0, 0, 0, 26);
+
+            this.settings.compounds[4] = prepareCompound(10, this.settings.totalVolume, 0, 0, 250, 0);
 
 
             for (let compound of this.settings.compounds) {
@@ -51,12 +58,13 @@ function compoundApp() {
                 };
         },
         calculateRemainingVolume() {
-            console.log(this.settings.compounds);
             let mls = 0
-            for (let i =0 ; i < this.settings.compounds.length; i++) {
-                if (typeof this.settings.compounds[i].mls !== "undefined") {
-                mls += this.settings.compounds[i].mls;
-            }
+            for (let i = 0; i < this.settings.compounds.length; i++) {
+                if (typeof this.settings.compounds[i] !== undefined) {
+                    if (typeof this.settings.compounds[i].mls !== "undefined") {
+                        mls += this.settings.compounds[i].mls;
+                    }
+                }
             }
             return (this.settings.totalVolume - mls)
         },
@@ -70,7 +78,7 @@ function compoundApp() {
             let solutionId = compounds.findIndex(c => c.self_id === this.settings.addRowSelectedCompoundId)
 
             console.log(`solutionId: ${solutionId}`);
-            let solutionEntry = prepareCompound(solutionId, this.calculateRemainingVolume(), this.settings.totalVolume, 25,250,10);
+            let solutionEntry = prepareCompound(solutionId, this.calculateRemainingVolume(), this.settings.totalVolume, 25, 250, 10);
             this.settings.compounds.push(solutionEntry);
             this.updateChart()
         },
@@ -86,8 +94,9 @@ function compoundApp() {
             }
         },
         fillInMissingValues() {
+            alert("still using this funct.");
             let totalGrams = 0;
-            for (let i =0 ; i < this.settings.compounds.length; i++) {
+            for (let i = 0; i < this.settings.compounds.length; i++) {
                 switch (this.settings.compounds[i].basis) {
                     case "v_v_percent":
                         updateFields(this.settings.compounds[i].v_v_percent, this.settings, "v_v_percent")
@@ -100,10 +109,10 @@ function compoundApp() {
                         break;
                     default:
                 }
-                    totalGrams += this.settings.compounds[i].grams;
+                totalGrams += this.settings.compounds[i].grams;
             }
             this.settings.totalGrams = totalGrams;
-        },anaylseBatch() {
+        }, anaylseBatch() {
             let solutionCalculatedMeasurements = {
                 id: crypto.randomUUID(),
                 viscosity: 0,
@@ -113,7 +122,7 @@ function compoundApp() {
             }
             solutionCalculatedMeasurements.viscosity = calculateViscosity(this.settings.compounds);
             solutionCalculatedMeasurements.filterTime = calculateFilterTimeDarcy(this.settings.totalVolume, solutionCalculatedMeasurements.viscosity);
-            for (let i =0 ; i < this.settings.compounds.length; i++) {
+            for (let i = 0; i < this.settings.compounds.length; i++) {
                 if (this.settings.compounds[i].class === "excipient") {
                     solutionCalculatedMeasurements.title += `${this.settings.compounds[i].name} ${this.settings.compounds[i].mls.toFixed(2)}ml, `;
                 }
@@ -141,8 +150,16 @@ function compoundApp() {
             this.updateChart();
         },
         updateChart() {
-            this.fillInMissingValues();
+            //this.fillInMissingValues();
             let remainingVolume = this.calculateRemainingVolume()
+            /* rating system */
+            let viscosityData = calculateViscosity(this.settings.compounds)
+            this.settings.viscosity = viscosityData;
+            this.settings.viscosityRating = viscosityRating(viscosityData);
+            this.settings.solventPercentage = calculateSolventPercentage(this.settings.compounds, this.settings.totalVolume);
+            this.settings.solventPercentageRating = calculateSolventRating(this.settings.compounds, this.settings.totalVolume, this.settings.solventPercentage);
+            this.settings.stability = calculateStability(this.settings.solventPercentage);
+
             this.settings.remainingVolume = remainingVolume;
             this.chart.data.datasets = [];
             this.chart.data.labels = [];
@@ -153,7 +170,7 @@ function compoundApp() {
                 hidden: false,
                 fill: true
             };
-            for (let i =0 ; i < this.settings.compounds.length; i++) {
+            for (let i = 0; i < this.settings.compounds.length; i++) {
                 dataset.label = this.settings.compounds[i].name
                 dataset.data.push(this.settings.compounds[i].mls);
                 this.chart.data.labels.push(this.settings.compounds[i].name);

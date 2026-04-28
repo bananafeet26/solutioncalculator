@@ -84,7 +84,7 @@ var compounds = [
     {
         id: crypto.randomUUID(),
         class: "excipient",
-        name: "Cottonseed oil",
+        name: "cottonseed oil",
         pubchemid: null,
         self_id: "cottonseed",
         molecular_weight: null,

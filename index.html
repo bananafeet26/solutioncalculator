@@ -17,13 +17,19 @@
     <script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"></script>
 
-    <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-<div class="container" x-data="compoundApp()" x-init="init(); updateChart();" :class="theme">
+    <link rel="stylesheet" href="./custom.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            crossorigin="anonymous"></script>
 
-    <div class="header-row">
-        <h2 class="title">
+<body>
+<div class="container py-4" x-data="compoundApp()" x-init="init(); updateChart();" :class="theme">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">
             <span>Formulation Calculator</span>
         </h2>
 
@@ -42,123 +48,146 @@ updateChart();
     </div>
 
     <!-- Canvas for Chart.js -->
-    <canvas id="myChart"></canvas>
+    <div class="mb-4">
+        <canvas id="myChart"></canvas>
+    </div>
+    <h3 class="mb-3">Adjust Settings</h3>
 
-    <h3>Adjust Settings</h3>
+    <div class="row g-4" x-effect="updateChart()" x-on:change="updateChart()">
 
-    <div class="form-grid" x-effect="updateChart()" x-on:change="updateChart()">
-        <div class="compound-row">
-            <div class="input-group">
-                <label for="totalVolume">Finished Volume</label>
-                <input
-                        type="number"
-                        min="0"
-                        step="10"
-                        x-model.number="settings.totalVolume"
-                        @input="updateVolume(settings.totalVolume, settings.compounds);
-                                updateChart();  "
-                        @blur="settings.totalVolume = parseFloat(settings.totalVolume.toFixed(2))"
-                >
+        <!-- Total Volume -->
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="totalVolume" class="form-label">Finished Volume</label>
+                <input class="form-control"
+                       type="number"
+                       min="0"
+                       step="10"
+                       x-model.number="settings.totalVolume"
+                       @input="updateVolume(settings.totalVolume, settings.compounds); updateChart();"
+                       @blur="settings.totalVolume = parseFloat(settings.totalVolume.toFixed(2))">
             </div>
         </div>
+        <!-- Compounds -->
         <template x-for="solutionEntry in settings.compounds" :key="solutionEntry.self_id">
-            <div class="compound-row">
-                <span x-text="solutionEntry.name"></span>
-                <template x-if="solutionEntry.basis !== 'mg_per_ml'">
-                    <div class="input-group">
-                        <!-- mL -->
-                        <input
-                                :style="solutionEntry.basis !== 'foo'
-                            ? 'background-color: #fff;'
-                            : 'background-color: #f3f3f3;'"
-                                type="number"
-                                min="0"
-                                step="5"
-                                x-model.number="solutionEntry.mls"
-                                @input="updateFields(solutionEntry, settings, 'mls');"
-                                @blur="solutionEntry.mls = parseFloat(solutionEntry.mls.toFixed(2))"
-                        > <span class="unit">mL</span>
-                    </div>
-                </template>
-                <template x-if="solutionEntry.basis !== 'v_v_percent'">
-                    <div class="input-group">
-                        <!-- grams -->
-                        <input
-                                type="number"
-                                min="0"
-                                step="5"
-                                x-model.number="solutionEntry.grams"
-                                @input="updateFields(solutionEntry, settings, 'grams');"
-                                @blur="solutionEntry.grams = parseFloat(solutionEntry.grams.toFixed(2))"
-                        > <span class="unit">g</span>
-                    </div>
-                </template>
-                <template x-if="solutionEntry.basis === 'v_v_percent'">
-                    <div class="input-group">
-                        <!-- v_v_percent -->
-                        <input
-                                type="number"
-                                min="0"
-                                max="100"
-                                step="0.5"
-                                x-model.number="solutionEntry.v_v_percent"
-                                @input="updateFields(solutionEntry, settings, 'v_v_percent')"
-                                @blur="solutionEntry.v_v_percent = parseFloat(solutionEntry.v_v_percent.toFixed(2))"
-                        > <span class="unit">%</span>
-                    </div>
-                </template>
-                <template x-if="solutionEntry.basis === 'mg_per_ml'">
-                    <div class="input-group">
-                        <!-- mg/mL -->
-                        <input
-                                type="number"
-                                min="0"
-                                max="1000"
-                                step="5"
-                                x-model.number="solutionEntry.mg_per_ml"
-                                @input="updateFields(solutionEntry, settings, 'mg_per_ml');"
-                                @blur="solutionEntry.mg_per_ml = parseFloat(solutionEntry.mg_per_ml.toFixed(2))"
-                        >
-                        <span class="unit">mg/mL</span>
-                    </div>
-                </template>
-                <button @click="removeCompound(solutionEntry.self_id)">🗑️</button>
+            <div class="col-12">
+                <div class="input-group mb-3">
+
+                    <!-- Name -->
+                    <span class="input-group-text" x-text="solutionEntry.name"></span>
+
+                    <!-- mL -->
+                    <template x-if="solutionEntry.basis !== 'mg_per_ml'">
+                        <input class="form-control"
+                               type="number"
+                               min="0"
+                               step="5"
+                               placeholder="mL"
+                               x-model.number="solutionEntry.mls"
+                               @input="updateFields(solutionEntry, settings, 'mls')">
+                        <span class="input-group-text">mL</span>
+                    </template>
+
+                    <!-- grams -->
+                    <template x-if="solutionEntry.basis !== 'v_v_percent'">
+                        <input class="form-control"
+                               type="number"
+                               min="0"
+                               step="5"
+                               placeholder="g"
+                               x-model.number="solutionEntry.grams"
+                               @input="updateFields(solutionEntry, settings, 'grams')">
+                        <span class="input-group-text">g</span>
+                    </template>
+
+                    <!-- % -->
+                    <template x-if="solutionEntry.basis === 'v_v_percent'">
+                        <input class="form-control"
+                               type="number"
+                               min="0"
+                               max="100"
+                               step="0.5"
+                               placeholder="%"
+                               x-model.number="solutionEntry.v_v_percent"
+                               @input="updateFields(solutionEntry, settings, 'v_v_percent')">
+                        <span class="input-group-text">%</span>
+                    </template>
+
+                    <!-- mg/mL -->
+                    <template x-if="solutionEntry.basis === 'mg_per_ml'">
+                        <input class="form-control"
+                               type="number"
+                               min="0"
+                               max="1000"
+                               step="5"
+                               placeholder="mg/mL"
+                               x-model.number="solutionEntry.mg_per_ml"
+                               @input="updateFields(solutionEntry, settings, 'mg_per_ml')">
+                        <span class="input-group-text">mg/mL</span>
+                    </template>
+
+                    <!-- Delete -->
+                    <button class="btn btn-outline-danger"
+                            type="button"
+                            @click="removeCompound(solutionEntry.self_id)">
+                        🗑️
+                    </button>
+
+                </div>
             </div>
         </template>
     </div>
-    <div class="compound-row">
-        <div class="input-group">
+    <div class="col-md-6">
+        <div class="mb-3">
             <div x-show="settings.remainingVolume < 0"
                  :class="settings.remainingVolume < 0 ? 'warning-box danger' : 'warning-box ok'">
                 <span x-text="Math.abs(settings.remainingVolume).toFixed(2)"></span> mL over volume
             </div>
         </div>
     </div>
-    <div class="compound-row">
-        <!-- dropdown -->
-        <select x-model="settings.addRowSelectedCompoundId">
-            <option value="" selected>Select compound</option>
+    <div class="row g-3 align-items-center">
 
-            <template x-for="compound in compounds" :key="compound.self_id">
-                <option
-                        :disabled="settings.compounds.some(c => c.self_id === compound.self_id)"
-                        :value="compound.self_id"
-                        x-text="compound.name">
-                </option>
-            </template>
-        </select>
-        <button :class="{ inactive: settings.compounds.length >= compounds.length }" @click="addCompoundRow()">Add
-            compound
-        </button>
-        <button @click="anaylseBatch()">Analyse Batch</button>
+        <!-- LEFT: Select + Add (takes remaining space) -->
+        <div class="col">
+            <div class="input-group">
+                <select class="form-select"
+                        x-model="settings.addRowSelectedCompoundId">
+                    <option value="">Select compound</option>
+
+                    <template x-for="compound in compounds" :key="compound.self_id">
+                        <option
+                                :disabled="settings.compounds.some(c => c.self_id === compound.self_id)"
+                                :value="compound.self_id"
+                                x-text="compound.name">
+                        </option>
+                    </template>
+                </select>
+
+                <button class="btn btn-primary"
+                        type="button"
+                        :disabled="settings.compounds.length >= compounds.length"
+                        @click="addCompoundRow()">
+                    Add
+                </button>
+            </div>
+        </div>
+
+        <!-- RIGHT: Analyse (only as wide as needed) -->
+        <div class="col-auto">
+            <button class="btn btn-outline-secondary"
+                    type="button"
+                    @click="anaylseBatch()">
+                Analyse
+            </button>
+        </div>
+
     </div>
 
     <h3>Formulation overview</h3>
     <template x-for="solutionMeasurement in solutionMeasurements" :key="solutionMeasurement.id">
-        <div>
-            <!-- TABLE VIEW -->
-            <table class="simple-table">
-                <thead>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered align-middle">
+                <thead class="table-light">
                 <tr>
                     <th>Calculated measurements</th>
                     <th></th>
@@ -176,39 +205,42 @@ updateChart();
                 </tbody>
             </table>
             <!-- TABLE VIEW -->
-            <table class="simple-table">
-                <thead>
-                <th>Compound</th>
-                <th>Volume</th>
-                <th>Concentration</th>
-                </thead>
-                <tbody>
-                <template x-for="compound in solutionMeasurement.compounds" :key="compound.id">
-                    <tr>
-                        <td x-text="compound.name"></td>
-                    <template x-if="compound.basis === 'v_v_percent'">
-                        <td x-text="compound.mls.toFixed(2) + ' ml '"></td>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered align-middle">
+                    <thead class="table-light">
+                    <th>Compound</th>
+                    <th>Volume</th>
+                    <th>Concentration</th>
+                    </thead>
+                    <tbody>
+                    <template x-for="compound in solutionMeasurement.compounds" :key="compound.id">
+                        <tr>
+                            <td x-text="compound.name"></td>
+                            <template x-if="compound.basis === 'v_v_percent'">
+                                <td x-text="compound.mls.toFixed(2) + ' ml '"></td>
+                            </template>
+                            <template x-if="compound.basis === 'v_v_percent'">
+                                <td x-text="compound.v_v_percent.toFixed(2) + ' % v/v '"></td>
+                            </template>
+                            <template x-if="compound.basis === 'q.s.'">
+                                <td x-text="compound.v_v_percent.toFixed(2) + ' ml'"></td>
+                            </template>
+                            <template x-if="compound.basis === 'q.s.'">
+                                <td x-text="compound.v_v_percent.toFixed(2) + ' % v/v '"></td>
+                            </template>
+                            <template x-if="compound.basis === 'mg_per_ml'">
+                                <td x-text="compound.grams.toFixed(2) + ' gm (' + compound.mls.toFixed(2) + ' ml)'"></td>
+                            </template>
+                            <template x-if="compound.basis === 'mg_per_ml'">
+                                <td x-text="compound.mg_per_ml.toFixed(2) + ' mg/ml'"></td>
+                            </template>
+                        </tr>
                     </template>
-                    <template x-if="compound.basis === 'v_v_percent'">
-                        <td x-text="compound.v_v_percent.toFixed(2) + ' % v/v '"></td>
-                    </template>
-                    <template x-if="compound.basis === 'q.s.'">
-                        <td x-text="compound.v_v_percent.toFixed(2) + ' ml'"></td>
-                    </template>
-                    <template x-if="compound.basis === 'q.s.'">
-                        <td x-text="compound.v_v_percent.toFixed(2) + ' % v/v '"></td>
-                    </template>
-                    <template x-if="compound.basis === 'mg_per_ml'">
-                        <td x-text="compound.grams.toFixed(2) + ' gm (' + compound.mls.toFixed(2) + ' ml)'"></td>
-                    </template>
-                    <template x-if="compound.basis === 'mg_per_ml'">
-                        <td x-text="compound.mg_per_ml.toFixed(2) + ' mg/ml'"></td>
-                    </template>
-                    </tr>
-                </template>
-                </tbody>
-            </table>
-            <button @click="deleteBatch(solutionMeasurement.id)">Delete Batch</button>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-primary" type="button" @click="deleteBatch(solutionMeasurement.id)">Delete Batch
+            </button>
         </div>
     </template>
 </div>
