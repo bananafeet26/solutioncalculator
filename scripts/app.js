@@ -78,7 +78,7 @@ function compoundApp() {
             let solutionId = compounds.findIndex(c => c.self_id === this.settings.addRowSelectedCompoundId)
 
             console.log(`solutionId: ${solutionId}`);
-            let solutionEntry = prepareCompound(solutionId, this.calculateRemainingVolume(), this.settings.totalVolume, 25, 250, 10);
+            let solutionEntry = prepareCompound(solutionId, this.totalVolume, this.settings.totalVolume, 25, 250, 10);
             this.settings.compounds.push(solutionEntry);
             this.updateChart()
         },

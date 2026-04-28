@@ -53,7 +53,7 @@ function adjustExcipientVolume(compounds, excipients, excipientCount, totalVolum
 
         otherExcipient.forEach(e => {
             e.mls += per;
-            if (e.mls <0) {
+            if (e.mls < 0) {
                 e.mls = 0;
             }
         });
@@ -283,6 +283,7 @@ function viscosityRating(v) {
 
     return Math.max(0, Math.min(100, score));
 }
+
 function calculateSolventPercentage(compounds, totalVolume) {
     let solventMls = 0;
     for (let i = 0; i < compounds.length; i++) {
@@ -290,8 +291,9 @@ function calculateSolventPercentage(compounds, totalVolume) {
             solventMls += compounds[i].mls;
         }
     }
-    return (solventMls/totalVolume)*100
+    return (solventMls / totalVolume) * 100
 }
+
 function calculateSolventRating(compounds, totalVolume, solventPercentage) {
 
     console.log(`solventPercentage: ${solventPercentage}`);
@@ -325,4 +327,90 @@ function calculateStability(solventPercentage) {
     const score = 100 * (max - v) / (max - min);
 
     return Math.max(0, Math.min(100, score));
+}
+
+function caclulateTotalsGrams(compounds) {
+    let grams = 0;
+    for (let i = 0; i < compounds.length; i++) {
+        if (compounds[i].grams !== undefined) {
+            grams += compounds[i].grams;
+        }
+    }
+    return grams;
+}
+
+function classifySolventRange(p) {
+    console.log(`LOW_SOLVENT_RANGE: ${LOW_SOLVENT_RANGE[0]} - ${LOW_SOLVENT_RANGE[1]}, p: ${p}`)
+    console.log(`MEDIUM_SOLVENT_RANGE: ${MEDIUM_SOLVENT_RANGE[0]} - ${MEDIUM_SOLVENT_RANGE[1]}, p: ${p}`)
+    console.log(`HIGH_SOLVENT_RANGE: ${HIGH_SOLVENT_RANGE[0]} - ${HIGH_SOLVENT_RANGE[1]}, p: ${p}`)
+
+    if (p >= LOW_SOLVENT_RANGE[0] && p <= LOW_SOLVENT_RANGE[1]) {
+        console.log(`LOW_SOLVENT_RANGE: ${LOW_SOLVENT_RANGE[0]} - ${LOW_SOLVENT_RANGE[1]}, p: ${p}`)
+        return "low_solvent_range";
+    } else if (p >= MEDIUM_SOLVENT_RANGE[0] && p <= MEDIUM_SOLVENT_RANGE[1]) {
+        return "medium_solvent_range";
+    } else if (p >= HIGH_SOLVENT_RANGE[0] && p <= HIGH_SOLVENT_RANGE[1]) {
+        return "high_solvent_range";
+    }
+
+    //alert("Solvent range not classified");
+    return "medium_solvent_range";
+}
+function estimateSaturationForCompound(compound, compounds, totalVolume) {
+    if (typeof compound === "undefined") {
+        return;
+    }
+    console.log(`estimateSaturationForCompound: ${compound.name}, ${compound.mg_per_ml}, ${compound.basis}`)
+    let solventPercentage = calculateSolventPercentage(compounds, totalVolume);
+
+    let solventRange = classifySolventRange(solventPercentage);
+    console.log(compound);
+    console.log(`solventRange: ${solventRange}`);
+
+    let esterLength = solubility.find(c =>
+        c.member_self_ids.includes(compound.self_id)
+    );
+    console.log(`Ester is: ${esterLength.name}`);
+
+    let rangeForCompoundForThisConcentration = esterLength?.[solventRange];
+    console.log(`rangeForCompoundForThisConcentration: ${rangeForCompoundForThisConcentration}`);
+    return rangeForCompoundForThisConcentration;
+}
+function checkSaturation(solutionEntry, compounds, totalVolume) {
+    const range = estimateSaturationForCompound(
+        solutionEntry,
+        compounds,
+        totalVolume
+    );
+
+    const value = solutionEntry.mg_per_ml;
+    console.log(`value: ${value}, range: ${range}`);
+    if (value <= range[0]) {
+        console.log("is-valid");
+        return "is-valid";
+    } // too low
+    if (value > range[1]) {
+        console.log("is-invalid");
+        return "is-invalid"; // too high
+    }
+
+    return "is-valid"; // OK
+}
+function checkSolvents(solutionEntry, compounds, totalVolume) {
+    let value = solutionEntry.v_v_percent;
+    if (solutionEntry.self_id === "benzyl_benzoate"){
+        if (value >= 50) {
+            console.log("is-invalid");
+            return "is-invalid"; // too high
+        }
+    }
+    if (solutionEntry.self_id === "benzyl_alcohol"){
+        if (value < 1.5) {
+            console.log("is-invalid");
+            return "is-invalid";
+        } if (value > 5) {
+            console.log("is-invalid");
+            return "is-invalid"; // too high
+        }
+    }
 }
