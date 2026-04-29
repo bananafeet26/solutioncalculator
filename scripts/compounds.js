@@ -13,7 +13,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: "v_v_percent"
+        purity: 100,
+        basis: "v_v_percent",
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -29,7 +31,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: "v_v_percent"
+        purity: 100,
+        basis: "v_v_percent",
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -47,7 +51,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: "q.s."
+        purity: 100,
+        basis: "q.s.",
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -63,7 +69,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: "q.s."
+        purity: 100,
+        basis: "q.s.", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -79,7 +87,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: "q.s."
+        purity: 100,
+        basis: "q.s.", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -95,7 +105,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: "q.s."
+        purity: 100,
+        basis: "q.s.", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -111,7 +123,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -127,7 +141,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -143,7 +159,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -159,7 +177,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -175,7 +195,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -191,7 +213,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -207,7 +231,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -223,7 +249,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -239,7 +267,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -255,7 +285,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -271,7 +303,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -287,7 +321,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -303,7 +339,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -319,7 +357,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -335,7 +375,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -351,7 +393,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -367,7 +411,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -383,7 +429,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -399,7 +447,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -415,7 +465,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -431,7 +483,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -447,7 +501,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -463,7 +519,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -479,7 +537,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -495,7 +555,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -511,7 +573,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -527,7 +591,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -543,7 +609,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -559,7 +627,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -575,7 +645,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -591,7 +663,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -607,7 +681,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -623,7 +699,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -639,7 +717,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -655,7 +735,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -671,7 +753,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -687,7 +771,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -703,7 +789,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -719,7 +807,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -735,7 +825,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -751,7 +843,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -767,7 +861,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -783,7 +879,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -799,7 +897,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -815,7 +915,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -831,7 +933,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -847,7 +951,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -863,7 +969,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -879,7 +987,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -895,7 +1005,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -911,7 +1023,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -927,7 +1041,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -943,7 +1059,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -959,7 +1077,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -975,7 +1095,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -991,7 +1113,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1007,7 +1131,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1023,7 +1149,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1039,7 +1167,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1055,7 +1185,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1071,7 +1203,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1087,7 +1221,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1103,7 +1239,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1119,7 +1257,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1135,7 +1275,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1151,7 +1293,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1167,7 +1311,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1183,7 +1329,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1199,7 +1347,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1215,7 +1365,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1231,7 +1383,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1247,7 +1401,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1263,7 +1419,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1279,7 +1437,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1295,7 +1455,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1311,7 +1473,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1327,7 +1491,9 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
-        basis: 'mg_per_ml'
+        purity: 100,
+        basis: "mg_per_ml", 
+        input: 0,
     },
     {
         id: crypto.randomUUID(),
@@ -1343,6 +1509,7 @@ var compounds = [
         grams: 0,
         v_v_percent: 0,
         mg_per_ml: 0,
+        purity: 100,
         basis: 'mg_per_ml'
     }
 ]

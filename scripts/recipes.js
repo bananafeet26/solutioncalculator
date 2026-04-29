@@ -1,0 +1,32 @@
+var recipes = [
+    {
+        id: crypto.randomUUID(),
+        name: "Primo Testo Depot",
+        solvents: ["benzyl_alcohol", "benzyl_benzoate"],
+        solventPercentages: [2, 30],
+        excipients:    ["castor"],
+        excipientPercentages: [44.5],
+        compounds: ["testosterone_enanthate"],
+        compoundConcentration: [250],
+    },
+    {
+        id: crypto.randomUUID(),
+        name: "Cytex Test Cyp",
+        solvents: ["benzyl_alcohol"],
+        solventPercentages: [2],
+        excipients:    ["ethyl_oleate"],
+        excipientPercentages: [88.9],
+        compounds: ["testosterone_cypionate"],
+        compoundConcentration: [100],
+    },
+    {
+        id: crypto.randomUUID(),
+        name: "Watson Deca 100",
+        solvents: ["benzyl_alcohol"],
+        solventPercentages: [10],
+        excipients:    ["cottonseed"],
+        excipientPercentages: [80.4],
+        compounds: ["nandrolone_decanoate"],
+        compoundConcentration: [100],
+    }
+];

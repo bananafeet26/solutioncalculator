@@ -13,6 +13,7 @@ function compoundApp() {
             solventPercentageRating:0,
             stability: 0,
             isSmall: true,
+            selectedRecipeId: 0,
         },
         solutionData: {
             viscosity: 0
@@ -23,13 +24,13 @@ function compoundApp() {
             this.chart = new Chart(ctx, chartSettings);
 
             // Initiate basic recipe
-            this.settings.compounds[0] = prepareCompound(1, this.settings.totalVolume, 0, 0, 0, 2); //BA
-            this.settings.compounds[1] = prepareCompound(0, this.settings.totalVolume, 0, 0, 0, 20); //BB
-            this.settings.compounds[2] = prepareCompound(2, this.settings.totalVolume, 0, 0, 0, 26);
-            this.settings.compounds[3] = prepareCompound(3, this.settings.totalVolume, 0, 0, 0, 26);
+            this.settings.compounds[0] = prepareCompound(1, this.settings.totalVolume, 0, 0, 0, 2), 100; //BA
+            this.settings.compounds[1] = prepareCompound(0, this.settings.totalVolume, 0, 0, 0, 20, 100); //BB
+            this.settings.compounds[2] = prepareCompound(2, this.settings.totalVolume, 0, 0, 0, 26, 100);
+            this.settings.compounds[3] = prepareCompound(3, this.settings.totalVolume, 0, 0, 0, 26, 100);
 
-            this.settings.compounds[4] = prepareCompound(10, this.settings.totalVolume, 0, 0, 250, 0);
-
+            this.settings.compounds[4] = prepareCompound(10, this.settings.totalVolume, 0, 0, 250, 0, 93);
+            this.settings.compounds[4].purity = 93;
 
             for (let compound of this.settings.compounds) {
                 if (compound.class === "ingredient") {
@@ -154,6 +155,56 @@ function compoundApp() {
             this.updateChart();
         }, get isSmall() {
             return window.innerWidth < 576;
+        },
+        get isHuge() {
+            return window.innerWidth > 1020;
+        }, updateRecipe() {
+            /*
+            {
+                id: crypto.randomUUID(),
+                name: "Primo Testo Depot",
+                solvents: ["benzyl_alcohol", "benzyl_benzoate"],
+                solventPercentages: [2, 30],
+                excipients:    ["castor"],
+                excipientPercentages: [100],
+                compounds: ["testosterone_enanthate"],
+                compoundConcentration: [250],
+            }
+             */
+            console.log(`Loading recipe: ${this.settings.selectedRecipeId}`)
+            this.settings.compounds = [];
+            let recipe = recipes[this.settings.selectedRecipeId];
+            for (let i = 0; i < recipe.solvents.length; i++) {
+                let solvent = recipe.solvents[i];
+                let compoundId = compounds.findIndex(c => c.self_id === solvent);
+                console.log(`compoundId: ${compoundId} solvent: ${solvent}`);
+                let solventPercentage = recipe.solventPercentages[i];
+                console.log(`solvent: ${solvent}, solventPercentage: ${solventPercentage}`);
+                //function prepareCompound(id, totalVolume, mls, grams, mgsPerMl, v_v_percent, purity) {
+                let solventEntry = prepareCompound(compoundId, this.settings.totalVolume, 0, 0, 0, solventPercentage, 100  );
+                this.settings.compounds.push(solventEntry);
+            }
+            for (let i = 0; i < recipe.excipients.length; i++) {
+                let excipient = recipe.excipients[i];
+                let compoundId = compounds.findIndex(c => c.self_id === excipient);
+                console.log(`compoundId: ${compoundId} excipient: ${excipient}`);
+                let excipientPercentage = recipe.excipientPercentages[i];
+                console.log(`excipient: ${excipient}, excipientPercentage: ${excipientPercentage}`);
+                let excipientEntry = prepareCompound(compoundId, this.settings.totalVolume, 0, 0, 0, excipientPercentage,100  );
+
+                this.settings.compounds.push(excipientEntry);
+            }
+            for (let i = 0; i < recipe.compounds.length; i++) {
+                let compound = recipe.compounds[i];
+                let compoundId = compounds.findIndex(c => c.self_id === compound);
+                console.log(`compoundId: ${compoundId} compound: ${compound}`);
+                let compoundConcentration = recipe.compoundConcentration[i];
+                console.log(`compound: ${compound}, compoundConcentration: ${compoundConcentration}`);
+                let compoundEntry = prepareCompound(compoundId, this.settings.totalVolume, 0, 0, compoundConcentration, 0 ,100 );
+                this.settings.compounds.push(compoundEntry);
+            }
+
+            this.updateChart();
         },
         updateChart() {
             //this.fillInMissingValues();

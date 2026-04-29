@@ -28,8 +28,10 @@ function calculateMlsFromGrams(grams, density) {
     return grams / density
 }
 
-function calculateGramsFromMgMl(mg_per_ml, totalVolume) {
-    return (mg_per_ml / 1000) * totalVolume
+function calculateGramsFromMgMl(mg_per_ml, totalVolume, purity) {
+    const purityFactor = purity / 100;
+    if (purityFactor <= 0) return 0;
+    return ((mg_per_ml / 1000) * totalVolume) / purityFactor;
 }
 
 function calculateRemainingVolume(compounds, totalVolume) {
@@ -58,7 +60,7 @@ function adjustExcipientVolume(compounds, excipients, excipientCount, totalVolum
             }
         });
     }
-    console.log(`Adjusted excipient volumes: remainingVolume: ${remainingVolume}, remainingVolumeAbs: ${remainingVolumeAbs}, excipients: ${excipients}`)
+    //console.log(`Adjusted excipient volumes: remainingVolume: ${remainingVolume}, remainingVolumeAbs: ${remainingVolumeAbs}, excipients: ${excipients}`)
 }
 
 function updateCompoundsMissingFields(compound, fieldChanged, totalVolume, excipients, excipientCount, d) {
@@ -95,8 +97,19 @@ function updateCompoundsMissingFields(compound, fieldChanged, totalVolume, excip
         case "mg_per_ml":
             /* Calculate mls from grams */
             if (compound.mg_per_ml < 0) compound.mg_per_ml = 0;
-            compound.grams = calculateGramsFromMgMl(compound.mg_per_ml, totalVolume);
+            compound.grams = calculateGramsFromMgMl(compound.mg_per_ml, totalVolume, compound.purity);
             break
+        case "purity":
+            if (compound.basis === "mg_per_ml") {
+                console.log("Updating purity");
+                compound.grams = (totalVolume*compound.mg_per_ml/1000) / (compound.purity / 100);
+                compound.mls = calculateMlsFromGrams(compound.grams, d);
+                compound.v_v_percent = calculateVVPercentage(totalVolume, compound.mls);
+                // tail recursion
+                //updateCompoundsMissingFields(compound, "grams", totalVolume, excipients, excipientCount, d);
+            } else {
+                alert("Purity can only be updated for mg/mL basis");
+            }
         default:
     }
     adjustExcipientVolume(compounds, excipients, excipientCount, totalVolume, compound.self_id);
@@ -121,24 +134,24 @@ function validateEntry(solutionEntry, entry, type) {
         alert("No remaining volume");
         return;
     }
-    console.log(`entry: ${entry}, type: ${type}`);
+    //console.log(`entry: ${entry}, type: ${type}`);
     return (entry);
 }
 
 const has = (v) => v !== undefined;
 
-function prepareCompound(id, totalVolume, mls, grams, mgsPerMl, v_v_percent) {
+function prepareCompound(id, totalVolume, mls, grams, mgsPerMl, v_v_percent, purity) {
     let solutionEntry = compounds[id];
     if (totalVolume === 0) {
         alert("Please enter a total volume");
         return;
     }
-    console.log(`totalVolume: ${totalVolume}, mls: ${mls}, grams: ${grams}, mgsPerMl: ${mgsPerMl}, v_v_percent: ${v_v_percent}`);
+    //console.log(`totalVolume: ${totalVolume}, mls: ${mls}, grams: ${grams}, mgsPerMl: ${mgsPerMl}, v_v_percent: ${v_v_percent}`);
 
     // Derive v/v % from mls
     if (v_v_percent === 0) {
         if ((mls > 0)) {
-            console.log("Derive v/v % from mls");
+            //console.log("Derive v/v % from mls");
             solutionEntry.v_v_percent = calculateVVPercentage(totalVolume, mls);
             solutionEntry.mls = mls;
             solutionEntry.grams = calculateGrams(mls, solutionEntry.density);
@@ -149,9 +162,9 @@ function prepareCompound(id, totalVolume, mls, grams, mgsPerMl, v_v_percent) {
     }
     // Derive mg/mL from grams
     if (mgsPerMl === 0) {
-        console.log("Derive mg/mL from grams");
+        //console.log("Derive mg/mL from grams");
         if ((grams > 0)) {
-            console.log(`grams: ${grams}, totalVolume: ${totalVolume}`);
+            //console.log(`grams: ${grams}, totalVolume: ${totalVolume}`);
             solutionEntry.mg_per_ml = calculateMgPerMl(grams, totalVolume);
             solutionEntry.grams = grams;
             solutionEntry.mls = calculateMlsFromGrams(grams, solutionEntry.density);
@@ -163,7 +176,7 @@ function prepareCompound(id, totalVolume, mls, grams, mgsPerMl, v_v_percent) {
     // Derive from mls v/v
     if (mls === 0) {
         if ((v_v_percent > 0)) {
-            console.log("Derive from mls v/v");
+            //console.log("Derive from mls v/v");
             solutionEntry.mls = calculateMlsFromPercentage(totalVolume, v_v_percent);
             solutionEntry.v_v_percent = v_v_percent;
             solutionEntry.grams = calculateGrams(solutionEntry.mls, solutionEntry.density);
@@ -176,14 +189,15 @@ function prepareCompound(id, totalVolume, mls, grams, mgsPerMl, v_v_percent) {
     if (grams === 0) {
         if ((mgsPerMl > 0)) {
             console.log("Derive from mg/mL");
-            solutionEntry.grams = calculateGramsFromMgMl(mgsPerMl, totalVolume);
+            console.log(`mgsPerMl: ${mgsPerMl}, totalVolume: ${totalVolume} purity: ${purity}`);
+            solutionEntry.grams = calculateGramsFromMgMl(mgsPerMl, totalVolume, purity);
             solutionEntry.mg_per_ml = mgsPerMl;
             solutionEntry.mls = calculateMlsFromGrams(solutionEntry.grams, solutionEntry.density);
             solutionEntry.v_v_percent = calculateVVPercentage(totalVolume, solutionEntry.mls);
             console.log(`mls: ${solutionEntry.mls}, v_v_percent: ${solutionEntry.v_v_percent}, grams: ${solutionEntry.grams}, mg_per_ml: ${solutionEntry.mg_per_ml}`)
         }
     }
-    console.log(solutionEntry);
+    //console.log(solutionEntry);
     return solutionEntry;
 }
 
@@ -296,7 +310,7 @@ function calculateSolventPercentage(compounds, totalVolume) {
 
 function calculateSolventRating(compounds, totalVolume, solventPercentage) {
 
-    console.log(`solventPercentage: ${solventPercentage}`);
+    //console.log(`solventPercentage: ${solventPercentage}`);
     const min = 2;
     const max = 50;
 
@@ -312,8 +326,8 @@ function calculateFilterTimeDarcy(volume, viscosityCP) {
     const timeSeconds = volumeM3 / flowRate;
     const timeMinutes = timeSeconds / 60;
 
-    console.log(`volumeLitres: ${volumeM3}, permeability: ${permeability}, areaM2: ${areaM2}, deltaP_Pa: ${deltaP_Pa}, membraneThicknessM: ${membraneThicknessM}, viscosity: ${viscosity}, flowRate: ${flowRate}, volumeM3: ${volumeM3}, timeSeconds: ${timeSeconds}, timeMinutes: ${timeMinutes}`)
-    console.log(`Estimated filter time: ${timeMinutes.toFixed(2)} minutes`);
+    //console.log(`volumeLitres: ${volumeM3}, permeability: ${permeability}, areaM2: ${areaM2}, deltaP_Pa: ${deltaP_Pa}, membraneThicknessM: ${membraneThicknessM}, viscosity: ${viscosity}, flowRate: ${flowRate}, volumeM3: ${volumeM3}, timeSeconds: ${timeSeconds}, timeMinutes: ${timeMinutes}`)
+    //console.log(`Estimated filter time: ${timeMinutes.toFixed(2)} minutes`);
     return timeMinutes;
 
 }
@@ -340,12 +354,12 @@ function caclulateTotalsGrams(compounds) {
 }
 
 function classifySolventRange(p) {
-    console.log(`LOW_SOLVENT_RANGE: ${LOW_SOLVENT_RANGE[0]} - ${LOW_SOLVENT_RANGE[1]}, p: ${p}`)
-    console.log(`MEDIUM_SOLVENT_RANGE: ${MEDIUM_SOLVENT_RANGE[0]} - ${MEDIUM_SOLVENT_RANGE[1]}, p: ${p}`)
-    console.log(`HIGH_SOLVENT_RANGE: ${HIGH_SOLVENT_RANGE[0]} - ${HIGH_SOLVENT_RANGE[1]}, p: ${p}`)
+    //console.log(`LOW_SOLVENT_RANGE: ${LOW_SOLVENT_RANGE[0]} - ${LOW_SOLVENT_RANGE[1]}, p: ${p}`)
+    //console.log(`MEDIUM_SOLVENT_RANGE: ${MEDIUM_SOLVENT_RANGE[0]} - ${MEDIUM_SOLVENT_RANGE[1]}, p: ${p}`)
+    //console.log(`HIGH_SOLVENT_RANGE: ${HIGH_SOLVENT_RANGE[0]} - ${HIGH_SOLVENT_RANGE[1]}, p: ${p}`)
 
     if (p >= LOW_SOLVENT_RANGE[0] && p <= LOW_SOLVENT_RANGE[1]) {
-        console.log(`LOW_SOLVENT_RANGE: ${LOW_SOLVENT_RANGE[0]} - ${LOW_SOLVENT_RANGE[1]}, p: ${p}`)
+        //console.log(`LOW_SOLVENT_RANGE: ${LOW_SOLVENT_RANGE[0]} - ${LOW_SOLVENT_RANGE[1]}, p: ${p}`)
         return "low_solvent_range";
     } else if (p >= MEDIUM_SOLVENT_RANGE[0] && p <= MEDIUM_SOLVENT_RANGE[1]) {
         return "medium_solvent_range";
@@ -360,20 +374,20 @@ function estimateSaturationForCompound(compound, compounds, totalVolume) {
     if (typeof compound === "undefined") {
         return;
     }
-    console.log(`estimateSaturationForCompound: ${compound.name}, ${compound.mg_per_ml}, ${compound.basis}`)
+    //console.log(`estimateSaturationForCompound: ${compound.name}, ${compound.mg_per_ml}, ${compound.basis}`)
     let solventPercentage = calculateSolventPercentage(compounds, totalVolume);
 
     let solventRange = classifySolventRange(solventPercentage);
-    console.log(compound);
-    console.log(`solventRange: ${solventRange}`);
+    //.log(compound);
+    //console.log(`solventRange: ${solventRange}`);
 
     let esterLength = solubility.find(c =>
         c.member_self_ids.includes(compound.self_id)
     );
-    console.log(`Ester is: ${esterLength.name}`);
+    //console.log(`Ester is: ${esterLength.name}`);
 
     let rangeForCompoundForThisConcentration = esterLength?.[solventRange];
-    console.log(`rangeForCompoundForThisConcentration: ${rangeForCompoundForThisConcentration}`);
+    //console.log(`rangeForCompoundForThisConcentration: ${rangeForCompoundForThisConcentration}`);
     return rangeForCompoundForThisConcentration;
 }
 function checkSaturation(solutionEntry, compounds, totalVolume) {
@@ -406,11 +420,54 @@ function checkSolvents(solutionEntry, compounds, totalVolume) {
     }
     if (solutionEntry.self_id === "benzyl_alcohol"){
         if (value < 1.5) {
-            console.log("is-invalid");
+            //console.log("is-invalid");
             return "is-invalid";
         } if (value > 5) {
-            console.log("is-invalid");
+            //console.log("is-invalid");
             return "is-invalid"; // too high
         }
+    }
+}
+
+function availableInputs(compound) {
+    switch (compound.basis) {
+        case "q.s.":
+            return ["mls", "grams"];
+        case "v_v_percent":
+            return ["mls", "v_v_percent"];
+        case "mg_per_ml":
+            return ["mg_per_ml", "grams", "purity"];
+    }
+}
+
+function availableInputLabels(compound) {
+    switch (compound.basis) {
+        case "q.s.":
+            return ["ml", "gm"];
+        case "v_v_percent":
+            return ["%", "ml" ];
+        case "mg_per_ml":
+            return ["mg/mL", "gm", "%"];
+    }
+}
+
+function toggleInput(input) {
+    if (input) return 1
+    if (!input )return 0
+}
+
+function calculateBatchTotals(compounds) {
+    //updateCompoundsMissingFields(compounds, "mg_per_ml", 0, [], 0, 0);
+
+    let grams =0;
+    let mls =0;
+    for (let i = 0; i < compounds.length; i++) {
+        grams += compounds[i].grams;
+        mls += compounds[i].mls;
+    }
+    console.log(`--->>>> batch totals: ${grams} grams, ${mls} mls`);
+    return {
+        grams: grams,
+        mls: mls,
     }
 }
