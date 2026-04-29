@@ -38,37 +38,43 @@
                 <!-------------------------------------- Chart  --------------------------------------->
                 <canvas style="max-height: 45vh" id="myChart"></canvas>
                 <!-------------------------------------- Dynamic Ratings  --------------------------------------->
+
                 <div class=" rounded p-3 mb-2 row">
-                    <div class="progress mb-1" style="height: 20px;">
-                        <div class="progress-bar "
-                             :class="{
-              'bg-danger': settings.viscosityRating <= 25,
-              'bg-warning': settings.viscosityRating > 25 && settings.viscosityRating <= 50,
-              'bg-info': settings.viscosityRating > 50 && settings.viscosityRating <= 75,
-              'bg-success': settings.viscosityRating > 75
-           }"
-                             :style="`width: ${settings.viscosityRating}%`"
-                             role="progressbar"
-                             aria-valuemin="0"
-                             aria-valuemax="100">
-                            <span x-text="'Viscosity ' + settings.viscosity.toFixed() + ' cP'"></span>
+                    <template x-if="settings.solventPercentage !== 0">
+                        <div class="progress mb-1" style="height: 20px;">
+                            <div class="progress-bar "
+                                 :class="{
+                  'bg-danger': settings.viscosityRating <= 25,
+                  'bg-warning': settings.viscosityRating > 25 && settings.viscosityRating <= 50,
+                  'bg-info': settings.viscosityRating > 50 && settings.viscosityRating <= 75,
+                  'bg-success': settings.viscosityRating > 75
+               }"
+                                 :style="`width: ${settings.viscosityRating ?? 0}%`"
+                                 role="progressbar"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100">
+                                <span x-text="'Viscosity ' + ((settings.viscosity ?? 0).toFixed()) + ' cP'"></span>
+                            </div>
+
                         </div>
-                    </div>
-                    <div class="progress mb-1" style="height: 20px;">
-                        <div class="progress-bar "
-                             :class="{
-              'bg-danger': settings.solventPercentageRating <= 25,
-              'bg-warning': settings.solventPercentageRating > 25 && settings.solventPercentageRating <= 50,
-              'bg-info': settings.solventPercentageRating > 50 && settings.solventPercentageRating <= 75,
-              'bg-success': settings.solventPercentageRating > 75
-           }"
-                             :style="`width: ${settings.solventPercentageRating}%`"
-                             role="progressbar"
-                             aria-valuemin="0"
-                             aria-valuemax="100">
-                            <span x-text="'Solvents ' + (settings.solventPercentage.toFixed()) + ' % v.v'"></span>
+                    </template>
+                    <template x-if="settings.solventPercentage !== 0">
+                        <div class="progress mb-1" style="height: 20px;">
+                            <div class="progress-bar "
+                                 :class="{
+                  'bg-danger': settings.solventPercentageRating <= 25,
+                  'bg-warning': settings.solventPercentageRating > 25 && settings.solventPercentageRating <= 50,
+                  'bg-info': settings.solventPercentageRating > 50 && settings.solventPercentageRating <= 75,
+                  'bg-success': settings.solventPercentageRating > 75
+               }"
+                                 :style="`width: ${settings.solventPercentageRating}%`"
+                                 role="progressbar"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100">
+                                <span x-text="'Solvents ' + (settings.solventPercentage.toFixed()) + ' % v.v'"></span>
+                            </div>
                         </div>
-                    </div>
+                    </template>
                     <div class="hr"></div>
 
 
