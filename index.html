@@ -422,9 +422,11 @@
                                         </li>
                                     </ul>
                                 </div>
+                                <!-- buggy
                                 <div class="invalid-feedback"
-                                     x-text="'Range for %' + calculateSolventPercentage(compounds, settings.totalVolume) + ' solvent is ' + estimateSaturationForCompound(solutionEntry, compounds, settings.totalVolume)[0] + 'mg - ' + estimateSaturationForCompound(solutionEntry, compounds, settings.totalVolume)[1]+ 'mg.'  ">
+                                     x-text="'Range for %' + calculateSolventPercentage(compounds, settings.totalVolume) + ' solvent is ' + (estimateSaturationForCompound(solutionEntry, compounds, settings.totalVolume)[0] ?? 0)  + 'mg - ' + (estimateSaturationForCompound(solutionEntry, compounds, settings.totalVolume)[1] ?? 0) + 'mg.'  ">
                                 </div>
+                                -->
                             </div>
                         </template>
                         <div class="input-group">
