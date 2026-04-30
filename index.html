@@ -153,7 +153,7 @@
                         <!-- mL -->
                         <input class="form-control col-3"
                                type="number"
-                               min="0"
+                               min="1"
                                step="5"
                                x-model.number="settings.totalVolume"
                                @input="updateVolume(settings.totalVolume, settings.compounds); updateChart();"
@@ -197,7 +197,7 @@
                                 <template x-if="solutionEntry.input === 1">
                                     <input class="form-control "
                                            type="number"
-                                           min="0"
+                                           min="5"
                                            step="2.5"
                                            x-model.number="solutionEntry.mls"
                                            @input="updateFields(solutionEntry, settings, 'mls');"
@@ -208,7 +208,7 @@
                                 <template x-if="solutionEntry.input === 0">
                                     <input :class="checkSolvents(solutionEntry, compounds, settings.totalVolume) + ' form-control '"
                                            type="number"
-                                           min="0"
+                                           min="0.5"
                                            max="100"
                                            step="2.5"
                                            x-model.number="solutionEntry.v_v_percent"
@@ -290,6 +290,7 @@
 
                                     <input class="form-control"
                                            type="number"
+                                           min="0.5"
                                            step="5"
                                            x-model.number="solutionEntry.grams"
                                            @input="updateFields(solutionEntry, settings, 'grams');"
@@ -352,7 +353,7 @@
                                     <input class="form-control"
                                            :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
                                            type="number"
-                                           min="0"
+                                           min="0.5"
                                            step="5"
                                            x-model.number="solutionEntry.grams"
                                            @input="updateFields(solutionEntry, settings, 'grams');"
@@ -368,7 +369,7 @@
                                 <!-- mg_per_ml -->
                                 <template x-if="solutionEntry.input === 0">
                                     <input class="form-control"
-                                           min="0"
+                                           min="10"
                                            type="number"
                                            :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
                                            inputmode="decimal"
@@ -382,7 +383,7 @@
                                 <!-- purity -->
                                 <template x-if="solutionEntry.input === 2">
                                     <input class="form-control"
-                                           min="0"
+                                           min="60"
                                            type="number"
                                            :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
                                            inputmode="decimal"
