@@ -28,5 +28,15 @@ var recipes = [
         excipientPercentages: [80.4],
         compounds: ["nandrolone_decanoate"],
         compoundConcentration: [100],
+    },
+    {
+        id: crypto.randomUUID(),
+        name: "nebido",
+        solvents: ["benzyl_alcohol"],
+        solventPercentages: [44.7],
+        excipients:    ["castor"],
+        excipientPercentages: [33.3],
+        compounds: ["testosterone_undecanoate"],
+        compoundConcentration: [250],
     }
 ];
