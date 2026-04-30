@@ -32,7 +32,7 @@ var recipes = [
     {
         id: crypto.randomUUID(),
         name: "nebido",
-        solvents: ["benzyl_alcohol"],
+        solvents: ["benzyl_benzoate"],
         solventPercentages: [44.7],
         excipients:    ["castor"],
         excipientPercentages: [33.3],
