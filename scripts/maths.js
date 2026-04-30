@@ -45,6 +45,7 @@ function calculateRemainingVolume(compounds, totalVolume) {
 }
 
 function adjustExcipientVolume(compounds, excipients, excipientCount, totalVolume, adjustedExcipientId) {
+    return; // buggy
     let remainingVolume = calculateRemainingVolume(compounds, totalVolume);
 
     let remainingVolumeAbs = Math.abs(remainingVolume)
