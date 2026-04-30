@@ -67,7 +67,7 @@ function updateCompoundsMissingFields(compound, fieldChanged, totalVolume, excip
 
     switch (fieldChanged) {
         case "mls":
-            if (compound.mls < 0) compound.mls = 0;
+            if (compound.mls < 0) compound.mls = 1; // quick fix
             /* Calculate mg/ml from mls */
             if (compound.basis === "q.s.") {
                 compound.grams = calculateGrams(compound.mls, d);
@@ -85,18 +85,18 @@ function updateCompoundsMissingFields(compound, fieldChanged, totalVolume, excip
             break;
         case "grams":
             /* Calculate mg/mL from grams */
-            if (compound.grams < 0) compound.grams = 0;
+            if (compound.grams < 0) compound.grams = 5;
             compound.mg_per_ml = calculateMgPerMl(compound.grams, totalVolume)
             compound.mls = calculateMlsFromGrams(compound.grams, d)
             break
         case "v_v_percent":
             /* Calculate mls from percentage */
-            if (compound.v_v_percent < 0) compound.v_v_percent = 0;
+            if (compound.v_v_percent < 0) compound.v_v_percent = 0.5;
             compound.mls = calculateMlsFromPercentage(totalVolume, compound.v_v_percent)
             break
         case "mg_per_ml":
             /* Calculate mls from grams */
-            if (compound.mg_per_ml < 0) compound.mg_per_ml = 0;
+            if (compound.mg_per_ml < 0) compound.mg_per_ml = 10;
             compound.grams = calculateGramsFromMgMl(compound.mg_per_ml, totalVolume, compound.purity);
             break
         case "purity":
