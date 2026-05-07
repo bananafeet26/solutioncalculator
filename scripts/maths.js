@@ -45,60 +45,108 @@ function calculateRemainingVolume(compounds, totalVolume) {
 }
 
 function adjustExcipientVolume(compounds, excipients, excipientCount, totalVolume, adjustedExcipientId) {
-    return; // buggy
     let remainingVolume = calculateRemainingVolume(compounds, totalVolume);
 
-    let remainingVolumeAbs = Math.abs(remainingVolume)
+    if (remainingVolume < 0) {
+        return; // can only shuffle if there is remaining volume
+    }
+
     let otherExcipient = excipients.filter(e => e.self_id !== adjustedExcipientId);
-    console.log("Adjusting excipient volumes: remainingVolume: " + remainingVolume + ", remainingVolumeAbs: " + remainingVolumeAbs + ", excipients:");
+    if (excipients.length === 1) {
+        // enable excipient mode on for single compound
+        //excipients[0].qsMode = true;
+    }
+
     if (remainingVolume !== 0 && otherExcipient.length > 0) {
         const per = remainingVolume / otherExcipient.length;
-
+        let qsMode = false;
+        otherExcipient.forEach(e =>  {
+            if (e.qsMode === true) {
+                qsMode = true;
+            }
+        });
         otherExcipient.forEach(e => {
-            e.mls += per;
-            if (e.mls < 0) {
-                e.mls = 0;
+            if (qsMode) {
+                if (e.qsMode === true) {
+                    e.mls += per;
+                }
+            } else {
+                e.mls += per;
+                if (e.mls < 0) {
+                    e.mls = 0;
+                }
             }
         });
     }
-    //console.log(`Adjusted excipient volumes: remainingVolume: ${remainingVolume}, remainingVolumeAbs: ${remainingVolumeAbs}, excipients: ${excipients}`)
+    for (let i = 0; i < excipients.length; i++) {
+        excipients[i].grams = calculateGrams(excipients[i].mls, excipients[i].density);
+        excipients[i].mg_per_ml = calculateMgPerMl(excipients[i].grams, totalVolume)
+        excipients[i].v_v_percent = calculateVVPercentage(totalVolume, excipients[i].mls);
+    }
+
 }
-
-function updateCompoundsMissingFields(compound, fieldChanged, totalVolume, excipients, excipientCount, d) {
-
+function fillInMissingVolume(compounds, totalVolume, settings) {
+    let remainingVolume = calculateRemainingVolume(compounds, totalVolume);
+    let qsModeCompounds = compounds.filter(e => e.qsMode === true);
+    let qsMode = false;
+    if (qsModeCompounds.length > 0) {
+        qsMode = true;
+    }
+    console.log(`Filling in missing volume: remainingVolume: ${remainingVolume}, qsMode: ${qsMode}`);
+    if (remainingVolume > 0) {
+        if (qsMode) {
+            qsModeCompounds[0].mls = remainingVolume +  qsModeCompounds[0].mls;
+            updateFields(qsModeCompounds[1], settings, "mls");
+        }
+        compounds.forEach(c => {
+            if (typeof c.mls === "undefined") {
+                c.mls = remainingVolume;
+            }
+        });
+    }
+}
+function updateCompoundsMissingFields(compound, fieldChanged, totalVolume, excipients, excipientCount, d, settings) {
+    console.log(`Updating compounds missing fields: compound: ${compound}, fieldChanged: ${fieldChanged}, totalVolume: ${totalVolume}, excipients: ${excipients}, excipientCount: ${excipientCount}, d: ${d}`);
     switch (fieldChanged) {
         case "mls":
-            if (compound.mls < 0) compound.mls = 1; // quick fix
+            if (compound.mls < 0) compound.mls = 0;
             /* Calculate mg/ml from mls */
             if (compound.basis === "q.s.") {
                 compound.grams = calculateGrams(compound.mls, d);
+                compound.mg_per_ml = calculateMgPerMl(compound.grams, totalVolume)
                 // q.s. excipients are just remaining volume
             }
             if (compound.basis === "mg_per_ml") {
+                compound.grams = calculateGrams(compound.mls, d);
                 compound.mg_per_ml = calculateMgPerMl(compound.grams, totalVolume)
                 compound.mls = calculateMlsFromGrams(compound.grams, d);
-                compound.grams = calculateGrams(compound.mls, d);
             }
             if (compound.basis === "v_v_percent") {
+                compound.grams = calculateGrams(compound.mls, d);
                 compound.mg_per_ml = calculateMgPerMl(compound.grams, totalVolume)
                 compound.v_v_percent = calculateVVPercentage(totalVolume, compound.mls);
             }
             break;
         case "grams":
             /* Calculate mg/mL from grams */
-            if (compound.grams < 0) compound.grams = 5;
+            if (compound.grams < 0) compound.grams = 0;
             compound.mg_per_ml = calculateMgPerMl(compound.grams, totalVolume)
             compound.mls = calculateMlsFromGrams(compound.grams, d)
             break
         case "v_v_percent":
             /* Calculate mls from percentage */
-            if (compound.v_v_percent < 0) compound.v_v_percent = 0.5;
+            if (compound.v_v_percent < 0) compound.v_v_percent = 0;
+            compound.grams = calculateGramsFromMgMl(compound.mg_per_ml, totalVolume, compound.purity);
+            compound.mg_per_ml = calculateMgPerMl(compound.grams, totalVolume)
             compound.mls = calculateMlsFromPercentage(totalVolume, compound.v_v_percent)
             break
         case "mg_per_ml":
             /* Calculate mls from grams */
-            if (compound.mg_per_ml < 0) compound.mg_per_ml = 10;
+            console.log("Updating mg/mL");
+            if (compound.mg_per_ml < 0) compound.mg_per_ml = 0;
             compound.grams = calculateGramsFromMgMl(compound.mg_per_ml, totalVolume, compound.purity);
+            compound.mls = calculateMlsFromGrams(compound.grams, d);
+            compound.v_v_percent = calculateVVPercentage(totalVolume, compound.mls);
             break
         case "purity":
             if (compound.basis === "mg_per_ml") {
@@ -113,11 +161,15 @@ function updateCompoundsMissingFields(compound, fieldChanged, totalVolume, excip
             }
         default:
     }
-    adjustExcipientVolume(compounds, excipients, excipientCount, totalVolume, compound.self_id);
+    adjustExcipientVolume(settings.compounds, excipients, excipientCount, totalVolume, compound.self_id);
 
 }
 
 function updateFields(solutionEntry, settings, fieldType) {
+    if (typeof solutionEntry === "undefined") {
+        //alert("Please select a compound");
+        return;
+    }
     const d = compounds.find(c => c.self_id === solutionEntry.self_id)?.density
     if (typeof d === "undefined") {
         return
@@ -126,7 +178,7 @@ function updateFields(solutionEntry, settings, fieldType) {
 
     let excipients = settings.compounds.filter(c => c.basis === "q.s.");
     let excipientCount = excipients.length;
-    updateCompoundsMissingFields(solutionEntry, fieldType, settings.totalVolume, excipients, excipientCount, d);
+    updateCompoundsMissingFields(solutionEntry, fieldType, settings.totalVolume, excipients, excipientCount, d, settings);
 }
 
 function validateEntry(solutionEntry, entry, type) {
@@ -256,7 +308,10 @@ function calculateMixtureViscosity(viscosities, fractions) {
 
     for (let i = 0; i < viscosities.length; i++) {
         const frac = fractions[i];
-        if (frac < 0) throw new Error("Fractions cannot be negative");
+        if (frac < 0) {
+            console.warn("Fraction " + i + " is negative, setting to 0");
+            return 0;
+        }
 
         sum += frac * Math.log(viscosities[i]);
         totalFraction += frac;
@@ -397,6 +452,8 @@ function checkSaturation(solutionEntry, compounds, totalVolume) {
         compounds,
         totalVolume
     );
+    if (typeof range === "undefined") return ""
+    if (typeof mg_per_ml === "undefined") return ""
 
     const value = solutionEntry.mg_per_ml;
     console.log(`value: ${value}, range: ${range}`);
@@ -444,9 +501,9 @@ function availableInputs(compound) {
 function availableInputLabels(compound) {
     switch (compound.basis) {
         case "q.s.":
-            return ["ml", "gm"];
+            return ["ml", "gm", "mg/mL"];
         case "v_v_percent":
-            return ["%", "ml" ];
+            return ["%", "ml", "mg/mL" ];
         case "mg_per_ml":
             return ["mg/mL", "gm", "%"];
     }

@@ -97,6 +97,59 @@ function compoundApp() {
             if (index !== -1) {
                 this.settings.compounds.splice(index, 1);
             }
+            // adjust excipients
+            let excipients = this.settings.compounds.filter(c => c.class === "excipient");
+            let excipientCount = excipients.length;
+            if (excipientCount > 0) {
+                let compound = excipients[0];
+                updateFields(compound.mls, this.settings, "mls");
+            }
+
+        },
+        changeCompound(thisCompoundSelfId, targetCompoundSelfId) {
+            let compound = this.settings.compounds.find(c => c.self_id === thisCompoundSelfId);
+            let targetCompoundIndex = compounds.findIndex(c => c.self_id === targetCompoundSelfId);
+
+            let mg_per_ml = compound.mg_per_ml;
+            let v_v_percent = compound.v_v_percent;
+            let mls = compound.mls;
+            let grams = compound.grams;
+            let purity = compound.purity;
+            let name = compound.name;
+
+            // remove compound from settings
+            let uuid = thisCompoundSelfId;
+            console.log(`removeCompound: ${uuid}`);
+            let index = this.settings.compounds.findIndex(
+                c => c.self_id === uuid
+            );
+            console.log(`index: ${index}`);
+            if (index !== -1) {
+                this.settings.compounds.splice(index, 1);
+            }
+            //const activeCompoundIndex = this.settings.compounds.push(targetCompound) - 1;
+            let compoundCount = this.settings.compounds.length;
+            switch (compounds[targetCompoundIndex].basis) {
+                case "v_v_percent":
+                    this.settings.compounds[compoundCount] = prepareCompound(targetCompoundIndex, this.settings.totalVolume, 0, 0, 0, v_v_percent, purity);
+                    break;
+                case "mg_per_ml":
+                    this.settings.compounds[compoundCount] = prepareCompound(targetCompoundIndex, this.settings.totalVolume, 0, 0, mg_per_ml, 0, purity);
+                    break;
+                case "q.s.":
+                    this.settings.compounds[compoundCount] = prepareCompound(targetCompoundIndex, this.settings.totalVolume, mls, 0, 0, 0, purity);
+                    break;
+            }
+            this.anaylseBatch();
+            this.updateChart();
+        },
+        toggleQS(uuid) {
+            console.log(`toggleQS: ${uuid}`);
+            let index = this.settings.compounds.findIndex(
+                c => c.self_id === uuid
+            );
+            this.settings.compounds[index].qsMode = !this.settings.compounds[index].qsMode;
+            console.log(`index: ${index}`);
         },
         fillInMissingValues() {
             alert("still using this funct.");
@@ -132,19 +185,19 @@ function compoundApp() {
                     solutionCalculatedMeasurements.title += `${this.settings.compounds[i].name} ${this.settings.compounds[i].mls.toFixed(2)}ml, `;
                 }
                 let found = compounds.find(c => c.self_id === this.settings.compounds[i].self_id);
-                console.log(found.id);
+                //console.log(found.id);
                 let newCompound = compounds.find(c => c.self_id === found.self_id);
                 newCompound.mls = this.settings.compounds[i].mls;
                 newCompound.v_v_percent = this.settings.compounds[i].v_v_percent;
                 newCompound.mg_per_ml = this.settings.compounds[i].mg_per_ml;
                 newCompound.grams = this.settings.compounds[i].grams;
                 newCompound.id = crypto.randomUUID();
-                console.log(newCompound);
+                //console.log(newCompound);
                 solutionCalculatedMeasurements.compounds.push(newCompound);
             }
             console.log(this.solutionMeasurements);
             this.solutionMeasurements.push(solutionCalculatedMeasurements);
-            this.updateChart();
+            //this.updateChart();
         }, deleteBatch(uuid) {
             console.log(`deleteBatch: ${uuid}`);
             let index = this.solutionMeasurements.findIndex(
@@ -208,7 +261,11 @@ function compoundApp() {
         },
         updateChart() {
             //this.fillInMissingValues();
-            let remainingVolume = this.calculateRemainingVolume()
+            let remainingVolume = this.calculateRemainingVolume();
+            if (remainingVolume > 0) {
+                console.log("filling in missing values");
+                fillInMissingVolume(this.settings.compounds, this.settings.totalVolume, this.settings)
+            }
             /* rating system */
             let viscosityData = calculateViscosity(this.settings.compounds)
             this.settings.viscosity = viscosityData;
@@ -240,9 +297,11 @@ function compoundApp() {
                 dataset.data.push(remainingVolume);
             }
             this.chart.data.datasets[0] = dataset;
-            console.log(this.chart.data);
-            console.log(this.settings.compounds);
+            //console.log(this.chart.data);
+            //console.log(this.settings.compounds);
             this.chart.update();
+            this.solutionMeasurements =[];
+            this.anaylseBatch()
         },
     }
 }
