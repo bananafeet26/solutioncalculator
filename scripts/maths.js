@@ -30,6 +30,7 @@ function calculateMlsFromGrams(grams, density) {
 
 function calculateGramsFromMgMl(mg_per_ml, totalVolume, purity) {
     const purityFactor = purity / 100;
+    console.log(`purity:  ${purity} purityFactor: ${purityFactor}, mg_per_ml: ${mg_per_ml}, totalVolume: ${totalVolume}`);
     if (purityFactor <= 0) return 0;
     return ((mg_per_ml / 1000) * totalVolume) / purityFactor;
 }
@@ -46,7 +47,8 @@ function calculateRemainingVolume(compounds, totalVolume) {
 
 function adjustExcipientVolume(compounds, excipients, excipientCount, totalVolume, adjustedExcipientId) {
     let remainingVolume = calculateRemainingVolume(compounds, totalVolume);
-
+    console.log(compounds);
+    console.log(`Adjusting excipient volume: remainingVolume: ${remainingVolume}`);
     if (remainingVolume < 0) {
         return; // can only shuffle if there is remaining volume
     }
@@ -255,26 +257,29 @@ function prepareCompound(id, totalVolume, mls, grams, mgsPerMl, v_v_percent, pur
 }
 
 function updateVolume(totalVolume, compounds) {
-    let volume = 0;
     for (let i = 0; i < compounds.length; i++) {
         switch (compounds[i].basis) {
             case "v_v_percent":
                 compounds[i].mls = calculateMlsFromPercentage(totalVolume, compounds[i].v_v_percent);
                 compounds[i].grams = calculateGrams(compounds[i].mls, compounds[i].density);
                 compounds[i].mg_per_ml = calculateMgPerMl(compounds[i].grams, totalVolume);
-                volume += compounds[i].mls;
                 break;
             case "mg_per_ml":
-                compounds[i].grams = calculateGramsFromMgMl(compounds[i].mg_per_ml, totalVolume);
+                //console.log("Updating mg/mL");
+                ///console.log(`Updating mg/mL mgsPerMl: ${compounds[i].mg_per_ml}, totalVolume: ${totalVolume} purity: ${compounds[i].purity}`)
+                compounds[i].grams = calculateGramsFromMgMl(compounds[i].mg_per_ml, totalVolume, compounds[i].purity);
+                //console.log(`grams: ${compounds[i].grams}, totalVolume: ${totalVolume}`);
                 compounds[i].mls = calculateMlsFromGrams(compounds[i].grams, compounds[i].density);
                 compounds[i].v_v_percent = calculateVVPercentage(totalVolume, compounds[i].mls);
-                volume += compounds[i].mls;
                 break;
             case "q.s.":
+                compounds[i].mls = calculateMlsFromPercentage(totalVolume, compounds[i].v_v_percent);
+                compounds[i].grams = calculateGrams(compounds[i].mls, compounds[i].density);
+                compounds[i].mg_per_ml = calculateMgPerMl(compounds[i].grams, totalVolume);
                 break;
         }
     }
-    compounds.find(c => c.basis === "q.s.").mls = totalVolume - volume;
+    //compounds.find(c => c.basis === "q.s.").mls = totalVolume - volume;
     //this.settings.totalVolume = totalVolume;
 }
 
