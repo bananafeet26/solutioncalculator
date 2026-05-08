@@ -131,7 +131,9 @@ function updateCompoundsMissingFields(compound, fieldChanged, totalVolume, excip
             break;
         case "grams":
             /* Calculate mg/mL from grams */
-            if (compound.grams < 0) compound.grams = 0;
+            if (compound.grams < 0) {
+                compound.grams = 0;
+            }
             compound.mg_per_ml = calculateMgPerMl(compound.grams, totalVolume)
             compound.mls = calculateMlsFromGrams(compound.grams, d)
             break
@@ -172,6 +174,14 @@ function updateFields(solutionEntry, settings, fieldType) {
         //alert("Please select a compound");
         return;
     }
+    if (typeof solutionEntry.grams < 0.5) {
+        return
+    } else if (typeof solutionEntry.mls < 0.5) {
+        return
+    } else if (typeof solutionEntry.v_v_percent < 0.5) {
+        return
+    }
+
     const d = compounds.find(c => c.self_id === solutionEntry.self_id)?.density
     if (typeof d === "undefined") {
         return

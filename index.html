@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Solution Calculator</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
@@ -35,7 +38,9 @@
         <div class="col-12 col-md-6 col-lg-4">
             <div class="border rounded">
                 <!-------------------------------------- Chart  --------------------------------------->
-                <canvas style="max-height: 45vh" id="myChart"></canvas>
+                <div style="position: relative;">
+                    <canvas id="myChart"></canvas>
+                </div>
                 <!-------------------------------------- Dynamic Ratings  --------------------------------------->
 
                 <div class=" rounded p-3 mb-2 row">
@@ -75,7 +80,6 @@
                         </div>
                     </template>
                     <div class="hr"></div>
-
 
                 </div>
                 <!--------------------------------------- Select Recipe --------------------------------->
@@ -158,7 +162,6 @@
                                step="5"
                                x-model.number="settings.totalVolume"
                                @input="updateVolume(settings.totalVolume, settings.compounds); updateChart();"
-                               @blur="settings.totalVolume = parseFloat(settings.totalVolume.toFixed(2))"
                         >
                         <!-- v_v_percent -->
                         <div class="input-group-append">
@@ -176,7 +179,8 @@
                         <template x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'v_v_percent')"
                                   :key="solutionEntry.self_id">
                             <div>
-                                <label class="me-2 fst-italic" x-text="`${solutionEntry.name}` + ' ................'"></label>
+                                <label class="me-2 fst-italic"
+                                       x-text="`${solutionEntry.name}` + ' ................'"></label>
                                 <div class="input-group mb-1 col-6 col-md-4 col-lg-3">
                                     <div class="dropdown">
                                         <button class="btn btn-outline-secondary dropdown-toggle"
@@ -197,29 +201,37 @@
                                     <template x-if="solutionEntry.input === 1">
                                         <input class="form-control "
                                                type="number"
-                                               min="0"
+                                               min="0.5"
                                                step="2.5"
                                                x-model.number="solutionEntry.mls"
                                                @input="updateFields(solutionEntry, settings, 'mls');"
-                                               @blur="solutionEntry.mls = parseFloat(solutionEntry.mls.toFixed(2))"
-                                        >
+                                               @blur="
+                                                      solutionEntry.mls =
+                                                        !solutionEntry.mls || isNaN(solutionEntry.mls)
+                                                          ? 0.5
+                                                          : parseFloat(Number(solutionEntry.mls).toFixed(2))
+                                                    ">
                                     </template>
                                     <!-- v_v_percent -->
                                     <template x-if="solutionEntry.input === 0">
                                         <input :class="checkSolvents(solutionEntry, compounds, settings.totalVolume) + ' form-control '"
                                                type="number"
-                                               min="0"
+                                               min="0.5"
                                                max="100"
                                                step="2.5"
                                                x-model.number="solutionEntry.v_v_percent"
                                                @input="updateFields(solutionEntry, settings, 'v_v_percent')"
-                                               @blur="solutionEntry.v_v_percent = parseFloat(solutionEntry.v_v_percent.toFixed(2))"
-                                        >
+                                               @blur="
+                                                      solutionEntry.mls =
+                                                        !solutionEntry.mls || isNaN(solutionEntry.mls)
+                                                          ? 0.5
+                                                          : parseFloat(Number(solutionEntry.mls).toFixed(2))
+                                                    ">
                                     </template>
                                     <!-- mg_per_ml -->
                                     <template x-if="solutionEntry.input === 2">
                                         <input class="form-control"
-                                               min="0"
+                                               min="0.5"
                                                type="number"
                                                :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
                                                inputmode="decimal"
@@ -227,8 +239,12 @@
                                                step="2.5"
                                                x-model.number="solutionEntry.mg_per_ml"
                                                @input="updateFields(solutionEntry, settings, 'mg_per_ml')"
-                                               @blur="solutionEntry.mg_per_ml = parseFloat(solutionEntry.mg_per_ml.toFixed(2))"
-                                        >
+                                               @blur="
+                                                      solutionEntry.mls =
+                                                        !solutionEntry.mls || isNaN(solutionEntry.mls)
+                                                          ? 0.5
+                                                          : parseFloat(Number(solutionEntry.mls).toFixed(2))
+                                                    ">
                                     </template>
                                     <div class="dropdown">
                                         <button class="btn btn-outline-secondary dropdown-toggle"
@@ -278,7 +294,8 @@
                                 x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'q.s.')"
                                 :key="solutionEntry.self_id">
                             <div>
-                                <label class="me-2 fst-italic" x-text=" + solutionEntry.qsMode ? `${solutionEntry.name} q.s.` : `${solutionEntry.name}` + ' ................'"></label>
+                                <label class="me-2 fst-italic"
+                                       x-text=" + solutionEntry.qsMode ? `${solutionEntry.name} q.s.` : `${solutionEntry.name}` + ' ................'"></label>
 
                                 <div class="input-group mb-1 col-6 col-md-4 col-lg-3">
                                     <div class="dropdown">
@@ -305,12 +322,16 @@
                                     <template x-if="solutionEntry.input === 0">
                                         <input class="form-control"
                                                type="number"
-                                               min="0"
+                                               min="0.5"
                                                step="5"
                                                x-model.number="solutionEntry.mls"
                                                @input="updateFields(solutionEntry, settings, 'mls');"
-                                               @blur="solutionEntry.mls = parseFloat(solutionEntry.mls.toFixed(2))"
-                                        >
+                                               @blur="
+                                                      solutionEntry.mls =
+                                                        !solutionEntry.mls || isNaN(solutionEntry.mls)
+                                                          ? 0.5
+                                                          : parseFloat(Number(solutionEntry.mls).toFixed(2))
+                                                    ">
 
                                     </template>
                                     <!-- grams -->
@@ -318,25 +339,22 @@
 
                                         <input class="form-control"
                                                type="number"
+                                               min="0.5"
                                                step="5"
                                                x-model.number="solutionEntry.grams"
-                                               @input="updateFields(solutionEntry, settings, 'grams');"
-                                               @blur="solutionEntry.grams = parseFloat(solutionEntry.grams.toFixed(2))"
-                                        >
+                                               @input="updateFields(solutionEntry, settings, 'grams');">
                                     </template>
                                     <!-- mg_per_ml -->
                                     <template x-if="solutionEntry.input === 2">
                                         <input class="form-control"
-                                               min="0"
+                                               min="0.5"
                                                type="number"
                                                :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
                                                inputmode="decimal"
                                                max="10000"
                                                step="2.5"
                                                x-model.number="solutionEntry.mg_per_ml"
-                                               @input="updateFields(solutionEntry, settings, 'mg_per_ml')"
-                                               @blur="solutionEntry.mg_per_ml = parseFloat(solutionEntry.mg_per_ml.toFixed(2))"
-                                        >
+                                               @input="updateFields(solutionEntry, settings, 'mg_per_ml')">
                                     </template>
                                     <div class="dropdown">
                                         <button class="btn btn-outline-secondary dropdown-toggle"
@@ -378,7 +396,8 @@
                         <template x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'mg_per_ml')"
                                   :key="solutionEntry.self_id">
                             <div>
-                                <label class="me-2 fst-italic" x-text="`${solutionEntry.name}` + ' ................'"></label>
+                                <label class="me-2 fst-italic"
+                                       x-text="`${solutionEntry.name}` + ' ................'"></label>
 
                                 <div class="input-group mb-1 col-6 col-md-4 col-lg-3">
                                     <div class="dropdown">
@@ -421,9 +440,13 @@
                                                max="10000"
                                                step="2.5"
                                                x-model.number="solutionEntry.mg_per_ml"
-                                               @input="updateFields(solutionEntry, settings, 'mg_per_ml')"
-                                               @blur="solutionEntry.mg_per_ml = parseFloat(solutionEntry.mg_per_ml.toFixed(2))"
-                                        >
+                                               @input="
+                                                     const val = parseFloat(solutionEntry.mg_per_ml);
+
+                                                     if (!isNaN(val) && val >= 0.5) {
+                                                       updateFields(solutionEntry, settings, 'mg_per_ml');
+                                                     }
+                                                   ">
                                     </template>
                                     <!-- purity -->
                                     <template x-if="solutionEntry.input === 2">
@@ -432,22 +455,24 @@
                                                type="number"
                                                :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
                                                inputmode="decimal"
-                                               max="100"
+                                               max="10000"
                                                step="2.5"
                                                x-model.number="solutionEntry.purity"
-                                               @input="updateFields(solutionEntry, settings, 'purity')"
-                                               @blur="solutionEntry.mg_per_ml = parseFloat(solutionEntry.mg_per_ml.toFixed(2))"
-                                        >
+                                               @input="
+                                                     const val = parseFloat(solutionEntry.purity);
+
+                                                     if (!isNaN(val) && val >= 0.5) {
+                                                       updateFields(solutionEntry, settings, 'mg_per_ml');
+                                                     }
+                                                   ">
                                     </template>
                                     <!-- grams -->
                                     <template x-if="solutionEntry.input === 1">
-
                                         <input class="form-control"
                                                type="number"
                                                step="5"
                                                x-model.number="solutionEntry.grams"
-                                               @input="updateFields(solutionEntry, settings, 'grams');"
-                                               @blur="solutionEntry.grams = parseFloat(solutionEntry.grams.toFixed(2))"
+                                               @input="updateFields(solutionEntry, settings, 'grams')"
                                         >
                                     </template>
                                     <div class="dropdown">
@@ -509,17 +534,34 @@
                             <div class="rounded mb-1">
                                 <template x-if="compound.basis === 'mg_per_ml'">
                                     <div class="fw-semibold mb-1"
-                                         x-text="compound.name + ' (' + compound.purity + '% purity)'"></div>
+                                         x-text="
+                                              compound.name + ' (' +
+                                              (isNaN(compound.purity)
+                                                ? '0.00'
+                                                : Number(compound.purity).toFixed(2)
+                                              ) +
+                                              ' %)'"></div>
                                 </template>
                                 <template x-if="compound.basis !== 'mg_per_ml'">
                                     <div class="fw-semibold mb-1"
-                                         x-text="compound.name + ' (' + compound.v_v_percent.toFixed(2) + ' % v.v)'"></div>
+                                         x-text="
+                                              compound.name + ' (' +
+                                              (isNaN(compound.v_v_percent)
+                                                ? '0.00'
+                                                : Number(compound.v_v_percent).toFixed(2)
+                                              ) +
+                                              ' % v.v)'"></div>
                                 </template>
                                 <div class="d-flex justify-content-between">
                                     <span>Weight</span>
                                     <span>
                                   <span
-                                          x-text="compound.grams.toFixed(2) + ' gm'"></span>
+                                          x-text="
+                                              (isNaN(compound.v_v_percent)
+                                                ? '0.00'
+                                                : Number(compound.v_v_percent).toFixed(2)
+                                              ) +
+                                              ' gm'"></span>
                             </span>
                                 </div>
                                 <template x-if="compound.basis !== 'mg_per_ml'">
@@ -541,7 +583,12 @@
                                     </template>
                                     <span>
                                       <span
-                                              x-text="compound.mls.toFixed(2) + ' ml'"></span>
+                                              x-text="
+                                              (isNaN(compound.mls)
+                                                ? '0.00'
+                                                : Number(compound.mls).toFixed(2)
+                                              ) +
+                                              ' ml'"></span>
                                     </span>
                                 </div>
                             </div>
