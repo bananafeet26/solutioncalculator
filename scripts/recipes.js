@@ -33,12 +33,23 @@ var recipes = [
         // Source: https://www.medsafe.govt.nz/profs/datasheet/s/sustanoninj.pdf
         id: crypto.randomUUID(),
         name: "SUSTANON 250",
-        solvents: ["benzyl_alcohol"],
+        solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [10],
         excipients:    ["arachis"],
         excipientPercentages: [66.78252336448598],
         compounds: ["testosterone_propionate", "testosterone_phenylpropionate", "testosterone_isocaproate", "testosterone_decanoate"],
         compoundConcentration: [30,60,60,100],
+    },
+    {
+        // Source: https://www.medsafe.govt.nz/profs/datasheet/s/sustanoninj.pdf
+        id: crypto.randomUUID(),
+        name: "Testoboon CP 250",
+        solvents: ["benzyl_alcohol"],
+        solventPercentages: [0.91, 22.362],
+        excipients:    ["arachis"],
+        excipientPercentages: [76.34],
+        compounds: ["testosterone_cypionate"],
+        compoundConcentration: [250],
     },
     {
         id: crypto.randomUUID(),
