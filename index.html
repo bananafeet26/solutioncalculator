@@ -149,7 +149,7 @@
         <div class="col-12 col-md-6 col-lg-4">
             <div class="border rounded p-2 row">
                 <!-- Formulation Control -->
-                <div x-effect="updateChart()" x-on:change="updateChart()">
+                <div x-on:input.debounce.500ms="updateChart()">
                     <!-- Volume -->
                     <div class="input-group mb-1 col-12 col-md-4 col-lg-3">
                         <div class="input-group-prepend">
@@ -200,7 +200,7 @@
                                     <!-- mL -->
                                     <template x-if="solutionEntry.input === 1">
                                         <input class="form-control "
-                                               type="number"
+                                               type="text"
                                                min="0.5"
                                                step="2.5"
                                                x-model.number="solutionEntry.mls"
@@ -215,7 +215,7 @@
                                     <!-- v_v_percent -->
                                     <template x-if="solutionEntry.input === 0">
                                         <input :class="checkSolvents(solutionEntry, compounds, settings.totalVolume) + ' form-control '"
-                                               type="number"
+                                               type="text"
                                                min="0.5"
                                                max="100"
                                                step="2.5"
@@ -232,7 +232,7 @@
                                     <template x-if="solutionEntry.input === 2">
                                         <input class="form-control"
                                                min="0.5"
-                                               type="number"
+                                               type="text"
                                                :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
                                                inputmode="decimal"
                                                max="10000"
@@ -272,6 +272,27 @@
                                                 </button>
                                             </li>
                                         </ul>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-secondary py-0 px-2"
+                                                style="font-size:1rem; line-height:1;"
+                                                @click="
+                                                        solutionEntry.mls = Number(solutionEntry.mls || 0) + 2.5;
+                                                        updateFields(solutionEntry, settings, 'mls');    updateChart();
+                                                    ">
+                                            ▲
+                                        </button>
+
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-secondary py-0 px-2"
+                                                style="font-size:1rem; line-height:1;"
+                                                @click="
+                                                    solutionEntry.mls = Math.max(0.5, Number(solutionEntry.mls || 0) - 2.5);
+                                                    updateFields(solutionEntry, settings, 'mls');    updateChart();
+                                                ">
+                                            ▼
+                                        </button>
                                     </div>
                                     <template x-if="solutionEntry.self_id === 'benzyl_alcohol' ">
                                         <div class="invalid-feedback"
@@ -321,11 +342,12 @@
                                     <!-- mL -->
                                     <template x-if="solutionEntry.input === 0">
                                         <input class="form-control"
-                                               type="number"
+                                               type="text"
                                                min="0.5"
                                                step="5"
+                                               :disabled="solutionEntry.qsMode"
                                                x-model.number="solutionEntry.mls"
-                                               @input="updateFields(solutionEntry, settings, 'mls');"
+                                               @input.debounce.2000ms="updateFields(solutionEntry, settings, 'mls');"
                                                @blur="
                                                       solutionEntry.mls =
                                                         !solutionEntry.mls || isNaN(solutionEntry.mls)
@@ -338,11 +360,12 @@
                                     <template x-if="solutionEntry.input === 1">
 
                                         <input class="form-control"
-                                               type="number"
+                                               type="text"
                                                min="0.5"
                                                step="5"
+                                               :disabled="solutionEntry.qsMode"
                                                x-model.number="solutionEntry.grams"
-                                               @input="updateFields(solutionEntry, settings, 'grams');">
+                                               @input.debounce.2000ms="updateFields(solutionEntry, settings, 'grams');">
                                     </template>
                                     <!-- mg_per_ml -->
                                     <template x-if="solutionEntry.input === 2">
@@ -350,11 +373,12 @@
                                                min="0.5"
                                                type="number"
                                                :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
-                                               inputmode="decimal"
+                                               inputmode="text"
                                                max="10000"
                                                step="2.5"
+                                               :disabled="solutionEntry.qsMode"
                                                x-model.number="solutionEntry.mg_per_ml"
-                                               @input="updateFields(solutionEntry, settings, 'mg_per_ml')">
+                                               @input.debounce.2000ms="updateFields(solutionEntry, settings, 'mg_per_ml')">
                                     </template>
                                     <div class="dropdown">
                                         <button class="btn btn-outline-secondary dropdown-toggle"
@@ -382,6 +406,29 @@
                                                 </button>
                                             </li>
                                         </ul>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-secondary py-0 px-2"
+                                                style="font-size:1rem; line-height:1;"
+                                                :disabled="solutionEntry.qsMode"
+                                                @click="
+                                                        solutionEntry.mls = Number(solutionEntry.mls || 0) + 2.5;
+                                                        updateFields(solutionEntry, settings, 'mls');    updateChart();
+                                                    ">
+                                            ▲
+                                        </button>
+
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-secondary py-0 px-2"
+                                                style="font-size:1rem; line-height:1;"
+                                                :disabled="solutionEntry.qsMode"
+                                                @click="
+                                                    solutionEntry.mls = Math.max(0.5, Number(solutionEntry.mls || 0) - 2.5);
+                                                    updateFields(solutionEntry, settings, 'mls');    updateChart();
+                                                ">
+                                            ▼
+                                        </button>
                                     </div>
                                 </div>
                             </div>
