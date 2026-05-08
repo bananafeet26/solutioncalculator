@@ -44,10 +44,10 @@ var recipes = [
         // Source: https://www.medsafe.govt.nz/profs/datasheet/s/sustanoninj.pdf
         id: crypto.randomUUID(),
         name: "Testoboon CP 250",
-        solvents: ["benzyl_alcohol"],
+        solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [0.91, 22.362],
         excipients:    ["arachis"],
-        excipientPercentages: [76.34],
+        excipientPercentages: [53.977999999999994],
         compounds: ["testosterone_cypionate"],
         compoundConcentration: [250],
     },
