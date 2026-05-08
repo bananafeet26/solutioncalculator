@@ -46,7 +46,7 @@ var recipes = [
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2, 30],
         excipients:    ["castor"],
-        excipientPercentages: [50.43010752688173],
+        excipientPercentages: [59.1],
         compounds: ["testosterone_base"],
         compoundConcentration: [100],
     },
