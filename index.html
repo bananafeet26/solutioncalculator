@@ -176,7 +176,7 @@
                         <template x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'v_v_percent')"
                                   :key="solutionEntry.self_id">
                             <div>
-                                <label x-text="solutionEntry.name"></label>
+                                <label class="me-2 fst-italic" x-text="`${solutionEntry.name}` + ' ................'"></label>
                                 <div class="input-group mb-1 col-6 col-md-4 col-lg-3">
                                     <div class="dropdown">
                                         <button class="btn btn-outline-secondary dropdown-toggle"
@@ -268,118 +268,17 @@
                             </div>
                         </template>
                     </div>
-                    <!-- q.s. qsMode OFF -->
+                    <!-- q.s. -->
                     <div class="form-group">
                         <div class="d-flex align-items-center my-3">
                             <span class="me-2 fw-semibold">Excipients</span>
                             <div class="flex-grow-1 border-bottom"></div>
                         </div>
                         <template
-                                x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'q.s.' && c.qsMode === false)"
+                                x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'q.s.')"
                                 :key="solutionEntry.self_id">
                             <div>
-                                <label x-text="solutionEntry.name"></label>
-
-                                <div class="input-group mb-1 col-6 col-md-4 col-lg-3">
-                                    <div class="dropdown">
-                                        <button class="btn btn-outline-secondary dropdown-toggle"
-                                                type="button"
-                                                data-bs-toggle="dropdown">
-                                            ⋮
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li>
-                                                <button class="dropdown-item text-danger"
-                                                        @click="toggleQS(solutionEntry.self_id)">
-                                                    q.s.
-                                                    <span x-text="solutionEntry.qsMode ? 'off' : 'on'"></span>
-                                                </button>
-                                                <button class="dropdown-item text-danger"
-                                                        @click="removeCompound(solutionEntry.self_id)">
-                                                    Delete
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- mL -->
-                                    <template x-if="solutionEntry.input === 0">
-                                        <input class="form-control"
-                                               type="number"
-                                               min="0"
-                                               step="5"
-                                               x-model.number="solutionEntry.mls"
-                                               @input="updateFields(solutionEntry, settings, 'mls');"
-                                               @blur="solutionEntry.mls = parseFloat(solutionEntry.mls.toFixed(2))"
-                                        >
-
-                                    </template>
-                                    <!-- grams -->
-                                    <template x-if="solutionEntry.input === 1">
-
-                                        <input class="form-control"
-                                               type="number"
-                                               step="5"
-                                               x-model.number="solutionEntry.grams"
-                                               @input="updateFields(solutionEntry, settings, 'grams');"
-                                               @blur="solutionEntry.grams = parseFloat(solutionEntry.grams.toFixed(2))"
-                                        >
-                                    </template>
-                                    <!-- mg_per_ml -->
-                                    <template x-if="solutionEntry.input === 2">
-                                        <input class="form-control"
-                                               min="0"
-                                               type="number"
-                                               :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
-                                               inputmode="decimal"
-                                               max="10000"
-                                               step="2.5"
-                                               x-model.number="solutionEntry.mg_per_ml"
-                                               @input="updateFields(solutionEntry, settings, 'mg_per_ml')"
-                                               @blur="solutionEntry.mg_per_ml = parseFloat(solutionEntry.mg_per_ml.toFixed(2))"
-                                        >
-                                    </template>
-                                    <div class="dropdown">
-                                        <button class="btn btn-outline-secondary dropdown-toggle"
-                                                type="button"
-                                                x-text="availableInputLabels(solutionEntry)[solutionEntry.input]"
-                                                data-bs-toggle="dropdown">
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li>
-                                                <button x-text='availableInputLabels(solutionEntry)[0]'
-                                                        class="dropdown-item text-danger"
-                                                        @click="solutionEntry.input = 0">
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button x-text='availableInputLabels(solutionEntry)[1]'
-                                                        class="dropdown-item text-danger"
-                                                        @click="solutionEntry.input = 1">
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button x-text='availableInputLabels(solutionEntry)[2]'
-                                                        class="dropdown-item text-danger"
-                                                        @click="solutionEntry.input = 2">
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </template>
-                    </div>
-                    <!-- q.s. qsMode ON -->
-                    <div class="form-group">
-                        <div class="d-flex align-items-center my-3">
-                            <span class="me-2 fw-semibold">Excipients q.s.</span>
-                            <div class="flex-grow-1 border-bottom"></div>
-                        </div>
-                        <template
-                                x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'q.s.' && c.qsMode === true)"
-                                :key="solutionEntry.self_id">
-                            <div>
-                                <label x-text="solutionEntry.name"></label>
+                                <label class="me-2 fst-italic" x-text=" + solutionEntry.qsMode ? `${solutionEntry.name} q.s.` : `${solutionEntry.name}` + ' ................'"></label>
 
                                 <div class="input-group mb-1 col-6 col-md-4 col-lg-3">
                                     <div class="dropdown">
@@ -473,13 +372,13 @@
                     <!-- mg_per_ml -->
                     <div class="form-group">
                         <div class="d-flex align-items-center my-3">
-                            <span class="me-2 fw-semibold fs-6 text-muted">Compounds</span>
+                            <span class="me-2 fw-semibold">Compounds</span>
                             <div class="flex-grow-1 border-bottom opacity-50"></div>
                         </div>
                         <template x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'mg_per_ml')"
                                   :key="solutionEntry.self_id">
                             <div>
-                                <label x-text="solutionEntry.name"></label>
+                                <label class="me-2 fst-italic" x-text="`${solutionEntry.name}` + ' ................'"></label>
 
                                 <div class="input-group mb-1 col-6 col-md-4 col-lg-3">
                                     <div class="dropdown">
