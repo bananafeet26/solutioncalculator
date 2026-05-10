@@ -62,6 +62,16 @@ var recipes = [
         compoundConcentration: [100],
     },
     {
+        id: crypto.randomUUID(),
+        name: "Bananafeet's No G DHEA",
+        solvents: ["benzyl_alcohol", "benzyl_benzoate"],
+        solventPercentages: [6, 30],
+        excipients:    ["castor"],
+        excipientPercentages: [59.24],
+        compounds: ["dhea_base"],
+        compoundConcentration: [50],
+    },
+    {
         // Source: https://thinksteroids.com/community/threads/castor-oil-experiments.134414781/
         id: crypto.randomUUID(),
         name: "Narta's Test D 350mg/ml",

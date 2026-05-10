@@ -48,6 +48,7 @@ function compoundApp() {
             this.$watch('settings.selectedPalette', value => {
                 localStorage.setItem('selectedPalette', value);
             });
+
             this.changePalette();
         },
         view: "table",
@@ -90,7 +91,7 @@ function compoundApp() {
                     mls = 10;
                 }
             } else if (type === "ingredient") {
-                if ( typeof compounds[solutionId].mg_per_ml !== "undefined") {
+                if (typeof compounds[solutionId].mg_per_ml !== "undefined") {
                     mg_per_ml = compounds[solutionId].mg_per_ml;
                 } else {
                     mg_per_ml = 100;
@@ -100,6 +101,102 @@ function compoundApp() {
             console.log(`solutionId: ${solutionId} mls: ${solutionEntry.mls} grams: ${solutionEntry.grams} v_v_percent: ${solutionEntry.v_v_percent} mg_per_ml: ${solutionEntry.mg_per_ml} purity: ${solutionEntry.purity}`);
             this.settings.compounds.push(solutionEntry);
             this.updateChart()
+        },downloadBatchText() {
+
+            let lines = [];
+
+            // Title
+            lines.push('                   BATCH REPORT');
+            lines.push('===================================================');
+            lines.push('');
+
+            // Compounds
+            this.solutionMeasurements[0].compounds.forEach(compound => {
+
+
+
+                const percent =
+                    compound.basis === 'mg_per_ml'
+                        ? Number(compound.purity || 0).toFixed(2)
+                        : Number(compound.v_v_percent || 0).toFixed(2);
+
+                let nameLine ='';
+                nameLine = `${compound.name}`;
+                let nameLineEnding = `(${percent}${
+                    compound.basis === 'mg_per_ml'
+                        ? ' %'
+                        : ' % v.v'
+                })`;
+
+                let padding = 45 - nameLine.length - nameLineEnding.length;
+                let finalLine = nameLine + ' ' + ('.'.repeat(padding)) + (' '.repeat(5))  + nameLineEnding;
+
+                lines.push(finalLine);
+
+                lines.push(
+                    `Weight:       ${
+                        Number(compound.v_v_percent || 0).toFixed(2)
+                    } gm`
+                );
+
+                // Viscosity
+                if (compound.basis !== 'mg_per_ml') {
+
+                    lines.push(
+                        `Viscosity:    ${
+                            compound.viscosityArray?.[0] || 0
+                        } cP`
+                    );
+                }
+
+                // Volume / Displacement
+                lines.push(
+                    `${
+                        compound.basis === 'mg_per_ml'
+                            ? 'Displacement:'
+                            : 'Volume:      '
+                    } ${
+                        Number(compound.mls || 0).toFixed(2)
+                    } ml`
+                );
+                lines.push('');
+            });
+
+            // Totals
+            const totals = calculateBatchTotals(
+                this.solutionMeasurements[0].compounds
+            );
+
+            lines.push('                   BATCH REPORT');
+            lines.push('===================================================');
+            lines.push(
+                `Total Displacement:       ${totals.mls.toFixed(2)} ml`
+            );
+            lines.push(
+                `Total Weight:             ${totals.grams.toFixed(2)} gm`
+            );
+            lines.push(
+                `Filter Time:              ${this.solutionMeasurements[0].filterTime.toFixed(2)} minutes`
+            );
+            lines.push(
+                `Excipients Avg Viscosity: ${this.solutionMeasurements[0].viscosity.toFixed(2)} cP`
+            );
+
+            // Create text blob
+            const blob = new Blob(
+                [lines.join('\n')],
+                {type: 'text/plain'}
+            );
+
+            // Create download link
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'batch-report.txt';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+
         },
         removeCompound(uuid) {
             console.log(`removeCompound: ${uuid}`);
@@ -243,9 +340,8 @@ function compoundApp() {
                 fill: true
             };
             for (let i = 0; i < this.settings.compounds.length; i++) {
-                dataset.label = this.settings.compounds[i].name
                 dataset.data.push(this.settings.compounds[i].mls);
-                this.chart.data.labels.push(this.settings.compounds[i].name);
+                this.chart.data.labels.push(`${this.settings.compounds[i].name}`);
                 dataset.backgroundColor.push(colours[i]);
             }
             if (remainingVolume > 0) {
