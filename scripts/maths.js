@@ -486,16 +486,16 @@ function checkSaturation(solutionEntry, compounds, totalVolume) {
 function checkSolvents(solutionEntry, compounds, totalVolume) {
     let value = solutionEntry.v_v_percent;
     if (solutionEntry.self_id === "benzyl_benzoate"){
-        if (value >= 50) {
+        if (value >= 55) {
             console.log("is-invalid");
             return "is-invalid"; // too high
         }
     }
     if (solutionEntry.self_id === "benzyl_alcohol"){
-        if (value < 1.5) {
+        if (value < 0.9) {
             //console.log("is-invalid");
             return "is-invalid";
-        } if (value > 5) {
+        } if (value > 10) {
             //console.log("is-invalid");
             return "is-invalid"; // too high
         }

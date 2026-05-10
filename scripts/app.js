@@ -106,59 +106,76 @@ function compoundApp() {
             let lines = [];
 
             // Title
-            lines.push('                   BATCH REPORT');
-            lines.push('===================================================');
+            lines.push('                 BATCH REPORT');
+            lines.push('==============================================');
             lines.push('');
+
+            // === formatting helpers ===
+            const LABEL_COLUMN = 30;
+            const NUMBER_WIDTH = 10;
+
+            const formatNumber = (num) =>
+                Number(num || 0)
+                    .toFixed(2)
+                    .padStart(NUMBER_WIDTH);
+
+            const formatLine = (label, value, unit = '') =>
+                label.padEnd(LABEL_COLUMN) + `${formatNumber(value)} ${unit}`;
 
             // Compounds
             this.solutionMeasurements[0].compounds.forEach(compound => {
 
+                const DECIMAL_COLUMN = 44;
 
+                const formatDotLine = (label, value, unit = '') => {
+                    const number = Number(value || 0).toFixed(2) + (unit ? ` ${unit}` : '');
 
-                const percent =
-                    compound.basis === 'mg_per_ml'
-                        ? Number(compound.purity || 0).toFixed(2)
-                        : Number(compound.v_v_percent || 0).toFixed(2);
+                    const dotsNeeded =
+                        DECIMAL_COLUMN - label.length - number.length;
 
-                let nameLine ='';
-                nameLine = `${compound.name}`;
-                let nameLineEnding = `(${percent}${
-                    compound.basis === 'mg_per_ml'
-                        ? ' %'
-                        : ' % v.v'
-                })`;
+                    const dots = '.'.repeat(Math.max(1, dotsNeeded));
 
-                let padding = 45 - nameLine.length - nameLineEnding.length;
-                let finalLine = nameLine + ' ' + ('.'.repeat(padding)) + (' '.repeat(5))  + nameLineEnding;
-
-                lines.push(finalLine);
+                    return `${label} ${dots} ${number}`;
+                };
 
                 lines.push(
-                    `Weight:       ${
-                        Number(compound.v_v_percent || 0).toFixed(2)
-                    } gm`
+                    formatDotLine(
+                        compound.name,
+                        compound.v_v_percent,
+                        '% v.v'
+                    )
+                );
+                // Weight
+                lines.push(
+                    formatLine(
+                        'Weight:',
+                        compound.v_v_percent,
+                        'gm'
+                    )
                 );
 
                 // Viscosity
                 if (compound.basis !== 'mg_per_ml') {
-
                     lines.push(
-                        `Viscosity:    ${
-                            compound.viscosityArray?.[0] || 0
-                        } cP`
+                        formatLine(
+                            'Viscosity:',
+                            compound.viscosityArray?.[0],
+                            'cP'
+                        )
                     );
                 }
 
                 // Volume / Displacement
                 lines.push(
-                    `${
+                    formatLine(
                         compound.basis === 'mg_per_ml'
                             ? 'Displacement:'
-                            : 'Volume:      '
-                    } ${
-                        Number(compound.mls || 0).toFixed(2)
-                    } ml`
+                            : 'Volume:',
+                        compound.mls,
+                        'ml'
+                    )
                 );
+
                 lines.push('');
             });
 
@@ -167,28 +184,47 @@ function compoundApp() {
                 this.solutionMeasurements[0].compounds
             );
 
-            lines.push('                   BATCH REPORT');
-            lines.push('===================================================');
+            lines.push('                 BATCH REPORT');
+            lines.push('==============================================');
+
             lines.push(
-                `Total Displacement:       ${totals.mls.toFixed(2)} ml`
+                formatLine(
+                    'Total Displacement:',
+                    totals.mls,
+                    'ml'
+                )
             );
+
             lines.push(
-                `Total Weight:             ${totals.grams.toFixed(2)} gm`
+                formatLine(
+                    'Total Weight:',
+                    totals.grams,
+                    'gm'
+                )
             );
+
             lines.push(
-                `Filter Time:              ${this.solutionMeasurements[0].filterTime.toFixed(2)} minutes`
+                formatLine(
+                    'Filter Time:',
+                    this.solutionMeasurements[0].filterTime,
+                    'mins'
+                )
             );
+
             lines.push(
-                `Excipients Avg Viscosity: ${this.solutionMeasurements[0].viscosity.toFixed(2)} cP`
+                formatLine(
+                    'Excipients Avg Viscosity:',
+                    this.solutionMeasurements[0].viscosity,
+                    'cP'
+                )
             );
 
             // Create text blob
-            const blob = new Blob(
-                [lines.join('\n')],
-                {type: 'text/plain'}
-            );
+            const blob = new Blob([lines.join('\n')], {
+                type: 'text/plain'
+            });
 
-            // Create download link
+            // Download
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = 'batch-report.txt';
@@ -196,7 +232,6 @@ function compoundApp() {
             link.click();
             document.body.removeChild(link);
             URL.revokeObjectURL(link.href);
-
         },
         removeCompound(uuid) {
             console.log(`removeCompound: ${uuid}`);
