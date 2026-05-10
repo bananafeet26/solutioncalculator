@@ -137,7 +137,7 @@
                         <select
                                 class="form-select"
                                 x-model="settings.addRowSelectedCompoundId"
-                                @change="addCompoundRow(); settings.addRowSelectedCompoundId = '';"
+                                @change="addCompoundRow('excipient'); settings.addRowSelectedCompoundId = '';"
                         >
                             <option value="">Add excipient</option>
                             <template
@@ -154,7 +154,7 @@
                         <select
                                 class="form-select"
                                 x-model="settings.addRowSelectedCompoundId"
-                                @change="addCompoundRow(); settings.addRowSelectedCompoundId = '';"
+                                @change="addCompoundRow('ingredient'); settings.addRowSelectedCompoundId = '';"
                         >
                             <option value="">Add compound</option>
                             <template

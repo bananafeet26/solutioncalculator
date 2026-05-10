@@ -9,8 +9,8 @@ function compoundApp() {
             addRowSelectedCompoundId: 0,
             viscosity: 0,
             viscosityRating: 0,
-            solventPercentage:0,
-            solventPercentageRating:0,
+            solventPercentage: 0,
+            solventPercentageRating: 0,
             stability: 0,
             isSmall: true,
             selectedRecipeId: 0,
@@ -26,7 +26,7 @@ function compoundApp() {
             this.chart = new Chart(ctx, chartSettings);
 
             // Initiate basic recipe
-            this.settings.compounds[0] = prepareCompound(1, this.settings.totalVolume, 0, 0, 0, 2), 100; //BA
+            this.settings.compounds[0] = prepareCompound(1, this.settings.totalVolume, 0, 0, 0, 2, 100); //BA
             this.settings.compounds[1] = prepareCompound(0, this.settings.totalVolume, 0, 0, 0, 20, 100); //BB
             this.settings.compounds[2] = prepareCompound(2, this.settings.totalVolume, 0, 0, 0, 26, 100);
             this.settings.compounds[3] = prepareCompound(3, this.settings.totalVolume, 0, 0, 0, 26, 100);
@@ -72,12 +72,32 @@ function compoundApp() {
             }
             return (this.settings.totalVolume - mls)
         },
-        addCompoundRow() {
+        addCompoundRow(type) {
             console.log(this.settings.addRowSelectedCompoundId);
             let solutionId = compounds.findIndex(c => c.self_id === this.settings.addRowSelectedCompoundId)
 
+            let remainingVolume = this.calculateRemainingVolume();
             console.log(`solutionId: ${solutionId}`);
-            let solutionEntry = prepareCompound(solutionId, this.totalVolume, this.settings.totalVolume, 25, 250, 10);
+            let mls = 0;
+            let grams = 0;
+            let v_v_percent = 0;
+            let mg_per_ml = 50;
+            let purity = 100;
+            if (type === "excipient") {
+                if (remainingVolume > 0) {
+                    mls = remainingVolume;
+                } else {
+                    mls = 10;
+                }
+            } else if (type === "ingredient") {
+                if ( typeof compounds[solutionId].mg_per_ml !== "undefined") {
+                    mg_per_ml = compounds[solutionId].mg_per_ml;
+                } else {
+                    mg_per_ml = 100;
+                }
+            }
+            let solutionEntry = prepareCompound(solutionId, this.settings.totalVolume, mls, grams, mg_per_ml, v_v_percent, purity);
+            console.log(`solutionId: ${solutionId} mls: ${solutionEntry.mls} grams: ${solutionEntry.grams} v_v_percent: ${solutionEntry.v_v_percent} mg_per_ml: ${solutionEntry.mg_per_ml} purity: ${solutionEntry.purity}`);
             this.settings.compounds.push(solutionEntry);
             this.updateChart()
         },
@@ -172,7 +192,7 @@ function compoundApp() {
                 let solventPercentage = recipe.solventPercentages[i];
                 console.log(`solvent: ${solvent}, solventPercentage: ${solventPercentage}`);
                 //function prepareCompound(id, totalVolume, mls, grams, mgsPerMl, v_v_percent, purity) {
-                let solventEntry = prepareCompound(compoundId, this.settings.totalVolume, 0, 0, 0, solventPercentage, 100  );
+                let solventEntry = prepareCompound(compoundId, this.settings.totalVolume, 0, 0, 0, solventPercentage, 100);
                 this.settings.compounds.push(solventEntry);
             }
             for (let i = 0; i < recipe.excipients.length; i++) {
@@ -181,7 +201,7 @@ function compoundApp() {
                 console.log(`compoundId: ${compoundId} excipient: ${excipient}`);
                 let excipientPercentage = recipe.excipientPercentages[i];
                 console.log(`excipient: ${excipient}, excipientPercentage: ${excipientPercentage}`);
-                let excipientEntry = prepareCompound(compoundId, this.settings.totalVolume, 0, 0, 0, excipientPercentage,100  );
+                let excipientEntry = prepareCompound(compoundId, this.settings.totalVolume, 0, 0, 0, excipientPercentage, 100);
 
                 this.settings.compounds.push(excipientEntry);
             }
@@ -191,7 +211,7 @@ function compoundApp() {
                 console.log(`compoundId: ${compoundId} compound: ${compound}`);
                 let compoundConcentration = recipe.compoundConcentration[i];
                 console.log(`compound: ${compound}, compoundConcentration: ${compoundConcentration}`);
-                let compoundEntry = prepareCompound(compoundId, this.settings.totalVolume, 0, 0, compoundConcentration, 0 ,100 );
+                let compoundEntry = prepareCompound(compoundId, this.settings.totalVolume, 0, 0, compoundConcentration, 0, 100);
                 this.settings.compounds.push(compoundEntry);
             }
 
@@ -239,7 +259,7 @@ function compoundApp() {
             //console.log(this.settings.compounds);
             this.chart.options.plugins.legend.labels.color = (this.settings.theme === 'dark') ? '#ffffff' : '#000000';
             this.chart.update();
-            this.solutionMeasurements =[];
+            this.solutionMeasurements = [];
             this.anaylseBatch()
         },
     }
