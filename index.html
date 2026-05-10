@@ -28,10 +28,16 @@
           integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
 </head>
-<body>
-<div class="container-fluid " x-data="compoundApp()" x-init="init(); updateChart();" :class="theme">
+<body class="container-fluid " x-data="compoundApp()" x-init="init(); updateChart();" :data-bs-theme="settings.theme">
+<div>
     <h2 class="title text-center">
         <span>Formulation Calculator</span>
+        <button
+                class="btn"
+                @click="changeTheme()"
+        >
+            <span x-text="settings.theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'"></span>
+        </button>
     </h2>
     <!-------------------------------------- Graphing System Col ------------------------------------------->
     <div class="row">
@@ -40,6 +46,32 @@
                 <!-------------------------------------- Chart  --------------------------------------->
                 <div style="position: relative;">
                     <canvas id="myChart"></canvas>
+                </div>
+
+                <div class="input-group mb-1 col-12 col-md-4 col-lg-3">
+                    <div class="input-group-prepend">
+                        <span x-text="'Palette'" class="input-group-text" id=""></span>
+                    </div>
+                    <select
+                            class="form-select w-25 mb-3"
+                            x-model="settings.selectedPalette"
+                            @change="changePalette()"
+                    >
+                        <option value="nature">Nature</option>
+                        <option value="ocean">Ocean</option>
+                        <option value="sunset">Sunset</option>
+                        <option value="neon">Neon</option>
+                        <option value="unique">Unique</option>
+
+                    </select>
+
+                    <template x-for="color in colours">
+                        <div
+                                style="width:60px;height:60px;display:inline-block;margin:5px;border-radius:8px"
+                                :style="`background:${color}`"
+                        ></div>
+                    </template>
+
                 </div>
                 <!-------------------------------------- Dynamic Ratings  --------------------------------------->
 
@@ -149,7 +181,7 @@
         <div class="col-12 col-md-6 col-lg-4">
             <div class="border rounded p-2 row">
                 <!-- Formulation Control -->
-                <div x-on:input.debounce.500ms="updateChart()">
+                <div x-on:input.debounce.50ms="updateChart()">
                     <!-- Volume -->
                     <div class="input-group mb-1 col-12 col-md-4 col-lg-3">
                         <div class="input-group-prepend">
@@ -161,7 +193,7 @@
                                min="0"
                                step="5"
                                x-model.number="settings.totalVolume"
-                               @input="updateVolume(settings.totalVolume, settings.compounds); updateChart();"
+                               @change="updateVolume(settings.totalVolume, settings.compounds); updateChart();"
                         >
                         <!-- v_v_percent -->
                         <div class="input-group-append">
@@ -204,7 +236,7 @@
                                                min="0.5"
                                                step="2.5"
                                                x-model.number="solutionEntry.mls"
-                                               @input="updateFields(solutionEntry, settings, 'mls');"
+                                               @change="updateFields(solutionEntry, settings, 'mls');"
                                                @blur="
                                                       solutionEntry.mls =
                                                         !solutionEntry.mls || isNaN(solutionEntry.mls)
@@ -220,7 +252,7 @@
                                                max="100"
                                                step="2.5"
                                                x-model.number="solutionEntry.v_v_percent"
-                                               @input="updateFields(solutionEntry, settings, 'v_v_percent')"
+                                               @change="updateFields(solutionEntry, settings, 'v_v_percent')"
                                                @blur="
                                                       solutionEntry.mls =
                                                         !solutionEntry.mls || isNaN(solutionEntry.mls)
@@ -238,7 +270,7 @@
                                                max="10000"
                                                step="2.5"
                                                x-model.number="solutionEntry.mg_per_ml"
-                                               @input="updateFields(solutionEntry, settings, 'mg_per_ml')"
+                                               @change="updateFields(solutionEntry, settings, 'mg_per_ml')"
                                                @blur="
                                                       solutionEntry.mls =
                                                         !solutionEntry.mls || isNaN(solutionEntry.mls)
@@ -347,7 +379,7 @@
                                                step="5"
                                                :disabled="solutionEntry.qsMode"
                                                x-model.number="solutionEntry.mls"
-                                               @input.debounce.2000ms="updateFields(solutionEntry, settings, 'mls');"
+                                               @change.debounce.50ms="updateFields(solutionEntry, settings, 'mls');"
                                                @blur="
                                                       solutionEntry.mls =
                                                         !solutionEntry.mls || isNaN(solutionEntry.mls)
@@ -365,7 +397,7 @@
                                                step="5"
                                                :disabled="solutionEntry.qsMode"
                                                x-model.number="solutionEntry.grams"
-                                               @input.debounce.2000ms="updateFields(solutionEntry, settings, 'grams');">
+                                               @change.debounce.50ms="updateFields(solutionEntry, settings, 'grams');">
                                     </template>
                                     <!-- mg_per_ml -->
                                     <template x-if="solutionEntry.input === 2">
@@ -378,7 +410,7 @@
                                                step="2.5"
                                                :disabled="solutionEntry.qsMode"
                                                x-model.number="solutionEntry.mg_per_ml"
-                                               @input.debounce.2000ms="updateFields(solutionEntry, settings, 'mg_per_ml')">
+                                               @change.debounce.50ms="updateFields(solutionEntry, settings, 'mg_per_ml')">
                                     </template>
                                     <div class="dropdown">
                                         <button class="btn btn-outline-secondary dropdown-toggle"
@@ -487,7 +519,7 @@
                                                max="10000"
                                                step="2.5"
                                                x-model.number="solutionEntry.mg_per_ml"
-                                               @input="
+                                               @change="
                                                      const val = parseFloat(solutionEntry.mg_per_ml);
 
                                                      if (!isNaN(val) && val >= 0.5) {
@@ -505,7 +537,7 @@
                                                max="10000"
                                                step="2.5"
                                                x-model.number="solutionEntry.purity"
-                                               @input="
+                                               @change="
                                                      const val = parseFloat(solutionEntry.purity);
 
                                                      if (!isNaN(val) && val >= 0.5) {
@@ -519,7 +551,7 @@
                                                type="number"
                                                step="5"
                                                x-model.number="solutionEntry.grams"
-                                               @input="updateFields(solutionEntry, settings, 'grams')"
+                                               @change="updateFields(solutionEntry, settings, 'grams')"
                                         >
                                     </template>
                                     <div class="dropdown">

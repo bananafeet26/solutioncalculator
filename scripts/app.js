@@ -14,6 +14,8 @@ function compoundApp() {
             stability: 0,
             isSmall: true,
             selectedRecipeId: 0,
+            theme: localStorage.getItem('theme') || 'light',
+            selectedPalette: localStorage.getItem('selectedPalette') || 'nature',
         },
         solutionData: {
             viscosity: 0
@@ -40,27 +42,24 @@ function compoundApp() {
             this.settings.isSmall = window.innerWidth < 576;
             const update = () => this.settings.isSmall = window.innerWidth < 576;
             window.addEventListener('resize', update);
+            this.$watch('settings.theme', value => {
+                localStorage.setItem('theme', value);
+            });
+            this.$watch('settings.selectedPalette', value => {
+                localStorage.setItem('selectedPalette', value);
+            });
+            this.changePalette();
         },
         view: "table",
         theme: localStorage.getItem('theme') || 'light',
         chart: null,  // Store the Chart.js instance here
-        getChartTheme() {
-            return this.theme === 'dark'
-                ? {
-                    grid: '#333',
-                    text: '#e6e6e6',
-                    bg: '#1e1e1e',
-                    // 🎨 chart fill (dark mode = subtle glow)
-                    fill: 'rgba(255,255,255,0.32)'
-                }
-                : {
-                    grid: '#ddd',
-                    text: '#333',
-                    bg: '#ffffff',
-
-                    // 🎨 chart fill (light mode = soft pastel)
-                    fill: 'rgba(78,59,68,0.25)'
-                };
+        changePalette() {
+            colours = palettes[this.settings.selectedPalette];
+            this.updateChart()
+        },
+        changeTheme() {
+            this.settings.theme = this.settings.theme === 'light' ? 'dark' : 'light';
+            this.updateChart();
         },
         calculateRemainingVolume() {
             let mls = 0
@@ -72,11 +71,6 @@ function compoundApp() {
                 }
             }
             return (this.settings.totalVolume - mls)
-        },
-        get availableCompounds() {
-            return compounds.filter(c =>
-                !this.settings.compounds.some(sc => sc.self_id === c.self_id)
-            );
         },
         addCompoundRow() {
             console.log(this.settings.addRowSelectedCompoundId);
@@ -106,43 +100,6 @@ function compoundApp() {
             }
 
         },
-        changeCompound(thisCompoundSelfId, targetCompoundSelfId) {
-            let compound = this.settings.compounds.find(c => c.self_id === thisCompoundSelfId);
-            let targetCompoundIndex = compounds.findIndex(c => c.self_id === targetCompoundSelfId);
-
-            let mg_per_ml = compound.mg_per_ml;
-            let v_v_percent = compound.v_v_percent;
-            let mls = compound.mls;
-            let grams = compound.grams;
-            let purity = compound.purity;
-            let name = compound.name;
-
-            // remove compound from settings
-            let uuid = thisCompoundSelfId;
-            console.log(`removeCompound: ${uuid}`);
-            let index = this.settings.compounds.findIndex(
-                c => c.self_id === uuid
-            );
-            console.log(`index: ${index}`);
-            if (index !== -1) {
-                this.settings.compounds.splice(index, 1);
-            }
-            //const activeCompoundIndex = this.settings.compounds.push(targetCompound) - 1;
-            let compoundCount = this.settings.compounds.length;
-            switch (compounds[targetCompoundIndex].basis) {
-                case "v_v_percent":
-                    this.settings.compounds[compoundCount] = prepareCompound(targetCompoundIndex, this.settings.totalVolume, 0, 0, 0, v_v_percent, purity);
-                    break;
-                case "mg_per_ml":
-                    this.settings.compounds[compoundCount] = prepareCompound(targetCompoundIndex, this.settings.totalVolume, 0, 0, mg_per_ml, 0, purity);
-                    break;
-                case "q.s.":
-                    this.settings.compounds[compoundCount] = prepareCompound(targetCompoundIndex, this.settings.totalVolume, mls, 0, 0, 0, purity);
-                    break;
-            }
-            this.anaylseBatch();
-            this.updateChart();
-        },
         toggleQS(uuid) {
             console.log(`toggleQS: ${uuid}`);
             let index = this.settings.compounds.findIndex(
@@ -151,26 +108,7 @@ function compoundApp() {
             this.settings.compounds[index].qsMode = !this.settings.compounds[index].qsMode;
             console.log(`index: ${index}`);
         },
-        fillInMissingValues() {
-            alert("still using this funct.");
-            let totalGrams = 0;
-            for (let i = 0; i < this.settings.compounds.length; i++) {
-                switch (this.settings.compounds[i].basis) {
-                    case "v_v_percent":
-                        updateFields(this.settings.compounds[i].v_v_percent, this.settings, "v_v_percent")
-                        break;
-                    case "mg_per_ml":
-                        updateFields(this.settings.compounds[i].mg_per_ml, this.settings, "mg_per_ml")
-                        break;
-                    case "q.s.":
-                        updateFields(this.settings.compounds[i].v_v_percent, this.settings, "q.s.")
-                        break;
-                    default:
-                }
-                totalGrams += this.settings.compounds[i].grams;
-            }
-            this.settings.totalGrams = totalGrams;
-        }, anaylseBatch() {
+        anaylseBatch() {
             let solutionCalculatedMeasurements = {
                 id: crypto.randomUUID(),
                 viscosity: 0,
@@ -299,6 +237,7 @@ function compoundApp() {
             this.chart.data.datasets[0] = dataset;
             //console.log(this.chart.data);
             //console.log(this.settings.compounds);
+            this.chart.options.plugins.legend.labels.color = (this.settings.theme === 'dark') ? '#ffffff' : '#000000';
             this.chart.update();
             this.solutionMeasurements =[];
             this.anaylseBatch()
