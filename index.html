@@ -35,7 +35,7 @@
         <span>Formulation Calculator</span>
         <button
                 class="btn"
-                @click="changeTheme()"
+                @click="inputTheme()"
         >
             <span x-text="settings.theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'"></span>
         </button>
@@ -52,7 +52,7 @@
 
 
                 <!-------------------------------------- Dynamic Ratings  --------------------------------------->
-                <div class=" rounded p-3 mb-2 ">
+                <div class=" p-3 mb-2 ">
                     <div class="input-group mb-1 col-12 col-md-4 col-lg-3">
                         <div class="input-group-prepend">
                             <span x-text="'Palette 🎨'" class="input-group-text" id=""></span>
@@ -79,8 +79,11 @@
 
                     </div>
                     <template x-if="settings.solventPercentage !== 0">
+                        <span class="small"
+                              x-text="'Viscosity ' + ((settings.viscosity ?? 0).toFixed()) + ' cP'">
+                        </span>
                         <div class="progress mb-1" style="height: 20px;">
-                            <div class="progress-bar "
+                            <div class="progress-bar progress-bar-striped"
                                  :class="{
                   'bg-danger': settings.viscosityRating <= 25,
                   'bg-warning': settings.viscosityRating > 25 && settings.viscosityRating <= 50,
@@ -91,14 +94,13 @@
                                  role="progressbar"
                                  aria-valuemin="0"
                                  aria-valuemax="100">
-                                <span x-text="'Viscosity ' + ((settings.viscosity ?? 0).toFixed()) + ' cP'"></span>
-                            </div>
-
+                                </div>
                         </div>
                     </template>
                     <template x-if="settings.solventPercentage !== 0">
+                        <span class="small" x-text="'Solvents ' + (settings.solventPercentage.toFixed()) + ' % v.v'"></span>
                         <div class="progress mb-1" style="height: 20px;">
-                            <div class="progress-bar "
+                            <div class="progress-bar progress-bar-striped"
                                  :class="{
                   'bg-danger': settings.solventPercentageRating <= 25,
                   'bg-warning': settings.solventPercentageRating > 25 && settings.solventPercentageRating <= 50,
@@ -109,7 +111,6 @@
                                  role="progressbar"
                                  aria-valuemin="0"
                                  aria-valuemax="100">
-                                <span x-text="'Solvents ' + (settings.solventPercentage.toFixed()) + ' % v.v'"></span>
                             </div>
                         </div>
                     </template>
@@ -122,7 +123,7 @@
                         <select
                                 class="form-select"
                                 x-model="settings.selectedRecipeId"
-                                @change="updateRecipe()"
+                                @change="updateRecipe();"
                         >
                             <option value="">Load Recipe 👨‍🍳🍽️</option>
                             <template x-for="(recipe, index) in recipes" :key="index">
@@ -139,7 +140,7 @@
                         <select
                                 class="form-select"
                                 x-model="settings.addRowSelectedCompoundId"
-                                @change="addCompoundRow('excipient'); settings.addRowSelectedCompoundId = '';"
+                                @change="addCompoundRow('excipient'); settings.addRowSelectedCompoundId = '';updateChart();"
                         >
                             <option value="">Add excipient 🍶</option>
                             <template
@@ -156,7 +157,7 @@
                         <select
                                 class="form-select"
                                 x-model="settings.addRowSelectedCompoundId"
-                                @change="addCompoundRow('ingredient'); settings.addRowSelectedCompoundId = '';"
+                                @change="addCompoundRow('ingredient'); settings.addRowSelectedCompoundId = '';updateChart();"
                         >
                             <option value="">Add compound 🥣</option>
                             <template
@@ -183,7 +184,7 @@
         <div class="col-12 col-md-6 col-lg-4 mt-2">
             <div class="border rounded pb-3 p-2">
                 <!-- Formulation Control -->
-                <div x-on:input.debounce.50ms="updateChart()">
+                <div>
                     <!-- Volume -->
                     <div class="input-group mb-1">
                         <div class="input-group-prepend">
@@ -238,13 +239,8 @@
                                                min="0.5"
                                                step="2.5"
                                                x-model.number="solutionEntry.mls"
-                                               @change="updateFields(solutionEntry, settings, 'mls');"
-                                               @blur="
-                                                      solutionEntry.mls =
-                                                        !solutionEntry.mls || isNaN(solutionEntry.mls)
-                                                          ? 0.5
-                                                          : parseFloat(Number(solutionEntry.mls).toFixed(2))
-                                                    ">
+                                               @change="updateFields(solutionEntry, settings, 'mls');updateChart();"
+                                               >
                                     </template>
                                     <!-- v_v_percent -->
                                     <template x-if="solutionEntry.input === 0">
@@ -254,13 +250,8 @@
                                                max="100"
                                                step="2.5"
                                                x-model.number="solutionEntry.v_v_percent"
-                                               @change="updateFields(solutionEntry, settings, 'v_v_percent')"
-                                               @blur="
-                                                      solutionEntry.mls =
-                                                        !solutionEntry.mls || isNaN(solutionEntry.mls)
-                                                          ? 0.5
-                                                          : parseFloat(Number(solutionEntry.mls).toFixed(2))
-                                                    ">
+                                               @change="updateFields(solutionEntry, settings, 'v_v_percent'); updateChart();"
+                                               >
                                     </template>
                                     <!-- mg_per_ml -->
                                     <template x-if="solutionEntry.input === 2">
@@ -272,13 +263,8 @@
                                                max="10000"
                                                step="2.5"
                                                x-model.number="solutionEntry.mg_per_ml"
-                                               @change="updateFields(solutionEntry, settings, 'mg_per_ml')"
-                                               @blur="
-                                                      solutionEntry.mls =
-                                                        !solutionEntry.mls || isNaN(solutionEntry.mls)
-                                                          ? 0.5
-                                                          : parseFloat(Number(solutionEntry.mls).toFixed(2))
-                                                    ">
+                                               @change="updateFields(solutionEntry, settings, 'mg_per_ml'); updateChart();"
+                                               >
                                     </template>
                                     <div class="dropdown">
                                         <button class="btn btn-outline-secondary dropdown-toggle"
@@ -361,11 +347,13 @@
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end">
                                             <li>
+                                                <!--
                                                 <button class="dropdown-item text-danger"
                                                         @click="toggleQS(solutionEntry.self_id)">
                                                     q.s.
                                                     <span x-text="solutionEntry.qsMode ? 'off' : 'on'"></span>
                                                 </button>
+                                                -->
                                                 <button class="dropdown-item text-danger"
                                                         @click="removeCompound(solutionEntry.self_id)">
                                                     Delete
@@ -379,15 +367,10 @@
                                                type="text"
                                                min="0.5"
                                                step="5"
-                                               :disabled="solutionEntry.qsMode"
+                                               :disabled="qsMode()"
                                                x-model.number="solutionEntry.mls"
-                                               @change.debounce.50ms="updateFields(solutionEntry, settings, 'mls');"
-                                               @blur="
-                                                      solutionEntry.mls =
-                                                        !solutionEntry.mls || isNaN(solutionEntry.mls)
-                                                          ? 0.5
-                                                          : parseFloat(Number(solutionEntry.mls).toFixed(2))
-                                                    ">
+                                               @change="updateFields(solutionEntry, settings, 'mls');updateChart();"
+                                               >
 
                                     </template>
                                     <!-- grams -->
@@ -397,9 +380,9 @@
                                                type="text"
                                                min="0.5"
                                                step="5"
-                                               :disabled="solutionEntry.qsMode"
+                                               :disabled="qsMode()"
                                                x-model.number="solutionEntry.grams"
-                                               @change.debounce.50ms="updateFields(solutionEntry, settings, 'grams');">
+                                               @change="updateFields(solutionEntry, settings, 'grams');updateChart();">
                                     </template>
                                     <!-- mg_per_ml -->
                                     <template x-if="solutionEntry.input === 2">
@@ -410,9 +393,9 @@
                                                inputmode="text"
                                                max="10000"
                                                step="2.5"
-                                               :disabled="solutionEntry.qsMode"
+                                               :disabled="qsMode()"
                                                x-model.number="solutionEntry.mg_per_ml"
-                                               @change.debounce.50ms="updateFields(solutionEntry, settings, 'mg_per_ml')">
+                                               @change="updateFields(solutionEntry, settings, 'mg_per_ml'); updateChart();">
                                     </template>
                                     <div class="dropdown">
                                         <button class="btn btn-outline-secondary dropdown-toggle"
@@ -445,7 +428,7 @@
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-secondary py-0 px-2"
                                                 style="font-size:1rem; line-height:1;"
-                                                :disabled="solutionEntry.qsMode"
+                                                :disabled="qsMode()"
                                                 @click="
                                                         solutionEntry.mls = Number(solutionEntry.mls || 0) + 2.5;
                                                         updateFields(solutionEntry, settings, 'mls');    updateChart();
@@ -456,7 +439,7 @@
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-secondary py-0 px-2"
                                                 style="font-size:1rem; line-height:1;"
-                                                :disabled="solutionEntry.qsMode"
+                                                :disabled="qsMode()"
                                                 @click="
                                                     solutionEntry.mls = Math.max(0.5, Number(solutionEntry.mls || 0) - 2.5);
                                                     updateFields(solutionEntry, settings, 'mls');    updateChart();
@@ -488,20 +471,6 @@
                                             ⋮
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end">
-                                            <!-- buggy
-                                            <template
-                                                    x-for="compound in compounds.filter(c => c.basis === 'mg_per_ml')"
-                                                    :key="compound.self_id">
-
-                                                <li
-                                                        class="dropdown-item"
-                                                        :disabled="settings.compounds.some(c => c.self_id === compound.self_id)"
-                                                        x-text="compound.name"
-                                                        @click="changeCompound(solutionEntry.self_id, compound.self_id)">
-                                                </li>
-
-                                            </template>
-                                            -->
 
                                             <li>
                                                 <button class="dropdown-item text-danger"
@@ -527,6 +496,8 @@
                                                      if (!isNaN(val) && val >= 0.5) {
                                                        updateFields(solutionEntry, settings, 'mg_per_ml');
                                                      }
+
+                                                     updateChart();
                                                    ">
                                     </template>
                                     <!-- purity -->
@@ -545,6 +516,7 @@
                                                      if (!isNaN(val) && val >= 0.5) {
                                                        updateFields(solutionEntry, settings, 'mg_per_ml');
                                                      }
+                                                     updateChart();
                                                    ">
                                     </template>
                                     <!-- grams -->
@@ -553,7 +525,7 @@
                                                type="number"
                                                step="5"
                                                x-model.number="solutionEntry.grams"
-                                               @change="updateFields(solutionEntry, settings, 'grams')"
+                                               @change="updateFields(solutionEntry, settings, 'grams');updateChart();"
                                         >
                                     </template>
                                     <div class="dropdown">

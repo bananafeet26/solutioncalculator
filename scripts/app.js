@@ -48,7 +48,6 @@ function compoundApp() {
             this.$watch('settings.selectedPalette', value => {
                 localStorage.setItem('selectedPalette', value);
             });
-
             this.changePalette();
         },
         view: "table",
@@ -74,15 +73,13 @@ function compoundApp() {
             return (this.settings.totalVolume - mls)
         },
         addCompoundRow(type) {
-            console.log(this.settings.addRowSelectedCompoundId);
             let solutionId = compounds.findIndex(c => c.self_id === this.settings.addRowSelectedCompoundId)
 
             let remainingVolume = this.calculateRemainingVolume();
-            console.log(`solutionId: ${solutionId}`);
             let mls = 0;
             let grams = 0;
             let v_v_percent = 0;
-            let mg_per_ml = 50;
+            let mg_per_ml = 0;
             let purity = 100;
             if (type === "excipient") {
                 if (remainingVolume > 0) {
@@ -184,7 +181,7 @@ function compoundApp() {
                 this.solutionMeasurements[0].compounds
             );
 
-            lines.push('                 BATCH REPORT');
+            lines.push('                 TOTALS');
             lines.push('==============================================');
 
             lines.push(
@@ -234,22 +231,20 @@ function compoundApp() {
             URL.revokeObjectURL(link.href);
         },
         removeCompound(uuid) {
-            console.log(`removeCompound: ${uuid}`);
             let index = this.settings.compounds.findIndex(
                 c => c.self_id === uuid
             );
-            console.log(`index: ${index}`);
-
             if (index !== -1) {
                 this.settings.compounds.splice(index, 1);
             }
             // adjust excipients
-            let excipients = this.settings.compounds.filter(c => c.class === "excipient");
+            let excipients = this.settings.compounds.filter(c => c.basis === "q.s.");
             let excipientCount = excipients.length;
             if (excipientCount > 0) {
                 let compound = excipients[0];
-                updateFields(compound.mls, this.settings, "mls");
+                updateFields(compound, this.settings, "mls");
             }
+            this.updateChart();
 
         },
         toggleQS(uuid) {
@@ -259,6 +254,13 @@ function compoundApp() {
             );
             this.settings.compounds[index].qsMode = !this.settings.compounds[index].qsMode;
             console.log(`index: ${index}`);
+        }, qsMode() {
+            let excipients = this.settings.compounds.filter(c => c.basis === "q.s.");
+            if (excipients.length > 1) {
+                return false;
+            } else {
+                return "true";
+            }
         },
         anaylseBatch() {
             let solutionCalculatedMeasurements = {
@@ -275,14 +277,13 @@ function compoundApp() {
                     solutionCalculatedMeasurements.title += `${this.settings.compounds[i].name} ${this.settings.compounds[i].mls.toFixed(2)}ml, `;
                 }
                 let found = compounds.find(c => c.self_id === this.settings.compounds[i].self_id);
-                //console.log(found.id);
                 let newCompound = compounds.find(c => c.self_id === found.self_id);
                 newCompound.mls = this.settings.compounds[i].mls;
                 newCompound.v_v_percent = this.settings.compounds[i].v_v_percent;
                 newCompound.mg_per_ml = this.settings.compounds[i].mg_per_ml;
                 newCompound.grams = this.settings.compounds[i].grams;
                 newCompound.id = crypto.randomUUID();
-                //console.log(newCompound);
+
                 solutionCalculatedMeasurements.compounds.push(newCompound);
             }
             console.log(this.solutionMeasurements);
@@ -317,6 +318,9 @@ function compoundApp() {
             console.log(`Loading recipe: ${this.settings.selectedRecipeId}`)
             this.settings.compounds = [];
             let recipe = recipes[this.settings.selectedRecipeId];
+            if (typeof recipe === "undefined") {
+                return;
+            }
             for (let i = 0; i < recipe.solvents.length; i++) {
                 let solvent = recipe.solvents[i];
                 let compoundId = compounds.findIndex(c => c.self_id === solvent);
@@ -350,11 +354,18 @@ function compoundApp() {
             this.updateChart();
         },
         updateChart() {
-            //this.fillInMissingValues();
+            if (DEBUG) console.log(`app.js -> updateChart()`);
+
             let remainingVolume = this.calculateRemainingVolume();
+            let excipients = this.settings.compounds.filter(c => c.basis === "q.s.");
+            let excipientCount = excipients.length;
             if (remainingVolume > 0) {
-                console.log("filling in missing values");
-                fillInMissingVolume(this.settings.compounds, this.settings.totalVolume, this.settings)
+                if (DEBUG) console.warn(`app.js -> Positive remaining volume: ${remainingVolume} ml `);
+                adjustExcipientVolume(this.settings.compounds, excipients, excipientCount, this.settings.totalVolume, 0);
+            } else if (remainingVolume < 0) {
+                if (DEBUG) console.warn(`app.js -> Negative remaining volume: ${remainingVolume} ml `);
+                //function adjustExcipientVolume(compounds, excipients, excipientCount, totalVolume, adjustedExcipientId) {
+                adjustExcipientVolume(this.settings.compounds, excipients, excipientCount, this.settings.totalVolume, 0);
             }
             /* rating system */
             let viscosityData = calculateViscosity(this.settings.compounds)
