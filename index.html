@@ -79,38 +79,42 @@
 
                     </div>
                     <template x-if="settings.solventPercentage !== 0">
-                        <span class="small"
-                              x-text="'Viscosity ' + ((settings.viscosity ?? 0).toFixed()) + ' cP'">
-                        </span>
-                        <div class="progress mb-1" style="height: 20px;">
-                            <div class="progress-bar progress-bar-striped"
-                                 :class="{
-                  'bg-danger': settings.viscosityRating <= 25,
-                  'bg-warning': settings.viscosityRating > 25 && settings.viscosityRating <= 50,
-                  'bg-info': settings.viscosityRating > 50 && settings.viscosityRating <= 75,
-                  'bg-success': settings.viscosityRating > 75
-               }"
-                                 :style="`width: ${settings.viscosityRating ?? 0}%`"
-                                 role="progressbar"
-                                 aria-valuemin="0"
-                                 aria-valuemax="100">
-                                </div>
+                        <div>
+                            <span class="small"
+                                  x-text="'Viscosity ' + ((settings.viscosity ?? 0).toFixed()) + ' cP'">
+                            </span>
+                            <div class="progress mb-1" style="height: 20px;">
+                                <div class="progress-bar progress-bar-striped"
+                                     :class="{
+                                          'bg-danger': settings.viscosityRating <= 25,
+                                          'bg-warning': settings.viscosityRating > 25 && settings.viscosityRating <= 50,
+                                          'bg-info': settings.viscosityRating > 50 && settings.viscosityRating <= 75,
+                                          'bg-success': settings.viscosityRating > 75
+                                       }"
+                                     :style="`width: ${settings.viscosityRating ?? 0}%`"
+                                     role="progressbar"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100">
+                                    </div>
+                            </div>
                         </div>
                     </template>
                     <template x-if="settings.solventPercentage !== 0">
-                        <span class="small" x-text="'Solvents ' + (settings.solventPercentage.toFixed()) + ' % v.v'"></span>
-                        <div class="progress mb-1" style="height: 20px;">
-                            <div class="progress-bar progress-bar-striped"
-                                 :class="{
-                  'bg-danger': settings.solventPercentageRating <= 25,
-                  'bg-warning': settings.solventPercentageRating > 25 && settings.solventPercentageRating <= 50,
-                  'bg-info': settings.solventPercentageRating > 50 && settings.solventPercentageRating <= 75,
-                  'bg-success': settings.solventPercentageRating > 75
-               }"
-                                 :style="`width: ${settings.solventPercentageRating}%`"
-                                 role="progressbar"
-                                 aria-valuemin="0"
-                                 aria-valuemax="100">
+                        <div>
+                            <span class="small" x-text="'Solvents ' + (settings.solventPercentage.toFixed()) + ' % v.v'"></span>
+                            <div class="progress mb-1" style="height: 20px;">
+                                <div class="progress-bar progress-bar-striped"
+                                     :class="{
+                      'bg-danger': settings.solventPercentageRating <= 25,
+                      'bg-warning': settings.solventPercentageRating > 25 && settings.solventPercentageRating <= 50,
+                      'bg-info': settings.solventPercentageRating > 50 && settings.solventPercentageRating <= 75,
+                      'bg-success': settings.solventPercentageRating > 75
+                   }"
+                                     :style="`width: ${settings.solventPercentageRating}%`"
+                                     role="progressbar"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100">
+                                </div>
                             </div>
                         </div>
                     </template>
@@ -126,9 +130,15 @@
                                 @change="updateRecipe();"
                         >
                             <option value="">Load Recipe 👨‍🍳🍽️</option>
-                            <template x-for="(recipe, index) in recipes" :key="index">
-                                <option :text="recipe.name" :value="index"><span x-text="recipe.name"></span></option>
-
+                            <template
+                                    x-for="(recipeItem, index) in settings.recipes"
+                                    :key="index">
+                                <option
+                                        :disabled="settings.compounds.some(c => c.index === index)"
+                                        :value="index"
+                                        :selected="settings.selectedRecipeId === index"
+                                        x-text="recipeItem.name">
+                                </option>
                             </template>
                         </select>
 
@@ -577,7 +587,11 @@
 
             <div class="border rounded pb-3">
                 <div class="p-2  border-warning-subtle bg-warning-subtle">
-                    <h4 class="fw-bold text-center">Batch Totals</h4>
+                    <h4 class="fw-bold text-center">Batch Totals
+                    <template x-if="typeof settings.selectedRecipeId !== 'undefined'">
+                        <span x-text="' - ' + settings.recipes[settings.selectedRecipeId].name"></span>
+                    </template>
+                    </h4>
                 </div>
                 <template x-for="solutionMeasurement in solutionMeasurements" :key="solutionMeasurement.id">
 

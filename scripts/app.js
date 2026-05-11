@@ -13,7 +13,8 @@ function compoundApp() {
             solventPercentageRating: 0,
             stability: 0,
             isSmall: true,
-            selectedRecipeId: 0,
+            recipes: recipes,
+            selectedRecipeId: 2,
             theme: localStorage.getItem('theme') || 'light',
             selectedPalette: localStorage.getItem('selectedPalette') || 'nature',
         },
@@ -24,7 +25,7 @@ function compoundApp() {
         init() {
             const ctx = document.getElementById('myChart').getContext('2d');
             this.chart = new Chart(ctx, chartSettings);
-
+            /*
             // Initiate basic recipe
             this.settings.compounds[0] = prepareCompound(1, this.settings.totalVolume, 0, 0, 0, 2, 100); //BA
             this.settings.compounds[1] = prepareCompound(0, this.settings.totalVolume, 0, 0, 0, 20, 100); //BB
@@ -38,10 +39,18 @@ function compoundApp() {
                 if (compound.class === "ingredient") {
                     compound.grams = compound.density * compound.mls;
                 }
-            }
+            }*/
+
+            // Load recipe instead
+            this.selectedRecipeId =3;
+            this.updateRecipe();
+
+            // Window dimensions
             this.settings.isSmall = window.innerWidth < 576;
             const update = () => this.settings.isSmall = window.innerWidth < 576;
             window.addEventListener('resize', update);
+
+            // Add event listeners
             this.$watch('settings.theme', value => {
                 localStorage.setItem('theme', value);
             });
@@ -103,7 +112,11 @@ function compoundApp() {
             let lines = [];
 
             // Title
-            lines.push('                 BATCH REPORT');
+            if (typeof this.settings.selectedRecipeId !== "undefined") {
+                lines.push(` BATCH REPORT - ${this.settings.recipes[this.settings.selectedRecipeId].name}`);
+            } else {
+                lines.push('                 BATCH REPORT');
+            }
             lines.push('==============================================');
             lines.push('');
 
@@ -120,6 +133,9 @@ function compoundApp() {
                 label.padEnd(LABEL_COLUMN) + `${formatNumber(value)} ${unit}`;
 
             // Compounds
+            let runningMls = 0;
+            let runningGrams = 0;
+            let runningV_v_percent = 0;
             this.solutionMeasurements[0].compounds.forEach(compound => {
 
                 const DECIMAL_COLUMN = 44;
@@ -135,18 +151,29 @@ function compoundApp() {
                     return `${label} ${dots} ${number}`;
                 };
 
-                lines.push(
-                    formatDotLine(
-                        compound.name,
-                        compound.v_v_percent,
-                        '% v.v'
-                    )
-                );
+                if (compound.basis === 'mg_per_ml') {
+                    lines.push(
+                        formatDotLine(
+                            compound.name,
+                            compound.purity,
+                            '% purity'
+                        )
+                    );
+                } else {
+                    lines.push(
+                        formatDotLine(
+                            compound.name,
+                            compound.v_v_percent,
+                            '% v.v'
+                        )
+                    );
+                }
+
                 // Weight
                 lines.push(
                     formatLine(
                         'Weight:',
-                        compound.v_v_percent,
+                        compound.grams,
                         'gm'
                     )
                 );
@@ -172,7 +199,19 @@ function compoundApp() {
                         'ml'
                     )
                 );
-
+                // Concentration
+                if (compound.basis !== 'q.s.') {
+                    lines.push(
+                        formatLine(
+                            'Concentration:',
+                            compound.mg_per_ml,
+                            'mg/mL'
+                        )
+                    );
+                }
+                runningMls += compound.mls;
+                runningGrams += compound.grams;
+                runningV_v_percent += compound.v_v_percent;
                 lines.push('');
             });
 
@@ -216,6 +255,11 @@ function compoundApp() {
                 )
             );
 
+            console.log(`Running MLS: ${runningMls} Running Grams: ${runningGrams} Running V_v_percent: ${runningV_v_percent}`);
+
+            if (runningMls !== this.settings.totalVolume || runningGrams !== totals.grams || runningV_v_percent !== 100) {
+                alert(`Calculation Error.`)
+            }
             // Create text blob
             const blob = new Blob([lines.join('\n')], {
                 type: 'text/plain'

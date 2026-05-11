@@ -132,6 +132,12 @@ function fillInMissingVolume(compounds, totalVolume, settings) {
 function updateFields(solutionEntry, settings, fieldType) {
     if (DEBUG) console.log(`maths.js -> updateFields(solutionEntry: ${solutionEntry.name}, settings: , fieldType: ${fieldType})`);
 
+    // Reset recipe if form is modified.
+    if (settings.selectedRecipeId) {
+        if (fieldType !== "purity") {
+            settings.selectedRecipeId = undefined;
+        }
+    }
     if (typeof solutionEntry === "undefined") {
         //alert("Please select a compound");
         if (DEBUG) console.warn(`maths.js -> updateFields() - undefined solutionEntry`);

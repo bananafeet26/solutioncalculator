@@ -1,6 +1,7 @@
 var recipes = [
     {
         id: crypto.randomUUID(),
+        index: 0,
         name: "Primo Testo Depot",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2, 30],
@@ -11,6 +12,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
+        index: 1 ,
         name: "Cytex Test Cyp",
         solvents: ["benzyl_alcohol"],
         solventPercentages: [2],
@@ -21,6 +23,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
+        index: 2,
         name: "Watson Deca 100",
         solvents: ["benzyl_alcohol"],
         solventPercentages: [10],
@@ -32,6 +35,7 @@ var recipes = [
     {
         // Source: https://www.medsafe.govt.nz/profs/datasheet/s/sustanoninj.pdf
         id: crypto.randomUUID(),
+        index: 3,
         name: "SUSTANON 250",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [10],
@@ -43,6 +47,7 @@ var recipes = [
     {
         // Source: https://www.medsafe.govt.nz/profs/datasheet/s/sustanoninj.pdf
         id: crypto.randomUUID(),
+        index: 4,
         name: "Testoboon CP 250",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [0.91, 22.362],
@@ -53,7 +58,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
-        name: "Photon's No G TNE",
+        index: 5,        name: "Photon's No G TNE",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2, 30],
         excipients:    ["castor"],
@@ -63,7 +68,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
-        name: "Bananafeet's No G DHEA",
+        index: 6,        name: "Bananafeet's No G DHEA",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [6, 30],
         excipients:    ["castor"],
@@ -74,6 +79,7 @@ var recipes = [
     {
         // Source: https://thinksteroids.com/community/threads/castor-oil-experiments.134414781/
         id: crypto.randomUUID(),
+        index: 7,
         name: "Narta's Test D 350mg/ml",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 30],
@@ -85,6 +91,7 @@ var recipes = [
     {
         // Source: https://thinksteroids.com/community/threads/castor-oil-experiments.134414781/
         id: crypto.randomUUID(),
+        index: 8,
         name: "Narta's Mast E 200mg/ml",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 30],
@@ -96,6 +103,7 @@ var recipes = [
     {
         // Source: https://thinksteroids.com/community/threads/castor-oil-experiments.134414781/
         id: crypto.randomUUID(),
+        index: 9,
         name: "Narta's NPP 150mg/ml",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 30],
@@ -107,6 +115,7 @@ var recipes = [
     {
         // Source: https://thinksteroids.com/community/threads/castor-oil-experiments.134414781/
         id: crypto.randomUUID(),
+        index: 10,
         name: "Narta's Test D 500mg/ml",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 40],
@@ -118,6 +127,7 @@ var recipes = [
     {
         // Source: https://thinksteroids.com/community/threads/castor-oil-experiments.134414781/
         id: crypto.randomUUID(),
+        index: 11,
         name: "Narta's Test Iso 400mg/ml",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 40],
@@ -129,6 +139,7 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "Standard PIPless Test C",
+        index: 12,
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 20],
         excipients:    ["MCT"],
@@ -139,6 +150,7 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "Standard PIPless Tren E",
+        index: 13,
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 20],
         excipients:    ["MCT"],
@@ -149,6 +161,7 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "Standard PIPless Tren A",
+        index: 14,
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 20],
         excipients:    ["MCT"],
@@ -159,6 +172,7 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "Standard PIPless NPP",
+        index: 15,
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 20],
         excipients:    ["MCT"],
@@ -169,6 +183,7 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "Standard PIPless Test Prop",
+        index: 16,
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 20],
         excipients:    ["MCT"],
@@ -179,6 +194,7 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "Standard PIPless EQ 500",
+        index: 17,
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 18],
         excipients:    ["MCT"],
@@ -189,6 +205,7 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "Standard PIPless Mast E 200",
+        index: 18,
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 15],
         excipients:    ["MCT"],
@@ -199,6 +216,7 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "Standard PIPless Test E 250",
+        index: 19,
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 10],
         excipients:    ["MCT"],
@@ -209,6 +227,7 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "Standard PIPless Primo E 200",
+        index: 20,
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 10],
         excipients:    ["MCT"],
@@ -219,6 +238,7 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "High Concentration Test D 500",
+        index: 21,
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 24],
         excipients:    ["MCT"],
@@ -229,6 +249,7 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "High Concentration Test U 200",
+        index: 22,
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 25],
         excipients:    ["MCT"],
@@ -239,6 +260,7 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "High Concentration Test C 250",
+        index: 23,
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 25],
         excipients:    ["MCT"],
@@ -249,6 +271,7 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "High Concentration Mast E 300",
+        index: 24,
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 22],
         excipients:    ["MCT"],
@@ -259,6 +282,7 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "High Concentration Test U 250",
+        index: 25,
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 40],
         excipients:    ["castor"],
@@ -269,6 +293,7 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "High Concentration Test U 350",
+        index: 26,
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 50],
         excipients:    ["castor"],
