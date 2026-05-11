@@ -507,15 +507,13 @@
                                                type="number"
                                                :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
                                                inputmode="decimal"
-                                               max="10000"
+                                               max="100"
                                                step="2.5"
                                                x-model.number="solutionEntry.purity"
                                                @change="
-                                                     const val = parseFloat(solutionEntry.purity);
-
-                                                     if (!isNaN(val) && val >= 0.5) {
-                                                       updateFields(solutionEntry, settings, 'mg_per_ml');
-                                                     }
+                                                     const val = verifyPercentage(solutionEntry.purity);
+                                                     solutionEntry.purity = val;
+                                                     updateFields(solutionEntry, settings, 'purity');
                                                      updateChart();
                                                    ">
                                     </template>
@@ -647,9 +645,9 @@
                                     <span>
                         <span
                                 x-text="
-                                            (isNaN(compound.v_v_percent)
+                                            (isNaN(compound.grams)
                                                 ? '0.00'
-                                                : Number(compound.v_v_percent).toFixed(2)
+                                                : Number(compound.grams).toFixed(2)
                                             ) + ' gm'
                                         "
                         ></span>

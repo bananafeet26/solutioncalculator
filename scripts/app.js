@@ -352,6 +352,14 @@ function compoundApp() {
             }
 
             this.updateChart();
+        }, verifyPercentage(percentage) {
+            if (percentage > 100) {
+                return 100;
+            } else if (percentage < 0) {
+                return 0;
+            } else {
+                return percentage;
+            }
         },
         updateChart() {
             if (DEBUG) console.log(`app.js -> updateChart()`);
