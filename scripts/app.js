@@ -226,7 +226,7 @@ function compoundApp() {
             lines.push(
                 formatLine(
                     'Total Displacement:',
-                    totals.mls,
+                    runningMls,
                     'ml'
                 )
             );
@@ -234,7 +234,7 @@ function compoundApp() {
             lines.push(
                 formatLine(
                     'Total Weight:',
-                    totals.grams,
+                    runningGrams,
                     'gm'
                 )
             );
