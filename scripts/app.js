@@ -31,7 +31,7 @@ function compoundApp() {
             this.settings.compounds[2] = prepareCompound(2, this.settings.totalVolume, 0, 0, 0, 26, 100);
             this.settings.compounds[3] = prepareCompound(3, this.settings.totalVolume, 0, 0, 0, 26, 100);
 
-            this.settings.compounds[4] = prepareCompound(10, this.settings.totalVolume, 0, 0, 250, 0, 93);
+            this.settings.compounds[4] = prepareCompound(16, this.settings.totalVolume, 0, 0, 250, 0, 93);
             this.settings.compounds[4].purity = 93;
 
             for (let compound of this.settings.compounds) {
