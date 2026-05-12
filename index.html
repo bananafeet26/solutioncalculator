@@ -28,6 +28,9 @@
           integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="icon" href="favicon.ico">
 
+    <!-- Load Excel Generator -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js" integrity="sha512-UnrKxsCMN9hFk7M56t4I4ckB4N/2HHi0w/7+B/1JsXIX3DmyBcsGpT3/BsuZMZf+6mAr0vP81syWtfynHJ69JA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js" integrity="sha512-Qlv6VSKh1gDKGoJbnyA5RMXYcvnpIqhO++MhIM2fStMcGT9i2T//tSwYFlcyoRRDcDZ+TYHpH8azBBCyhpSeqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body class="container-fluid " x-data="compoundApp()" x-init="init(); updateChart();" :data-bs-theme="settings.theme">
 <div>
@@ -733,8 +736,12 @@
                     </div>
                 </template>
                 <br/>
-                <button @click='downloadBatchText()' class="btn btn-sm btn-secondary">
-                    Download Batch 💾
+                <button @click='downloadBatchText("txt")' class="btn btn-sm btn-secondary">
+                    Download Batch 📄
+                </button>
+
+                <button @click='downloadBatchText("xls")' class="btn btn-sm btn-secondary">
+                    Download Pricing 📊
                 </button>
             </div>
         </div>

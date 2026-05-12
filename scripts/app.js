@@ -42,7 +42,7 @@ function compoundApp() {
             }*/
 
             // Load recipe instead
-            this.selectedRecipeId =3;
+            this.selectedRecipeId = 3;
             this.updateRecipe();
 
             // Window dimensions
@@ -107,7 +107,7 @@ function compoundApp() {
             console.log(`solutionId: ${solutionId} mls: ${solutionEntry.mls} grams: ${solutionEntry.grams} v_v_percent: ${solutionEntry.v_v_percent} mg_per_ml: ${solutionEntry.mg_per_ml} purity: ${solutionEntry.purity}`);
             this.settings.compounds.push(solutionEntry);
             this.updateChart()
-        },downloadBatchText() {
+        }, downloadBatchText(type) {
 
             let lines = [];
 
@@ -136,6 +136,7 @@ function compoundApp() {
             let runningMls = 0;
             let runningGrams = 0;
             let runningV_v_percent = 0;
+            let runningCost = 0;
             this.solutionMeasurements[0].compounds.forEach(compound => {
 
                 const DECIMAL_COLUMN = 44;
@@ -187,6 +188,7 @@ function compoundApp() {
                             'cP'
                         )
                     );
+
                 }
 
                 // Volume / Displacement
@@ -208,6 +210,15 @@ function compoundApp() {
                             'mg/mL'
                         )
                     );
+                }
+                if (compound.basis === 'mg_per_ml') {
+                    if (compound.pricePerUnit !== 0) {
+                        runningCost += compound.pricePerUnit * compound.grams;
+                    }
+                } else {
+                    if (compound.pricePerUnit !== 0) {
+                        runningCost += compound.pricePerUnit * compound.mls;
+                    }
                 }
                 runningMls += compound.mls;
                 runningGrams += compound.grams;
@@ -260,19 +271,205 @@ function compoundApp() {
             if (runningMls !== this.settings.totalVolume || runningGrams !== totals.grams || runningV_v_percent !== 100) {
                 alert(`Calculation Error.`)
             }
-            // Create text blob
-            const blob = new Blob([lines.join('\n')], {
-                type: 'text/plain'
-            });
+            /* --------------- TXT file -------------- */
+            if (type === "txt") {
 
-            // Download
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'batch-report.txt';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(link.href);
+                // Create text blob
+                const blob = new Blob([lines.join('\n')], {
+                    type: 'text/plain'
+                });
+
+                // Download txt
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'batch-report.txt';
+
+                document.body.appendChild(link);
+                link.click();
+
+                document.body.removeChild(link);
+                URL.revokeObjectURL(link.href);
+
+            } else if (type === "xls") {
+
+                const workbook = new ExcelJS.Workbook();
+
+                workbook.creator = 'Bananafeet';
+                workbook.lastModifiedBy = 'Bot';
+                workbook.created = new Date();
+                workbook.modified = new Date();
+
+                // Create worksheet
+                const sheet = workbook.addWorksheet('Batch Costing');
+
+                /* Add rows
+                lines.forEach(line => {
+                    sheet.addRow([line]);
+                });
+
+                 */
+                sheet.columns = [
+                    {header: 'Compound', key: 'compound', width: 20},
+                    {header: 'Price/Unit', key: 'pricePerUnit', width: 15},
+                    {header: 'Weight', key: 'weight', width: 15},
+                    {header: 'Volume', key: 'volume', width: 15},
+                    {header: 'Concentration', key: 'concentration', width: 15},
+                    {header: 'Density', key: 'density', width: 15},
+                    {header: 'Cost', key: 'cost', width: 15}
+                ];
+
+                for (let i = 0; i < this.solutionMeasurements[0].compounds.length; i++) {
+                    let compound = this.solutionMeasurements[0].compounds[i];
+                    let cost;
+
+                    if (compound.basis === 'mg_per_ml') {
+                        cost = {
+                            formula: `B${i + 2}*E${i + 2}`
+                        };
+                    } else {
+                        cost = {
+                            formula: `B${i + 2}*C${i + 2}`
+                        };
+                    }
+                    let row = sheet.addRow([compound.name, compound.pricePerUnit, compound.grams, compound.mls, compound.mg_per_ml, compound.density, cost]);
+                    // Alternating row colors
+                    if ((i + 2) % 2 === 0) {
+
+                        row.eachCell(cell => {
+                            cell.fill = {
+                                type: 'pattern',
+                                pattern: 'solid',
+                                fgColor: { argb: 'FFF3F6FA' }
+                            };
+                        });
+
+                    }
+                }
+
+                let endRow = this.solutionMeasurements[0].compounds.length + 2;
+                let totalCost = {
+                    formula: `=sum(G2:G${endRow}`
+                };
+                let totalDisplacement = {
+                    formula: `=sum(D2:D${endRow}`
+                };
+                let totalWeight = {
+                    formula: `=sum(C2:C${endRow}`
+                };
+                sheet.addRow();
+
+                sheet.addRow([
+                    'Totals:',
+                    '',
+
+                    // Total Cost (column C)
+                    {
+                        formula: `SUM(C2:C${endRow})`
+                    },
+
+                    // Total Displacement (column D)
+                    {
+                        formula: `SUM(D2:D${endRow})`
+                    },
+
+                    '',
+                    '',
+                    // Total Cost (column G)
+                    {
+                        formula: `SUM(G2:G${endRow})`
+                    }
+                ]);
+                const totalsRow = sheet.lastRow;
+
+                totalsRow.font = {
+                    bold: true
+                };
+
+                // Only fill columns A -> G
+                for (let col = 1; col <= 7; col++) {
+
+                    totalsRow.getCell(col).fill = {
+                        type: 'pattern',
+                        pattern: 'solid',
+                        fgColor: { argb: 'FFE2F0D9' }
+                    };
+
+                }
+
+                // Formatting
+                // Style header row
+                const headerRow = sheet.getRow(1);
+
+                headerRow.font = {
+                    bold: true,
+                    color: { argb: 'FFFFFFFF' }
+                };
+
+                headerRow.alignment = {
+                    vertical: 'middle',
+                    horizontal: 'center'
+                };
+                headerRow.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+
+                    if (colNumber <= 7) { // A → G
+
+                        cell.fill = {
+                            type: 'pattern',
+                            pattern: 'solid',
+                            fgColor: { argb: 'FF1F4E78' }
+                        };
+
+                    }
+
+                });
+                sheet.eachRow((row) => {
+
+                    row.eachCell((cell) => {
+
+                        cell.border = {
+                            top:    { style: 'thin', color: { argb: 'FFD9D9D9' } },
+                            left:   { style: 'thin', color: { argb: 'FFD9D9D9' } },
+                            bottom: { style: 'thin', color: { argb: 'FFD9D9D9' } },
+                            right:  { style: 'thin', color: { argb: 'FFD9D9D9' } }
+                        };
+
+                    });
+
+                });
+                sheet.getColumn(3).numFmt = '#,##0.00" g"';      // C = grams
+                sheet.getColumn(4).numFmt = '0.00" ml"';         // D = mL
+                sheet.getColumn(5).numFmt = '0.00" mg/mL"';      // E = mg/mL
+                sheet.getColumn(7).numFmt = '"$"#,##0.00';       // G = cost
+
+                // Generate XLSX buffer
+                workbook.xlsx.writeBuffer().then(buffer => {
+
+                    // Create blob
+                    const blob = new Blob(
+                        [buffer],
+                        {
+                            type:
+                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                        }
+                    );
+
+                    // Download file
+                    const link = document.createElement('a');
+
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'batch-report.xlsx';
+
+                    document.body.appendChild(link);
+                    link.click();
+
+                    document.body.removeChild(link);
+
+                    URL.revokeObjectURL(link.href);
+
+                }).catch(err => {
+                    console.error('Excel export failed:', err);
+                });
+            }
         },
         removeCompound(uuid) {
             let index = this.settings.compounds.findIndex(
