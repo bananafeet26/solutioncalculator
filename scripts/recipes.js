@@ -52,7 +52,7 @@ var recipes = [
         solventPercentages: [4.79,3.82],
         excipients:    ["arachis"],
         excipientPercentages: [84.565],
-        compounds: ["trenbolone_cyclohexylmethylcarbonate"],
+        compounds: ["trenbolone_hexahydrobenzylcarbonate"],
         compoundConcentration: [75],
     },
     {

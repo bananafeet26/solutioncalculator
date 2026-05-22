@@ -472,9 +472,9 @@ var compounds = [
     {
         id: crypto.randomUUID(),
         class: 'ingredient',
-        name: 'Trenbolone cyclohexylmethylcarbonate',
+        name: 'Trenbolone hexahydrobenzylcarbonate',
         pubchemid: null,
-        self_id: 'trenbolone_cyclohexylmethylcarbonate',
+        self_id: 'trenbolone_hexahydrobenzylcarbonate',
         molecular_weight: 0,
         density: 1.0989010989010988,
         displacement: 0.91,
