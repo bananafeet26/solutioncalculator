@@ -29,8 +29,18 @@
     <link rel="icon" href="favicon.ico">
 
     <!-- Load Excel Generator -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js" integrity="sha512-UnrKxsCMN9hFk7M56t4I4ckB4N/2HHi0w/7+B/1JsXIX3DmyBcsGpT3/BsuZMZf+6mAr0vP81syWtfynHJ69JA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js" integrity="sha512-Qlv6VSKh1gDKGoJbnyA5RMXYcvnpIqhO++MhIM2fStMcGT9i2T//tSwYFlcyoRRDcDZ+TYHpH8azBBCyhpSeqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"
+            integrity="sha512-UnrKxsCMN9hFk7M56t4I4ckB4N/2HHi0w/7+B/1JsXIX3DmyBcsGpT3/BsuZMZf+6mAr0vP81syWtfynHJ69JA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"
+            integrity="sha512-Qlv6VSKh1gDKGoJbnyA5RMXYcvnpIqhO++MhIM2fStMcGT9i2T//tSwYFlcyoRRDcDZ+TYHpH8azBBCyhpSeqw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
 </head>
 <body class="container-fluid " x-data="compoundApp()" x-init="init(); updateChart();" :data-bs-theme="settings.theme">
 <div>
@@ -43,25 +53,24 @@
             <span x-text="settings.theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'"></span>
         </button>
     </h2>
-    <!-------------------------------------- Graphing System Col ------------------------------------------->
     <div class="row">
-        <div class="col-12 col-md-6 col-lg-4">
+        <!-------------------------------------- Chart --------------------------------------------------------->
+        <div class="col-12 col-md-6 col-lg-4 mb-2 ">
             <div class="border rounded">
                 <!-------------------------------------- Chart  --------------------------------------->
-
                 <div style="position: relative;">
                     <canvas id="myChart"></canvas>
                 </div>
 
 
-                <!-------------------------------------- Dynamic Ratings  --------------------------------------->
+                <!-------------------------------------- Palette Select  --------------------------------------->
                 <div class=" p-3 mb-2 ">
                     <div class="input-group mb-1 col-12 col-md-4 col-lg-3">
                         <div class="input-group-prepend">
                             <span x-text="'Palette 🎨'" class="input-group-text" id=""></span>
                         </div>
                         <select
-                                class="form-select w-25 mb-3"
+                                class="form-select w-25 mb-3 rounded"
                                 x-model="settings.selectedPalette"
                                 @change="changePalette()"
                         >
@@ -98,13 +107,14 @@
                                      role="progressbar"
                                      aria-valuemin="0"
                                      aria-valuemax="100">
-                                    </div>
+                                </div>
                             </div>
                         </div>
                     </template>
                     <template x-if="settings.solventPercentage !== 0">
                         <div>
-                            <span class="small" x-text="'Solvents ' + (settings.solventPercentage.toFixed()) + ' % v.v'"></span>
+                            <span class="small"
+                                  x-text="'Solvents ' + (settings.solventPercentage.toFixed()) + ' % v.v'"></span>
                             <div class="progress mb-1" style="height: 20px;">
                                 <div class="progress-bar progress-bar-striped"
                                      :class="{
@@ -194,7 +204,7 @@
             </div>
         </div>
         <!-------------------------------------- Formulation Control Col --------------------------------------->
-        <div class="col-12 col-md-6 col-lg-4 mt-2">
+        <div class="col-12 col-md-6 col-lg-4 mb-2">
             <div class="border rounded pb-3 p-2">
                 <!-- Formulation Control -->
                 <div>
@@ -204,7 +214,7 @@
                             <span x-text="'Finished Volume ⚗️'" class="input-group-text" id=""></span>
                         </div>
                         <!-- mL -->
-                        <input class="form-control col-3"
+                        <input class="form-control rounded col-3"
                                type="number"
                                min="0"
                                step="5"
@@ -247,28 +257,28 @@
                                     </div>
                                     <!-- mL -->
                                     <template x-if="solutionEntry.input === 1">
-                                        <input class="form-control "
+                                        <input class="form-control rounded "
                                                type="text"
                                                min="0.5"
                                                step="2.5"
                                                x-model.number="solutionEntry.mls"
                                                @change="updateFields(solutionEntry, settings, 'mls');updateChart();"
-                                               >
+                                        >
                                     </template>
                                     <!-- v_v_percent -->
                                     <template x-if="solutionEntry.input === 0">
-                                        <input :class="checkSolvents(solutionEntry, compounds, settings.totalVolume) + ' form-control '"
+                                        <input :class="checkSolvents(solutionEntry, compounds, settings.totalVolume) + ' form-control rounded '"
                                                type="text"
                                                min="0.5"
                                                max="100"
                                                step="2.5"
                                                x-model.number="solutionEntry.v_v_percent"
                                                @change="updateFields(solutionEntry, settings, 'v_v_percent'); updateChart();"
-                                               >
+                                        >
                                     </template>
                                     <!-- mg_per_ml -->
                                     <template x-if="solutionEntry.input === 2">
-                                        <input class="form-control"
+                                        <input class="form-control rounded"
                                                min="0.5"
                                                type="text"
                                                :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
@@ -277,7 +287,7 @@
                                                step="2.5"
                                                x-model.number="solutionEntry.mg_per_ml"
                                                @change="updateFields(solutionEntry, settings, 'mg_per_ml'); updateChart();"
-                                               >
+                                        >
                                     </template>
                                     <div class="dropdown">
                                         <button class="btn btn-outline-secondary dropdown-toggle"
@@ -376,20 +386,20 @@
                                     </div>
                                     <!-- mL -->
                                     <template x-if="solutionEntry.input === 0">
-                                        <input class="form-control"
+                                        <input class="form-control rounded"
                                                type="text"
                                                min="0.5"
                                                step="5"
                                                :disabled="qsMode()"
                                                x-model.number="solutionEntry.mls"
                                                @change="updateFields(solutionEntry, settings, 'mls');updateChart();"
-                                               >
+                                        >
 
                                     </template>
                                     <!-- grams -->
                                     <template x-if="solutionEntry.input === 1">
 
-                                        <input class="form-control"
+                                        <input class="form-control rounded"
                                                type="text"
                                                min="0.5"
                                                step="5"
@@ -399,7 +409,7 @@
                                     </template>
                                     <!-- mg_per_ml -->
                                     <template x-if="solutionEntry.input === 2">
-                                        <input class="form-control"
+                                        <input class="form-control rounded"
                                                min="0.5"
                                                type="number"
                                                :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
@@ -495,7 +505,7 @@
                                     </div>
                                     <!-- mg_per_ml -->
                                     <template x-if="solutionEntry.input === 0">
-                                        <input class="form-control"
+                                        <input class="form-control rounded"
                                                min="0"
                                                type="number"
                                                :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
@@ -515,7 +525,7 @@
                                     </template>
                                     <!-- purity -->
                                     <template x-if="solutionEntry.input === 2">
-                                        <input class="form-control"
+                                        <input class="form-control rounded"
                                                min="0"
                                                type="number"
                                                :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
@@ -532,7 +542,7 @@
                                     </template>
                                     <!-- grams -->
                                     <template x-if="solutionEntry.input === 1">
-                                        <input class="form-control"
+                                        <input class="form-control rounded"
                                                type="number"
                                                step="5"
                                                x-model.number="solutionEntry.grams"
@@ -586,28 +596,25 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-4 mt-2">
-
-            <div class="border rounded pb-3">
-                <div class="p-2  border-warning-subtle bg-warning-subtle">
+        <!-------------------------------------- Batch --------------------------------------------------------->
+        <div class="col-12 col-lg-4">
+            <div class="border rounded pb-2">
+                <div class="p-2  bg-warning-subtle border-bottom">
                     <h4 class="fw-bold text-center">Batch Totals
-                    <template x-if="typeof settings.selectedRecipeId !== 'undefined'">
-                        <span x-text="' - ' + settings.recipes[settings.selectedRecipeId].name"></span>
-                    </template>
+                        <template x-if="typeof settings.selectedRecipeId !== 'undefined'">
+                            <span x-text="' - ' + settings.recipes[settings.selectedRecipeId].name"></span>
+                        </template>
                     </h4>
                 </div>
                 <template x-for="solutionMeasurement in solutionMeasurements" :key="solutionMeasurement.id">
-
                     <div>
-
                         <!-- ===================== COMPOUNDS ===================== -->
                         <template x-for="(compound, index) in solutionMeasurement.compounds" :key="compound.id">
 
                             <div
-                                    class="p-2 mt-2 mb-0 "
+                                    class="p-2 mb-0 "
                                     :class="index % 2 === 0 ? 'bg-body-tertiary' : 'bg-body'"
                             >
-
                                 <!-- Compound Name -->
                                 <template x-if="compound.basis === 'mg_per_ml'">
                                     <div class="d-flex align-items-center mb-2 fst-italic">
@@ -659,16 +666,14 @@
                                 <!-- Weight -->
                                 <div class="d-flex justify-content-between small">
                                     <span>Weight</span>
-                                    <span>
-                        <span
-                                x-text="
-                                            (isNaN(compound.grams)
-                                                ? '0.00'
-                                                : Number(compound.grams).toFixed(2)
-                                            ) + ' gm'
-                                        "
-                        ></span>
-                    </span>
+                                    <span
+                                            x-text="
+                                                        (isNaN(compound.grams)
+                                                            ? '0.00'
+                                                            : Number(compound.grams).toFixed(2)
+                                                        ) + ' gm'
+                                                    "
+                                    ></span>
                                 </div>
 
                                 <!-- Viscosity -->
@@ -703,7 +708,8 @@
                         </template>
 
                         <!-- ===================== TOTALS ===================== -->
-                        <div class="p-2 mt-2 mb-0  bg-warning-subtle">                            <div class="fw-bold mb-2">Batch Totals</div>
+                        <div class="p-2 bg-warning-subtle border-bottom">
+                            <div class="fw-bold mb-2">Batch Totals</div>
 
                             <div class="d-flex justify-content-between">
                                 <span>Total Displacement</span>
@@ -736,17 +742,18 @@
                     </div>
                 </template>
                 <br/>
-                <button @click='downloadBatchText("txt")' class="btn btn-sm btn-secondary">
-                    Download Batch 📄
-                </button>
+                <div class=" ">
+                    <button @click='downloadBatchText("txt")' class="m-1 btn btn-sm btn-secondary">
+                        Download Batch 📄
+                    </button>
 
-                <button @click='downloadBatchText("xls")' class="btn btn-sm btn-secondary">
-                    Download Pricing 📊
-                </button>
+                    <button @click='downloadBatchText("xls")' class="m-1 btn btn-sm btn-secondary">
+                        Download Pricing 📊
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-
 </div>
 </body>
 </html>

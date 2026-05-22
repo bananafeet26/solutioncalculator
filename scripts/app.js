@@ -106,6 +106,15 @@ function compoundApp() {
             let solutionEntry = prepareCompound(solutionId, this.settings.totalVolume, mls, grams, mg_per_ml, v_v_percent, purity);
             console.log(`solutionId: ${solutionId} mls: ${solutionEntry.mls} grams: ${solutionEntry.grams} v_v_percent: ${solutionEntry.v_v_percent} mg_per_ml: ${solutionEntry.mg_per_ml} purity: ${solutionEntry.purity}`);
             this.settings.compounds.push(solutionEntry);
+            const basisOrder = {
+                "v_v_percent": 0,
+                "q.s.": 1,
+                "mg_per_ml": 2,
+            };
+
+            this.settings.compounds.sort((a, b) => {
+                return basisOrder[a.basis] - basisOrder[b.basis];
+            });
             this.updateChart()
         }, downloadBatchText(type) {
 
