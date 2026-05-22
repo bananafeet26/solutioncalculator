@@ -193,9 +193,10 @@ function updateFields(solutionEntry, settings, fieldType) {
         case "v_v_percent":
             /* Calculate mls from percentage */
             if (solutionEntry.v_v_percent < 0) solutionEntry.v_v_percent = 0;
-            solutionEntry.grams = calculateGramsFromMgMl(solutionEntry.mg_per_ml, settings.totalVolume, solutionEntry.purity);
+            //solutionEntry.grams = calculateGramsFromMgMl(solutionEntry.mg_per_ml, settings.totalVolume, solutionEntry.purity);
+            solutionEntry.mls = calculateMlsFromPercentage(settings.totalVolume, solutionEntry.v_v_percent);
+            solutionEntry.grams = calculateGrams(solutionEntry.mls, d);
             solutionEntry.mg_per_ml = calculateMgPerMl(solutionEntry.grams, settings.totalVolume)
-            solutionEntry.mls = calculateMlsFromPercentage(settings.totalVolume, solutionEntry.v_v_percent)
             break
         case "mg_per_ml":
             /* Calculate mls from grams */

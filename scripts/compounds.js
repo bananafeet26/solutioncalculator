@@ -42,6 +42,26 @@ var compounds = [
     {
         id: crypto.randomUUID(),
         class: "excipient",
+        name: "ethanol",
+        pubchemid: 702,
+        self_id: "ethanol",
+        molecular_weight: 46.07, // g/mol
+        density: 0.785, // g/mL (g/cm3) @ 25c
+        viscosityArray: [1.04], // cP
+        viscosityTempArray: [25],
+        mls: 0,
+        grams: 0,
+        v_v_percent: 20,
+        mg_per_ml: 0,
+        purity: 100,
+        basis: "v_v_percent",
+        input: 0,
+        qsMode: false,
+        pricePerUnit: 265/1000,
+    },
+    {
+        id: crypto.randomUUID(),
+        class: "excipient",
         name: "ethyl oleate",
         pubchemid: 5363269,
         self_id: "ethyl_oleate",

@@ -47,6 +47,17 @@ var recipes = [
     {
         id: crypto.randomUUID(),
         index: 2,
+        name: "PARABOLAN",
+        solvents: ["benzyl_alcohol", "ethanol"],
+        solventPercentages: [4.79,3.82],
+        excipients:    ["arachis"],
+        excipientPercentages: [84.565],
+        compounds: ["trenbolone_cyclohexylmethylcarbonate"],
+        compoundConcentration: [75],
+    },
+    {
+        id: crypto.randomUUID(),
+        index: 2,
         name: "Watson Deca 100",
         solvents: ["benzyl_alcohol"],
         solventPercentages: [10],
