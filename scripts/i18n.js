@@ -673,6 +673,30 @@ const translations = {
         hu: "Ár/egység",
         vi: "Giá/đơn vị"
     },
+    purity: {
+        en: "Purity",
+        fr: "Pureté",
+        es: "Pureza",
+        de: "Reinheit",
+        it: "Purezza",
+        nl: "Zuiverheid",
+        pt: "Pureza",
+        ru: "Чистота",
+        ja: "純度",
+        zh: "纯度",
+        ko: "순도",
+        ar: "النقاء",
+        hi: "शुद्धता",
+        id: "Kemurnian",
+        tr: "Saflık",
+        pl: "Czystość",
+        sv: "Renhet",
+        da: "Renhed",
+        no: "Renhet",
+        cs: "Čistota",
+        hu: "Tisztaság",
+        vi: "Độ tinh khiết"
+    },
     buttons: {
         download_batch: {
             en: "Download Batch",

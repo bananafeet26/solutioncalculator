@@ -639,27 +639,22 @@
                                 <!-- Compound Name -->
                                 <template x-if="compound.basis === 'mg_per_ml'">
                                     <div class="d-flex align-items-center mb-2 fst-italic">
-
                                         <!-- Left: name -->
                                         <span x-text="compound.translations?.[settings.currentLanguage] || compound.name"></span>
-
                                         <!-- Middle: flexible dotted line -->
                                         <span class="flex-grow-1 mx-2 border-bottom border-dotted"></span>
-
                                         <!-- Right: value -->
                                         <span
-                                                x-text="'(' +
+                                                x-text=" +
                                                     (isNaN(compound.purity)
                                                         ? '0.00'
-                                                        : Number(compound.purity).toFixed(2)
-                                                    ) +
-                                                    ' %)'
-                                                "
+                                                        : new Intl.NumberFormat([settings.currentLanguage, 'en']).format(Number(compound.purity).toFixed(2))
+                                                    ) + '% ' + translations.purity[settings.currentLanguage]"
                                         ></span>
-
                                     </div>
                                 </template>
 
+                                <!-- Compound name other -->
                                 <template x-if="compound.basis !== 'mg_per_ml'">
                                     <div class="d-flex align-items-center mb-2 fst-italic">
 
@@ -672,30 +667,28 @@
                                         <!-- Right: value -->
                                         <span
                                                 x-text="
-                                                        '(' +
                                                         (isNaN(compound.v_v_percent)
                                                             ? '0.00'
                                                             : new Intl.NumberFormat([settings.currentLanguage, 'en']).format(Number(compound.v_v_percent).toFixed(2))
                                                         ) +
-                                                        ' % v.v)'
-                                                    "
+                                                        '% v/v'"
                                         ></span>
 
                                     </div>
                                 </template>
-
-                                <!-- Weight -->
-                                <div class="d-flex justify-content-between small">
-                                    <span x-text="translations.weight[settings.currentLanguage]"></span>
-                                    <span
-                                            x-text="
-                                                        (isNaN(compound.grams)
-                                                            ? '0.00'
-                                                            : new Intl.NumberFormat([settings.currentLanguage, 'en']).format(Number(compound.grams).toFixed(2))
-                                                        ) + ' gm'
-                                                    "
-                                    ></span>
-                                </div>
+                                <!-- Compound mg/mL -->
+                                <template x-if="compound.basis !== 'q.s.'">
+                                    <div class="d-flex justify-content-between small">
+                                        <span x-text="translations.concentration[settings.currentLanguage]"></span>
+                                        <span
+                                                x-text="(isNaN(compound.mg_per_ml)
+                                                        ? '0.00'
+                                                        : new Intl.NumberFormat([settings.currentLanguage, 'en']).format(Number(compound.mg_per_ml).toFixed(2))
+                                                    ) +
+                                                    ' mg/mL'"
+                                        ></span>
+                                    </div>
+                                </template>
 
                                 <!-- Viscosity -->
                                 <template x-if="compound.basis !== 'mg_per_ml'">
@@ -715,16 +708,30 @@
                                     </template>
 
                                     <span>
-                        <span
-                                x-text="
-                                (isNaN(compound.mls)
-                                    ? '0.00'
-                                    : new Intl.NumberFormat([settings.currentLanguage, 'en']).format(Number(compound.mls).toFixed(2))
-                                ) + ' ml'
-                            "
-                        ></span>
-                    </span>
+                                        <span
+                                                x-text="
+                                                (isNaN(compound.mls)
+                                                    ? '0.00'
+                                                    : new Intl.NumberFormat([settings.currentLanguage, 'en']).format(Number(compound.mls).toFixed(2))
+                                                ) + ' ml'
+                                            "
+                                        ></span>
+                                     </span>
                                 </div>
+
+                                <!-- Weight -->
+                                <div class="d-flex justify-content-between small">
+                                    <span x-text="translations.weight[settings.currentLanguage]"></span>
+                                    <span
+                                            x-text="
+                                                        (isNaN(compound.grams)
+                                                            ? '0.00'
+                                                            : new Intl.NumberFormat([settings.currentLanguage, 'en']).format(Number(compound.grams).toFixed(2))
+                                                        ) + ' gm'
+                                                    "
+                                    ></span>
+                                </div>
+
                             </div>
                         </template>
 

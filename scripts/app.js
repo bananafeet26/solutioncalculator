@@ -185,7 +185,7 @@ function compoundApp() {
                         formatDotLine(
                             compoundName,
                             compound.v_v_percent,
-                            '% v.v'
+                            '% v/v'
                         )
                     );
                 }
