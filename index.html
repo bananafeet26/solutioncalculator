@@ -362,10 +362,10 @@
                                     </div>
                                     <template x-if="solutionEntry.self_id === 'benzyl_alcohol' ">
                                         <div class="invalid-feedback"
-                                             x-text="'Recommended BA range: 0.9%-10% v.v'"></div>
+                                             x-text="translations.message_ba[settings.currentLanguage]"></div>
                                     </template>
                                     <template x-if="solutionEntry.self_id === 'benzyl_benzoate' ">
-                                        <div class="invalid-feedback" x-text="'Recommended BB range: 0%-55% v.v'"></div>
+                                        <div class="invalid-feedback" x-text="translations.message_bb[settings.currentLanguage]"></div>
                                     </template>
                                 </div>
                             </div>
