@@ -133,7 +133,7 @@ function compoundApp() {
             if (typeof this.settings.selectedRecipeId !== "undefined") {
                 lines.push(` ${translations.batch_totals[this.settings.currentLanguage]} - ${this.settings.recipes[this.settings.selectedRecipeId].name}`);
             } else {
-                lines.push('                 ${translations.batch_totals[this.settings.currentLanguage]}');
+                lines.push(`                 ${translations.batch_totals[this.settings.currentLanguage]}`);
             }
             lines.push('==============================================');
             lines.push('');
