@@ -17,7 +17,7 @@ function compoundApp() {
             selectedRecipeId: 2,
             theme: localStorage.getItem('theme') || 'light',
             selectedPalette: localStorage.getItem('selectedPalette') || 'nature',
-            currentLanguage: localStorage.getItem('currentLanguage') ||  "en",
+            currentLanguage: localStorage.getItem('currentLanguage') || "en",
         },
         solutionData: {
             viscosity: 0
@@ -139,13 +139,13 @@ function compoundApp() {
             lines.push('');
 
             // === formatting helpers ===
-            const LABEL_COLUMN = 30;
+            const LABEL_COLUMN = 38;
             const NUMBER_WIDTH = 10;
 
             const formatNumber = (num) =>
-                Number(num || 0)
+                new Intl.NumberFormat([this.settings.currentLanguage, 'en']).format(Number(num || 0)
                     .toFixed(2)
-                    .padStart(NUMBER_WIDTH);
+                    .padStart(NUMBER_WIDTH));
 
             const formatLine = (label, value, unit = '') =>
                 label.padEnd(LABEL_COLUMN) + `${formatNumber(value)} ${unit}`;
@@ -157,10 +157,10 @@ function compoundApp() {
             let runningCost = 0;
             this.solutionMeasurements[0].compounds.forEach(compound => {
 
-                const DECIMAL_COLUMN = 44;
+                const DECIMAL_COLUMN = 46;
 
                 const formatDotLine = (label, value, unit = '') => {
-                    const number = Number(value || 0).toFixed(2) + (unit ? ` ${unit}` : '');
+                    const number = new Intl.NumberFormat([this.settings.currentLanguage, 'en']).format(Number(value || 0).toFixed(2)) + (unit ? ` ${unit}` : '');
 
                     const dotsNeeded =
                         DECIMAL_COLUMN - label.length - number.length;
@@ -330,10 +330,18 @@ function compoundApp() {
                  */
                 sheet.columns = [
                     {header: `${translations.compounds[this.settings.currentLanguage]}`, key: 'compound', width: 20},
-                    {header: `${translations.price_per_unit[this.settings.currentLanguage]}`, key: 'pricePerUnit', width: 15},
+                    {
+                        header: `${translations.price_per_unit[this.settings.currentLanguage]}`,
+                        key: 'pricePerUnit',
+                        width: 15
+                    },
                     {header: `${translations.weight[this.settings.currentLanguage]}`, key: 'weight', width: 15},
                     {header: `${translations.volume[this.settings.currentLanguage]}`, key: 'volume', width: 15},
-                    {header: `${translations.concentration[this.settings.currentLanguage]}`, key: 'concentration', width: 15},
+                    {
+                        header: `${translations.concentration[this.settings.currentLanguage]}`,
+                        key: 'concentration',
+                        width: 15
+                    },
                     {header: `${translations.density[this.settings.currentLanguage]}`, key: 'density', width: 15},
                     {header: `${translations.cost[this.settings.currentLanguage]}`, key: 'cost', width: 15}
                 ];
@@ -361,7 +369,7 @@ function compoundApp() {
                             cell.fill = {
                                 type: 'pattern',
                                 pattern: 'solid',
-                                fgColor: { argb: 'FFF3F6FA' }
+                                fgColor: {argb: 'FFF3F6FA'}
                             };
                         });
 
@@ -413,7 +421,7 @@ function compoundApp() {
                     totalsRow.getCell(col).fill = {
                         type: 'pattern',
                         pattern: 'solid',
-                        fgColor: { argb: 'FFE2F0D9' }
+                        fgColor: {argb: 'FFE2F0D9'}
                     };
 
                 }
@@ -424,21 +432,21 @@ function compoundApp() {
 
                 headerRow.font = {
                     bold: true,
-                    color: { argb: 'FFFFFFFF' }
+                    color: {argb: 'FFFFFFFF'}
                 };
 
                 headerRow.alignment = {
                     vertical: 'middle',
                     horizontal: 'center'
                 };
-                headerRow.eachCell({ includeEmpty: true }, (cell, colNumber) => {
+                headerRow.eachCell({includeEmpty: true}, (cell, colNumber) => {
 
                     if (colNumber <= 7) { // A → G
 
                         cell.fill = {
                             type: 'pattern',
                             pattern: 'solid',
-                            fgColor: { argb: 'FF1F4E78' }
+                            fgColor: {argb: 'FF1F4E78'}
                         };
 
                     }
@@ -449,10 +457,10 @@ function compoundApp() {
                     row.eachCell((cell) => {
 
                         cell.border = {
-                            top:    { style: 'thin', color: { argb: 'FFD9D9D9' } },
-                            left:   { style: 'thin', color: { argb: 'FFD9D9D9' } },
-                            bottom: { style: 'thin', color: { argb: 'FFD9D9D9' } },
-                            right:  { style: 'thin', color: { argb: 'FFD9D9D9' } }
+                            top: {style: 'thin', color: {argb: 'FFD9D9D9'}},
+                            left: {style: 'thin', color: {argb: 'FFD9D9D9'}},
+                            bottom: {style: 'thin', color: {argb: 'FFD9D9D9'}},
+                            right: {style: 'thin', color: {argb: 'FFD9D9D9'}}
                         };
 
                     });

@@ -675,7 +675,7 @@
                                                         '(' +
                                                         (isNaN(compound.v_v_percent)
                                                             ? '0.00'
-                                                            : Number(compound.v_v_percent).toFixed(2)
+                                                            : new Intl.NumberFormat([settings.currentLanguage, 'en']).format(Number(compound.v_v_percent).toFixed(2))
                                                         ) +
                                                         ' % v.v)'
                                                     "
@@ -691,7 +691,7 @@
                                             x-text="
                                                         (isNaN(compound.grams)
                                                             ? '0.00'
-                                                            : Number(compound.grams).toFixed(2)
+                                                            : new Intl.NumberFormat([settings.currentLanguage, 'en']).format(Number(compound.grams).toFixed(2))
                                                         ) + ' gm'
                                                     "
                                     ></span>
@@ -701,7 +701,7 @@
                                 <template x-if="compound.basis !== 'mg_per_ml'">
                                     <div class="d-flex justify-content-between small">
                                         <span x-text="translations.viscosity[settings.currentLanguage]"></span>
-                                        <span x-text="compound.viscosityArray[0] + ' cP'"></span>
+                                        <span x-text="new Intl.NumberFormat([settings.currentLanguage, 'en']).format(Number(compound.viscosityArray[0]).toFixed(2)) + ' cP'"></span>
                                     </div>
                                 </template>
 
@@ -719,7 +719,7 @@
                                 x-text="
                                 (isNaN(compound.mls)
                                     ? '0.00'
-                                    : Number(compound.mls).toFixed(2)
+                                    : new Intl.NumberFormat([settings.currentLanguage, 'en']).format(Number(compound.mls).toFixed(2))
                                 ) + ' ml'
                             "
                         ></span>
@@ -735,28 +735,28 @@
                             <div class="d-flex justify-content-between">
                                 <span x-text="translations.total_displacement[settings.currentLanguage]"></span>
                                 <span
-                                        x-text="calculateBatchTotals(solutionMeasurement.compounds).mls.toFixed(2) + ' ml'"
+                                        x-text="new Intl.NumberFormat([settings.currentLanguage, 'en']).format(calculateBatchTotals(solutionMeasurement.compounds).mls.toFixed(2)) + ' ml'"
                                 ></span>
                             </div>
 
                             <div class="d-flex justify-content-between">
                                 <span x-text="translations.total_weight[settings.currentLanguage]"></span>
                                 <span
-                                        x-text="calculateBatchTotals(solutionMeasurement.compounds).grams.toFixed(2) + ' gm'"
+                                        x-text="new Intl.NumberFormat([settings.currentLanguage, 'en']).format(calculateBatchTotals(solutionMeasurement.compounds).grams.toFixed(2)) + ' gm'"
                                 ></span>
                             </div>
 
                             <div class="d-flex justify-content-between">
                                 <span x-text="translations.filter_time[settings.currentLanguage]"></span>
                                 <span
-                                        x-text="solutionMeasurement.filterTime.toFixed(2) + ' ' + translations.minutes[settings.currentLanguage]"
+                                        x-text="new Intl.NumberFormat([settings.currentLanguage, 'en']).format(solutionMeasurement.filterTime.toFixed(2)) + ' ' + translations.minutes[settings.currentLanguage]"
                                 ></span>
                             </div>
 
                             <div class="d-flex justify-content-between">
                                 <span x-text="translations.excip_viscosity[settings.currentLanguage]"></span>
                                 <span
-                                        x-text="solutionMeasurement.viscosity.toFixed(2) + ' cP'"
+                                        x-text="new Intl.NumberFormat([settings.currentLanguage, 'en']).format(solutionMeasurement.viscosity.toFixed(2)) + ' cP'"
                                 ></span>
                             </div>
                         </div>
