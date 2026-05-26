@@ -183,6 +183,17 @@ var recipes = [
     },
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
+        name: "Standard PIPless Deca",
+        index: 12,
+        solvents: ["benzyl_alcohol", "benzyl_benzoate"],
+        solventPercentages: [1.5, 20],
+        excipients:    ["MCT"],
+        excipientPercentages: [59.30],
+        compounds: ["nandrolone_decanoate"],
+        compoundConcentration: [200],
+    },
+    {
+        // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "Standard PIPless Tren E",
         index: 13,
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],

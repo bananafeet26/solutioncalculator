@@ -748,33 +748,53 @@ const translations = {
             vi: "Xóa"
         },
     },
-
-    labels: {
-        ingredients: {
-            en: "Ingredients",
-            fr: "Ingrédients",
-            // ...
-        },
-        percentage: {
-            en: "Percentage (%)",
-            fr: "Pourcentage (%)",
-            // ...
-        }
+    message_bb: {
+        en: "Recommended BB range: between 0% and 55% v/v",
+        fr: "Plage de BB recommandée : entre 0 % et 55 % v/v",
+        es: "Rango recomendado de BB: entre 0% y 55% v/v",
+        de: "Empfohlener BB-Bereich: zwischen 0 % und 55 % v/v",
+        it: "Intervallo BB consigliato: tra 0% e 55% v/v",
+        nl: "Aanbevolen BB-bereik: tussen 0% en 55% v/v",
+        pt: "Faixa recomendada de BB: entre 0% e 55% v/v",
+        ru: "Рекомендуемый диапазон BB: от 0% до 55% об./об.",
+        ja: "推奨BB範囲：0%～55% v/v",
+        zh: "推荐 BB 范围：0% 至 55% v/v",
+        ko: "권장 BB 범위: 0%~55% v/v",
+        ar: "النطاق الموصى به لـ BB: بين 0% و55% حجم/حجم",
+        hi: "अनुशंसित BB सीमा: 0% से 55% v/v के बीच",
+        id: "Rentang BB yang direkomendasikan: antara 0% dan 55% v/v",
+        tr: "Önerilen BB aralığı: %0 ile %55 h/h arasında",
+        pl: "Zalecany zakres BB: między 0% a 55% v/v",
+        sv: "Rekommenderat BB-intervall: mellan 0% och 55% v/v",
+        da: "Anbefalet BB-område: mellem 0% og 55% v/v",
+        no: "Anbefalt BB-område: mellom 0% og 55% v/v",
+        cs: "Doporučený rozsah BB: mezi 0 % a 55 % v/v",
+        hu: "Ajánlott BB-tartomány: 0% és 55% v/v között",
+        vi: "Phạm vi BB được khuyến nghị: từ 0% đến 55% v/v"
+    },
+    message_ba: {
+        en: "Recommended BA range: between 0.9% and 10% v/v",
+        fr: "Plage de BA recommandée : entre 0,9 % et 10 % v/v",
+        es: "Rango recomendado de BA: entre 0,9% y 10% v/v",
+        de: "Empfohlener BA-Bereich: zwischen 0,9 % und 10 % v/v",
+        it: "Intervallo BA consigliato: tra 0,9% e 10% v/v",
+        nl: "Aanbevolen BA-bereik: tussen 0,9% en 10% v/v",
+        pt: "Faixa recomendada de BA: entre 0,9% e 10% v/v",
+        ru: "Рекомендуемый диапазон BA: от 0,9% до 10% об./об.",
+        ja: "推奨BA範囲：0.9%～10% v/v",
+        zh: "推荐 BA 范围：0.9% 至 10% v/v",
+        ko: "권장 BA 범위: 0.9%~10% v/v",
+        ar: "النطاق الموصى به لـ BA: بين 0.9% و10% حجم/حجم",
+        hi: "अनुशंसित BA सीमा: 0.9% से 10% v/v के बीच",
+        id: "Rentang BA yang direkomendasikan: antara 0,9% dan 10% v/v",
+        tr: "Önerilen BA aralığı: %0,9 ile %10 h/h arasında",
+        pl: "Zalecany zakres BA: między 0,9% a 10% v/v",
+        sv: "Rekommenderat BA-intervall: mellan 0,9% och 10% v/v",
+        da: "Anbefalet BA-område: mellem 0,9% og 10% v/v",
+        no: "Anbefalt BA-område: mellom 0,9% og 10% v/v",
+        cs: "Doporučený rozsah BA: mezi 0,9 % a 10 % v/v",
+        hu: "Ajánlott BA-tartomány: 0,9% és 10% v/v között",
+        vi: "Phạm vi BA được khuyến nghị: từ 0,9% đến 10% v/v"
     },
 
-    dropdowns: {
-        palette: {
-            en: "Palette",
-            fr: "Palette",
-            // ...
-        },
-        // other dropdowns
-    },
-
-    messages: {
-        success: {
-            en: "Formulation saved successfully",
-            // ...
-        }
-    }
 }
