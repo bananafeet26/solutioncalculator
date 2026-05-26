@@ -17,6 +17,7 @@
     <script src="./scripts/maths.js"></script>
     <script src="./scripts/constants.js"></script>
     <script src="./scripts/recipes.js"></script>
+    <script src="./scripts/i18n.js"></script>
 
     <!-- Load Alpine.js -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
@@ -45,12 +46,15 @@
 <body class="container-fluid " x-data="compoundApp()" x-init="init(); updateChart();" :data-bs-theme="settings.theme">
 <div>
     <h2 class="title text-center">
-        <span>Formulation Calculator</span>
+        <span x-text="translations.title[settings.currentLanguage]"></span>
         <button
                 class="btn"
                 @click="changeTheme()"
         >
-            <span x-text="settings.theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'"></span>
+        <span x-text="settings.theme === 'light'
+              ? '🌙 ' + (translations.darkMode[settings.currentLanguage] || 'Dark Mode')
+              : '☀️ ' +  (translations.lightMode[settings.currentLanguage] || 'Light Mode')">
+</span>
         </button>
     </h2>
     <div class="row">
@@ -67,7 +71,7 @@
                 <div class=" p-3 mb-2 ">
                     <div class="input-group mb-1 col-12 col-md-4 col-lg-3">
                         <div class="input-group-prepend">
-                            <span x-text="'Palette 🎨'" class="input-group-text" id=""></span>
+                            <span x-text='translations.palette[settings.currentLanguage] +  " 🎨"' class="input-group-text" id=""></span>
                         </div>
                         <select
                                 class="form-select w-25 mb-3 rounded"
@@ -90,10 +94,29 @@
                         </template>
 
                     </div>
+                    <!-- Language Selector -->
+                    <div class="input-group mb-1 col-12 col-md-4 col-lg-3">
+                        <div class="input-group-prepend">
+                            <span x-text="translations.language_label[settings.currentLanguage] + ' 🌐'" class="input-group-text" id=""></span>
+                        </div>
+                        <select    class="form-select w-25 mb-3 rounded"
+                                   x-model="settings.currentLanguage"
+                                   @change="changeLanguage()">
+
+                            <template x-for="language in availableLanguages">
+                                <option :value="language.code" :selected="language.code === settings.currentLanguage">
+                                    <span x-text="language.name"></span>
+                                </option>
+                            </template>
+
+                        </select>
+
+                    </div>
+
                     <template x-if="settings.solventPercentage !== 0">
                         <div>
                             <span class="small"
-                                  x-text="'Viscosity ' + ((settings.viscosity ?? 0).toFixed()) + ' cP'">
+                                  x-text="translations.viscosity[settings.currentLanguage] + ' ' + ((settings.viscosity ?? 0).toFixed()) + ' cP'">
                             </span>
                             <div class="progress mb-1" style="height: 20px;">
                                 <div class="progress-bar progress-bar-striped"
@@ -114,7 +137,7 @@
                     <template x-if="settings.solventPercentage !== 0">
                         <div>
                             <span class="small"
-                                  x-text="'Solvents ' + (settings.solventPercentage.toFixed()) + ' % v.v'"></span>
+                                  x-text="translations.solvents[settings.currentLanguage] + ' ' + (settings.solventPercentage.toFixed()) + ' % v.v'"></span>
                             <div class="progress mb-1" style="height: 20px;">
                                 <div class="progress-bar progress-bar-striped"
                                      :class="{
@@ -142,7 +165,7 @@
                                 x-model="settings.selectedRecipeId"
                                 @change="updateRecipe();"
                         >
-                            <option value="">Load Recipe 👨‍🍳🍽️</option>
+                            <option x-text="translations.load_recipe[settings.currentLanguage] + ' 👨‍🍳🍽️'" value=""></option>
                             <template
                                     x-for="(recipeItem, index) in settings.recipes"
                                     :key="index">
@@ -165,7 +188,7 @@
                                 x-model="settings.addRowSelectedCompoundId"
                                 @change="addCompoundRow('excipient'); settings.addRowSelectedCompoundId = '';updateChart();"
                         >
-                            <option value="">Add excipient 🍶</option>
+                            <option x-text="translations.add_excipient[settings.currentLanguage] + ' 🍶'" value=""></option>
                             <template
                                     x-for="compound in compounds.filter(c => c.basis !== 'mg_per_ml')"
                                     :key="compound.self_id"
@@ -173,7 +196,7 @@
                                 <option
                                         :disabled="settings.compounds.some(c => c.self_id === compound.self_id)"
                                         :value="compound.self_id"
-                                        x-text="compound.name">
+                                        x-text="compound.translations?.[settings.currentLanguage] || compound.name">
                                 </option>
                             </template>
                         </select>
@@ -182,7 +205,8 @@
                                 x-model="settings.addRowSelectedCompoundId"
                                 @change="addCompoundRow('ingredient'); settings.addRowSelectedCompoundId = '';updateChart();"
                         >
-                            <option value="">Add compound 🥣</option>
+                            <option x-text="translations.add_compound[settings.currentLanguage] + ' 🥣'" value=""></option>
+
                             <template
                                     x-for="compound in compounds.filter(c => c.basis === 'mg_per_ml')"
                                     :key="compound.self_id"
@@ -190,7 +214,7 @@
                                 <option
                                         :disabled="settings.compounds.some(c => c.self_id === compound.self_id)"
                                         :value="compound.self_id"
-                                        x-text="compound.name">
+                                        x-text="compound.translations?.[settings.currentLanguage] || compound.name">
                                 </option>
                             </template>
                         </select>
@@ -211,7 +235,7 @@
                     <!-- Volume -->
                     <div class="input-group mb-1">
                         <div class="input-group-prepend">
-                            <span x-text="'Finished Volume ⚗️'" class="input-group-text" id=""></span>
+                            <span x-text="translations.finished_volume[settings.currentLanguage] + ' ⚗️'" class="input-group-text" id=""></span>
                         </div>
                         <!-- mL -->
                         <input class="form-control rounded col-3"
@@ -231,14 +255,14 @@
                     <!-- v_v_percent -->
                     <div class="form-group">
                         <div class="d-flex align-items-center my-3">
-                            <span class="me-2 fw-semibold">Solvents</span>
+                            <span x-text="translations.solvents[settings.currentLanguage]" class="me-2 fw-semibold"></span>
                             <div class="flex-grow-1 border-bottom"></div>
                         </div>
                         <template x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'v_v_percent')"
                                   :key="solutionEntry.self_id">
                             <div>
                                 <label class="me-2 fst-italic"
-                                       x-text="`${solutionEntry.name}` + ' ................'"></label>
+                                       x-text="`${solutionEntry.translations?.[settings.currentLanguage] || solutionEntry.name}` + ' ................'"></label>
                                 <div class="input-group mb-1 col-6 col-md-4 col-lg-3">
                                     <div class="dropdown">
                                         <button class="btn btn-outline-secondary dropdown-toggle"
@@ -248,9 +272,8 @@
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end">
                                             <li>
-                                                <button class="dropdown-item text-danger"
+                                                <button x-text="translations.buttons.delete[settings.currentLanguage]"  class="dropdown-item text-danger"
                                                         @click="removeCompound(solutionEntry.self_id)">
-                                                    Delete
                                                 </button>
                                             </li>
                                         </ul>
@@ -351,7 +374,7 @@
                     <!-- q.s. -->
                     <div class="form-group">
                         <div class="d-flex align-items-center my-3">
-                            <span class="me-2 fw-semibold">Excipients</span>
+                            <span x-text="translations.excipients[settings.currentLanguage]" class="me-2 fw-semibold"></span>
                             <div class="flex-grow-1 border-bottom"></div>
                         </div>
                         <template
@@ -359,8 +382,8 @@
                                 :key="solutionEntry.self_id">
                             <div>
                                 <label class="me-2 fst-italic"
-                                       x-text=" + solutionEntry.qsMode ? `${solutionEntry.name} q.s.` : `${solutionEntry.name}` + ' ................'"></label>
-
+                                       x-text="((solutionEntry.translations?.[settings.currentLanguage] || solutionEntry.name) + (solutionEntry.qsMode ? ' q.s.' : '')) + ' ................'">
+                                </label>
                                 <div class="input-group mb-1 col-6 col-md-4 col-lg-3">
                                     <div class="dropdown">
                                         <button class="btn btn-outline-secondary dropdown-toggle"
@@ -377,9 +400,8 @@
                                                     <span x-text="solutionEntry.qsMode ? 'off' : 'on'"></span>
                                                 </button>
                                                 -->
-                                                <button class="dropdown-item text-danger"
+                                                <button x-text="translations.buttons.delete[settings.currentLanguage]"  class="dropdown-item text-danger"
                                                         @click="removeCompound(solutionEntry.self_id)">
-                                                    Delete
                                                 </button>
                                             </li>
                                         </ul>
@@ -477,7 +499,7 @@
                     <!-- mg_per_ml -->
                     <div class="form-group">
                         <div class="d-flex align-items-center my-3">
-                            <span class="me-2 fw-semibold">Compounds</span>
+                            <span x-text="translations.compounds[settings.currentLanguage]" class="me-2 fw-semibold"></span>
                             <div class="flex-grow-1 border-bottom opacity-50"></div>
                         </div>
                         <template x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'mg_per_ml')"
@@ -496,9 +518,8 @@
                                         <ul class="dropdown-menu dropdown-menu-end">
 
                                             <li>
-                                                <button class="dropdown-item text-danger"
+                                                <button x-text="translations.buttons.delete[settings.currentLanguage]" class="dropdown-item text-danger"
                                                         @click="removeCompound(solutionEntry.self_id)">
-                                                    Delete
                                                 </button>
                                             </li>
                                         </ul>
@@ -600,7 +621,7 @@
         <div class="col-12 col-lg-4">
             <div class="border rounded pb-2">
                 <div class="p-2  bg-warning-subtle border-bottom">
-                    <h4 class="fw-bold text-center">Batch Totals
+                    <h4 class="fw-bold text-center"><span x-text="translations.batch_totals[settings.currentLanguage]"></span>
                         <template x-if="typeof settings.selectedRecipeId !== 'undefined'">
                             <span x-text="' - ' + settings.recipes[settings.selectedRecipeId].name"></span>
                         </template>
@@ -620,7 +641,7 @@
                                     <div class="d-flex align-items-center mb-2 fst-italic">
 
                                         <!-- Left: name -->
-                                        <span x-text="compound.name"></span>
+                                        <span x-text="compound.translations?.[settings.currentLanguage] || compound.name"></span>
 
                                         <!-- Middle: flexible dotted line -->
                                         <span class="flex-grow-1 mx-2 border-bottom border-dotted"></span>
@@ -643,7 +664,7 @@
                                     <div class="d-flex align-items-center mb-2 fst-italic">
 
                                         <!-- Left: name -->
-                                        <span x-text="compound.name"></span>
+                                        <span x-text="compound.translations?.[settings.currentLanguage] || compound.name"></span>
 
                                         <!-- Middle: flexible dotted line -->
                                         <span class="flex-grow-1 mx-2 border-bottom border-dotted"></span>
@@ -665,7 +686,7 @@
 
                                 <!-- Weight -->
                                 <div class="d-flex justify-content-between small">
-                                    <span>Weight</span>
+                                    <span x-text="translations.weight[settings.currentLanguage]"></span>
                                     <span
                                             x-text="
                                                         (isNaN(compound.grams)
@@ -679,7 +700,7 @@
                                 <!-- Viscosity -->
                                 <template x-if="compound.basis !== 'mg_per_ml'">
                                     <div class="d-flex justify-content-between small">
-                                        <span>Viscosity</span>
+                                        <span x-text="translations.viscosity[settings.currentLanguage]"></span>
                                         <span x-text="compound.viscosityArray[0] + ' cP'"></span>
                                     </div>
                                 </template>
@@ -687,10 +708,10 @@
                                 <!-- Volume / Displacement -->
                                 <div class="d-flex justify-content-between small">
                                     <template x-if="compound.basis === 'mg_per_ml'">
-                                        <span>Displacement</span>
+                                        <span x-text="translations.displacement[settings.currentLanguage]"></span>
                                     </template>
                                     <template x-if="compound.basis !== 'mg_per_ml'">
-                                        <span>Volume</span>
+                                        <span x-text="translations.volume[settings.currentLanguage]"></span>
                                     </template>
 
                                     <span>
@@ -709,31 +730,31 @@
 
                         <!-- ===================== TOTALS ===================== -->
                         <div class="p-2 bg-warning-subtle border-bottom">
-                            <div class="fw-bold mb-2">Batch Totals</div>
+                            <div x-text="translations.batch_totals[settings.currentLanguage]" class="fw-bold mb-2"></div>
 
                             <div class="d-flex justify-content-between">
-                                <span>Total Displacement</span>
+                                <span x-text="translations.total_displacement[settings.currentLanguage]"></span>
                                 <span
                                         x-text="calculateBatchTotals(solutionMeasurement.compounds).mls.toFixed(2) + ' ml'"
                                 ></span>
                             </div>
 
                             <div class="d-flex justify-content-between">
-                                <span>Total Weight</span>
+                                <span x-text="translations.total_weight[settings.currentLanguage]"></span>
                                 <span
                                         x-text="calculateBatchTotals(solutionMeasurement.compounds).grams.toFixed(2) + ' gm'"
                                 ></span>
                             </div>
 
                             <div class="d-flex justify-content-between">
-                                <span>Filter Time</span>
+                                <span x-text="translations.filter_time[settings.currentLanguage]"></span>
                                 <span
-                                        x-text="solutionMeasurement.filterTime.toFixed(2) + ' minutes'"
+                                        x-text="solutionMeasurement.filterTime.toFixed(2) + ' ' + translations.minutes[settings.currentLanguage]"
                                 ></span>
                             </div>
 
                             <div class="d-flex justify-content-between">
-                                <span>Excipients Avg Viscosity</span>
+                                <span x-text="translations.excip_viscosity[settings.currentLanguage]"></span>
                                 <span
                                         x-text="solutionMeasurement.viscosity.toFixed(2) + ' cP'"
                                 ></span>
@@ -743,12 +764,10 @@
                 </template>
                 <br/>
                 <div class=" ">
-                    <button @click='downloadBatchText("txt")' class="m-1 btn btn-sm btn-secondary">
-                        Download Batch 📄
+                    <button x-text="translations.buttons.download_batch[settings.currentLanguage] + ' 📄'" @click='downloadBatchText("txt")' class="m-1 btn btn-sm btn-secondary">
                     </button>
 
-                    <button @click='downloadBatchText("xls")' class="m-1 btn btn-sm btn-secondary">
-                        Download Pricing 📊
+                    <button x-text="translations.buttons.download_pricing[settings.currentLanguage] + ' 📊'" @click='downloadBatchText("xls")' class="m-1 btn btn-sm btn-secondary">
                     </button>
                 </div>
             </div>

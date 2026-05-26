@@ -17,6 +17,7 @@ function compoundApp() {
             selectedRecipeId: 2,
             theme: localStorage.getItem('theme') || 'light',
             selectedPalette: localStorage.getItem('selectedPalette') || 'nature',
+            currentLanguage: localStorage.getItem('currentLanguage') ||  "en",
         },
         solutionData: {
             viscosity: 0
@@ -57,6 +58,10 @@ function compoundApp() {
             this.$watch('settings.selectedPalette', value => {
                 localStorage.setItem('selectedPalette', value);
             });
+
+            this.$watch('settings.currentLanguage', value => {
+                localStorage.setItem('currentLanguage', value);
+            });
             this.changePalette();
         },
         view: "table",
@@ -65,6 +70,10 @@ function compoundApp() {
         changePalette() {
             colours = palettes[this.settings.selectedPalette];
             this.updateChart()
+        },
+        changeLanguage() {
+            this.updateChart();
+            //settings.currentLanguage = this.settings.currentLanguage === 'en' ? 'de' : 'en';
         },
         changeTheme() {
             this.settings.theme = this.settings.theme === 'light' ? 'dark' : 'light';
@@ -122,9 +131,9 @@ function compoundApp() {
 
             // Title
             if (typeof this.settings.selectedRecipeId !== "undefined") {
-                lines.push(` BATCH REPORT - ${this.settings.recipes[this.settings.selectedRecipeId].name}`);
+                lines.push(` ${translations.batch_totals[this.settings.currentLanguage]} - ${this.settings.recipes[this.settings.selectedRecipeId].name}`);
             } else {
-                lines.push('                 BATCH REPORT');
+                lines.push('                 ${translations.batch_totals[this.settings.currentLanguage]}');
             }
             lines.push('==============================================');
             lines.push('');
@@ -160,11 +169,13 @@ function compoundApp() {
 
                     return `${label} ${dots} ${number}`;
                 };
+                let compoundName =
+                    compound.translations?.[this.settings.currentLanguage] || compound.name;
 
                 if (compound.basis === 'mg_per_ml') {
                     lines.push(
                         formatDotLine(
-                            compound.name,
+                            compoundName,
                             compound.purity,
                             '% purity'
                         )
@@ -172,7 +183,7 @@ function compoundApp() {
                 } else {
                     lines.push(
                         formatDotLine(
-                            compound.name,
+                            compoundName,
                             compound.v_v_percent,
                             '% v.v'
                         )
@@ -182,7 +193,7 @@ function compoundApp() {
                 // Weight
                 lines.push(
                     formatLine(
-                        'Weight:',
+                        `${translations.weight[this.settings.currentLanguage]}:`,
                         compound.grams,
                         'gm'
                     )
@@ -192,7 +203,7 @@ function compoundApp() {
                 if (compound.basis !== 'mg_per_ml') {
                     lines.push(
                         formatLine(
-                            'Viscosity:',
+                            `${translations.viscosity[this.settings.currentLanguage]}:`,
                             compound.viscosityArray?.[0],
                             'cP'
                         )
@@ -204,8 +215,8 @@ function compoundApp() {
                 lines.push(
                     formatLine(
                         compound.basis === 'mg_per_ml'
-                            ? 'Displacement:'
-                            : 'Volume:',
+                            ? `${translations.displacement[this.settings.currentLanguage]}:`
+                            : `${translations.volume[this.settings.currentLanguage]}:`,
                         compound.mls,
                         'ml'
                     )
@@ -214,7 +225,7 @@ function compoundApp() {
                 if (compound.basis !== 'q.s.') {
                     lines.push(
                         formatLine(
-                            'Concentration:',
+                            `${translations.concentration[this.settings.currentLanguage]}:`,
                             compound.mg_per_ml,
                             'mg/mL'
                         )
@@ -240,12 +251,12 @@ function compoundApp() {
                 this.solutionMeasurements[0].compounds
             );
 
-            lines.push('                 TOTALS');
+            lines.push(`                 ${translations.totals[this.settings.currentLanguage]}`);
             lines.push('==============================================');
 
             lines.push(
                 formatLine(
-                    'Total Displacement:',
+                    `${translations.total_displacement[this.settings.currentLanguage]}:`,
                     runningMls,
                     'ml'
                 )
@@ -253,7 +264,7 @@ function compoundApp() {
 
             lines.push(
                 formatLine(
-                    'Total Weight:',
+                    `${translations.total_weight[this.settings.currentLanguage]}:`,
                     runningGrams,
                     'gm'
                 )
@@ -261,15 +272,15 @@ function compoundApp() {
 
             lines.push(
                 formatLine(
-                    'Filter Time:',
+                    `${translations.filter_time[this.settings.currentLanguage]}:`,
                     this.solutionMeasurements[0].filterTime,
-                    'mins'
+                    `${translations.minutes[this.settings.currentLanguage]}`
                 )
             );
 
             lines.push(
                 formatLine(
-                    'Excipients Avg Viscosity:',
+                    `${translations.excip_viscosity[this.settings.currentLanguage]}:`,
                     this.solutionMeasurements[0].viscosity,
                     'cP'
                 )
@@ -318,13 +329,13 @@ function compoundApp() {
 
                  */
                 sheet.columns = [
-                    {header: 'Compound', key: 'compound', width: 20},
-                    {header: 'Price/Unit', key: 'pricePerUnit', width: 15},
-                    {header: 'Weight', key: 'weight', width: 15},
-                    {header: 'Volume', key: 'volume', width: 15},
-                    {header: 'Concentration', key: 'concentration', width: 15},
-                    {header: 'Density', key: 'density', width: 15},
-                    {header: 'Cost', key: 'cost', width: 15}
+                    {header: `${translations.compounds[this.settings.currentLanguage]}`, key: 'compound', width: 20},
+                    {header: `${translations.price_per_unit[this.settings.currentLanguage]}`, key: 'pricePerUnit', width: 15},
+                    {header: `${translations.weight[this.settings.currentLanguage]}`, key: 'weight', width: 15},
+                    {header: `${translations.volume[this.settings.currentLanguage]}`, key: 'volume', width: 15},
+                    {header: `${translations.concentration[this.settings.currentLanguage]}`, key: 'concentration', width: 15},
+                    {header: `${translations.density[this.settings.currentLanguage]}`, key: 'density', width: 15},
+                    {header: `${translations.cost[this.settings.currentLanguage]}`, key: 'cost', width: 15}
                 ];
 
                 for (let i = 0; i < this.solutionMeasurements[0].compounds.length; i++) {
@@ -340,7 +351,9 @@ function compoundApp() {
                             formula: `B${i + 2}*C${i + 2}`
                         };
                     }
-                    let row = sheet.addRow([compound.name, compound.pricePerUnit, compound.grams, compound.mls, compound.mg_per_ml, compound.density, cost]);
+                    let compoundName =
+                        compound.translations?.[this.settings.currentLanguage] || compound.name;
+                    let row = sheet.addRow([compoundName, compound.pricePerUnit, compound.grams, compound.mls, compound.mg_per_ml, compound.density, cost]);
                     // Alternating row colors
                     if ((i + 2) % 2 === 0) {
 
@@ -368,7 +381,7 @@ function compoundApp() {
                 sheet.addRow();
 
                 sheet.addRow([
-                    'Totals:',
+                    `${translations.totals[this.settings.currentLanguage]}:`,
                     '',
 
                     // Total Cost (column C)
