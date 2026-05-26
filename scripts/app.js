@@ -657,8 +657,10 @@ function compoundApp() {
                 fill: true
             };
             for (let i = 0; i < this.settings.compounds.length; i++) {
+                let compoundName =
+                    this.settings.compounds[i].translations?.[this.settings.currentLanguage] || this.settings.compounds[i].name;
                 dataset.data.push(this.settings.compounds[i].mls);
-                this.chart.data.labels.push(`${this.settings.compounds[i].name}`);
+                this.chart.data.labels.push(compoundName);
                 dataset.backgroundColor.push(colours[i]);
             }
             if (remainingVolume > 0) {
