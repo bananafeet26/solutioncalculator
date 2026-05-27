@@ -110,7 +110,7 @@ var recipes = [
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2.5, 20],
         excipients:    ["arachis"],
-        excipientPercentages: [59.238095238095234],
+        excipientPercentages: [66.4952380952381],
         compounds: ["dhea_base", "testosterone_propionate", "testosterone_cypionate"],
         compoundConcentration: [20, 25, 75],
     },
