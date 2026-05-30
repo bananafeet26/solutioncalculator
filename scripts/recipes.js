@@ -106,10 +106,10 @@ var recipes = [
         id: crypto.randomUUID(),
         name: "OEP's No G Anadrol",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
-        solventPercentages: [1.5, 30],
-        excipients:    ["castor"],
+        solventPercentages: [1.5, 35.06261180679785],
+        excipients:    ["MCT"],
         excipientPercentages: [59.137388193202156],
-        compounds: ["Anadrol"],
+        compounds: ["anadrol"],
         compoundConcentration: [50],
     },
     {
