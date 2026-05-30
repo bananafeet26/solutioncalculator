@@ -108,7 +108,7 @@ var recipes = [
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.4375, 42.9299],
         excipients:    ["castor"],
-        excipientPercentages: [51.3326],
+        excipientPercentages: [51.3325],
         compounds: ["anadrol"],
         compoundConcentration: [50],
     },
