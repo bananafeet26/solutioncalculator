@@ -718,7 +718,19 @@
                                         ></span>
                                      </span>
                                 </div>
-
+                                <!-- Melting point -->
+                                <template x-if="compound.basis === 'mg_per_ml' && compound.melting_point && !isNaN(compound.melting_point[0])">
+                                    <div class="d-flex justify-content-between small">
+                                        <span x-text="translations.melting_point[settings.currentLanguage]"></span>
+                                        <span
+                                                x-text="
+                                                    new Intl.NumberFormat([settings.currentLanguage, 'en'])
+                                                        .format(Number(compound.melting_point[0]).toFixed(2))
+                                                    + ' C'
+                                                "
+                                        ></span>
+                                    </div>
+                                </template>
                                 <!-- Weight -->
                                 <div class="d-flex justify-content-between small">
                                     <span x-text="translations.weight[settings.currentLanguage]"></span>

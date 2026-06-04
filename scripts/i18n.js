@@ -697,6 +697,30 @@ const translations = {
         hu: "Tisztaság",
         vi: "Độ tinh khiết"
     },
+    melting_point: {
+        en: "Melting Point",
+        fr: "Calculateur de Formulation",
+        es: "Calculadora de Formulaciones",
+        de: "Formulierungsrechner",
+        it: "Calcolatore di Formulazione",
+        nl: "Formuleringscalculator",
+        pt: "Calculadora de Formulações",
+        ru: "Калькулятор Формуляций",
+        ja: "製剤計算機",
+        zh: "制剂计算器",
+        ko: "제형 계산기",
+        ar: "حاسبة الصيغة",
+        hi: "फॉर्मुलेशन कैलकुलेटर",
+        id: "Kalkulator Formulasi",
+        tr: "Formülasyon Hesaplayıcı",
+        pl: "Kalkulator Formulacji",
+        sv: "Formuleringskalkylator",
+        da: "Formuleringsberegner",
+        no: "Formuleringskalkulator",
+        cs: "Kalkulátor Formulace",
+        hu: "Receptúraszámító",
+        vi: "Máy Tính Công Thức"
+    },
     buttons: {
         download_batch: {
             en: "Download Batch",

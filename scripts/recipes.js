@@ -10,6 +10,16 @@ var recipes = [
         compoundConcentration: [250],
     },
     {
+        id: crypto.randomUUID(),
+        name: "Bayer Rimobolan (primo)",
+        solvents: ["benzyl_alcohol", "benzyl_benzoate"],
+        solventPercentages: [2, 36.261180679785326],
+        excipients:    ["castor"],
+        excipientPercentages: [52.238819320214674],
+        compounds: ["methenolone_enanthate"],
+        compoundConcentration: [100],
+    },
+    {
         // Source: https://www.medicines.org.uk/emc/files/pil.14631.pdf
         id: crypto.randomUUID(),
         name: "Bayer Nebido",
@@ -35,7 +45,7 @@ var recipes = [
         name: "DECA-DURABOLIN",
         solvents: ["benzyl_alcohol"],
         solventPercentages: [10],
-        excipients:    ["sesame"],
+        excipients:    ["arachis"],
         excipientPercentages: [80.4],
         compounds: ["nandrolone_decanoate"],
         compoundConcentration: [100],

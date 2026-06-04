@@ -180,6 +180,7 @@ function compoundApp() {
                             '% purity'
                         )
                     );
+
                 } else {
                     lines.push(
                         formatDotLine(
@@ -209,6 +210,15 @@ function compoundApp() {
                         )
                     );
 
+                }
+                if (compound.basis == "mg_per_ml" && compound.melting_point && !isNaN(compound.melting_point[0])) {
+                    lines.push(
+                        formatLine(
+                            `${translations.melting_point[this.settings.currentLanguage]}:`,
+                            Number(compound.melting_point[0]).toFixed(2),
+                            '°C'
+                        )
+                    );
                 }
 
                 // Volume / Displacement
