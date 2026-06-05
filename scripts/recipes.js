@@ -1,7 +1,7 @@
 var recipes = [
     {
         id: crypto.randomUUID(),
-        name: "Bayer Primo Testo Depot",
+        name: "Bayer Primo Testo Depot 250mg/mL",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2, 30],
         excipients:    ["castor"],
@@ -11,7 +11,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
-        name: "Bayer Rimobolan (primo)",
+        name: "Bayer Rimobolan (primo) 100mg/mL",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2, 36.261180679785326],
         excipients:    ["castor"],
@@ -22,7 +22,7 @@ var recipes = [
     {
         // Source: https://www.medicines.org.uk/emc/files/pil.14631.pdf
         id: crypto.randomUUID(),
-        name: "Bayer Nebido",
+        name: "Bayer Nebido 250mg/mL",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2, 44.73],
         excipients:    ["castor"],
@@ -31,8 +31,41 @@ var recipes = [
         compoundConcentration: [250],
     },
     {
+        // Source: https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=e8f94df9-0692-4462-a7f0-fe019a0a3f07
         id: crypto.randomUUID(),
-        name: "Cytex Test Cyp",
+        name: "DELESTROGEN Estradiol Valerate 10mg/mL",
+        solvents: ["chlorobutanol"],
+        solventPercentages: [0.76],
+        excipients:    ["sesame"],
+        excipientPercentages: [98.33090909090909],
+        compounds: ["estradiol_valerate"],
+        compoundConcentration: [10],
+    },
+    {
+        // Source: https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=e8f94df9-0692-4462-a7f0-fe019a0a3f07
+        id: crypto.randomUUID(),
+        name: "DELESTROGEN Estradiol Valerate 40mg/mL",
+        solvents: ["benzyl_alcohol", "benzyl_benzoate"],
+        solventPercentages: [2, 40],
+        excipients:    ["castor"],
+        excipientPercentages: [54.36363636363636],
+        compounds: ["estradiol_valerate"],
+        compoundConcentration: [40],
+    },
+    {
+        // Source: https://www.drugs.com/vet/equipoise.html
+        id: crypto.randomUUID(),
+        name: "Equipoise 50mg/mL",
+        solvents: ["benzyl_alcohol"],
+        solventPercentages: [3],
+        excipients:    ["sesame"],
+        excipientPercentages: [92.260663507109],
+        compounds: ["boldenone_undecylenate"],
+        compoundConcentration: [50],
+    },
+    {
+        id: crypto.randomUUID(),
+        name: "Cytex Test Cyp 100mg/mL",
         solvents: ["benzyl_alcohol"],
         solventPercentages: [2],
         excipients:    ["ethyl_oleate"],
@@ -42,7 +75,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
-        name: "DECA-DURABOLIN",
+        name: "DECA-DURABOLIN 100mg/mL",
         solvents: ["benzyl_alcohol"],
         solventPercentages: [10],
         excipients:    ["arachis"],
@@ -52,28 +85,40 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
-        name: "PARABOLAN",
+        name: "PARABOLAN 50mg/mL",
         solvents: ["benzyl_alcohol", "ethanol"],
         solventPercentages: [4.79,3.82],
         excipients:    ["arachis"],
-        excipientPercentages: [84.565],
+        excipientPercentages: [86.84],
         compounds: ["trenbolone_hexahydrobenzylcarbonate"],
-        compoundConcentration: [75],
+        compoundConcentration: [50],
     },
     {
+        // Source: https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=a586b484-1b46-40b9-9508-fd28002ad383&type=display
         id: crypto.randomUUID(),
-        name: "Watson Deca 100",
+        name: "Watson Deca 200mg/mL",
         solvents: ["benzyl_alcohol"],
-        solventPercentages: [10],
-        excipients:    ["cottonseed"],
-        excipientPercentages: [80.4],
+        solventPercentages: [5],
+        excipients:    ["sesame"],
+        excipientPercentages: [75.8],
         compounds: ["nandrolone_decanoate"],
-        compoundConcentration: [100],
+        compoundConcentration: [200],
+    },
+    {
+        // Source: https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=82a98132-9d5f-40a5-8c4f-f52f2a5de60e
+        id: crypto.randomUUID(),
+        name: "Testosterone Enanthate (Eugia) 200mg/mL",
+        solvents: ["chlorobutanol"],
+        solventPercentages: [0.5],
+        excipients:    ["sesame"],
+        excipientPercentages: [80.7],
+        compounds: ["testosterone_enanthate"],
+        compoundConcentration: [200],
     },
     {
         // Source: https://www.medsafe.govt.nz/profs/datasheet/s/sustanoninj.pdf
         id: crypto.randomUUID(),
-        name: "SUSTANON 250",
+        name: "SUSTANON 250mg/mL",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2,10],
         excipients:    ["arachis"],
@@ -84,7 +129,7 @@ var recipes = [
     {
         // Source: https://www.medsafe.govt.nz/profs/datasheet/s/sustanoninj.pdf
         id: crypto.randomUUID(),
-        name: "Testoboon CP 250",
+        name: "Testoboon CP 250mg/mL",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [0.91, 22.362],
         excipients:    ["arachis"],
@@ -94,7 +139,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
-        name: "Photon's No G TNE",
+        name: "Photon's No G TNE 100mg/mL",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2, 30],
         excipients:    ["castor"],
@@ -104,7 +149,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
-        name: "Bananafeet's No G DHEA",
+        name: "Bananafeet's No G DHEA 50mg/mL",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [6,30],
         excipients:    ["castor"],
@@ -114,7 +159,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
-        name: "OEP's No G Anadrol",
+        name: "OEP's No G Anadrol 50mg/mL",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.4375, 42.9299],
         excipients:    ["castor"],
