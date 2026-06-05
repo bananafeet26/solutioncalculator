@@ -1,6 +1,16 @@
 var recipes = [
     {
         id: crypto.randomUUID(),
+        name: "Bacteriostatic Water",
+        solvents: ["benzyl_alcohol"],
+        solventPercentages: [0.9],
+        excipients:    ["sterile-water-for-injection"],
+        excipientPercentages: [99.1],
+        compounds: [],
+        compoundConcentration: [],
+    },
+    {
+        id: crypto.randomUUID(),
         name: "Bayer Primo Testo Depot 250mg/mL",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2, 30],
@@ -72,6 +82,16 @@ var recipes = [
         excipientPercentages: [88.9],
         compounds: ["testosterone_cypionate"],
         compoundConcentration: [100],
+    },
+    {
+        id: crypto.randomUUID(),
+        name: "Cipla Test Cyp 200mg/mL",
+        solvents: ["benzyl_alcohol", "benzyl_benzoate"],
+        solventPercentages: [0.91,20],
+        excipients:    ["cottonseed"],
+        excipientPercentages: [60.89],
+        compounds: ["testosterone_cypionate"],
+        compoundConcentration: [200],
     },
     {
         id: crypto.randomUUID(),
