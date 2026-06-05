@@ -168,6 +168,16 @@ var recipes = [
         compoundConcentration: [50],
     },
     {
+        id: crypto.randomUUID(),
+        name: "Injectable Winstrol 50mg/mL",
+        solvents: ["benzyl_alcohol", "benzyl_benzoate"],
+        solventPercentages: [10, 40],
+        excipients:    ["castor"],
+        excipientPercentages: [45.449999999999996],
+        compounds: ["winstrol"],
+        compoundConcentration: [50],
+    },
+    {
         // original is weak. made it a bit stronger (double)
         // source https://web.archive.org/web/20210126120007/https://steroid.to/sten-testosterone-cypionate-propionate
         id: crypto.randomUUID(),
