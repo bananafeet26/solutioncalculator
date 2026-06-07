@@ -9,6 +9,8 @@
         .controls { margin: 15px 0; }
         button { padding: 10px 16px; margin: 5px; }
     </style>
+    <script src="./scripts/i18n.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.12.1/dist/JsBarcode.all.min.js"></script>
 </head>
 <body>
 
@@ -19,36 +21,218 @@
 
 <div class="controls">
     <input type="text" id="ndc" placeholder="NDC 55150-336-01" value="NDC 55150-336-01">
-    <input type="text" id="lot" placeholder="Lot Number" value="LOT123456">
+    <input type="text" id="warning" placeholder="Warning" value="Warming and shaking the vial should redissolve any crystals that may have formed during storage at temperatures lower than recommended.">
     <input type="text" id="exp" placeholder="Exp Date" value="EXP 12/2027">
     <button onclick="updateText()">Update Text</button>
     <button onclick="downloadImage()">Download Edited Image (PNG)</button>
 </div>
 
-<canvas id="canvas" width="1200" height="800"></canvas>
+<canvas id="canvas" width="1028" height="1105"></canvas>
 
 <script>
     // Main canvas setup
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     let originalImage = null;
+    let solution= [
+        {
+            id: "8ab1e36f-ab8d-4554-a39c-576ee8068113",
+            viscosity: 39.49998557252542,
+            filterTime: 1.770172506073593,
+            title: "benzyl alcohol 5.00ml, sesame oil 75.80ml, ",
+            compounds: [
+                {
+                    id: "794983d6-3820-45c1-9df5-0f2a0cb25968",
+                    class: "excipient",
+                    name: "benzyl alcohol",
+                    translations: {
+                        en: "benzyl alcohol",
+                        fr: "alcool benzylique",
+                        es: "alcohol bencílico",
+                        de: "Benzylalkohol",
+                        it: "alcol benzilico",
+                        nl: "benzylalcohol",
+                        pt: "álcool benzílico",
+                        ru: "бензиловый спирт",
+                        ja: "ベンジルアルコール",
+                        zh: "苯甲醇",
+                        ko: "벤질 알코올",
+                        ar: "كحول بنزيل",
+                        hi: "बेंजिल अल्कोहल",
+                        id: "alkohol benzil",
+                        tr: "benzil alkol",
+                        pl: "alkohol benzylowy",
+                        sv: "bensylalkohol",
+                        da: "benzylalkohol",
+                        no: "benzylalkohol",
+                        cs: "benzylalkohol",
+                        hu: "benzil-alkohol",
+                        vi: "benzyl alcohol"
+                    },
+                    pubchemid: null,
+                    self_id: "benzyl_alcohol",
+                    molecular_weight: 108.14,
+                    density: 1.044,
+                    viscosityArray: [5.474],
+                    viscosityTempArray: [25],
+                    mls: 5,
+                    grams: 5.220000000000001,
+                    v_v_percent: 5,
+                    mg_per_ml: 52.20000000000001,
+                    purity: 100,
+                    basis: "v_v_percent",
+                    input: 0,
+                    qsMode: false,
+                    pricePerUnit: 0.11
+                },
+                {
+                    id: "6639bedb-8a42-4230-a84a-56974fc4fa53",
+                    class: "excipient",
+                    name: "sesame oil",
+                    translations: {
+                        en: "sesame oil",
+                        fr: "huile de sésame",
+                        es: "aceite de sésamo",
+                        de: "Sesamöl",
+                        it: "olio di sesamo",
+                        nl: "sesamolie",
+                        pt: "óleo de gergelim",
+                        ru: "кунжутное масло",
+                        ja: "ごま油",
+                        zh: "芝麻油",
+                        ko: "참기름",
+                        ar: "زيت السمسم",
+                        hi: "तिल का तेल",
+                        id: "minyak wijen",
+                        tr: "susam yağı",
+                        pl: "olej sezamowy",
+                        sv: "sesamolja",
+                        da: "sesamolie",
+                        no: "sesamolje",
+                        cs: "sezamový olej",
+                        hu: "szezámolaj",
+                        vi: "dầu mè"
+                    },
+                    cas_no: "8008-74-0",
+                    pubchemid: null,
+                    self_id: "sesame",
+                    molecular_weight: null,
+                    density: 0.92,
+                    viscosityArray: [45],
+                    viscosityTempArray: [25],
+                    mls: 75.8,
+                    grams: 69.736,
+                    v_v_percent: 75.8,
+                    mg_per_ml: 697.36,
+                    purity: 100,
+                    basis: "q.s.",
+                    input: 0,
+                    qsMode: false,
+                    pricePerUnit: 0
+                },
+                {
+                    id: "7677a7cf-22a6-4b26-adca-899422de67b0",
+                    class: "ingredient",
+                    name: "Nandrolone decanoate",
+                    translations: {
+                        en: "nandrolone decanoate",
+                        fr: "décanoate de nandrolone",
+                        es: "decanoato de nandrolona",
+                        de: "Nandrolondekanoat",
+                        it: "decanoato di nandrolone",
+                        nl: "nandrolondecanoaat",
+                        pt: "decanoato de nandrolona",
+                        ru: "деканоат нандролона",
+                        ja: "ナンドロロンデカン酸エステル",
+                        zh: "癸酸诺龙",
+                        ko: "난드롤론 데카노에이트",
+                        ar: "ديكانوات ناندرولون",
+                        hi: "नैंड्रोलोन डिकानोएट",
+                        id: "nandrolon dekanoat",
+                        tr: "nandrolon dekanoat",
+                        pl: "dekanian nandrolonu",
+                        sv: "nandrolondekanoat",
+                        da: "nandrolondekanoat",
+                        no: "nandrolondekanoat",
+                        cs: "nandrolon dekanoát",
+                        hu: "nandrolon-dekanoát",
+                        vi: "nandrolone decanoate"
+                    },
+                    pubchemid: null,
+                    self_id: "nandrolone_decanoate",
+                    molecular_weight: 428.63,
+                    density: 1.0416666666666667,
+                    displacement: 0.96,
+                    melting_point: [30, 35],
+                    mls: 19.2,
+                    grams: 20,
+                    v_v_percent: 19.2,
+                    mg_per_ml: 200,
+                    purity: 100,
+                    basis: "mg_per_ml",
+                    input: 0,
+                    qsMode: false,
+                    pricePerUnit: 0.92
+                }
+            ]
+        }
+    ];
 
-    // Load the original box image you uploaded
+    let currentLanguage ="en";
+    updateText();
+    // Custom function to wrap text inside a box
+    function wrapText(text, x, y, maxWidth, lineHeight, draw = true) {
+        if (!text || text.trim() === '') return lineHeight;
+
+        const words = text.split(' ');
+        let line = '';
+        let currentY = y;
+        let totalHeight = lineHeight;
+
+        ctx.textBaseline = "top";
+
+        for (let n = 0; n < words.length; n++) {
+            const testLine = line + words[n] + ' ';
+            const metrics = ctx.measureText(testLine);
+
+            if (metrics.width > maxWidth && n > 0) {
+                if (draw) ctx.fillText(line.trim(), x, currentY);
+                line = words[n] + ' ';
+                currentY += lineHeight;
+                totalHeight += lineHeight;
+            } else {
+                line = testLine;
+            }
+        }
+
+        if (draw) ctx.fillText(line.trim(), x, currentY);
+
+        return totalHeight;
+    }
+
+    // Load original image and return a Promise
     function loadOriginal() {
-        const img = new Image();
-        img.crossOrigin = "anonymous";
-        img.src = "/home/workdir/attachments/image.jpeg";   // or use a public URL if needed
-        img.onload = () => {
-            originalImage = img;
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            console.log("Original box loaded");
-        };
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.src = "./blank.png";   // or use a public URL if needed
+
+            img.onload = () => {
+                originalImage = img;
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                resolve();   // Important: resolve when image is loaded
+            };
+
+            img.onerror = () => {
+                console.error("Failed to load image");
+                alert("Could not load original box image.");
+            };
+        });
     }
 
     // Update text on specific areas (you can extend this)
     function updateText() {
         if (!originalImage) {
-            alert("Load the original image first");
+            //alert("Load the original image first");
             return;
         }
 
@@ -56,12 +240,191 @@
         ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
 
         ctx.fillStyle = "black";
-        ctx.font = "bold 28px Arial";
+        ctx.font = "bold 12px Arial";
 
-        // Example positions - you will need to adjust these coordinates
-        ctx.fillText(document.getElementById('ndc').value, 80, 180);
-        ctx.fillText(document.getElementById('lot').value, 80, 650);
-        ctx.fillText(document.getElementById('exp').value, 420, 650);
+        // 1. Big Bold Title
+        ctx.font = "bold 29px Arial";
+        wrapText(
+            "Nandrolone decanoate",
+            300,           // x position
+            380,          // y position (starting point)
+            210,          // max width (in pixels) - adjust to fit your panel
+            32            // line height
+        );
+        wrapText(
+            "Nandrolone decanoate",
+            765,           // x position
+            380,          // y position (starting point)
+            210,          // max width (in pixels) - adjust to fit your panel
+            32            // line height
+        );
+        ctx.font = "bold 23px Arial";
+        ctx.fillStyle = "#000000";           // Dark green like reference
+        ctx.fillText("200mg/mL", 330, 495);
+        ctx.fillText("200mg/mL", 795, 495);
+
+
+        ctx.font = "italic 26px 'Times New Roman'";
+        ctx.fillStyle = "black";
+        ctx.fillText("Injection, USP", 300, 450);
+        ctx.fillText("Injection, USP", 765, 450);
+
+        ctx.font = "italic 20px 'Times New Roman'";
+        ctx.fillText("Multi-Dose Vial", 500, 350);
+
+        ctx.font = "16px Georgia";
+        ctx.fillStyle = "#333";
+        ctx.fillText("Batch: ", 500, 380);
+        ctx.fillText("Mfg Date: ", 500, 400);
+        ctx.fillText("Exp Date: ", 500, 420);
+        ctx.font = "bold 16px Helvetica";
+        ctx.fillStyle = "#d32f2f";           // Red color
+        ctx.textAlign = "center";
+        ctx.fillText("NOT FOR RESALE", 600, 480);
+        ctx.textAlign = "left";
+
+
+        ctx.font = "bold 11px Helvetica";
+        ctx.fillStyle = "#d32f2f";           // Red color
+        wrapText(
+            "Warming and shaking the vial should redissolve any crystals that may have formed during storage at temperatures lower than recommended.",
+            50,           // x position
+            530,          // y position (starting point)
+            180,          // max width (in pixels) - adjust to fit your panel
+            13            // line height
+        );
+
+        ctx.font = "16px Helvetica";
+        ctx.fillStyle = "black";
+        ctx.textAlign = "center";
+        wrapText(
+            "Contains Benzyl Benzoate " +
+            "as a Preservative",
+            390,           // x position
+            600,          // y position (starting point)
+            210,          // max width (in pixels) - adjust to fit your panel
+            32            // line height
+        );
+        wrapText(
+            "Contains Benzyl Benzoate " +
+            "as a Preservative",
+            860,           // x position
+            600,          // y position (starting point)
+            210,          // max width (in pixels) - adjust to fit your panel
+            32            // line height
+        );
+        ctx.font = "bold 15px Helvetica";
+        wrapText(
+            "For Intramusclar Use Only",
+            390,           // x position
+            680,          // y position (starting point)
+            210,          // max width (in pixels) - adjust to fit your panel
+            32            // line height
+        );
+        wrapText(
+            "For Intramusclar Use Only",
+            860,           // x position
+            680,          // y position (starting point)
+            210,          // max width (in pixels) - adjust to fit your panel
+            32            // line height
+        );
+
+        // === Simple EXP Barcode (Month + Year) ===
+        const today = new Date();
+        const month = String(today.getMonth() + 1).padStart(2, '0');  // 06
+        const year = today.getFullYear();                              // 2026
+
+        const expText = `EXP ${month}/${year}`;   // Example: EXP 06/2026
+        // Create temporary canvas for barcode
+        const barcodeCanvas = document.createElement('canvas');
+        JsBarcode(barcodeCanvas, expText, {
+            format: "CODE128",      // Good for pharma (or use "CODE39", "EAN13", etc.)
+            width: 1.25,
+            height: 60,
+            displayValue: true,     // Show number below barcode
+            fontSize: 14,
+            textAlign: "center",
+            textPosition: "bottom"
+        });
+
+        // Draw barcode onto main canvas
+        ctx.drawImage(barcodeCanvas, 500, 660);
+
+        let lines = [];
+
+        // === formatting helpers ===
+        const LABEL_COLUMN = 28;
+        const NUMBER_WIDTH = 10;
+
+        const formatNumber = (num) =>
+            new Intl.NumberFormat([currentLanguage, 'en']).format(Number(num || 0)
+                .toFixed(2)
+                .padStart(NUMBER_WIDTH));
+
+        const formatLine = (label, value, unit = '') =>
+            label.padEnd(LABEL_COLUMN) + `${formatNumber(value)} ${unit}`;
+
+        // Compounds
+        let lineHeight = 16;
+        let index =0;
+        let x = 40;
+        let y = 360;
+        ctx.textAlign = "left";
+        ctx.font = "14px Arial";
+        ctx.fillText("Each mL contains:", x, y-20);
+
+        const DECIMAL_COLUMN = 255;   // X position where the numbers should align
+
+        solution[0].compounds.forEach(compound => {
+            console.log(compound);
+            let compoundName = compound.translations?.[currentLanguage] || compound.name;
+
+            let valueText = '';
+            let unit = '';
+
+            if (compound.basis === 'mg_per_ml') {
+                valueText = new Intl.NumberFormat([currentLanguage, 'en']).format(compound.mg_per_ml);
+                unit = 'mg/mL';
+            } else if (compound.basis === 'q.s.') {
+                valueText = '';
+                unit = 'q.s.';
+            } else {
+                valueText = new Intl.NumberFormat([currentLanguage, 'en']).format(compound.v_v_percent.toFixed(2));
+                unit = '% v.v';
+            }
+
+            const fullValue = `${valueText} ${unit}`;
+
+            // === Draw Compound Name (Left aligned) ===
+            ctx.fillStyle = "black";
+            ctx.font = "12px Arial";
+            ctx.textAlign = "left";
+            let textHeight = wrapText(compoundName, x, y, 180, lineHeight);   // limit width for name
+
+            // === Draw Value (Right aligned) ===
+            ctx.textAlign = "right";
+            ctx.fillText(fullValue, DECIMAL_COLUMN, y);
+
+            // Optional: Draw dots between them
+            const labelWidth = ctx.measureText(compoundName).width;
+
+            let space = (60 - (unit.length + fullValue.length + valueText.length + compoundName.length));
+            if (space < 0) space = 0;
+            ctx.textAlign = "left";
+            //ctx.fillText(".".repeat(space), dotsStartX, y);   // long dots
+
+            y = textHeight +y;
+            //y += lineHeight;
+        });
+
+        ctx.font = "12px Arial";
+        ctx.textAlign = "left";
+        wrapText("Store at 20c to 25c (68F to 77F) [See USP Controlled Room Temperature].",
+            40, 650, 220, lineHeight);   // limit width for name
+        ctx.font = "bold 12px Arial";
+
+        wrapText("Store product in the carton to protect contents from light.",
+            40, 720, 220, lineHeight);   // limit width for name
 
         // Add more text replacements, logos, etc.
     }
@@ -88,6 +451,14 @@
         };
         reader.readAsDataURL(file);
     });
+
+    // Auto load when page opens
+    window.onload = () => {
+        loadOriginal().then(() => {
+            updateText();        // Automatically update after image loads
+            console.log("✅ Original box loaded and updated");
+        });
+    };
 </script>
 
 </body>

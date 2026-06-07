@@ -297,7 +297,7 @@ function compoundApp() {
             );
 
             console.log(`Running MLS: ${runningMls} Running Grams: ${runningGrams} Running V_v_percent: ${runningV_v_percent}`);
-
+            console.log(this.solutionMeasurements);
             if (runningMls !== this.settings.totalVolume || runningGrams !== totals.grams || runningV_v_percent !== 100) {
                 alert(`Calculation Error.`)
             }

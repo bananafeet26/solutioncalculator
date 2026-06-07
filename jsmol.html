@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSmol Viewer - SMILES + MOL</title>
+    <script src="https://chemapps.stolaf.edu/jmol/jsmol/JSmol.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #viewer { width: 800px; height: 600px; border: 1px solid #ccc; }
+        input, button { margin: 5px; padding: 8px; }
+    </style>
+    <script src="./scripts/compounds.js"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+
+</head>
+<body>
+<h1>JSmol Viewer</h1>
+<script>
+    var Info = {
+        width: 800,
+        height: 600,
+        debug: false,
+        color: "#FFFFFF",
+        use: "HTML5",
+        j2sPath: "https://chemapps.stolaf.edu/jmol/jsmol/j2s",
+        script: "set antialiasDisplay ON; background white; zoom 100;"
+    };
+
+    var jmolApplet = Jmol.getApplet("jmolApplet", Info);
+
+    // Load a default molecule
+    Jmol.script(jmolApplet, 'load $CCO;');  // Ethanol as example
+</script>
+<div class="container" x-data="jsmolApp()" x-init="init()">
+    <!-- Controls -->
+    <div class="controls">
+        <label>
+            Compound:
+            <select x-model="selectedId" @change="loadSelected()" style="min-width: 320px;">
+                <option value="">-- Select a compound --</option>
+                <template x-for="compound in compounds" :key="compound.self_id">
+                    <option :value="compound.self_id" x-text="compound.name"></option>
+                </template>
+            </select>
+        </label>
+
+        <br>
+
+        <input type="text" x-model="customSmiles" placeholder="Or enter custom SMILES..." size="60">
+        <button @click="loadCustomSmiles()">Load SMILES</button>
+        <button @click="resetView()">Reset View</button>
+    </div>
+
+    <!-- JSmol Viewer -->
+    <div id="jsmolDiv"></div>
+
+    <!-- Info -->
+    <div class="mt-3">
+        <h3 x-text="selectedCompound?.name"></h3>
+        <small x-text="selectedCompound?.smiles"></small>
+    </div>
+
+</div>
+
+<script>
+    function jsmolApp() {
+        return {
+            selectedId: '',
+            customSmiles: '',
+            compounds: compounds || [],
+            jmolApplet: jmolApplet,
+            compounds: compounds,
+            selectedCompound: 'benzyl_alcohol',
+            init() {
+
+            },
+            get selectedCompound() {
+                return this.compounds.find(c => String(c.self_id) === String(this.selectedId));
+            },
+
+            loadSelected() {
+                const compound = this.selectedCompound;
+                if (!compound?.smiles || !this.jmolApplet) return;
+
+                Jmol.script(this.jmolApplet, `
+                    load $${compound.smiles};
+                    delay 0.6;
+                    zoom 85;
+                    rotate y 25;
+                    refresh;
+                `);
+            },
+
+            loadCustomSmiles() {
+                if (this.customSmiles && this.jmolApplet) {
+                    Jmol.script(jmolApplet, `load $${this.customSmiles};`);
+                }
+            },
+
+
+            resetView() {
+                if (this.jmolApplet) {
+                    Jmol.script(this.jmolApplet, 'reset; zoom 80;');
+                }
+            }
+        };
+    }
+</script>
+
+</body>
+
+</html>

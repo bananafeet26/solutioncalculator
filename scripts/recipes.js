@@ -147,7 +147,6 @@ var recipes = [
         compoundConcentration: [30,60,60,100],
     },
     {
-        // Source: https://www.medsafe.govt.nz/profs/datasheet/s/sustanoninj.pdf
         id: crypto.randomUUID(),
         name: "Testoboon CP 250mg/mL",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
