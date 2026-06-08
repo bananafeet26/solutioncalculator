@@ -52,6 +52,13 @@ var blurbs = [
         mode_of_action: `DHEA primarily acts as a metabolic intermediate and precursor that is converted in peripheral tissues to more potent androgens (e.g., testosterone, DHT) and estrogens (e.g., estradiol). It also exerts direct weak agonist effects on nuclear receptors and modulates various membrane receptors and signaling pathways.`,
         molecular_target: `Androgen receptor (weak partial agonist), Estrogen receptors (ERα and ERβ, with preference for ERβ), PPARα, sigma-1 receptor; negative allosteric modulator (NAM) of GABA_A receptors (especially as DHEA-S), positive modulator of NMDA receptors`,
         therapeutic_class: `Hormone precursors / Androgens / Neurosteroids / Dietary supplements`
-    }
+    },
+    {
+        parent_molecule: '17a-steroid',
+        blurb: `17α-Alkylated anabolic-androgenic steroids (AAS) are synthetic derivatives of testosterone, dihydrotestosterone (DHT), or related androstane steroids that contain an alkyl substituent at the C17α position. This structural modification reduces first-pass hepatic metabolism and confers oral bioavailability. Members of this class retain the characteristic steroid nucleus and multiple stereogenic centres required for androgen receptor binding, while additional structural modifications influence their anabolic, androgenic, and metabolic properties. Although 17α-alkylation enhances oral activity and systemic exposure, it is also associated with increased hepatic burden compared with non-alkylated anabolic steroids.`,
+        mode_of_action: `17α-Alkylated anabolic-androgenic steroids exert their effects primarily through binding to and activation of intracellular androgen receptors (AR). Following receptor activation, the ligand-receptor complex undergoes dimerization, translocates to the nucleus, and interacts with androgen response elements (AREs) to regulate transcription of genes involved in protein synthesis, nitrogen retention, erythropoiesis, skeletal muscle growth, bone metabolism, and other androgen-dependent physiological processes. The magnitude of anabolic and androgenic activity varies among individual compounds according to their structural modifications and tissue-specific metabolism.`,
+        molecular_target: `Androgen receptor (AR), agonist. Secondary pharmacological effects may arise from compound-specific metabolites or interactions with other steroid hormone pathways.`,
+        therapeutic_class: `Androgens / Anabolic agents for systemic use; 17α-alkylated anabolic-androgenic steroids`
+    },
 
 ]
