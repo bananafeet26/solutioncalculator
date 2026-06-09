@@ -92,8 +92,11 @@
     <!-- Ester Formulation & Physical Properties -->
     <template x-if="selectedCompound && selectedCompound.self_id !== selectedCompound.parent_molecule">
         <div class="mb-5">
-
             <h4 class="h5 fw-bold border-bottom pb-2 mb-3 text-dark">Ester & Physical Properties</h4>
+
+            <div>
+                <canvas id="2dmole"  style="max-height: 380px;"></canvas>
+            </div>
 
             <div class="row g-3 mb-4">
                 <div class="col-md-6">
@@ -154,9 +157,6 @@
     <div>
         <h4 class="h5 fw-bold border-bottom pb-2 mb-3 text-dark">Parent Properties <span style="text-transform: capitalize;" x-text="'(' + getParent.parent_molecule + ')'"></span></h4>
 
-            <div>
-                <canvas id="2dmole"  style="max-height: 380px;"></canvas>
-            </div>
             <div class="mb-4">
                 <p class="mb-1"><span class="fw-bold text-secondary me-1">Therapeutic Class:</span> <span
                         x-text="getParent.therapeutic_class"></span></p>

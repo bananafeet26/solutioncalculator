@@ -3595,7 +3595,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         image: null,
         smiles: 'CC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=CC(=O)C=C[C@]34C)C',
         blurbHTML: `<p>
-    Boldenone acetate is the oil-soluble 17β-acetate ester of boldenone (prodrug/controlled release vehicle). It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+    Boldenone acetate is the oil-soluble 17β-acetate ester of boldenone (prodrug/controlled release vehicle). It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
 </p>
 
 <p>
@@ -3666,7 +3666,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         image: null,
         smiles: 'C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCCCCCCCC=C)CCC4=CC(=O)C=C[C@]34C',
         blurbHTML: `<p>
-    Boldenone undecylenate is the oil-soluble 17β-undec-10-enoate ester of boldenone (prodrug/controlled release vehicle). It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+    Boldenone undecylenate is the oil-soluble 17β-undec-10-enoate ester of boldenone (prodrug/controlled release vehicle). It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
 </p>
 
 <p>
