@@ -33,6 +33,7 @@ var compounds = [
         density: 1.118,
         viscosityArray: [8.292],
         viscosityTempArray: [25],
+        melting_point: [18.85, 21.84],
         mls: 0,
         grams: 0,
         v_v_percent: 2,
@@ -43,7 +44,9 @@ var compounds = [
         qsMode: false,
         pricePerUnit: 0.198,
         cas_no: '120-51-4',
-        smiles: 'O=C(OCc1ccccc1)c2ccccc2'
+        log_p: 3.044,
+        smiles: 'O=C(OCc1ccccc1)c2ccccc2',
+        formula:'C14H12O2'
     },
     {
         id: 'd77898ce-7068-4633-9d7a-539a15265dc2',
@@ -203,7 +206,7 @@ var compounds = [
         id: '0b90c6fb-9dcd-4b9e-bb41-4543872157ff',
         class: 'excipient',
         name: 'chlorobutanol',
-        log_p: 0.9976999999999998,
+        log_p: 2.128,
         translations: {
             en: 'chlorobutanol',
             fr: 'chlorobutanol',
@@ -230,11 +233,11 @@ var compounds = [
         },
         pubchemid: null,
         self_id: 'chlorobutanol',
-        molecular_weight: 108.567,
+        molecular_weight: 177.45,
         density: 1.317,
         viscosityArray: [10],
         viscosityTempArray: [100],
-        melting_point: [78, 95],
+        melting_point: [95,99],
         mls: 0,
         grams: 0,
         v_v_percent: 20,
@@ -244,27 +247,13 @@ var compounds = [
         input: 0,
         qsMode: false,
         pricePerUnit: 0.11,
-        cas_no: '928-51-8',
-        image: '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',
-        mol2d: '4-Chloro-1-butanol\n' +
-            'Chemeo Renderer - https://www.chemeo.com\n' +
-            'More info - https://www.chemeo.com/cid/37-405-1\n' +
-            '  6  5  0  0  0  0  0  0  0  0999 V2000\n' +
-            '    3.2624   -0.2097    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '    1.9270    0.4734    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '    0.6677   -0.3416    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '   -0.6677    0.3416    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '   -1.9270   -0.4734    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '   -3.2624    0.2097    0.0000 Cl  0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '  1  2  1  0\n' +
-            '  2  3  1  0\n' +
-            '  3  4  1  0\n' +
-            '  4  5  1  0\n' +
-            '  5  6  1  0\n' +
-            'M  END\n',
+        cas_no: '57-15-8',
+        image: '',
+        mol2d: '',
         mol3d: undefined,
-        formula: 'C4H9ClO',
-        smiles: 'OCCCCCl'
+        formula: 'C4H7Cl3O',
+        smiles: 'ClC(Cl)(Cl)C(C)(C)O',
+        blurb:"Chlorobutanol is a chemical compound known as 1,1,1-trichloro-2-methyl-2-propanol. It is a chlorinated tertiary alcohol with antimicrobial and anesthetic properties.",
     },
     {
         id: 'faca1ddd-98d7-4474-8533-eefbcff3a633',
@@ -411,7 +400,8 @@ var compounds = [
         mol3d: undefined,
         log_p: 6.587,
         formula: 'C20H38O2',
-        smiles: 'CCCCCCCCC=CCCCCCCCC(=O)OCC'
+        smiles: 'CCCCCCCCC=CCCCCCCCC(=O)OCC',
+        blurb: 'Ethyl oleate is an organic compound classified as a fatty acid ester, specifically the ethyl ester of oleic acid. It has the molecular formula C20H38O2 and is a colorless to pale yellow liquid with a mild odor. It is slightly soluble in water but highly soluble in organic solvents such as ethanol, chloroform, and ether. Ethyl oleate is naturally present in trace amounts in some animal fats and vegetable oils, and it can be synthesized through the esterification of oleic acid with ethanol under acid-catalyzed conditions. This reaction is a typical example of Fischer esterification, where an alcohol reacts with a carboxylic acid in the presence of an acid catalyst to form an ester and water. '
     },
     {
         id: '7936e672-b600-4368-8f88-1fc9c3d16e32',
@@ -963,7 +953,22 @@ var compounds = [
         mol3d: undefined,
         smiles: 'C[C@]12CC[C@H]3[C@@H]([C@@H]1CC[C@@H]2OC(=O)CCC4CCCC4)CCC5=CC=C(O)C=C35',
         formula: 'C26H36O3',
-        blurb:    'Estradiol cypionate is a 17 alpha-cyclopentylpropinate ester of estradiol, inhibits ET-1 synthesis via estrogen receptor; IC50 value:; Target: estrogen receptor; Estradiol cypionate is a synthetic ester, is a estrogen.'
+        blurbHTML:   `<p>
+    Estradiol cypionate is a 17β-cyclopentylpropionate ester of estradiol. This esterification significantly increases the lipophilicity of the molecule, allowing for the creation of an intramuscular depot that provides a sustained release of active estradiol over an extended period.
+</p>
+
+<p>
+    <strong>Pharmacokinetic Profile:</strong>
+    <ul>
+        <li><strong>C<sub>max</sub>:</strong> Approximately 200–300 pg/mL (based on a typical 5mg intramuscular dose).</li>
+        <li><strong>T<sub>max</sub>:</strong> 2 to 4 days post-injection, reflecting slow absorption from the oil-based depot.</li>
+        <li><strong>T<sub>1/2</sub> (Terminal Half-Life):</strong> Approximately 8 to 10 days.</li>
+    </ul>
+</p>
+
+<p>
+    The long terminal half-life is governed by the rate-limiting step of ester cleavage and clearance from the intramuscular site, rather than the intrinsic half-life of estradiol itself. 
+</p>`,
     },
     {
         id: '6a25e544-4d0e-442c-9eae-8c0033ed51db',
@@ -1014,7 +1019,23 @@ var compounds = [
         mol2d: null,
         mol3d: null,
         image: null,
-        smiles: 'CCCCCCC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=C3C=CC(=C4)O)C'
+        smiles: 'CCCCCCC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=C3C=CC(=C4)O)C',
+        blurbHTML: `<p>
+    Estradiol enanthate is a 17β-enanthate (heptanoate) ester of 17β-estradiol. This esterification significantly increases the lipophilicity of the molecule, allowing for the creation of an intramuscular oil depot that provides sustained release of active estradiol over an extended period.
+</p>
+
+<p>
+    <strong>Pharmacokinetic Profile (IM injection, ~5 mg dose):</strong>
+    <ul>
+        <li><strong>C<sub>max</sub>:</strong> Approximately 160–210 pg/mL.</li>
+        <li><strong>T<sub>max</sub>:</strong> 4 to 6.5 days post-injection.</li>
+        <li><strong>T<sub>½</sub> (Terminal Half-Life):</strong> Approximately 5.6–7.5 days.</li>
+    </ul>
+</p>
+
+<p>
+    The long terminal half-life is governed by the rate-limiting step of ester cleavage and slow absorption from the oil-based depot, rather than the intrinsic half-life of estradiol itself. Compared to estradiol valerate, enanthate typically peaks later and provides a longer duration of action; it is intermediate in profile between valerate and cypionate.
+</p>`
     },
     {
         id: '4c877e8a-a3da-4457-899e-7b22527c13cc',
@@ -1127,7 +1148,22 @@ var compounds = [
         mol3d: undefined,
         formula: 'C23H32O3',
         smiles: 'CCCCC(=O)OC1CCC2C3CCc4cc(O)ccc4C3CCC12C',
-        blurb: `Estradiol valerate is a 17β-valerate (pentanoate) ester of 17β-estradiol, serving as a depot prodrug for sustained estrogen release. Esterification at C17 increases oil solubility for intramuscular administration, providing a release profile of ~1–3 weeks. It exhibits no additional stereoisomerism from the ester chain but preserves the critical 17β-hydroxyl orientation essential for high-affinity binding to estrogen receptors. The 17α-stereoisomer analog is far less active. Upon hydrolysis, the liberated estradiol is subject to phase II metabolism, including regioisomeric glucuronidation at C3 or C17, forming water-soluble conjugates with differing pharmacokinetic fates (e.g., biliary vs. urinary excretion). Compared to cypionate, valerate typically peaks faster and has a shorter overall duration.`
+        blurbHTML: `<p>
+    Estradiol valerate is a 17β-valerate (pentanoate) ester of 17β-estradiol. This esterification increases the lipophilicity of the molecule, enabling the formation of an intramuscular oil depot that provides sustained release of active estradiol over an extended period.
+</p>
+
+<p>
+    <strong>Pharmacokinetic Profile (IM injection, ~5 mg dose):</strong>
+    <ul>
+        <li><strong>C<sub>max</sub>:</strong> Approximately 295 pg/mL.</li>
+        <li><strong>T<sub>max</sub>:</strong> ~2 days post-injection (range ~1.5–2.5 days).</li>
+        <li><strong>T<sub>½</sub> (Terminal Half-Life):</strong> Approximately 3–5 days (average ~3.5 days, range 1.2–7.2 days).</li>
+    </ul>
+</p>
+
+<p>
+    The release profile is governed by the rate-limiting hydrolysis of the ester and slow absorption from the oil depot. Compared to estradiol cypionate, valerate typically reaches peak levels faster and has a shorter overall duration of action.<grok-card data-id="865205" data-type="citation_card" data-plain-type="render_inline_citation" ></grok-card><grok-card data-id="b07c6c" data-type="citation_card" data-plain-type="render_inline_citation" ></grok-card>
+</p>`
     },
     {
         id: '0d87b9d1-5f33-4c39-bb80-ce7bd0c9fda3',
@@ -1438,7 +1474,27 @@ var compounds = [
         mol3d: undefined,
         log_p: 4.45,
         formula: 'C21H30O3',
-        smiles: 'CC(=O)OC1CCC2C3CCC4=CC(=O)CCC4(C)C3CCC12C'
+        smiles: 'CC(=O)OC1CCC2C3CCC4=CC(=O)CCC4(C)C3CCC12C',
+        blurbHTML: `<p>
+    Testosterone acetate is the oil-soluble 17β-acetate ester of the androgenic hormone testosterone. It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+</p>
+
+<p>
+    The chemical name for Testosterone acetate is androst-4-en-3-one, 17-(acetyloxy)-, (17β)-. Esterification enhances lipophilicity, supporting a short-acting intramuscular depot formulation.
+</p>
+
+<p>
+    <strong>Pharmacokinetic Profile (IM injection):</strong>
+    <ul>
+        <li><strong>T<sub>max</sub>:</strong> ~8–24 hours post-injection.</li>
+        <li><strong>C<sub>max</sub>:</strong> Rapid peak (dose-dependent; significantly higher fluctuations than longer esters).</li>
+        <li><strong>T<sub>½</sub>:</strong> Less than 1 day (approximately 0.8–1 day).</li>
+    </ul>
+</p>
+
+<p>
+    The short release profile makes it suitable for more frequent dosing compared to longer-acting esters such as cypionate or enanthate. It requires administration every 1–2 days to maintain stable levels.
+</p>`
     },
     {
         id: '5e9333a6-3779-4443-b004-0d7338efd2fc',
@@ -1488,7 +1544,27 @@ var compounds = [
         mol2d: null,
         mol3d: null,
         image: null,
-        smiles: 'CC(C)CCC(=O)OC1CCC2C1(CCC3C2CCC4=CC(=O)CCC34C)C'
+        smiles: 'CC(C)CCC(=O)OC1CCC2C1(CCC3C2CCC4=CC(=O)CCC34C)C',
+        blurbHTML:`<p>
+    Testosterone isocaproate is the oil-soluble 17β-(4-methylpentanoate) ester of the androgenic hormone testosterone. It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+</p>
+
+<p>
+    The chemical name for Testosterone isocaproate is androst-4-en-3-one, 17-[(4-methyl-1-oxopentyl)oxy]-, (17β)-. Esterification enhances lipophilicity, supporting a medium-acting intramuscular depot formulation.
+</p>
+
+<p>
+    <strong>Pharmacokinetic Profile (as component of mixed ester formulations such as Sustanon):</strong>
+    <ul>
+        <li><strong>T<sub>max</sub>:</strong> ~2–4 days post-injection.</li>
+        <li><strong>C<sub>max</sub>:</strong> Dose-dependent; contributes to intermediate peak levels in blended products.</li>
+        <li><strong>T<sub>½</sub>:</strong> Approximately 4–6 days (reported up to ~9 days in some blend analyses).</li>
+    </ul>
+</p>
+
+<p>
+    The intermediate release profile makes it suitable for balancing rapid onset and sustained duration in mixed testosterone ester formulations, providing more stable levels than short esters while requiring less frequent dosing than very long esters.
+</p>`
     },
     {
         id: 'da9daed2-44d8-4a7c-9dfd-981f069f3da5',
@@ -1597,7 +1673,27 @@ var compounds = [
         mol3d: undefined,
         log_p: 4.8401,
         formula: 'C22H32O3',
-        smiles: 'CCC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=CC(=O)CC[C@]34C)C'
+        smiles: 'CCC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=CC(=O)CC[C@]34C)C',
+        blurbHTML:`<p>
+    Testosterone propionate is the oil-soluble 17β-propionate (propanoate) ester of the androgenic hormone testosterone. It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+</p>
+
+<p>
+    The chemical name for Testosterone propionate is androst-4-en-3-one, 17-(1-oxopropoxy)-, (17β)-. Esterification enhances lipophilicity, supporting a short-acting intramuscular depot formulation.
+</p>
+
+<p>
+    <strong>Pharmacokinetic Profile (IM injection):</strong>
+    <ul>
+        <li><strong>T<sub>max</sub>:</strong> ~24–48 hours (often ~3–24 hours for single component) post-injection.</li>
+        <li><strong>C<sub>max</sub>:</strong> Rapid and sharp peak (highly dose-dependent with significant fluctuations).</li>
+        <li><strong>T<sub>½</sub>:</strong> Approximately 0.8–1 day (~19–22 hours).</li>
+    </ul>
+</p>
+
+<p>
+    The short release profile makes it suitable for more frequent dosing compared to longer-acting esters such as cypionate or enanthate. It typically requires administration every 2–3 days (or more often) to maintain stable testosterone levels.
+</p>`
     },
     {
         id: '45f4099a-7695-4c67-a763-49621b028712',
@@ -1647,7 +1743,27 @@ var compounds = [
         mol3d: null,
         image: null,
         cas_no: '1255-49-8',
-        smiles: 'C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCC4=CC=CC=C4)CCC5=CC(=O)CC[C@]35C'
+        smiles: 'C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCC4=CC=CC=C4)CCC5=CC(=O)CC[C@]35C',
+        blurbHTML:`<p>
+    Testosterone phenylpropionate is the oil-soluble 17β-phenylpropionate ester of the androgenic hormone testosterone. It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+</p>
+
+<p>
+    The chemical name for Testosterone phenylpropionate is androst-4-en-3-one, 17-[(3-phenylpropanoyl)oxy]-, (17β)- (also known as testosterone hydrocinnamate). Esterification enhances lipophilicity, supporting a medium-acting intramuscular depot formulation.
+</p>
+
+<p>
+    <strong>Pharmacokinetic Profile (IM injection):</strong>
+    <ul>
+        <li><strong>T<sub>max</sub>:</strong> ~24–48 hours (as part of blends) to several days post-injection.</li>
+        <li><strong>C<sub>max</sub>:</strong> Rapid to intermediate peak (dose-dependent; contributes to early elevation in mixed formulations).</li>
+        <li><strong>T<sub>½</sub>:</strong> Approximately 4–5 days (range 3–5.5 days).</li>
+    </ul>
+</p>
+
+<p>
+    The intermediate release profile makes it suitable for balancing rapid onset with sustained action in mixed testosterone ester formulations (such as Sustanon 250). It requires less frequent dosing than short esters like propionate while providing faster release than longer esters like decanoate.
+</p>`
     },
     {
         id: 'ece861d0-56f0-4c7f-a0db-0306f4a815ff',
@@ -1768,14 +1884,25 @@ var compounds = [
         log_p: 6.4005,
         formula: 'C27H40O3',
         smiles: 'CC12CCC(=O)C=C1CCC1C2CCC2(C)C(OC(=O)CCC3CCCC3)CCC12',
-        blurb: 'Testosterone\n' +
-            'Cypionate, USP which is the oil-soluble 17 (beta)- cyclopentylpropionate ester of the\n' +
-            'androgenic hormone testosterone.\n' +
-            'Testosterone Cypionate, USP is a white or creamy white crystalline powder, odorless or\n' +
-            'nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform,\n' +
-            'dioxane, ether, and soluble in vegetable oils.\n' +
-            'The chemical name for Testosterone Cypionate, USP is androst-4-en-3-one,17-(3-\n' +
-            'cyclopentyl-1- oxopropoxy)-, (17β)-. '
+        blurbHTML: `<p>
+    Testosterone Cypionate which is the oil-soluble 17 (beta)- cyclopentylpropionate ester of the androgenic hormone testosterone.
+Testosterone Cypionate is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+The chemical name for Testosterone Cypionate is androst-4-en-3-one,17-(3-
+cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilicity, supporting a long-acting intramuscular depot formulation.
+</p>
+
+<p>
+    <strong>Pharmacokinetic Profile (IM TC 200 mg every 2 weeks):</strong>
+    <ul>
+        <li><strong>T<sub>max</sub>:</strong> 4–5 days post-injection.</li>
+        <li><strong>C<sub>max</sub>:</strong> 38.6 ± 10.3 nmol/L (1113 ± 297 ng/dL).</li>
+        <li><strong>T<sub>½</sub>:</strong> Approximately 8 days.</li>
+    </ul>
+</p>
+
+<p>
+    The prolonged release profile makes it suitable for less frequent dosing compared to shorter-acting esters.
+</p>`
     },
     {
         id: '8168e858-9e39-4b57-a7c5-400b4d54564d',
@@ -1892,7 +2019,24 @@ var compounds = [
         mol3d: undefined,
         log_p: 6.4005,
         formula: 'C26H40O3',
-        smiles: 'CCCCCCC(=O)OC1CCC2C3CCC4=CC(=O)CCC4(C)C3CCC12C'
+        smiles: 'CCCCCCC(=O)OC1CCC2C3CCC4=CC(=O)CCC4(C)C3CCC12C',
+        blurbHTML: `<p>
+    Testosterone enanthate (TE) is a 17β-heptanoate ester of testosterone. This esterification increases the lipophilicity of the molecule, enabling the formation of an intramuscular or subcutaneous depot that provides sustained release of active testosterone over an extended period.
+</p>
+
+<p>
+    <strong>Pharmacokinetic Profile (IM TE 100 mg/week):</strong>
+    <ul>
+        <li><strong>T<sub>max</sub>:</strong> Approximately 24.1 hours post-injection.</li>
+        <li><strong>C<sub>max</sub>:</strong> 30 ± 8.3 nmol/L (865 ± 239 ng/dL).</li>
+        <li><strong>C<sub>avg24</sub>:</strong> 19.8 ± 4.4 nmol/L (571 ± 127 ng/dL).</li>
+        <li><strong>T<sub>½</sub>:</strong> Approximately 7 days.</li>
+    </ul>
+</p>
+
+<p>
+    The terminal half-life is largely determined by the slow absorption and hydrolysis of the ester from the oil-based depot rather than the rapid clearance of free testosterone.
+</p>`
     },
     {
         id: 'eff38ba2-f886-4016-b173-c490fffe8026',
@@ -2015,7 +2159,27 @@ var compounds = [
         mol3d: undefined,
         log_p: 7.570799999999999,
         formula: 'C29H46O3',
-        smiles: 'CCCCCCCCCC(=O)OC1CCC2C3CCC4=CC(=O)CCC4(C)C3CCC12C'
+        smiles: 'CCCCCCCCCC(=O)OC1CCC2C3CCC4=CC(=O)CCC4(C)C3CCC12C',
+        blurbHTML: `<p>
+    Testosterone decanoate is the oil-soluble 17β-decanoate ester of the androgenic hormone testosterone. It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+</p>
+
+<p>
+    The chemical name for Testosterone decanoate is androst-4-en-3-one, 17-[(1-oxodecyl)oxy]-, (17β)- (also known as testosterone decylate). Esterification enhances lipophilicity, supporting a long-acting intramuscular depot formulation.
+</p>
+
+<p>
+    <strong>Pharmacokinetic Profile (IM injection, 400 mg):</strong>
+    <ul>
+        <li><strong>T<sub>max</sub>:</strong> ~1.5–3 days post-injection (significant levels reached rapidly, with peak often within the first few days).</li>
+        <li><strong>C<sub>max</sub>:</strong> ~31 nmol/L (893 ng/dL) after repeated dosing (steady-state).</li>
+        <li><strong>T<sub>½</sub>:</strong> Approximately 15–21 days.</li>
+    </ul>
+</p>
+
+<p>
+    The prolonged release profile supports dosing intervals of 2–4 weeks. It is most commonly used as the longest-acting component in mixed ester formulations such as Sustanon 250, but has also been studied as a standalone ester.
+</p>`
     },
     {
         id: '0f49f736-d65e-49a0-8013-327920701451',
@@ -2438,6 +2602,22 @@ var compounds = [
         image: null,
         cas_no: '5949-44-0',
         smiles: 'CCCCCCCCCCC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=CC(=O)CC[C@]34C)C',
+        blurbHTML: `<p>
+    Testosterone undecanoate (TU) is a long-chain fatty acid ester of testosterone designed for very slow release. Its high lipophilicity allows for extended-duration intramuscular depot injections.
+</p>
+
+<p>
+    <strong>Pharmacokinetic Profile (IM TU 1000 mg):</strong>
+    <ul>
+        <li><strong>T<sub>max</sub>:</strong> Approximately 7 days.</li>
+        <li><strong>C<sub>max</sub>:</strong> 42 nmol/L (1211 ng/dL).</li>
+        <li><strong>T<sub>½</sub>:</strong> Approximately 53 days.</li>
+    </ul>
+</p>
+
+<p>
+    This formulation enables infrequent administration (typically every 10–14 weeks after loading) due to its exceptionally long duration of action.
+</p>`
     },
     {
         id: '4a75c259-e3ee-4ed9-a263-db72938cec3e',
@@ -3413,7 +3593,27 @@ var compounds = [
         mol2d: null,
         mol3d: null,
         image: null,
-        smiles: 'CC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=CC(=O)C=C[C@]34C)C'
+        smiles: 'CC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=CC(=O)C=C[C@]34C)C',
+        blurbHTML: `<p>
+    Boldenone acetate is the oil-soluble 17β-acetate ester of boldenone. It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+</p>
+
+<p>
+    The chemical name for Boldenone acetate is (17β)-17-(acetyloxy)androsta-1,4-dien-3-one. Esterification enhances lipophilicity, supporting a short-acting intramuscular depot formulation.
+</p>
+
+<p>
+    <strong>Pharmacokinetic Profile (IM injection):</strong>
+    <ul>
+        <li><strong>T<sub>max</sub>:</strong> Rapid peak, typically within 24–48 hours.</li>
+        <li><strong>C<sub>max</sub>:</strong> Sharp and dose-dependent (higher fluctuations than longer esters).</li>
+        <li><strong>T<sub>½</sub>:</strong> Approximately 3 days.</li>
+    </ul>
+</p>
+
+<p>
+    The short release profile makes it suitable for more frequent dosing compared to longer-acting boldenone esters such as undecylenate or cypionate. It allows for faster onset and clearance, which is useful when quicker control over blood levels is desired.
+</p>`
     },
     {
         id: '2c6f2343-7b68-4e03-a39b-4a36759fac72',
@@ -3464,7 +3664,26 @@ var compounds = [
         mol2d: null,
         mol3d: null,
         image: null,
-        smiles: 'C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCCCCCCCC=C)CCC4=CC(=O)C=C[C@]34C'
+        smiles: 'C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCCCCCCCC=C)CCC4=CC(=O)C=C[C@]34C',
+        blurbHTML: `<p>
+    Boldenone undecylenate is the oil-soluble 17β-undec-10-enoate ester of boldenone. It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+</p>
+
+<p>
+    The chemical name for Boldenone undecylenate is (17β)-17-[(10E)-undec-10-enoyloxy]androsta-1,4-dien-3-one. Esterification enhances lipophilicity, supporting a long-acting intramuscular depot formulation.
+</p>
+
+<p>
+    <strong>Pharmacokinetic Profile (IM injection):</strong>
+    <ul>
+        <li><strong>T<sub>max</sub>:</strong> Significant levels within ~3–4 days.</li>
+        <li><strong>T<sub>½</sub>:</strong> Approximately 14 days.</li>
+    </ul>
+</p>
+
+<p>
+    The prolonged release profile makes it suitable for dosing every 2–4 weeks. It is primarily used in veterinary medicine (e.g., Equipoise) but has been used illicitly in humans for its strong anabolic effects with relatively mild androgenic activity.
+</p>`
     },
     {
         id: 'f5e27888-09c2-4c3f-aed6-dd990b269f86',
