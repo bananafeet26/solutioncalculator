@@ -52,7 +52,10 @@
                 <div
                         id="viewer"
                         class="w-100 border rounded bg-light"
-                        style="height: min(60vh, 300px); position: relative;">
+                        style="height: min(60vh, 300px); position: relative;"
+                        data-pdb="1UBQ"
+                        data-style="cartoon"
+                        data-spin="axis:y;speed:20">
                 </div>
             </div>
 
@@ -71,6 +74,14 @@
                                     x-text="compound.name + (compound?.blurbHTML ? '*' : '')"></option>
                         </template>
                     </select>
+                </label>
+                <!-- Spin Toggle -->
+                <label style="margin-left: 20px;">
+                    Spin:
+                    <input type="checkbox"
+                           x-model="spin"
+                           @change="toggleSpin()"
+                           id="spin-on">
                 </label>
 
             </div>

@@ -6,11 +6,15 @@ function jsmolApp() {
         viewer: null,
         drawer: null,
         contentHtml: '',
+        spin: true,
 
         init() {
+            // Ensure the div with id="viewer" exists in your HTML
             this.viewer = $3Dmol.createViewer("viewer", {
                 backgroundColor: "white"
             });
+
+
             this.drawer = new SmilesDrawer.Drawer({
                 width: 240,
                 height: 240,
@@ -26,6 +30,7 @@ function jsmolApp() {
                     }
                 }});
 
+            this.viewer.spin(this.spin);
             this.viewer.zoomTo();
             this.viewer.render();
 
@@ -74,7 +79,7 @@ function jsmolApp() {
                         scale: 0.25
                     }
                 });
-
+                this.viewer.spin(this.spin);
                 this.viewer.zoomTo();
                 this.viewer.render();
 
@@ -163,6 +168,18 @@ function jsmolApp() {
 
             this.viewer.zoomTo();
             this.viewer.render();
+        },
+        toggleSpin() {
+            console.log("toggle spin");
+            if (this.spin === true) {
+                this.spin = true;
+                console.log("Spin On")
+            } else {
+                this.spin = false;
+                console.log("Spin Off")
+            }
+            this.viewer.spin(this.spin);
+
         },
 
         get compoundsWithSmiles() {
