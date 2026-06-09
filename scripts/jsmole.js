@@ -45,7 +45,7 @@ function jsmolApp() {
                     this.loadSelected();
                 });
             });
-            //this.$watch('selectedId', () => this.loadSelected());
+            //zthis.$watch('selectedId', () => this.loadSelected());
 
         },
 

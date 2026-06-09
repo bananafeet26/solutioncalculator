@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>JSmol Viewer - SMILES + MOL</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="icon" href="faviconjsmole.ico">
+
+    <title>Chemistry and Pharmacology</title>
 
     <style>
         body {
@@ -43,12 +48,12 @@
 
 <div class="container" x-data="jsmolApp()" x-init="init()">
     <!-- Header -->
-    <h3 style="text-transform: capitalize;" class="mb-4 fw-bold text-center" x-text="selectedCompound?.name"></h3>
+    <h3 style="text-transform: capitalize;" class="mb-2 fw-bold text-center" x-text="selectedCompound?.name"></h3>
     <div class="row">
         <div class="col-12">
 
             <!-- WRAPPER DIV (IMPORTANT) -->
-            <div id="viewer-wrapper" class="mb-4">
+            <div id="viewer-wrapper" class="mb-2">
                 <div
                         id="viewer"
                         class="w-100 border rounded bg-light"
@@ -87,18 +92,18 @@
             </div>
         </div>
     </div>
-    <div class="bg-white p-4 p-md-5 border rounded shadow-sm mb-5">
+    <div class="bg-white p-2 p-md-5 border rounded shadow-sm mb-1">
 
         <!-- Ester Formulation & Physical Properties -->
         <template x-if="selectedCompound && selectedCompound.self_id !== selectedCompound.parent_molecule">
             <div class="mb-5">
-                <h4 class="h5 fw-bold border-bottom pb-2 mb-3 text-dark">Ester & Physical Properties</h4>
+                <h4 class="h5 fw-bold border-bottom pb-2 mb-2 text-dark">Ester & Physical Properties</h4>
 
                 <div>
                     <canvas id="2dmole" style="max-height: 380px;"></canvas>
                 </div>
 
-                <div class="row g-3 mb-4">
+                <div class="row g-3 mb-2">
                     <div class="col-md-6">
                         <ul class="list-group list-group-flush small border rounded shadow-sm">
                             <li class="list-group-item d-flex justify-content-between bg-light">
@@ -160,10 +165,10 @@
         </template>
         <template x-if="getParent">
             <div>
-                <h4 class="h5 fw-bold border-bottom pb-2 mb-3 text-dark">Parent Properties <span
+                <h4 class="h5 fw-bold border-bottom pb-2 mb-2 text-dark">Parent Properties <span
                         style="text-transform: capitalize;" x-text="'(' + getParent.parent_molecule + ')'"></span></h4>
 
-                <div class="mb-4">
+                <div class="mb-2">
                     <p class="mb-1"><span class="fw-bold text-secondary me-1">Therapeutic Class:</span> <span
                             x-text="getParent.therapeutic_class"></span></p>
                     <p class="mb-1"><span class="fw-bold text-secondary me-1">Structural Backbone:</span> <span
@@ -177,8 +182,8 @@
                     <div x-html="getParent.blurbHTML" class="mb-5 text-muted lh-lg"></div>
                 </template>
 
-                <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-4 text-dark">Receptor Interactions</h4>
-                <div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
+                <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">Receptor Interactions</h4>
+                <div class="row row-cols-1 row-cols-md-2 g-4 mb-2">
                     <template x-for="(receptor, rIndex) in getParent.receptor_interactions" :key="rIndex">
                         <div class="col">
                             <strong class="text-dark d-block mb-1" x-text="receptor.target_receptor"></strong>
@@ -205,8 +210,8 @@
                     </template>
                 </div>
 
-                <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-4 text-dark">Mechanistic Side Effects</h4>
-                <div class="mb-4">
+                <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">Mechanistic Side Effects</h4>
+                <div class="mb-2">
                     <template x-for="(effects, receptor_key) in getParent.receptor_linked_side_effects"
                               :key="receptor_key">
                         <details class="mb-2 border rounded bg-light">
@@ -226,8 +231,8 @@
                     </template>
                 </div>
 
-                <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-4 text-dark">Metabolic Pathways</h4>
-                <div class="table-responsive mb-4">
+                <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">Metabolic Pathways</h4>
+                <div class="table-responsive mb-2">
                     <table class="table table-sm table-borderless text-start mb-0 small">
                         <thead class="border-bottom">
                         <tr>
@@ -252,14 +257,14 @@
                     </table>
                 </div>
 
-                <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-4 text-dark">Signaling Cascades & Pathology</h4>
-                <div class="mb-4 row row-cols-1 g-4">
+                <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">Signaling Cascades & Pathology</h4>
+                <div class="mb-2 row row-cols-1 g-4">
                     <template x-for="(cascade, key) in getParent.downstream_signaling_cascades" :key="key">
                         <div class="col">
                             <div class="p-3 border rounded bg-light">
                                 <strong class="text-capitalize d-block text-dark mb-1"
                                         x-text="key.replace(/_/g, ' ')"></strong>
-                                <span class="small text-secondary d-block mb-3 fw-medium">Activated by: <span
+                                <span class="small text-secondary d-block mb-2 fw-medium">Activated by: <span
                                         x-text="cascade.activated_by"></span></span>
                                 <ul class="list-unstyled ms-2 mb-0 small">
                                     <template x-for="pathology in cascade.downstream_pathologies">
@@ -292,7 +297,7 @@
                     </template>
                 </div>
 
-                <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-3 text-dark">Terminal Urinary Metabolites</h4>
+                <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">Terminal Urinary Metabolites</h4>
                 <div>
                     <ul class="list-unstyled ms-2 small mb-0">
                         <template x-for="metabolite in getParent.terminal_urinary_metabolites">

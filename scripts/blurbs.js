@@ -939,11 +939,117 @@ Rheumatol 14(Suppl 3):32–39, 1995<br/>
     {
         parent_molecule: '17a-steroid',
         blurb: ` `,
-        blurbHTML: `<img src="./docs/17a.png" class="img-fluid rounded" alt="17-alpha-methyltestosterone chemical structure"> 17α-Alkylated anabolic-androgenic steroids (AAS) are synthetic derivatives of testosterone, dihydrotestosterone (DHT), or related androstane steroids that contain an alkyl substituent at the C17α position. This structural modification reduces first-pass hepatic metabolism and confers oral bioavailability. Members of this class retain the characteristic steroid nucleus and multiple stereogenic centres required for androgen receptor binding, while additional structural modifications influence their anabolic, androgenic, and metabolic properties. Although 17α-alkylation enhances oral activity and systemic exposure, it is also associated with increased hepatic burden compared with non-alkylated anabolic steroids.`,
+        blurbHTML: `<img src="./docs/17a.png" class="img-fluid rounded" alt="17-alpha-methyltestosterone chemical structure"> <br/>17α-Alkylated anabolic-androgenic steroids (AAS) are synthetic derivatives of testosterone, dihydrotestosterone (DHT), or related androstane steroids that contain an alkyl substituent at the C17α position. This structural modification reduces first-pass hepatic metabolism and confers oral bioavailability. Members of this class retain the characteristic steroid nucleus and multiple stereogenic centres required for androgen receptor binding, while additional structural modifications influence their anabolic, androgenic, and metabolic properties. Although 17α-alkylation enhances oral activity and systemic exposure, it is also associated with increased hepatic burden compared with non-alkylated anabolic steroids.`,
         mode_of_action: `17α-Alkylated anabolic-androgenic steroids exert their effects primarily through binding to and activation of intracellular androgen receptors (AR). Following receptor activation, the ligand-receptor complex undergoes dimerization, translocates to the nucleus, and interacts with androgen response elements (AREs) to regulate transcription of genes involved in protein synthesis, nitrogen retention, erythropoiesis, skeletal muscle growth, bone metabolism, and other androgen-dependent physiological processes. The magnitude of anabolic and androgenic activity varies among individual compounds according to their structural modifications and tissue-specific metabolism.`,
         molecular_target: `Androgen receptor (AR), agonist. Secondary pharmacological effects may arise from compound-specific metabolites or interactions with other steroid hormone pathways.`,
         therapeutic_class: `Androgens / Anabolic agents for systemic use; 17α-alkylated anabolic-androgenic steroids`
     },
+    {
+        parent_molecule: 'exemestane',
+        therapeutic_class: 'Steroidal aromatase inactivators (Type I / suicide inhibitors); Antineoplastic agents, endocrine therapy',
+
+        // 1. Structural Fingerprint
+        structural_backbone: 'androstane (modified)',
+        modifications: [
+            '6-methylidene (exocyclic methylene) group at C6',
+            'Additional double bond between C1-C2 (1,4-diene system)',
+            '3-keto and 17-keto groups',
+            'Synthetic derivative designed as a mechanism-based false substrate for aromatase'
+        ],
+
+        // 2. The Multi-Receptor / Enzyme Binding Profile
+        receptor_interactions: [
+            {
+                target_receptor: 'Aromatase (CYP19A1)',
+                action: 'Irreversible suicide inhibitor (Type I inactivator)',
+                binding_affinity_relative: 'High affinity (structurally mimics androstenedione; processed to covalent intermediate)',
+                downstream_effect: 'Permanent inactivation of the enzyme leading to profound and sustained suppression of estrogen biosynthesis (typically 85-95% reduction in circulating estrogens).',
+                source_refs: ["drugbank_db00990", "fda_aromasin_label", "lombardi_2002"]
+            },
+            {
+                target_receptor: 'Androgen Receptor (AR)',
+                action: 'Weak agonist (parent + especially 17β-hydroxy metabolite)',
+                binding_affinity_relative: 'Low to moderate androgenic activity',
+                downstream_effect: 'Mild androgenic effects possible (e.g., acne, hair changes); metabolite contributes to overall pharmacology.',
+                source_refs: ["wikipedia_exemestane", "drugbank_db00990"]
+            },
+            {
+                target_receptor: 'Estrogen Receptor (ER)',
+                action: 'No direct binding',
+                binding_affinity_relative: 'Negligible',
+                downstream_effect: 'Indirect anti-estrogenic action exclusively through depletion of estrogen ligands.'
+            },
+            {
+                target_receptor: 'Other (PR, GR)',
+                action: 'Negligible',
+                binding_affinity_relative: 'Very low',
+                downstream_effect: 'Minimal cross-reactivity.'
+            }
+        ],
+
+        // 3. Metabolic State Transitions (The Enzymes & Electrons)
+        metabolic_pathways: [
+            {
+                enzyme: 'Aromatase (CYP19A1)',
+                reaction_type: 'Suicide inactivation (mechanism-based)',
+                target_coordinate: 'Enzyme active site (binds as androstenedione analogue)',
+                product: 'Irreversibly inactivated aromatase',
+                clinical_note: 'Forms reactive intermediate that covalently modifies the enzyme; long-lasting effect.',
+                source_refs: ["fda_aromasin_label", "lombardi_2002"]
+            },
+            {
+                enzyme: 'Aldo-keto reductases (AKR1C family) + multiple CYPs (CYP1A1/2, CYP4A11, etc.)',
+                reaction_type: 'Reduction (17-keto → 17β-hydroxy)',
+                target_coordinate: 'C17',
+                product: '17β-Dihydroexemestane (17β-DHE; active metabolite)',
+                clinical_note: 'Contributes to aromatase inhibition and mild androgenic activity.',
+                source_refs: ["peterson_2017", "kamdem_2011"]
+            },
+            {
+                enzyme: 'CYP3A4 (primary) + others',
+                reaction_type: 'Oxidation',
+                target_coordinate: 'C6 methylene group',
+                product: '6-Hydroxymethyl and further inactive metabolites',
+                clinical_note: 'Extensive first-pass metabolism; low absolute bioavailability.',
+                source_refs: ["fda_aromasin_label", "kamdem_2011"]
+            }
+        ],
+
+        // 4. Mechanistic Side Effects mapped directly to enzyme inhibition and metabolite vectors
+        receptor_linked_side_effects: {
+            aromatase_inhibition_estrogen_depletion_driven: [
+                { side_effect: 'Hot flashes / Vasomotor symptoms', mechanism: 'Profound estrogen suppression disrupts hypothalamic thermoregulation.' },
+                { side_effect: 'Bone mineral density loss / Osteoporosis', mechanism: 'Estrogen deficiency accelerates osteoclast activity and bone resorption.' },
+                { side_effect: 'Arthralgia / Myalgia (joint/muscle pain)', mechanism: 'Estrogen withdrawal effects on musculoskeletal tissues.' },
+                { side_effect: 'Dyslipidemia', mechanism: 'Altered lipid metabolism due to low estrogen.' }
+            ],
+            androgenic_metabolite_driven: [
+                { side_effect: 'Acne, mild virilization (rare)', mechanism: 'Weak AR activation by parent and 17β-DHE.' }
+            ]
+        },
+
+        // 5. Terminal Excretion Metabolites (Phase II)
+        terminal_urinary_metabolites: [
+            { name: '17β-Dihydroexemestane glucuronide', conjugate: 'Primarily via UGT2B17' },
+            { name: 'Cysteine conjugates', conjugate: 'Via glutathione pathway (GSTA1 and downstream processing)' },
+            { name: 'Oxidized derivatives', conjugate: 'Glucuronide / Sulfate' }
+        ],
+
+        // 6. Intracellular Signaling & Tissue Effects
+        downstream_signaling_cascades: {
+            estrogen_deprivation_in_er_positive_cancer: {
+                activated_by: 'Near-complete peripheral aromatase inactivation',
+                downstream_pathologies: [
+                    {
+                        side_effect: 'Increased risk of fractures and cardiovascular events (long-term)',
+                        mechanism: 'Chronic hypoestrogenism impacts bone homeostasis, vascular function, and lipids.'
+                    }
+                ]
+            }
+        },
+
+        blurb: `Exemestane is a synthetic derivative of the natural aromatase substrate androstenedione. It features the androstane steroid nucleus modified with a 1,4-diene-3,17-dione system and a characteristic 6-methylidene group. This structure enables high-affinity binding to aromatase (CYP19A1), where it is processed into a reactive intermediate that covalently inactivates the enzyme (suicide inhibition). Exemestane contains multiple stereogenic centers in the natural steroid configuration. It undergoes extensive metabolism, primarily reduction at C17 to the active 17β-dihydroexemestane metabolite (which retains inhibitory and mild androgenic properties) and oxidation via CYP3A4. Metabolites are further conjugated and excreted. The net result is sustained suppression of estrogen production from androgen precursors in peripheral tissues.`
+    }
 
 ]
 const steroidDataSources = [
@@ -1078,5 +1184,53 @@ const steroidDataSources = [
         url: 'https://pubmed.ncbi.nlm.nih.gov/30047601/',
         journal: 'Journal of Orthopaedic Research',
         description: 'Details how stanozolol acts as an osmotic diuretic in connective tissues, driving water out of the synovial spaces and disrupting the normal sliding mechanism of collagen fibrils.'
+    },
+    {
+        source_id: "drugbank_db00990",
+        title: "Exemestane: Uses, Interactions, Mechanism of Action",
+        author: "DrugBank",
+        type: "Database",
+        url: "https://go.drugbank.com/drugs/DB00990",
+        description: "Comprehensive pharmacology, structure, metabolism, and pathways for exemestane."
+    },
+    {
+        source_id: "fda_aromasin_label",
+        title: "AROMASIN (exemestane) FDA Prescribing Information",
+        author: "Pfizer / FDA",
+        type: "Regulatory Label",
+        url: "https://www.accessdata.fda.gov/drugsatfda_docs/label/2018/020753s020lbl.pdf",
+        description: "Official mechanism, chemistry, clinical pharmacology, and safety data."
+    },
+    {
+        source_id: "lombardi_2002",
+        title: "Exemestane, a new steroidal aromatase inhibitor of clinical relevance",
+        author: "P. Lombardi",
+        type: "Review Paper",
+        url: "https://www.sciencedirect.com/science/article/pii/S0925443902000960",
+        description: "Detailed mechanism of action as suicide inhibitor."
+    },
+    {
+        source_id: "peterson_2017",
+        title: "In vitro metabolism of exemestane by hepatic cytochrome P450s",
+        author: "A. Peterson et al.",
+        type: "Research Paper",
+        url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5464343/",
+        description: "CYP-mediated metabolism and formation of 17β-DHE."
+    },
+    {
+        source_id: "kamdem_2011",
+        title: "In vitro cytochrome P450-mediated metabolism of exemestane",
+        author: "L.K. Kamdem et al.",
+        type: "Research Paper",
+        url: "https://pubmed.ncbi.nlm.nih.gov/20876785/",
+        description: "Specific CYP contributions to primary metabolism."
+    },
+    {
+        source_id: "pubchem_exemestane",
+        title: "Exemestane - PubChem",
+        author: "PubChem",
+        type: "Database",
+        url: "https://pubchem.ncbi.nlm.nih.gov/compound/Exemestane",
+        description: "Chemical structure, IUPAC name, stereochemistry."
     }
 ];
