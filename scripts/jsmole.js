@@ -45,7 +45,7 @@ function jsmolApp() {
                     this.loadSelected();
                 });
             });
-            this.$watch('selectedId', () => this.loadSelected());
+            //this.$watch('selectedId', () => this.loadSelected());
 
         },
 
@@ -60,9 +60,16 @@ function jsmolApp() {
             const compound = this.selectedCompound;
 
             if (!compound || !this.viewer) return;
+            <!-- 1 Load content -->
+            console.log(`<!-- 1 Load content -->`);
+            await this.loadContent(compound.self_id);
+            <!-- 2 Draw 2D mole -->
+            if (typeof compound.smiles !== "undefined") {
+                console.log(`<!-- 2 Draw 2D mole -->\n --> ${compound.smiles}`);
+                this.draw2D(compound.smiles);
+            }
 
-            this.viewer.clear();
-
+            <!-- 3 Draw 3D molecule -->
             try {
                 // Try local MOL/SDF file first
                 const response = await fetch(`./mol3d/${compound.cas_no}.mol3d`);
@@ -70,9 +77,12 @@ function jsmolApp() {
                 if (!response.ok)
                     throw new Error('3D file not found');
 
+
                 const molData = await response.text();
 
-                this.viewer.addModel(molData, "mol");
+                console.log(`<!-- 3 Draw 3D molecule -->\n --> ${compound.smiles}`);
+                this.viewer.clear();
+                this.viewer.addModel(molData, "sdf");
                 this.viewer.setStyle({}, {
                     stick: {},
                     sphere: {
@@ -82,24 +92,14 @@ function jsmolApp() {
                 this.viewer.spin(this.spin);
                 this.viewer.zoomTo();
                 this.viewer.render();
-
-                console.log("Loaded local MOL file");
-
             } catch (err) {
                 console.warn("Falling back to SMILES");
 
                 if (!compound.smiles) return;
-
                 await this.loadSmiles(compound.smiles);
             }
-            // Always try to draw 2D
-            if (typeof compound.smiles !== "undefined") {
-                this.draw2D(compound.smiles);
-                console.log(compound);
-                console.log(`smiles: ${compound.smiles}`);
-            }
 
-            await this.loadContent(compound.self_id);
+
 
         },
         async loadContent(id) {
@@ -190,7 +190,7 @@ function jsmolApp() {
         },
         get getParent() {
             const parentCompound = this.selectedCompound?.parent_molecule;
-
+            console.log(`Parent compound for ${this.selectedCompound.name}: ${parentCompound}`);
             return parentCompound
                 ? blurbs.find(b => b.parent_molecule === parentCompound)
                 : null;

@@ -3843,6 +3843,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
             'M  END\n',
         mol3d: undefined,
         formula: 'C23H36O2Si',
+        parent_molecule: '17a-steroid',
         smiles: 'CC12C=CC(=O)C=C1CCC1C2CCC2(C)C1CCC2(C)O[Si](C)(C)C'
     },
     {
@@ -3949,6 +3950,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
             'M  END\n',
         mol3d: undefined,
         formula: 'C21H32O3',
+        parent_molecule: '17a-steroid',
         smiles: 'CC12CC(=CO)C(=O)CC1CCC1C2CCC2(C)C1CCC2(C)O'
     },
     {
@@ -4051,6 +4053,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         mol3d: undefined,
         log_p: 3.5431000000000004,
         formula: 'C19H30O3',
+        parent_molecule: '17a-steroid',
         smiles: 'CC12COC(=O)CC1CCC1C2CCC2(C)C1CCC2(C)O'
     },
     {
@@ -4083,7 +4086,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         },
         pubchemid: null,
         self_id: 'turinabol',
-        molecular_weight: 0,
+        molecular_weight: 334.88,
         density: 1.2048192771084338,
         displacement: 0.83,
         melting_point: [225, 230],
@@ -4100,6 +4103,9 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         mol3d: null,
         image: null,
         cas_no: '2446-23-3',
+        formula: 'C20H27ClO2',
+        log_p: 3.61,
+        parent_molecule: '17a-steroid',
         smiles: 'O=C1\\C=C/[C@]4(/C(=C1/Cl)CC[C@@H]3[C@@H]4CC[C@]2([C@H]3CC[C@@]2(O)C)C)C'
     },
     {
@@ -4208,7 +4214,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         mol3d: undefined,
         formula: 'C21H32N2O',
         smiles: 'CC12Cc3c[nH]nc3CC1CCC1C2CCC2(C)C1CCC2(C)O',
-        parent_molecule: '17a-steroid',
+        parent_molecule: 'stanozolol',
         blurb: `Stanozolol, chemically known as 17α-methyl-2'H-androst-2-eno[3,2-c]pyrazol-17β-ol, exhibits stereoisomerism due to the presence of multiple chiral centres in its steroidal structure. It is a synthetic derivative of dihydrotestosterone (DHT) characterized by a fused pyrazole ring at the A-ring and a 17α-methyl group. The molecule contains six stereocentres at positions C5, C8, C9, C10, C13, and C17, with the natural bioactive form possessing the 5α-reduced configuration and 17β-hydroxyl orientation. The unique pyrazole fusion and 17α-methylation significantly alter its metabolic stability and receptor binding profile compared to testosterone. As a DHT-derived steroid, it is not converted to estrogens by aromatase and therefore lacks estrogen-mediated pharmacological effects such as aromatization-associated gynecomastia. Historically, stanozolol has been used in the treatment of hereditary angioedema and certain catabolic conditions, although its medical use has become limited in many jurisdictions. \n Stanozolol undergoes extensive hepatic metabolism involving hydroxylation, reduction, and conjugation reactions, with metabolites excreted primarily in urine. The 17α-methyl substitution contributes to both oral activity and increased hepatic exposure. `,
     },
     {
@@ -4306,68 +4312,10 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         pricePerUnit: 39.8,
         cas_no: '76-43-7',
         image: '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',
-        mol2d: 'Fluoxymesterone\n' +
-            'Chemeo Renderer - https://www.chemeo.com\n' +
-            'More info - https://www.chemeo.com/cid/25-836-6\n' +
-            ' 24 27  0  0  0  0  0  0  0  0999 V2000\n' +
-            '   -5.5072   -0.0336    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '   -4.0075   -0.0677    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '   -4.3118    1.4011    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '   -4.1981   -1.5555    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '   -2.8420   -2.1966    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '   -1.8133   -1.1049    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '   -0.3137   -1.1389    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '    0.4067   -2.4547    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '    1.9063   -2.4887    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '    2.6856   -1.2070    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '    4.1852   -1.2410    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '    4.9645    0.0406    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '    6.4641    0.0066    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '    4.2441    1.3564    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '    2.7445    1.3904    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '    1.9652    0.1087    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '    1.2449    1.4244    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '    0.4656    0.1427    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '   -1.0340    0.1768    0.0000 F   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '   -0.2547    1.4585    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '    0.5246    2.7402    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '   -1.7543    1.4925    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '   -2.5336    0.2108    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '   -3.2308    1.5389    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n' +
-            '  1  2  1  0\n' +
-            '  2  3  1  0\n' +
-            '  2  4  1  0\n' +
-            '  4  5  1  0\n' +
-            '  5  6  1  0\n' +
-            '  6  7  1  0\n' +
-            '  7  8  1  0\n' +
-            '  8  9  1  0\n' +
-            '  9 10  1  0\n' +
-            ' 10 11  2  0\n' +
-            ' 11 12  1  0\n' +
-            ' 12 13  2  0\n' +
-            ' 12 14  1  0\n' +
-            ' 14 15  1  0\n' +
-            ' 15 16  1  0\n' +
-            ' 16 17  1  0\n' +
-            ' 16 18  1  0\n' +
-            ' 18 19  1  0\n' +
-            ' 18 20  1  0\n' +
-            ' 20 21  1  0\n' +
-            ' 20 22  1  0\n' +
-            ' 22 23  1  0\n' +
-            ' 23 24  1  0\n' +
-            ' 23  2  1  0\n' +
-            ' 23  6  1  0\n' +
-            ' 18  7  1  0\n' +
-            ' 16 10  1  0\n' +
-            'M  END\n',
-        mol3d: undefined,
         log_p: 3.3322,
         formula: 'C20H29FO3',
-        parent_molecule: '17a-steroid',
+        parent_molecule: 'halotestin',
         smiles: 'CC1(O)CCC2C3CCC4=CC(=O)CCC4(C)C3(F)C(O)CC21C',
-        parent_molecule: 'testosterone'
     },
     {
         id: 'd6e7104a-259b-4593-a2bd-9282fadaa4bc',

@@ -89,195 +89,225 @@
     </div>
     <div class="bg-white p-4 p-md-5 border rounded shadow-sm mb-5">
 
-    <!-- Ester Formulation & Physical Properties -->
-    <template x-if="selectedCompound && selectedCompound.self_id !== selectedCompound.parent_molecule">
-        <div class="mb-5">
-            <h4 class="h5 fw-bold border-bottom pb-2 mb-3 text-dark">Ester & Physical Properties</h4>
+        <!-- Ester Formulation & Physical Properties -->
+        <template x-if="selectedCompound && selectedCompound.self_id !== selectedCompound.parent_molecule">
+            <div class="mb-5">
+                <h4 class="h5 fw-bold border-bottom pb-2 mb-3 text-dark">Ester & Physical Properties</h4>
 
-            <div>
-                <canvas id="2dmole"  style="max-height: 380px;"></canvas>
-            </div>
-
-            <div class="row g-3 mb-4">
-                <div class="col-md-6">
-                    <ul class="list-group list-group-flush small border rounded shadow-sm">
-                        <li class="list-group-item d-flex justify-content-between bg-light">
-                            <strong class="text-secondary">Formula:</strong>
-                            <span class="text-dark fw-medium" x-text="selectedCompound.formula"></span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <strong class="text-secondary">Molecular Weight:</strong>
-                            <span class="text-dark fw-medium" x-text="selectedCompound.molecular_weight + ' g/mol'"></span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between bg-light">
-                            <strong class="text-secondary">Log P (Lipophilicity):</strong>
-                            <span class="text-dark fw-medium" x-text="selectedCompound.log_p.toFixed(2)"></span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-md-6">
-                    <ul class="list-group list-group-flush small border rounded shadow-sm">
-                        <li class="list-group-item d-flex justify-content-between bg-light">
-                            <strong class="text-secondary">Melting Point:</strong>
-                            <span class="text-dark fw-medium" x-text="selectedCompound.melting_point ? selectedCompound.melting_point.join(' - ') + ' °C' : 'N/A'"></span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <strong class="text-secondary">Density / Disp.:</strong>
-                            <span class="text-dark fw-medium"
-                                  x-text="parseFloat(selectedCompound.density).toFixed(3) + ' g/cm³' + (selectedCompound.displacement ? ' (' + selectedCompound.displacement + ' ml)' : '')">
-                            </span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between bg-light">
-                            <strong class="text-secondary">CAS Number:</strong>
-                            <span class="text-dark fw-medium" x-text="selectedCompound.cas_no"></span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Ester Specific Blurb -->
-            <div class="p-3 bg-light border rounded">
-                <strong class="d-block mb-2 text-dark small">Chemical Summary:</strong>
-
-                <template x-if="selectedCompound.blurb">
-                    <div style="white-space: pre-line;" class="text-muted small lh-lg">
-                        <div x-text="selectedCompound.blurb"></div>
-                    </div>
-                </template>
                 <div>
-                    <template x-if="selectedCompound.blurbHTML">
-                        <div x-html="selectedCompound.blurbHTML"></div>
-                    </template>
+                    <canvas id="2dmole" style="max-height: 380px;"></canvas>
                 </div>
-            </div>
-        </div>
-    </template>
-    <template x-if="getParent">
-    <div>
-        <h4 class="h5 fw-bold border-bottom pb-2 mb-3 text-dark">Parent Properties <span style="text-transform: capitalize;" x-text="'(' + getParent.parent_molecule + ')'"></span></h4>
 
-            <div class="mb-4">
-                <p class="mb-1"><span class="fw-bold text-secondary me-1">Therapeutic Class:</span> <span
-                        x-text="getParent.therapeutic_class"></span></p>
-                <p class="mb-1"><span class="fw-bold text-secondary me-1">Structural Backbone:</span> <span
-                        x-text="getParent.structural_backbone"></span></p>
-                <p class="mb-1"><span class="fw-bold text-secondary me-1">Modifications:</span> <span
-                        x-text="getParent.modifications.join(', ')"></span></p>
-            </div>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush small border rounded shadow-sm">
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <strong class="text-secondary">Formula:</strong>
+                                <span class="text-dark fw-medium" x-text="selectedCompound.formula"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <strong class="text-secondary">Molecular Weight:</strong>
+                                <span class="text-dark fw-medium"
+                                      x-text="selectedCompound.molecular_weight + ' g/mol'"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <strong class="text-secondary">Log P (Lipophilicity):</strong>
+                                <span class="text-dark fw-medium" x-text="selectedCompound.log_p?.toFixed(2)"></span>
+                            </li>
+                        </ul>
+                    </div>
 
-            <div x-text="getParent.blurb" style="white-space: pre-line;" class="mb-5 text-muted lh-lg"></div>
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush small border rounded shadow-sm">
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <strong class="text-secondary">Melting Point:</strong>
+                                <span class="text-dark fw-medium"
+                                      x-text="selectedCompound.melting_point ? selectedCompound.melting_point.join(' - ') + ' °C' : 'N/A'"></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <strong class="text-secondary">Density / Disp.:</strong>
+                                <span class="text-dark fw-medium"
+                                      x-text="parseFloat(selectedCompound.density).toFixed(3) + ' g/cm³' + (selectedCompound.displacement ? ' (' + selectedCompound.displacement + ' ml)' : '')">
+                            </span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between bg-light">
+                                <strong class="text-secondary">CAS Number:</strong>
+                                <span class="text-dark fw-medium" x-text="selectedCompound.cas_no"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-            <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-4 text-dark">Receptor Interactions</h4>
-            <div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
-                <template x-for="(receptor, rIndex) in getParent.receptor_interactions" :key="'rec-' + rIndex">
-                    <div class="col">
-                        <strong class="text-dark d-block mb-1" x-text="receptor.target_receptor"></strong>
-                        <span class="badge bg-secondary mb-2" x-text="receptor.action"></span>
-                        <span class="text-muted small d-block mb-2 fw-medium"
-                              x-text="'Affinity: ' + receptor.binding_affinity_relative"></span>
-                        <p class="small mb-0" x-text="receptor.downstream_effect"></p>
+                <!-- Ester Specific Blurb -->
+                <template x-if="selectedCompound.blurb || selectedCompound.blurbHTML">
 
-                        <template x-if="receptor.source_refs">
-                            <div class="mt-2 small text-secondary fw-lighter">
-                                Refs:
-                                <template x-for="(source, sIndex) in receptor.source_refs" :key="'src-' + rIndex + '-' + sIndex">
-                                    <div class="d-inline-block me-2">
-                                        <a :href="getSource(source)?.url || 'https://doi.org/' + getSource(source)?.doi"
-                                           x-text="getSource(source)?.title"
-                                           target="_blank"
-                                           class="text-decoration-none"></a>                                    </div>
-                                </template>
+                    <div class="p-3 bg-light border rounded">
+                        <strong class="d-block mb-2 text-dark small">Chemical Summary:</strong>
+
+                        <template x-if="selectedCompound.blurb">
+                            <div style="white-space: pre-line;" class="text-muted small lh-lg">
+                                <div x-text="selectedCompound.blurb"></div>
                             </div>
                         </template>
-
+                        <div>
+                            <template x-if="selectedCompound.blurbHTML">
+                                <div x-html="selectedCompound.blurbHTML"></div>
+                            </template>
+                        </div>
                     </div>
                 </template>
             </div>
+        </template>
+        <template x-if="getParent">
+            <div>
+                <h4 class="h5 fw-bold border-bottom pb-2 mb-3 text-dark">Parent Properties <span
+                        style="text-transform: capitalize;" x-text="'(' + getParent.parent_molecule + ')'"></span></h4>
 
-            <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-4 text-dark">Mechanistic Side Effects</h4>
-            <div class="mb-4">
-                <template x-for="(effects, receptor_key) in getParent.receptor_linked_side_effects" :key="receptor_key">
-                    <details class="mb-2 border rounded bg-light">
-                        <summary class="p-2 fw-bold text-capitalize user-select-none"
-                                 x-text="receptor_key.replace(/_/g, ' ')" style="cursor: pointer;"></summary>
-                        <div class="p-3 bg-white border-top">
-                            <ul class="list-unstyled ms-2 mb-0 small">
-                                <template x-for="effect in effects">
-                                    <li class="mb-2 pb-2 border-bottom">
-                                        <strong class="text-dark" x-text="effect.side_effect + ': '"></strong>
-                                        <span class="text-muted" x-text="effect.mechanism"></span>
-                                    </li>
-                                </template>
-                            </ul>
-                        </div>
-                    </details>
+                <div class="mb-4">
+                    <p class="mb-1"><span class="fw-bold text-secondary me-1">Therapeutic Class:</span> <span
+                            x-text="getParent.therapeutic_class"></span></p>
+                    <p class="mb-1"><span class="fw-bold text-secondary me-1">Structural Backbone:</span> <span
+                            x-text="getParent.structural_backbone"></span></p>
+                    <p class="mb-1"><span class="fw-bold text-secondary me-1">Modifications:</span> <span
+                            x-text="getParent.modifications?.join(', ')"></span></p>
+                </div>
+
+                <div x-text="getParent.blurb" style="white-space: pre-line;" class="mb-5 text-muted lh-lg"></div>
+                <template x-if="getParent.blurbHTML">
+                    <div x-html="getParent.blurbHTML" class="mb-5 text-muted lh-lg"></div>
                 </template>
-            </div>
 
-            <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-4 text-dark">Metabolic Pathways</h4>
-            <div class="table-responsive mb-4">
-                <table class="table table-sm table-borderless text-start mb-0 small">
-                    <thead class="border-bottom">
-                    <tr>
-                        <th class="text-muted fw-bold pb-2">Enzyme</th>
-                        <th class="text-muted fw-bold pb-2">Reaction</th>
-                        <th class="text-muted fw-bold pb-2">Product</th>
-                    </tr>
-                    </thead>
-                    <tbody class="table-group-divider border-top-0">
-                    <template x-for="pathway in getParent.metabolic_pathways">
-                        <tr class="border-bottom">
-                            <td class="pt-3 fw-bold text-dark align-top" x-text="pathway.enzyme"></td>
-                            <td class="pt-3 align-top">
+                <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-4 text-dark">Receptor Interactions</h4>
+                <div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
+                    <template x-for="(receptor, rIndex) in getParent.receptor_interactions" :key="rIndex">
+                        <div class="col">
+                            <strong class="text-dark d-block mb-1" x-text="receptor.target_receptor"></strong>
+                            <span class="badge bg-secondary mb-2" x-text="receptor.action"></span>
+                            <span class="text-muted small d-block mb-2 fw-medium"
+                                  x-text="'Affinity: ' + receptor.binding_affinity_relative"></span>
+                            <p class="small mb-0" x-text="receptor.downstream_effect"></p>
+
+                            <template x-if="receptor.source_refs">
+                                <div class="mt-2 small text-secondary fw-lighter">
+                                    Refs:
+                                    <template x-for="(source, sIndex) in receptor.source_refs"
+                                              :key="sIndex">
+                                        <div class="d-inline-block me-2">
+                                            <a :href="getSource(source)?.url || 'https://doi.org/' + getSource(source)?.doi"
+                                               x-text="getSource(source)?.title"
+                                               target="_blank"
+                                               class="text-decoration-none"></a></div>
+                                    </template>
+                                </div>
+                            </template>
+
+                        </div>
+                    </template>
+                </div>
+
+                <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-4 text-dark">Mechanistic Side Effects</h4>
+                <div class="mb-4">
+                    <template x-for="(effects, receptor_key) in getParent.receptor_linked_side_effects"
+                              :key="receptor_key">
+                        <details class="mb-2 border rounded bg-light">
+                            <summary class="p-2 fw-bold text-capitalize user-select-none"
+                                     x-text="receptor_key.replace(/_/g, ' ')" style="cursor: pointer;"></summary>
+                            <div class="p-3 bg-white border-top">
+                                <ul class="list-unstyled ms-2 mb-0 small">
+                                    <template x-for="effect in effects">
+                                        <li class="mb-2 pb-2 border-bottom">
+                                            <strong class="text-dark" x-text="effect.side_effect + ': '"></strong>
+                                            <span class="text-muted" x-text="effect.mechanism"></span>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </details>
+                    </template>
+                </div>
+
+                <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-4 text-dark">Metabolic Pathways</h4>
+                <div class="table-responsive mb-4">
+                    <table class="table table-sm table-borderless text-start mb-0 small">
+                        <thead class="border-bottom">
+                        <tr>
+                            <th class="text-muted fw-bold pb-2">Enzyme</th>
+                            <th class="text-muted fw-bold pb-2">Reaction</th>
+                            <th class="text-muted fw-bold pb-2">Product</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table-group-divider border-top-0">
+                        <template x-for="pathway in getParent.metabolic_pathways">
+                            <tr class="border-bottom">
+                                <td class="pt-3 fw-bold text-dark align-top" x-text="pathway.enzyme"></td>
+                                <td class="pt-3 align-top">
                                 <span class="badge border border-info text-info mb-2"
                                       x-text="pathway.target_coordinate"></span><br>
-                                <span class="text-muted" x-text="pathway.reaction_type"></span>
-                            </td>
-                            <td class="pt-3 text-dark fw-medium align-top" x-text="pathway.product"></td>
-                        </tr>
-                    </template>
-                    </tbody>
-                </table>
-            </div>
+                                    <span class="text-muted" x-text="pathway.reaction_type"></span>
+                                </td>
+                                <td class="pt-3 text-dark fw-medium align-top" x-text="pathway.product"></td>
+                            </tr>
+                        </template>
+                        </tbody>
+                    </table>
+                </div>
 
-            <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-4 text-dark">Signaling Cascades & Pathology</h4>
-            <div class="mb-4 row row-cols-1 g-4">
-                <template x-for="(cascade, key) in getParent.downstream_signaling_cascades" :key="key">
-                    <div class="col">
-                        <div class="p-3 border rounded bg-light">
-                            <strong class="text-capitalize d-block text-dark mb-1"
-                                    x-text="key.replace(/_/g, ' ')"></strong>
-                            <span class="small text-secondary d-block mb-3 fw-medium">Activated by: <span
-                                    x-text="cascade.activated_by"></span></span>
-                            <ul class="list-unstyled ms-2 mb-0 small">
-                                <template x-for="pathology in cascade.downstream_pathologies">
-                                    <li class="mb-2">
-                                        <strong class="text-dark" x-text="pathology.side_effect + ': '"></strong>
-                                        <span class="text-muted" x-text="pathology.mechanism"></span>
-                                    </li>
-                                </template>
-                            </ul>
+                <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-4 text-dark">Signaling Cascades & Pathology</h4>
+                <div class="mb-4 row row-cols-1 g-4">
+                    <template x-for="(cascade, key) in getParent.downstream_signaling_cascades" :key="key">
+                        <div class="col">
+                            <div class="p-3 border rounded bg-light">
+                                <strong class="text-capitalize d-block text-dark mb-1"
+                                        x-text="key.replace(/_/g, ' ')"></strong>
+                                <span class="small text-secondary d-block mb-3 fw-medium">Activated by: <span
+                                        x-text="cascade.activated_by"></span></span>
+                                <ul class="list-unstyled ms-2 mb-0 small">
+                                    <template x-for="pathology in cascade.downstream_pathologies">
+                                        <div>
+                                            <li class="mb-2">
+                                                <strong class="text-dark"
+                                                        x-text="pathology.side_effect + ': '"></strong>
+                                                <span class="text-muted" x-text="pathology.mechanism"></span>
+                                            </li>
+                                            <template x-if="pathology.source_refs">
+                                                <div class="mt-2 small text-secondary fw-lighter">
+                                                    Refs:
+                                                    <template x-for="(source, sIndex) in pathology.source_refs"
+                                                              :key="sIndex">
+                                                        <div class="d-inline-block me-2">
+                                                            <a :href="getSource(source)?.url || 'https://doi.org/' + getSource(source)?.doi"
+                                                               x-text="getSource(source)?.title"
+                                                               target="_blank"
+                                                               class="text-decoration-none"></a></div>
+                                                    </template>
+                                                </div>
+                                            </template>
+
+                                        </div>
+                                    </template>
+
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                </template>
-            </div>
-
-            <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-3 text-dark">Terminal Urinary Metabolites</h4>
-            <div>
-                <ul class="list-unstyled ms-2 small mb-0">
-                    <template x-for="metabolite in getParent.terminal_urinary_metabolites">
-                        <li class="mb-2">
-                            <strong class="text-dark" x-text="metabolite.name"></strong> <span class="text-muted mx-1">&mdash;</span>
-                            <span class="text-secondary"
-                                  x-text="metabolite.stereoisomer + ' (' + metabolite.conjugate + ')'"></span>
-                        </li>
                     </template>
-                </ul>
-            </div>
+                </div>
 
-        </div>
-    </template>
+                <h4 class="h5 fw-bold border-bottom pb-2 mt-5 mb-3 text-dark">Terminal Urinary Metabolites</h4>
+                <div>
+                    <ul class="list-unstyled ms-2 small mb-0">
+                        <template x-for="metabolite in getParent.terminal_urinary_metabolites">
+                            <li class="mb-2">
+                                <strong class="text-dark" x-text="metabolite.name"></strong> <span
+                                    class="text-muted mx-1">&mdash;</span>
+                                <span class="text-secondary"
+                                      x-text="metabolite.stereoisomer + ' (' + metabolite.conjugate + ')'"></span>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+
+            </div>
+        </template>
         <div x-html="contentHtml"></div>
     </div>
 

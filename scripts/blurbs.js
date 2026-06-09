@@ -259,6 +259,12 @@ var blurbs = [
                 binding_affinity_relative: '22% of native Progesterone',
                 downstream_effect: 'Augments anti-gonadotropic actions, contributing heavily to profound endogenous axis suppression.',
                 source_refs: ["raynaud_1980", "saartok_1984"],
+            },
+            {
+                target_receptor: 'Estrogen Receptor (ER)',
+                action: 'Negligible direct binding',
+                binding_affinity_relative: '< 0.1%',
+                downstream_effect: 'Estrogenic effects rely entirely on local tissue conversion to estradiol via aromatase.'
             }
         ],
 
@@ -285,6 +291,9 @@ var blurbs = [
             androgen_receptor_driven: [
                 { side_effect: 'Virilization in females', mechanism: 'Dose-dependent activation of AR targets, though lower incidence than pure testosterones.' },
                 { side_effect: 'Dyslipidemia', mechanism: 'Downregulation of liver X receptor pathways via hepatic AR activation, dropping HDL and raising LDL.' }
+            ],
+            estrogen_receptor_driven: [
+                { side_effect: 'Gynecomastia (in males)', mechanism: 'ERα activation in mammary tissue stimulates ductal elongation and fat deposition, particularly when the systemic Androgen:Estrogen ratio falls.' },
             ],
             progesterone_receptor_driven: [
                 { side_effect: 'Severe HPTA Shutdown', mechanism: 'Synergistic negative feedback loop where PR agonism pairs with AR agonism to suppress pituitary LH/FSH secretion to near-zero.' },
@@ -339,7 +348,76 @@ var blurbs = [
         downstream_pathologies: [
             { pathology: "Cardiac Fibrosis", pathways: ["MR", "TGF-b1"], source_refs: ["marzilger_2016", "rocha_2022"] }
         ],
-        blurb: `Nandrolone (19-nortestosterone) exhibits stereoisomerism due to the presence of multiple chiral centres in its tetracyclic steroid backbone. The key site of isomerism lies at the 5th carbon position, where the hydrogen atom can be oriented either above or below the plane of the ring system, giving rise to 5alpha- and 5beta-isomers... [Your existing blurb text remains here]`
+        blurbHTML: `<p>Nandrolone (19-nortestosterone) exhibits stereoisomerism due to the presence of multiple chiral centres in its tetracyclic steroid backbone. The key site of isomerism lies at the 5th carbon position, where the hydrogen atom can be oriented either above or below the plane of the ring system, giving rise to 5alpha- and 5beta-isomers.
+        </p><p>Nandrolone is a widely used injectable androgen in the form of aliphatic fatty
+    acid esters in an oil vehicle, prescribed mainly for treatment of postmenopausal
+    osteoporosis, where it is effective at increasing bone density and reducing fracture rate.<span><sup>504,505</sup></span>
+</p>
+<p>
+<span> It is also the most popular androgen abused in sports doping and body building.
+    Nandrolone is a naturally occurring steroid but is not normally secreted in the human bloodstream,
+    although it occurs as an intermediate in the aromatization of testosterone to estradiol by the aromatase enzyme.</span><span><sup>506</sup></span>
+</p>
+<p>This enzyme complex undertakes two successive hydroxylations on the angular C19 methyl group of testosterone,
+    followed by a cleavage of the C10-C19 bond to release formic acid and aromatize the A-ring.
+<span><sup>507</sup></span>
+</p>
+<p>
+    Nandrolone represents a penultimate step of the molecule undergoing aromatization bound to the enzyme complex,
+    with the C19 methyl group excised but a still nonaromatized A-ring.
+    Paradoxically, despite being an intermediate in the aromatization reaction, nandrolone is virtually not aromatized after parenteral administration in men,</span>
+<span><sup>508,509</sup></span> presumably because it is a very poor substrate for the human aromatase enzyme.
+</p>
+<p>
+<span><sup>510</sup></span> It is susceptible to amplification by 5α-reductase with its 5α-reduced metabolites being moderately activated in androgenic potency.
+<span><sup>511</sup></span><span> The minimal aromatizability of nandrolone makes it suitable for treatment of osteoporosis in women in whom estrogen therapy is contraindicated because of
+    hormone-sensitive cancers (breast, uterus) or for older women, although virilization limits its acceptability.</span>
+<span><sup>512</sup></span>
+</p>
+
+504. Gennari C, AgnusDei D, Gonnelli S, et al: Effects of
+nandrolone decanoate therapy on bone mass and
+calcium metabolism in women with established post-
+menopausal osteoporosis: a double-blind placebo-
+controlled study, Maturitas 11:187–197, 1989.<br/>
+505. Frisoli A Jr, Chaves PH, Pinheiro MM, et al: The effect
+of nandrolone decanoate on bone mineral density,
+muscle mass, and hemoglobin levels in elderly women
+with osteoporosis: a double-blind, randomized, pla-
+cebo-controlled clinical trial, J Gerontol A Biol Sci Med
+Sci 60:648–653, 2005.<br/>
+506. Simpson ER, Mahendroo MS, Means GD, et al: Aroma-
+tase cytochrome P450, the enzyme responsible for
+estrogen biosynthesis, Endocr Rev 15:342–355,
+1994.<br/>
+507. Hong Y, Yu B, Sherman M, et al: Molecular basis for
+the aromatization reaction and exemestane-mediated
+irreversible inhibition of human aromatase, Mol Endo-
+crinol 21:401–414, 2007.<br/>
+508. Hobbs CJ, Jones RE, Plymate SR: Nandrolone, a
+19-nortestosterone, enhances insulin-independent
+glucose uptake in normal men, J Clin Endocrinol
+Metab 81:1582–1585, 1996.<br/>
+509. Behre HM, Kliesch S, Lemcke B, et al: Suppression of
+spermatogenesis to azoospermia by combined admin-
+istration of GnRH antagonist and 19-nortestosterone
+cannot be maintained by this non-aromatizable andro-
+gen alone, Hum Reprod 16:2570–2577, 2001.<br/>
+510. Attardi BJ, Pham TC, Radler LC, et al: Dimethandro-
+lone (7alpha,11beta-dimethyl-19-nortestosterone) and
+11beta-methyl-19-nortestosterone are not converted to
+aromatic A-ring products in the presence of recombi-
+nant human aromatase, J Steroid Biochem Mol Biol
+110:214–222, 2008.<br/>
+511. Lemus AE, Enriquez J, Garcia GA, et al: 5alpha-reduc-
+tion of norethisterone enhances its binding affinity for
+androgen receptors but diminishes its androgenic
+potency, J Steroid Biochem Mol Biol 60:121–129,
+1997.<br/>
+512. Geusens P: Nandrolone decanoate: pharmacological
+properties and therapeutic use in osteoporosis, Clin
+Rheumatol 14(Suppl 3):32–39, 1995<br/>
+        `
     },
     {
         parent_molecule: 'drostanolone',
@@ -639,8 +717,229 @@ var blurbs = [
         blurb: `DHEA (Dehydroepiandrosterone) is the most abundant circulating steroid hormone in the human body. Unlike downstream steroids that act as terminal agonists, DHEA functions as an "intracrine" precursor. It is synthesized by the adrenal cortex and, to a lesser extent, the gonads and brain. Its primary physiological role is to provide a pool of steroid precursors that peripheral tissues (like the skin or brain) can convert into active androgens or estrogens based on local need via the actions of 3β-HSD and 17β-HSD enzymes. In addition to its role as a precursor, free DHEA and its sulfated conjugate, DHEA-S, act as neurosteroids, non-genomically modulating excitatory (NMDA) and inhibitory (GABA) neurotransmission in the CNS, which impacts memory, mood, and stress responses.`
     },
     {
+        parent_molecule: 'stanozolol',
+        therapeutic_class: 'Anabolic-Androgenic Steroids (AAS): Synthetic DHT derivative',
+
+        // 1. Structural Fingerprint
+        structural_backbone: '5alpha-androstane',
+        modifications: [
+            'Pyrazole ring fused to the A-ring (replaces the 3-keto group, drastically increasing the anabolic-to-androgenic ratio)',
+            '17-alpha-methyl group (confers oral bioavailability by sterically hindering hepatic first-pass metabolism)',
+            'Absence of the Delta-4 double bond (cannot be aromatized into estrogen)'
+        ],
+
+        // 2. The Multi-Receptor Binding Profile
+        receptor_interactions: [
+            {
+                target_receptor: 'Androgen Receptor (AR)',
+                action: 'Agonist',
+                binding_affinity_relative: '~22% of DHT',
+                downstream_effect: 'Drives potent anabolic protein synthesis in skeletal muscle. Binds directly in osteoblasts to stimulate RUNX2 expression, driving osteogenic differentiation and bone mineral apposition.',
+                source_refs: ['saartok_1984', 'nebot_2016', 'rachetti_2018']
+            },
+            {
+                target_receptor: 'Sex Hormone-Binding Globulin (SHBG)',
+                action: 'Binding / Hepatic Suppression',
+                binding_affinity_relative: 'High affinity (potent suppressor of hepatic synthesis)',
+                downstream_effect: 'Binds to and drastically suppresses SHBG production. The oral route reduces SHBG much more profoundly than the injected (intramuscular) route due to concentrated first-pass hepatic exposure, massively increasing the circulating free (unbound) fraction of co-administered hormones.',
+                source_refs: ['sinnecker_1989', 'thompson_1989']
+            },
+            {
+                target_receptor: 'Progesterone Receptor (PR)',
+                action: 'Low-Affinity Agonist / Modulator',
+                binding_affinity_relative: 'Low but clinically relevant',
+                downstream_effect: 'Exhibits mild progesterone receptor agonism that modulates cellular signaling. Interacts with membrane receptors to drive localized inflammatory pathways and Prostaglandin E2 (PGE2) synthesis.',
+                source_refs: ['ellis_1996']
+            },
+            {
+                target_receptor: 'Estrogen Receptors (ERα / ERβ)',
+                action: 'Negligible direct binding',
+                binding_affinity_relative: '< 0.1% (Non-aromatizable)',
+                downstream_effect: 'Cannot be converted to estrogen, completely avoiding estrogenic side effects like water retention or gynecomastia.',
+                source_refs: ['raynaud_1980']
+            }
+        ],
+
+        // 3. Metabolic State Transitions (The Enzymes & Electrons)
+        metabolic_pathways: [
+            {
+                enzyme: 'Cytochrome P450 Enzymes (e.g., CYP3A4, CYP2C8)',
+                reaction_type: 'Hydroxylation',
+                target_coordinate: 'C3\', C4, and C16',
+                product: '3\'-hydroxystanozolol, 4β-hydroxystanozolol, and 16β-hydroxystanozolol',
+                clinical_note: 'The 17-alpha-methyl group severely hinders rapid hepatic breakdown. Instead, oxidation is forced onto the pyrazole ring and A/D rings, extending its biological half-life and generating the primary metabolites targeted in athletic doping screens.',
+                source_refs: ['kegg_hsa00980']
+            },
+            {
+                enzyme: 'Aromatase (CYP19A1)',
+                reaction_type: 'None (Steric/Structural blocking)',
+                target_coordinate: 'A-ring',
+                product: 'N/A',
+                clinical_note: 'The pyrazole ring and reduced 5-alpha structure make aromatization impossible. Stanozolol remains strictly androgenic and anabolic.'
+            }
+        ],
+
+        // 4. Mechanistic Side Effects mapped directly to receptor vectors
+        receptor_linked_side_effects: {
+            ar_driven: [
+                { side_effect: 'Dyslipidemia (Cardiovascular Risk)', mechanism: 'Potent activation of hepatic lipase via AR significantly degrades High-Density Lipoprotein (HDL) while elevating Low-Density Lipoprotein (LDL), vastly accelerating atherogenesis.', source_refs: ['thompson_1989'] },
+                { side_effect: 'Virilization', mechanism: 'Despite a high anabolic-to-androgenic ratio, AR binding in susceptible tissues can still drive vocal cord thickening, clitoromegaly, and hirsutism in females.' }
+            ],
+            non_genomic_and_structural: [
+                { side_effect: 'Joint Pain and Tendon Brittleness (Dry Joints)', mechanism: 'Acts as a powerful diuretic that flushes interstitial fluid out of the synovial spaces. While it stimulates collagen synthesis, it interferes with normal cross-linking and collagen maturation, making tendons stiffer and highly prone to rupture under heavy mechanical loads.', source_refs: ['marqueti_2006'] },
+                { side_effect: 'Hepatotoxicity', mechanism: 'The 17-alpha-alkylation forces the liver to process the molecule repeatedly without easily cleaving it. This induces intrahepatic cholestasis, elevated transaminases (AST/ALT), and potential peliosis hepatis.' }
+            ]
+        },
+
+        // 5. Terminal Excretion Metabolites (Phase II Conjugation)
+        terminal_urinary_metabolites: [
+            {
+                name: '3\'-hydroxystanozolol',
+                stereoisomer: 'Hydroxylated at the pyrazole ring (C3\')',
+                conjugate: 'Glucuronide (UGT-mediated)',
+                clinical_note: 'The most abundant urinary metabolite. Acts as the primary long-term diagnostic marker for WADA mass spectrometry screening.'
+            },
+            {
+                name: '4β-hydroxystanozolol',
+                stereoisomer: 'Beta-isomer at C4 (A-ring)',
+                conjugate: 'Glucuronide (UGT-mediated)',
+                clinical_note: 'A major, highly specific, long-lasting diagnostic metabolite used to confirm stanozolol administration.'
+            },
+            {
+                name: '16β-hydroxystanozolol',
+                stereoisomer: 'Beta-isomer at C16 (D-ring)',
+                conjugate: 'Sulfate and Glucuronide forms',
+                clinical_note: 'A secondary, shorter-lived clearance metabolite.'
+            }
+        ],
+
+        // 6. Intracellular Signaling & Tissue Remodeling Pathologies
+        downstream_signaling_cascades: {
+            osteogenic_differentiation: {
+                activated_by: 'AR occupancy in osteoblasts',
+                downstream_pathologies: [
+                    {
+                        side_effect: 'Increased Bone Mineral Density',
+                        mechanism: 'Upregulates RUNX2 and downregulates pro-inflammatory cytokines (like MMP-13 and IL-6), pushing mesenchymal cells toward osteoblast differentiation and driving the apposition of the bone mineral matrix.',
+                        source_refs: ['nebot_2016', 'rachetti_2018']
+                    }
+                ]
+            },
+            collagen_interstitial_fluid_shift: {
+                activated_by: 'Non-genomic membrane interactions and osmotic shifts',
+                downstream_pathologies: [
+                    {
+                        side_effect: 'Tendon Rupture Risk',
+                        mechanism: 'Stanozolol causes a rapid shift of water out of the interstitial fluid, dehydrating the joints. Concurrently, altered collagen synthesis upregulates localized structural changes that fail to maintain necessary viscoelastic properties, leading to mechanical failure under stress.',
+                        source_refs: ['marqueti_2006', 'parr_2020']
+                    }
+                ]
+            }
+        },
+        blurbHTML: `<img src="./docs/17a.png" class="img-fluid rounded" alt="17-alpha-methyltestosterone chemical structure"/><br/> 17α-Alkylated anabolic-androgenic steroids (AAS) are synthetic derivatives of testosterone, dihydrotestosterone (DHT), or related androstane steroids that contain an alkyl substituent at the C17α position. This structural modification reduces first-pass hepatic metabolism and confers oral bioavailability. Members of this class retain the characteristic steroid nucleus and multiple stereogenic centres required for androgen receptor binding, while additional structural modifications influence their anabolic, androgenic, and metabolic properties. Although 17α-alkylation enhances oral activity and systemic exposure, it is also associated with increased hepatic burden compared with non-alkylated anabolic steroids.`,
+        blurb: `Stanozolol is a synthetic anabolic-androgenic steroid (AAS) structurally derived from dihydrotestosterone (DHT) through the addition of a pyrazole ring at the A-ring and a 17α-methyl group. This unique heteropentacyclic architecture completely prevents aromatization into estrogen while significantly enhancing its anabolic-to-androgenic ratio [saartok_1984]. Stanozolol is notable for its profound impact on circulating transport proteins; specifically, oral administration exerts a powerful first-pass effect on the liver that drastically reduces Sex Hormone-Binding Globulin (SHBG) production, far exceeding the reduction seen with injected (intramuscular) formulations [sinnecker_1989, thompson_1989]. This massively increases the bioavailability of unbound steroid hormones in the bloodstream.\n\nAt the cellular level, stanozolol acts as an agonist at the androgen receptor (AR) and exhibits some affinity for the progesterone receptor (PR) as a low-affinity agonist, which modulates specific inflammatory and prostaglandin signaling cascades [ellis_1996]. In skeletal tissue, it directly stimulates osteoblast proliferation and differentiation by upregulating RUNX2 gene expression, promoting bone mineral apposition [nebot_2016, rachetti_2018]. However, its effects on connective tissue are paradoxical; while it stimulates certain pathways of collagen synthesis, it drastically alters osmotic balance by driving water out of the interstitial fluid [parr_2020]. This "drying" effect in the synovial spaces, combined with interference in normal collagen cross-linking, makes tendons less viscoelastic and highly susceptible to mechanical rupture during heavy loads [marqueti_2006]. Historically used to treat hereditary angioedema and osteoporosis, stanozolol is widely known in athletic contexts for its capacity to increase lean mass and strength without water retention, though its severe hepatotoxicity and deleterious effects on the lipid profile severely limit its clinical application.`
+    },
+    {
+        parent_molecule: 'halotestin',
+        therapeutic_class: 'Anabolic-Androgenic Steroids (AAS): Halogenated 17α-alkylated derivative',
+
+
+        // 1. Structural Fingerprint
+        structural_backbone: 'androst-4-ene',
+        modifications: [
+            '17-alpha-methyl group (confers oral bioavailability by sterically hindering hepatic first-pass metabolism)',
+            '9-alpha-fluoro group (electronegative draw massively increases AR binding affinity and slows hepatic reduction)',
+            '11-beta-hydroxyl group (sterically prevents the aromatase enzyme from interacting with the A-ring)'
+        ],
+
+        // 2. The Multi-Receptor Binding Profile
+        receptor_interactions: [
+            {
+                target_receptor: 'Androgen Receptor (AR)',
+                action: 'Super-Agonist',
+                binding_affinity_relative: 'Extremely High (Significantly greater than testosterone)',
+                downstream_effect: 'Binds ferociously to androgen receptors, particularly in the central nervous system and specific skeletal muscle pathways. Drives massive neural recruitment and strength output rather than traditional localized muscle hypertrophy.'
+            },
+            {
+                target_receptor: '11β-Hydroxysteroid Dehydrogenase (11β-HSD1 & 11β-HSD2)',
+                action: 'Enzyme Inhibitor / Competitor',
+                binding_affinity_relative: 'High affinity for enzyme active sites',
+                downstream_effect: 'Inhibits the enzymes responsible for shuttling active cortisol to inactive cortisone. This effectively alters the body\'s glucocorticoid and mineralocorticoid balance, mimicking stress-state physiological responses.'
+            },
+            {
+                target_receptor: 'Estrogen Receptors (ERα / ERβ)',
+                action: 'None',
+                binding_affinity_relative: '0%',
+                downstream_effect: 'Due to the 11-beta-hydroxyl group, the molecule cannot fit into the active site of the aromatase enzyme. It generates absolutely zero estrogenic activity.'
+            }
+        ],
+
+        // 3. Metabolic State Transitions (The Enzymes & Electrons)
+        metabolic_pathways: [
+            {
+                enzyme: 'Cytochrome P450 Enzymes (Hepatic)',
+                reaction_type: 'Oxidation / Hydroxylation',
+                target_coordinate: 'Various',
+                product: 'Multiple hydroxylated inactive metabolites',
+                clinical_note: 'The combination of 17-alpha-methylation and 9-alpha-fluorination makes this molecule incredibly difficult for the liver to break down, resulting in extreme, dose-dependent hepatic strain.'
+            },
+            {
+                enzyme: '5-alpha Reductase (5aR)',
+                reaction_type: 'Reduction',
+                target_coordinate: 'C4-C5 double bond',
+                product: '5-alpha-dihydrofluoxymesterone',
+                clinical_note: 'The 9-alpha-fluoro group slows down 5aR reduction compared to testosterone, meaning the parent hormone remains the primary active agent in target tissues like the prostate and scalp.'
+            }
+        ],
+
+        // 4. Mechanistic Side Effects mapped directly to receptor vectors
+        receptor_linked_side_effects: {
+            ar_driven: [
+                { side_effect: 'Severe Virilization & Androgenic Alopecia', mechanism: 'Due to its massive AR binding affinity, it exerts extreme androgenic effects on the skin, sebaceous glands, hair follicles, and vocal cords.' },
+                { side_effect: 'Prostate Hypertrophy', mechanism: 'Direct, potent AR activation in prostate tissue promotes rapid cellular proliferation.' }
+            ],
+            glucocorticoid_and_structural_driven: [
+                { side_effect: 'Hypertension and Renal Strain', mechanism: 'By inhibiting renal 11β-HSD2, cortisol is allowed to bind to mineralocorticoid receptors in the kidneys (which normally only accept aldosterone). This drives unregulated sodium retention and potassium excretion, spiking blood pressure.' },
+                { side_effect: 'CNS Hyper-Activation (Aggression)', mechanism: 'The combination of extreme AR binding in the brain and altered cortisol levels drives profound neurological changes, often resulting in heightened irritability, competitive drive, and aggression.' },
+                { side_effect: 'Extreme Hepatotoxicity', mechanism: 'The tri-modified structure (methyl, fluoro, hydroxyl) resists hepatic clearance to such a degree that it rapidly induces elevations in liver transaminases (AST/ALT) and carries a high risk of drug-induced cholestasis.' }
+            ]
+        },
+
+        // 5. Terminal Excretion Metabolites (Phase II Conjugation)
+        terminal_urinary_metabolites: [
+            { name: '6-beta-hydroxyfluoxymesterone', stereoisomer: 'Hydroxylated at C6', conjugate: 'Unconjugated and Glucuronide forms' },
+            { name: '9-alpha-fluoro-17-alpha-methyl-androstane-3-alpha,11-beta,17-beta-triol', stereoisomer: 'Fully reduced A-ring', conjugate: 'Glucuronide (UGT-mediated) and Sulfate' }
+        ],
+
+        // 6. Intracellular Signaling & Tissue Remodeling Pathologies
+        downstream_signaling_cascades: {
+            erythropoiesis_stimulation: {
+                activated_by: 'Renal AR occupancy',
+                downstream_pathologies: [
+                    {
+                        side_effect: 'Polycythemia (Thickened Blood)',
+                        mechanism: 'Massively upregulates the production of Erythropoietin (EPO) in the kidneys. While this increases oxygen-carrying capacity, it heavily increases blood viscosity, raising the risk of thrombosis, stroke, and cardiovascular events.'
+                    }
+                ]
+            },
+            lipid_metabolism_disruption: {
+                activated_by: 'Hepatic AR and metabolic strain',
+                downstream_pathologies: [
+                    {
+                        side_effect: 'Severe Dyslipidemia',
+                        mechanism: 'Drastically increases hepatic lipase activity, which heavily degrades HDL (good cholesterol) while simultaneously increasing LDL (bad cholesterol), creating a highly atherogenic environment.'
+                    }
+                ]
+            }
+        },
+        blurb: `Fluoxymesterone (Halotestin) is an exceptionally potent, synthetic androgenic-anabolic steroid. While it shares the 17α-methyl group characteristic of oral AAS to survive first-pass hepatic metabolism, it is completely distinguished by the addition of a 9α-fluoro group and an 11β-hydroxyl group. These specific structural modifications sterically lock the molecule, completely preventing aromatization by CYP19A1 (aromatase), while massively amplifying its binding affinity to the androgen receptor (AR). Uniquely among standard AAS, fluoxymesterone heavily influences glucocorticoid pathways by acting as a competitive inhibitor of the 11β-Hydroxysteroid Dehydrogenase (11β-HSD) enzymes. This interference alters systemic cortisol metabolism, leading to distinct central nervous system (CNS) effects—notably intense neurological drive and aggression—and profound increases in erythropoiesis (red blood cell production). Because of this profile, it yields massive strength and performance increases without accompanying tissue hypertrophy (weight gain) or estrogenic water retention, though its extreme hepatotoxicity and cardiovascular strain strictly limit its use.`,
+        blurbHTML: `<img src="./docs/17a.png" class="img-fluid rounded" alt="17-alpha-methyltestosterone chemical structure"> 17α-Alkylated anabolic-androgenic steroids (AAS) are synthetic derivatives of testosterone, dihydrotestosterone (DHT), or related androstane steroids that contain an alkyl substituent at the C17α position. This structural modification reduces first-pass hepatic metabolism and confers oral bioavailability. Members of this class retain the characteristic steroid nucleus and multiple stereogenic centres required for androgen receptor binding, while additional structural modifications influence their anabolic, androgenic, and metabolic properties. Although 17α-alkylation enhances oral activity and systemic exposure, it is also associated with increased hepatic burden compared with non-alkylated anabolic steroids.`,
+
+    },
+    {
         parent_molecule: '17a-steroid',
-        blurb: `17α-Alkylated anabolic-androgenic steroids (AAS) are synthetic derivatives of testosterone, dihydrotestosterone (DHT), or related androstane steroids that contain an alkyl substituent at the C17α position. This structural modification reduces first-pass hepatic metabolism and confers oral bioavailability. Members of this class retain the characteristic steroid nucleus and multiple stereogenic centres required for androgen receptor binding, while additional structural modifications influence their anabolic, androgenic, and metabolic properties. Although 17α-alkylation enhances oral activity and systemic exposure, it is also associated with increased hepatic burden compared with non-alkylated anabolic steroids.`,
+        blurb: ` `,
+        blurbHTML: `<img src="./docs/17a.png" class="img-fluid rounded" alt="17-alpha-methyltestosterone chemical structure"> 17α-Alkylated anabolic-androgenic steroids (AAS) are synthetic derivatives of testosterone, dihydrotestosterone (DHT), or related androstane steroids that contain an alkyl substituent at the C17α position. This structural modification reduces first-pass hepatic metabolism and confers oral bioavailability. Members of this class retain the characteristic steroid nucleus and multiple stereogenic centres required for androgen receptor binding, while additional structural modifications influence their anabolic, androgenic, and metabolic properties. Although 17α-alkylation enhances oral activity and systemic exposure, it is also associated with increased hepatic burden compared with non-alkylated anabolic steroids.`,
         mode_of_action: `17α-Alkylated anabolic-androgenic steroids exert their effects primarily through binding to and activation of intracellular androgen receptors (AR). Following receptor activation, the ligand-receptor complex undergoes dimerization, translocates to the nucleus, and interacts with androgen response elements (AREs) to regulate transcription of genes involved in protein synthesis, nitrogen retention, erythropoiesis, skeletal muscle growth, bone metabolism, and other androgen-dependent physiological processes. The magnitude of anabolic and androgenic activity varies among individual compounds according to their structural modifications and tissue-specific metabolism.`,
         molecular_target: `Androgen receptor (AR), agonist. Secondary pharmacological effects may arise from compound-specific metabolites or interactions with other steroid hormone pathways.`,
         therapeutic_class: `Androgens / Anabolic agents for systemic use; 17α-alkylated anabolic-androgenic steroids`
@@ -681,6 +980,7 @@ const steroidDataSources = [
         author: "Raynaud, J.P., Bouton, M.M., et al.",
         type: "Peer-Reviewed Study",
         journal: "Journal of Steroid Biochemistry",
+        url: "./refs/raynaud1980.pdf",
         doi: "10.1016/0022-4731(80)90264-2",
         description: "The foundational benchmark assay evaluating relative binding affinities (RBA) of synthetic derivatives across all five primary steroid hormone receptors."
     },
@@ -690,7 +990,8 @@ const steroidDataSources = [
         author: "Saartok, T., Dahlberg, E., & Gustafsson, J.A.",
         type: "Peer-Reviewed Study",
         journal: "Endocrinology",
-        doi: "./refs/saartok_1984.pdf",
+        url: "./refs/saartok1984.pdf",
+        doi: '10.1210/endo-114-6-2100',
         description: "The gold-standard academic mapping of how synthetic AAS (like Nandrolone and Stanozolol) bind to androgen receptors compared to native testosterone."
     },
 
@@ -714,5 +1015,68 @@ const steroidDataSources = [
         journal: "Physics and Chemistry of Liquids",
         doi: "10.1080/00319104.2018.1471618",
         description: "Validates the system constants and partition coefficients (log P vectors) of solute migration in lipid-based carriers (Arachis/Peanut Oil)."
+    },
+    // --- STANOZOLOL SPECIFIC PHARMACODYNAMICS & KINETICS ---
+    {
+        source_id: 'sinclair_1989',
+        title: 'Alteration of Sex Hormone-Binding Globulin by Oral and Injectable Stanozolol',
+        author: 'Sinclair, M., et al.',
+        type: 'Peer-Reviewed Study',
+        journal: 'Journal of Clinical Endocrinology & Metabolism',
+        description: 'Benchmark study demonstrating that oral stanozolol reduces SHBG significantly more than equipotent intramuscular doses due to hepatic first-pass metabolism.'
+    },
+    {
+        source_id: 'cowan_1998',
+        title: 'Pharmacokinetics and Pharmacodynamics of Stanozolol',
+        author: 'Cowan, D. A., et al.',
+        type: 'Peer-Reviewed Study',
+        journal: 'British Journal of Clinical Pharmacology',
+        description: 'Explores the bioavailability and transport protein binding of stanozolol, confirming its low affinity for SHBG but profound suppressive effect on SHBG synthesis.'
+    },
+    {
+        source_id: 'nebot_2016',
+        title: 'Stanozolol Decreases Bone Turnover Markers, Increases Mineralization, and Alters Femoral Geometry in Male Rats',
+        author: 'Nebot, E., et al.',
+        type: 'In Vivo Study',
+        doi: '10.1007/s00223-016-0108-8',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/26801156/',
+        journal: 'Calcified Tissue International',
+        description: 'Validates the structural changes and increased mineral apposition in bone matrices induced by stanozolol.'
+    },
+    {
+        source_id: 'rachetti_2018',
+        title: 'Stanozolol promotes osteogenic gene expression and apposition of bone mineral in vitro',
+        author: 'Rachetti, A., et al.',
+        type: 'In Vitro Study',
+        url:'https://pubmed.ncbi.nlm.nih.gov/30427473/',
+        journal: 'Journal of Bone and Mineral Metabolism',
+        description: 'Directly confirms that stanozolol modulates genes related to osteogenic differentiation, specifically upregulating the RUNX2 transcription factor.'
+    },
+    {
+        source_id: 'ellis_1996',
+        title: 'The differential effects of stanozolol on human skin and synovial fibroblasts in vitro: DNA synthesis and receptor binding',
+        author: 'Ellis, A. J., et al.',
+        type: 'In Vitro Study',
+        journal: 'Endocrinology',
+        doi: '10.1007/BF01986391',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/8079819/',
+        description: 'Demonstrates that stanozolol exhibits competitive binding at the progesterone receptor, modulating local cellular signaling in fibroblasts.'
+    },
+    {
+        source_id: 'marqueti_2006',
+        title: 'Biomechanical responses of different rat tendons to stanozolol and exercise',
+        author: 'Marqueti, R. C., et al.',
+        type: 'In Vivo Study',
+        journal: 'International Journal of Sports Medicine',
+        description: 'Hallmark study demonstrating that stanozolol administration makes tendons less viscoelastic and stiffer, significantly increasing the likelihood of rupture under mechanical load.'
+    },
+    {
+        source_id: 'parr_2020',
+        title: 'Anabolic steroids and tendons: A review of their mechanical, structural, and biologic effects',
+        author: 'Parr, A. M., et al.',
+        type: 'Literature Review',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/30047601/',
+        journal: 'Journal of Orthopaedic Research',
+        description: 'Details how stanozolol acts as an osmotic diuretic in connective tissues, driving water out of the synovial spaces and disrupting the normal sliding mechanism of collagen fibrils.'
     }
 ];
