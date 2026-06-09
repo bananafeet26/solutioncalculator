@@ -43,7 +43,7 @@
 
 <div class="container" x-data="jsmolApp()" x-init="init()">
     <!-- Header -->
-    <h1 class="mb-3">Molecule Viewer</h1>
+    <h3 style="text-transform: capitalize;" class="mb-4 fw-bold text-center" x-text="selectedCompound?.name"></h3>
     <div class="row">
         <div class="col-12">
 
@@ -92,7 +92,6 @@
     <!-- Ester Formulation & Physical Properties -->
     <template x-if="selectedCompound && selectedCompound.self_id !== selectedCompound.parent_molecule">
         <div class="mb-5">
-            <h3 class="mb-4 fw-bold" x-text="selectedCompound?.name"></h3>
 
             <h4 class="h5 fw-bold border-bottom pb-2 mb-3 text-dark">Ester & Physical Properties</h4>
 
@@ -153,6 +152,7 @@
     </template>
     <template x-if="getParent">
     <div>
+        <h4 class="h5 fw-bold border-bottom pb-2 mb-3 text-dark">Parent Properties <span style="text-transform: capitalize;" x-text="'(' + getParent.parent_molecule + ')'"></span></h4>
 
             <div>
                 <canvas id="2dmole"  style="max-height: 380px;"></canvas>

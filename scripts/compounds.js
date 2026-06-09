@@ -954,7 +954,7 @@ var compounds = [
         smiles: 'C[C@]12CC[C@H]3[C@@H]([C@@H]1CC[C@@H]2OC(=O)CCC4CCCC4)CCC5=CC=C(O)C=C35',
         formula: 'C26H36O3',
         blurbHTML:   `<p>
-    Estradiol cypionate is a 17β-cyclopentylpropionate ester of estradiol. This esterification significantly increases the lipophilicity of the molecule, allowing for the creation of an intramuscular depot that provides a sustained release of active estradiol over an extended period.
+    Estradiol cypionate is a 17β-cyclopentylpropionate ester of estradiol (prodrug/controlled release vehicle). This esterification significantly increases the lipophilicity of the molecule, allowing for the creation of an intramuscular depot that provides a sustained release of active estradiol over an extended period.
 </p>
 
 <p>
@@ -1021,7 +1021,7 @@ var compounds = [
         image: null,
         smiles: 'CCCCCCC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=C3C=CC(=C4)O)C',
         blurbHTML: `<p>
-    Estradiol enanthate is a 17β-enanthate (heptanoate) ester of 17β-estradiol. This esterification significantly increases the lipophilicity of the molecule, allowing for the creation of an intramuscular oil depot that provides sustained release of active estradiol over an extended period.
+    Estradiol enanthate is a 17β-enanthate (heptanoate) ester of 17β-estradiol (prodrug/controlled release vehicle). This esterification significantly increases the lipophilicity of the molecule, allowing for the creation of an intramuscular oil depot that provides sustained release of active estradiol over an extended period.
 </p>
 
 <p>
@@ -1149,7 +1149,7 @@ var compounds = [
         formula: 'C23H32O3',
         smiles: 'CCCCC(=O)OC1CCC2C3CCc4cc(O)ccc4C3CCC12C',
         blurbHTML: `<p>
-    Estradiol valerate is a 17β-valerate (pentanoate) ester of 17β-estradiol. This esterification increases the lipophilicity of the molecule, enabling the formation of an intramuscular oil depot that provides sustained release of active estradiol over an extended period.
+    Estradiol valerate is a 17β-valerate (pentanoate) ester of 17β-estradiol (prodrug/controlled release vehicle). This esterification increases the lipophilicity of the molecule, enabling the formation of an intramuscular oil depot that provides sustained release of active estradiol over an extended period.
 </p>
 
 <p>
@@ -1476,7 +1476,7 @@ var compounds = [
         formula: 'C21H30O3',
         smiles: 'CC(=O)OC1CCC2C3CCC4=CC(=O)CCC4(C)C3CCC12C',
         blurbHTML: `<p>
-    Testosterone acetate is the oil-soluble 17β-acetate ester of the androgenic hormone testosterone. It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+    Testosterone acetate is the oil-soluble 17β-acetate ester of the androgenic hormone testosterone (prodrug/controlled release vehicle). It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
 </p>
 
 <p>
@@ -1546,7 +1546,7 @@ var compounds = [
         image: null,
         smiles: 'CC(C)CCC(=O)OC1CCC2C1(CCC3C2CCC4=CC(=O)CCC34C)C',
         blurbHTML:`<p>
-    Testosterone isocaproate is the oil-soluble 17β-(4-methylpentanoate) ester of the androgenic hormone testosterone. It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+    Testosterone isocaproate is the oil-soluble 17β-(4-methylpentanoate) ester of the androgenic hormone testosterone (prodrug/controlled release vehicle). It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
 </p>
 
 <p>
@@ -1675,7 +1675,7 @@ var compounds = [
         formula: 'C22H32O3',
         smiles: 'CCC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=CC(=O)CC[C@]34C)C',
         blurbHTML:`<p>
-    Testosterone propionate is the oil-soluble 17β-propionate (propanoate) ester of the androgenic hormone testosterone. It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+    Testosterone propionate is the oil-soluble 17β-propionate (propanoate) ester of the androgenic hormone testosterone (prodrug/controlled release vehicle). It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
 </p>
 
 <p>
@@ -1745,7 +1745,7 @@ var compounds = [
         cas_no: '1255-49-8',
         smiles: 'C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCC4=CC=CC=C4)CCC5=CC(=O)CC[C@]35C',
         blurbHTML:`<p>
-    Testosterone phenylpropionate is the oil-soluble 17β-phenylpropionate ester of the androgenic hormone testosterone. It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+    Testosterone phenylpropionate is the oil-soluble 17β-phenylpropionate ester of the androgenic hormone testosterone (prodrug/controlled release vehicle). It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
 </p>
 
 <p>
@@ -1885,7 +1885,7 @@ var compounds = [
         formula: 'C27H40O3',
         smiles: 'CC12CCC(=O)C=C1CCC1C2CCC2(C)C(OC(=O)CCC3CCCC3)CCC12',
         blurbHTML: `<p>
-    Testosterone Cypionate which is the oil-soluble 17 (beta)- cyclopentylpropionate ester of the androgenic hormone testosterone.
+    Testosterone Cypionate which is the oil-soluble 17 (beta)- cyclopentylpropionate ester of the androgenic hormone testosterone (prodrug/controlled release vehicle). 
 Testosterone Cypionate is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
 The chemical name for Testosterone Cypionate is androst-4-en-3-one,17-(3-
 cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilicity, supporting a long-acting intramuscular depot formulation.
@@ -2021,7 +2021,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         formula: 'C26H40O3',
         smiles: 'CCCCCCC(=O)OC1CCC2C3CCC4=CC(=O)CCC4(C)C3CCC12C',
         blurbHTML: `<p>
-    Testosterone enanthate (TE) is a 17β-heptanoate ester of testosterone. This esterification increases the lipophilicity of the molecule, enabling the formation of an intramuscular or subcutaneous depot that provides sustained release of active testosterone over an extended period.
+    Testosterone enanthate (TE) is a 17β-heptanoate ester of testosterone (prodrug/controlled release vehicle). This esterification increases the lipophilicity of the molecule, enabling the formation of an intramuscular or subcutaneous depot that provides sustained release of active testosterone over an extended period.
 </p>
 
 <p>
@@ -2161,7 +2161,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         formula: 'C29H46O3',
         smiles: 'CCCCCCCCCC(=O)OC1CCC2C3CCC4=CC(=O)CCC4(C)C3CCC12C',
         blurbHTML: `<p>
-    Testosterone decanoate is the oil-soluble 17β-decanoate ester of the androgenic hormone testosterone. It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+    Testosterone decanoate is the oil-soluble 17β-decanoate ester of the androgenic hormone testosterone (prodrug/controlled release vehicle). It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
 </p>
 
 <p>
@@ -2603,7 +2603,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         cas_no: '5949-44-0',
         smiles: 'CCCCCCCCCCC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=CC(=O)CC[C@]34C)C',
         blurbHTML: `<p>
-    Testosterone undecanoate (TU) is a long-chain fatty acid ester of testosterone designed for very slow release. Its high lipophilicity allows for extended-duration intramuscular depot injections.
+    Testosterone undecanoate (TU) is a long-chain fatty acid ester of testosterone designed for very slow release (prodrug/controlled release vehicle). Its high lipophilicity allows for extended-duration intramuscular depot injections.
 </p>
 
 <p>
@@ -3595,7 +3595,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         image: null,
         smiles: 'CC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=CC(=O)C=C[C@]34C)C',
         blurbHTML: `<p>
-    Boldenone acetate is the oil-soluble 17β-acetate ester of boldenone. It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+    Boldenone acetate is the oil-soluble 17β-acetate ester of boldenone (prodrug/controlled release vehicle). It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
 </p>
 
 <p>
@@ -3666,7 +3666,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         image: null,
         smiles: 'C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCCCCCCCC=C)CCC4=CC(=O)C=C[C@]34C',
         blurbHTML: `<p>
-    Boldenone undecylenate is the oil-soluble 17β-undec-10-enoate ester of boldenone. It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
+    Boldenone undecylenate is the oil-soluble 17β-undec-10-enoate ester of boldenone (prodrug/controlled release vehicle). It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
 </p>
 
 <p>
