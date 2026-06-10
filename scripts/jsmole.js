@@ -60,14 +60,15 @@ function jsmolApp() {
             const compound = this.selectedCompound;
 
             if (!compound || !this.viewer) return;
-            <!-- 1 Load content -->
-            console.log(`<!-- 1 Load content -->`);
-            await this.loadContent(compound.self_id);
-            <!-- 2 Draw 2D mole -->
+
+            <!-- 1 Draw 2D mole -->
             if (typeof compound.smiles !== "undefined") {
-                console.log(`<!-- 2 Draw 2D mole -->\n --> ${compound.smiles}`);
+                console.log(`<!-- 1 Draw 2D mole -->\n --> ${compound.smiles}`);
                 this.draw2D(compound.smiles);
             }
+            <!-- 2 Load content -->
+            console.log(`<!-- 2 Load content -->`);
+            await this.loadContent(compound.self_id);
 
             <!-- 3 Draw 3D molecule -->
             try {

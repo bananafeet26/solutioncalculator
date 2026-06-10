@@ -95,7 +95,7 @@
     <div class="bg-white p-2 p-md-5 border rounded shadow-sm mb-1">
 
         <!-- Ester Formulation & Physical Properties -->
-        <template x-if="selectedCompound && selectedCompound.self_id !== selectedCompound.parent_molecule">
+        <template x-if="selectedCompound">
             <div class="mb-5">
                 <h4 class="h5 fw-bold border-bottom pb-2 mb-2 text-dark">Ester & Physical Properties</h4>
 
@@ -154,19 +154,17 @@
                                 <div x-text="selectedCompound.blurb"></div>
                             </div>
                         </template>
-                        <div>
                             <template x-if="selectedCompound.blurbHTML">
                                 <div x-html="selectedCompound.blurbHTML"></div>
                             </template>
-                        </div>
                     </div>
                 </template>
             </div>
         </template>
         <template x-if="getParent">
             <div>
-                <h4 class="h5 fw-bold border-bottom pb-2 mb-2 text-dark">Parent Properties <span
-                        style="text-transform: capitalize;" x-text="'(' + getParent.parent_molecule + ')'"></span></h4>
+                <h4 class="h5 fw-bold border-bottom pb-2 mb-2 text-dark"><span
+                        style="text-transform: capitalize;" x-text="getParent.parent_molecule"></span> Pharmacology </h4>
 
                 <div class="mb-2">
                     <p class="mb-1"><span class="fw-bold text-secondary me-1">Therapeutic Class:</span> <span

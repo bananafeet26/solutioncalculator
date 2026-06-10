@@ -2639,8 +2639,8 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         },
         pubchemid: null,
         self_id: 'halotestin',
-        molecular_weight: 336.4409,
-        density: 1.0989010989010988,
+        molecular_weight: 336.44,
+        density: 1.099,
         displacement: 0.91,
         melting_point: [238, 242],
         mls: 0,
@@ -2655,8 +2655,8 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         cas_no: '76-43-7',
         log_p: 3.3322,
         formula: 'C20H29FO3',
-        parent_molecule: 'halotestin',
-        smiles: 'CC1(O)CCC2C3CCC4=CC(=O)CCC4(C)C3(F)C(O)CC21C',
+        parent_molecule: 'fluoxymesterone',
+        smiles: 'C[C@]12CCC(=O)C=C1CC[C@@H]3[C@@]2([C@H](C[C@]4([C@H]3CC[C@]4(C)O)C)O)F'
     },
     {
         id: crypto.randomUUID(),
