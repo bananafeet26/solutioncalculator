@@ -319,8 +319,8 @@ var compounds = [
     density: 1.03,
     viscosityArray: [2.7, 4.7],
     viscosityTempArray: [25, 25],
-    evaporation_point: 427.15,  // approx. boiling point in K (154°C)
-    melting_point: 247.15,      // approx. melting point in K (-26°C)
+    evaporation_point: 154,  // approx. boiling point in K (154°C)
+    melting_point: -26,      // approx. melting point in K (-26°C)
     mls: 0,
     grams: 0,
     v_v_percent: 0,
@@ -335,6 +335,57 @@ var compounds = [
     formula: 'C5H10O3',
     smiles: 'CCOC(=O)C(C)O',
     blurb: 'Ethyl lactate is an organic compound classified as a fatty acid ester (specifically the ethyl ester of lactic acid). It has the molecular formula C5H10O3 and is a clear, colorless liquid with a mild, fruity odor. It is miscible with water and many organic solvents. Ethyl lactate is naturally present in various foods such as wine, and it is produced industrially through the esterification of lactic acid with ethanol. It is widely recognized as a green, biodegradable, and low-toxicity solvent, making it a sustainable alternative to many petroleum-based solvents in applications like coatings, cleaners, and pharmaceuticals.'
+    },
+    {
+    id: crypto.randomUUID(),
+    class: 'excipient',
+    name: 'methyl salicylate',
+    translations: {
+        en: 'methyl salicylate',
+        fr: "salicylate de méthyle",
+        es: 'salicilato de metilo',
+        de: 'Methylsalicylat',
+        it: 'salicilato di metile',
+        nl: 'methylsalicylaat',
+        pt: 'salicilato de metila',
+        ru: 'метилсалицилат',
+        ja: 'サリチル酸メチル',
+        zh: '水杨酸甲酯',
+        ko: '메틸 살리실레이트',
+        ar: 'ميثيل ساليسيلات',
+        hi: 'मिथाइल सैलिसाइलेट',
+        id: 'metil salisilat',
+        tr: 'metil salisilat',
+        pl: 'salicylan metylu',
+        sv: 'metylsalicylat',
+        da: 'methylsalicylat',
+        no: 'metylsalicylat',
+        cs: 'methylsalicylát',
+        hu: 'metil-szalicilát',
+        vi: 'methyl salicylate'
+    },
+    pubchemid: 4133,
+    self_id: 'methyl_salicylate',
+    molecular_weight: 152.15,
+    density: 1.18,
+    viscosityArray: [1.535],
+    viscosityTempArray: [25],
+    evaporation_point: 223,   // approx. boiling point in K (\~223°C)
+    melting_point: -8.6,       // approx. melting point in K (-8.6°C)
+    mls: 0,
+    grams: 0,
+    v_v_percent: 0,
+    mg_per_ml: 0,
+    purity: 100,
+    basis: 'q.s.',
+    input: 0,
+    qsMode: false,
+    pricePerUnit: 0,
+    cas_no: '119-36-8',
+    log_p: 2.55,
+    formula: 'C8H8O3',
+    smiles: 'COC(=O)c1ccccc1O',
+    blurb: 'Methyl salicylate, also known as wintergreen oil, is an organic compound classified as an ester of salicylic acid. It has the molecular formula C8H8O3 and is a colorless to pale yellow viscous liquid with a characteristic sweet, minty, wintergreen odor. It is slightly soluble in water but highly soluble in organic solvents such as ethanol, ether, and oils. Methyl salicylate occurs naturally in many plants, particularly wintergreen (Gaultheria procumbens), and is produced synthetically by the esterification of salicylic acid with methanol. It is widely used in topical analgesics, flavorings, fragrances, and as a counterirritant due to its ability to produce a warming sensation when applied to the skin.'
     },
     {
         id: crypto.randomUUID(),
