@@ -421,8 +421,8 @@ var compounds = [
     density: 1.25,
     viscosityArray: [null],  // Solid at room temperature; limited liquid viscosity data available
     viscosityTempArray: [25],
-    evaporation_point: 446.15,   // Boiling point \~173°C at 12 mmHg, converted to K
-    melting_point: 314.65,       // Melting point \~41.5°C, converted to K
+    evaporation_point: 173,   // Boiling point \~173°C at 12 mmHg, converted to K
+    melting_point: 41.5,       // Melting point \~41.5°C, converted to K
     mls: 0,
     grams: 0,
     v_v_percent: 0,
