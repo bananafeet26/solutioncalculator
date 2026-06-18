@@ -82,6 +82,7 @@ var compounds = [
         density: 1.044,
         viscosityArray: [5.474],
         viscosityTempArray: [25],
+        melting_point: [-15.2],
         mls: 0,
         grams: 0,
         v_v_percent: 20,
@@ -269,7 +270,7 @@ var compounds = [
         viscosityArray: [5.15],
         viscosityTempArray: [25],
         evaporation_point: 250.15,
-        melting_point: 217,
+        melting_point: [217],
         mls: 0,
         grams: 0,
         v_v_percent: 0,
@@ -317,10 +318,10 @@ var compounds = [
         self_id: 'ethyl_lactate',
         molecular_weight: 118.13,
         density: 1.03,
-        viscosityArray: [2.7, 4.7],
-        viscosityTempArray: [25, 25],
+        viscosityArray: [4.7],
+        viscosityTempArray: [25],
         evaporation_point: 154,  // approx. boiling point in K (154°C)
-        melting_point: -26,      // approx. melting point in K (-26°C)
+        melting_point: [-26],      // approx. melting point in K (-26°C)
         mls: 0,
         grams: 0,
         v_v_percent: 0,
@@ -335,6 +336,57 @@ var compounds = [
         formula: 'C5H10O3',
         smiles: 'CCOC(=O)C(C)O',
         blurb: 'Ethyl lactate is an organic compound classified as a fatty acid ester (specifically the ethyl ester of lactic acid). It has the molecular formula C5H10O3 and is a clear, colorless liquid with a mild, fruity odor. It is miscible with water and many organic solvents. Ethyl lactate is naturally present in various foods such as wine, and it is produced industrially through the esterification of lactic acid with ethanol. It is widely recognized as a green, biodegradable, and low-toxicity solvent, making it a sustainable alternative to many petroleum-based solvents in applications like coatings, cleaners, and pharmaceuticals.'
+    },
+    {
+        id: crypto.randomUUID(),
+        class: 'excipient',
+        name: 'ethyl-l-lactate',
+        translations: {
+            en: 'ethyl-L-lactate',
+            fr: "L-lactate d'éthyle",
+            es: 'L-lactato de etilo',
+            de: 'Ethyl-L-lactat',
+            it: 'L-lattato di etile',
+            nl: 'ethyl-L-lactaat',
+            pt: 'L-lactato de etila',
+            ru: 'L-этиллактат',
+            ja: 'L-乳酸エチル',
+            zh: 'L-乳酸乙酯',
+            ko: 'L-에틸 락테이트',
+            ar: 'إيثيل-إل-لاكتات',
+            hi: 'एथिल-एल-लैक्टेट',
+            id: 'etil-L-laktat',
+            tr: 'etil-L-laktat',
+            pl: 'L-mleczan etylu',
+            sv: 'etyl-L-laktat',
+            da: 'ethyl-L-laktat',
+            no: 'etyl-L-laktat',
+            cs: 'ethyl-L-laktát',
+            hu: 'etil-L-laktát',
+            vi: 'ethyl-L-lactate'
+        },
+        pubchemid: 24894514, // Ethyl L-lactate
+        self_id: 'ethyl_l_lactate',
+        molecular_weight: 118.13,
+        density: 1.03,
+        viscosityArray: [4.7],
+        viscosityTempArray: [25],
+        evaporation_point: 154, // approx. boiling point in °C
+        melting_point: [-26],     // approx. melting point in °C
+        mls: 0,
+        grams: 0,
+        v_v_percent: 0,
+        mg_per_ml: 0,
+        purity: 100,
+        basis: 'v_v_percent',
+        input: 0,
+        qsMode: false,
+        pricePerUnit: 0,
+        cas_no: '687-47-8',
+        log_p: 0.2,
+        formula: 'C5H10O3',
+        smiles: 'CCOC(=O)[C@H](O)C',
+        blurb: 'Ethyl-L-lactate is the naturally occurring L-enantiomer of ethyl lactate, the ethyl ester of L-lactic acid. It has the molecular formula C5H10O3 and is a clear, colorless liquid with a mild fruity odor. Like racemic ethyl lactate, it is biodegradable, readily miscible with water and many organic solvents, and is valued as a green solvent in pharmaceutical, food, coating, and cleaning applications. The L-isomer is derived from biologically produced L-lactic acid and may be preferred in applications where stereochemical purity is important.'
     },
     {
         id: crypto.randomUUID(),
@@ -371,7 +423,7 @@ var compounds = [
         viscosityArray: [1.535],
         viscosityTempArray: [25],
         evaporation_point: 223,   // approx. boiling point in K (\~223°C)
-        melting_point: -8.6,       // approx. melting point in K (-8.6°C)
+        melting_point: [-8.6],       // approx. melting point in K (-8.6°C)
         mls: 0,
         grams: 0,
         v_v_percent: 0,
@@ -422,7 +474,7 @@ var compounds = [
         viscosityArray: [null],  // Solid at room temperature; limited liquid viscosity data available
         viscosityTempArray: [25],
         evaporation_point: 173,   // Boiling point \~173°C at 12 mmHg, converted to K
-        melting_point: 41.5,       // Melting point \~41.5°C, converted to K
+        melting_point: [41.5],       // Melting point \~41.5°C, converted to K
         mls: 0,
         grams: 0,
         v_v_percent: 0,
@@ -520,6 +572,7 @@ var compounds = [
         density: 0.96,
         viscosityArray: [580, 283, 36],
         viscosityTempArray: [27, 37, 79.4],
+        melting_point: [-18, -10],
         mls: 0,
         grams: 0,
         v_v_percent: 0,
@@ -3153,9 +3206,9 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         formula: 'C20H24O2',
         pricePerUnit: 3.5,
         cas_no: '120511-73-1',
-        log_p: 2.9287599999999996,
+        log_p: 2.9287,
         formula: 'C17H19N5',
-        log_p: '2.929',
+        log_p: 2.929,
         smiles: 'CC(C)(C#N)c1cc(Cn2cncn2)cc(C(C)(C)C#N)c1'
     },
     {
@@ -3428,7 +3481,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         molecular_weight: 290.32,
         density: 1.2,
         displacement: 0.83,
-        melting_point: 500,
+        melting_point: [500],
         mls: 0,
         grams: 0,
         v_v_percent: 0,

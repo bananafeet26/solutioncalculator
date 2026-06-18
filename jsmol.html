@@ -126,8 +126,10 @@
                         <ul class="list-group list-group-flush small border rounded shadow-sm">
                             <li class="list-group-item d-flex justify-content-between bg-light">
                                 <strong class="text-secondary">Melting Point:</strong>
-                                <span class="text-dark fw-medium"
-                                      x-text="selectedCompound.melting_point ? selectedCompound.melting_point.join(' - ') + ' °C' : 'N/A'"></span>
+                                <template x-if="typeof selectedCompound.melting_point !== 'undefined'">
+                                    <div><span class="text-dark fw-medium"
+                                               x-text="getMeltingPoint"></span></div>
+                                </template>
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
                                 <strong class="text-secondary">Density / Disp.:</strong>

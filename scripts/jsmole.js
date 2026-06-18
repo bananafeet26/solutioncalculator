@@ -54,7 +54,12 @@ function jsmolApp() {
                 c => String(c.self_id) === String(this.selectedId)
             );
         },
-
+        get getMeltingPoint() {
+            let compound = this.compounds.find(c => c.self_id === this.selectedId);
+            if (compound.melting_point.length > 1) return compound.melting_point.join(' - ') + ' °C';
+            if (compound.melting_point.length === 1) return compound.melting_point[0] + ' °C';
+            //selectedCompound.melting_point.join(' - ') + ' °C'
+        },
         async loadSelected() {
             console.log(`Loading compound: ${this.selectedCompound.name}`)
             const compound = this.selectedCompound;
