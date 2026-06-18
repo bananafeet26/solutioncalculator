@@ -286,157 +286,205 @@ var compounds = [
         blurb: 'Ethyl oleate is an organic compound classified as a fatty acid ester, specifically the ethyl ester of oleic acid. It has the molecular formula C20H38O2 and is a colorless to pale yellow liquid with a mild odor. It is slightly soluble in water but highly soluble in organic solvents such as ethanol, chloroform, and ether. Ethyl oleate is naturally present in trace amounts in some animal fats and vegetable oils, and it can be synthesized through the esterification of oleic acid with ethanol under acid-catalyzed conditions. This reaction is a typical example of Fischer esterification, where an alcohol reacts with a carboxylic acid in the presence of an acid catalyst to form an ester and water. '
     },
     {
-    id: crypto.randomUUID(),
-    class: 'excipient',
-    name: 'ethyl lactate',
-    translations: {
-        en: 'ethyl lactate',
-        fr: "lactate d'éthyle",
-        es: 'lactato de etilo',
-        de: 'Ethyllactat',
-        it: 'lattato di etile',
-        nl: 'ethyllactaat',
-        pt: 'lactato de etila',
-        ru: 'этиллактат',
-        ja: '乳酸エチル',
-        zh: '乳酸乙酯',
-        ko: '에틸 락테이트',
-        ar: 'لاكتات الإيثيل',
-        hi: 'एथिल लैक्टेट',
-        id: 'etil laktat',
-        tr: 'etil laktat',
-        pl: 'mleczan etylu',
-        sv: 'etyl laktat',
-        da: 'ethyl laktat',
-        no: 'etyl laktat',
-        cs: 'ethyl laktát',
-        hu: 'etil-laktát',
-        vi: 'ethyl lactate'
-    },
-    pubchemid: 7344,
-    self_id: 'ethyl_lactate',
-    molecular_weight: 118.13,
-    density: 1.03,
-    viscosityArray: [2.7, 4.7],
-    viscosityTempArray: [25, 25],
-    evaporation_point: 154,  // approx. boiling point in K (154°C)
-    melting_point: -26,      // approx. melting point in K (-26°C)
-    mls: 0,
-    grams: 0,
-    v_v_percent: 0,
-    mg_per_ml: 0,
-    purity: 100,
-    basis: 'q.s.',
-    input: 0,
-    qsMode: false,
-    pricePerUnit: 0,
-    cas_no: '97-64-3',
-    log_p: 0.2,
-    formula: 'C5H10O3',
-    smiles: 'CCOC(=O)C(C)O',
-    blurb: 'Ethyl lactate is an organic compound classified as a fatty acid ester (specifically the ethyl ester of lactic acid). It has the molecular formula C5H10O3 and is a clear, colorless liquid with a mild, fruity odor. It is miscible with water and many organic solvents. Ethyl lactate is naturally present in various foods such as wine, and it is produced industrially through the esterification of lactic acid with ethanol. It is widely recognized as a green, biodegradable, and low-toxicity solvent, making it a sustainable alternative to many petroleum-based solvents in applications like coatings, cleaners, and pharmaceuticals.'
-    },
-    {
-    id: crypto.randomUUID(),
-    class: 'excipient',
-    name: 'methyl salicylate',
-    translations: {
-        en: 'methyl salicylate',
-        fr: "salicylate de méthyle",
-        es: 'salicilato de metilo',
-        de: 'Methylsalicylat',
-        it: 'salicilato di metile',
-        nl: 'methylsalicylaat',
-        pt: 'salicilato de metila',
-        ru: 'метилсалицилат',
-        ja: 'サリチル酸メチル',
-        zh: '水杨酸甲酯',
-        ko: '메틸 살리실레이트',
-        ar: 'ميثيل ساليسيلات',
-        hi: 'मिथाइल सैलिसाइलेट',
-        id: 'metil salisilat',
-        tr: 'metil salisilat',
-        pl: 'salicylan metylu',
-        sv: 'metylsalicylat',
-        da: 'methylsalicylat',
-        no: 'metylsalicylat',
-        cs: 'methylsalicylát',
-        hu: 'metil-szalicilát',
-        vi: 'methyl salicylate'
-    },
-    pubchemid: 4133,
-    self_id: 'methyl_salicylate',
-    molecular_weight: 152.15,
-    density: 1.18,
-    viscosityArray: [1.535],
-    viscosityTempArray: [25],
-    evaporation_point: 223,   // approx. boiling point in K (\~223°C)
-    melting_point: -8.6,       // approx. melting point in K (-8.6°C)
-    mls: 0,
-    grams: 0,
-    v_v_percent: 0,
-    mg_per_ml: 0,
-    purity: 100,
-    basis: 'q.s.',
-    input: 0,
-    qsMode: false,
-    pricePerUnit: 0,
-    cas_no: '119-36-8',
-    log_p: 2.55,
-    formula: 'C8H8O3',
-    smiles: 'COC(=O)c1ccccc1O',
-    blurb: 'Methyl salicylate, also known as wintergreen oil, is an organic compound classified as an ester of salicylic acid. It has the molecular formula C8H8O3 and is a colorless to pale yellow viscous liquid with a characteristic sweet, minty, wintergreen odor. It is slightly soluble in water but highly soluble in organic solvents such as ethanol, ether, and oils. Methyl salicylate occurs naturally in many plants, particularly wintergreen (Gaultheria procumbens), and is produced synthetically by the esterification of salicylic acid with methanol. It is widely used in topical analgesics, flavorings, fragrances, and as a counterirritant due to its ability to produce a warming sensation when applied to the skin.'
+        id: crypto.randomUUID(),
+        class: 'excipient',
+        name: 'ethyl lactate',
+        translations: {
+            en: 'ethyl lactate',
+            fr: "lactate d'éthyle",
+            es: 'lactato de etilo',
+            de: 'Ethyllactat',
+            it: 'lattato di etile',
+            nl: 'ethyllactaat',
+            pt: 'lactato de etila',
+            ru: 'этиллактат',
+            ja: '乳酸エチル',
+            zh: '乳酸乙酯',
+            ko: '에틸 락테이트',
+            ar: 'لاكتات الإيثيل',
+            hi: 'एथिल लैक्टेट',
+            id: 'etil laktat',
+            tr: 'etil laktat',
+            pl: 'mleczan etylu',
+            sv: 'etyl laktat',
+            da: 'ethyl laktat',
+            no: 'etyl laktat',
+            cs: 'ethyl laktát',
+            hu: 'etil-laktát',
+            vi: 'ethyl lactate'
+        },
+        pubchemid: 7344,
+        self_id: 'ethyl_lactate',
+        molecular_weight: 118.13,
+        density: 1.03,
+        viscosityArray: [2.7, 4.7],
+        viscosityTempArray: [25, 25],
+        evaporation_point: 154,  // approx. boiling point in K (154°C)
+        melting_point: -26,      // approx. melting point in K (-26°C)
+        mls: 0,
+        grams: 0,
+        v_v_percent: 0,
+        mg_per_ml: 0,
+        purity: 100,
+        basis: 'v_v_percent',
+        input: 0,
+        qsMode: false,
+        pricePerUnit: 0,
+        cas_no: '97-64-3',
+        log_p: 0.2,
+        formula: 'C5H10O3',
+        smiles: 'CCOC(=O)C(C)O',
+        blurb: 'Ethyl lactate is an organic compound classified as a fatty acid ester (specifically the ethyl ester of lactic acid). It has the molecular formula C5H10O3 and is a clear, colorless liquid with a mild, fruity odor. It is miscible with water and many organic solvents. Ethyl lactate is naturally present in various foods such as wine, and it is produced industrially through the esterification of lactic acid with ethanol. It is widely recognized as a green, biodegradable, and low-toxicity solvent, making it a sustainable alternative to many petroleum-based solvents in applications like coatings, cleaners, and pharmaceuticals.'
     },
     {
-    id: crypto.randomUUID(),
-    class: 'excipient',
-    name: 'phenyl salicylate',
-    translations: {
-        en: 'phenyl salicylate',
-        fr: "salicylate de phényle",
-        es: 'salicilato de fenilo',
-        de: 'Phenylsalicylat',
-        it: 'salicilato di fenile',
-        nl: 'fenylsalicylaat',
-        pt: 'salicilato de fenila',
-        ru: 'фенилсалицилат',
-        ja: 'サリチル酸フェニル',
-        zh: '水杨酸苯酯',
-        ko: '페닐 살리실레이트',
-        ar: 'فينيل ساليسيلات',
-        hi: 'फेनिल सैलिसाइलेट',
-        id: 'fenil salisilat',
-        tr: 'fenil salisilat',
-        pl: 'salicylan fenylu',
-        sv: 'fenylsalicylat',
-        da: 'phenylsalicylat',
-        no: 'fenylsalicylat',
-        cs: 'fenylsalicylát',
-        hu: 'fenil-szalicilát',
-        vi: 'phenyl salicylate'
+        id: crypto.randomUUID(),
+        class: 'excipient',
+        name: 'methyl salicylate',
+        translations: {
+            en: 'methyl salicylate',
+            fr: "salicylate de méthyle",
+            es: 'salicilato de metilo',
+            de: 'Methylsalicylat',
+            it: 'salicilato di metile',
+            nl: 'methylsalicylaat',
+            pt: 'salicilato de metila',
+            ru: 'метилсалицилат',
+            ja: 'サリチル酸メチル',
+            zh: '水杨酸甲酯',
+            ko: '메틸 살리실레이트',
+            ar: 'ميثيل ساليسيلات',
+            hi: 'मिथाइल सैलिसाइलेट',
+            id: 'metil salisilat',
+            tr: 'metil salisilat',
+            pl: 'salicylan metylu',
+            sv: 'metylsalicylat',
+            da: 'methylsalicylat',
+            no: 'metylsalicylat',
+            cs: 'methylsalicylát',
+            hu: 'metil-szalicilát',
+            vi: 'methyl salicylate'
+        },
+        pubchemid: 4133,
+        self_id: 'methyl_salicylate',
+        molecular_weight: 152.15,
+        density: 1.18,
+        viscosityArray: [1.535],
+        viscosityTempArray: [25],
+        evaporation_point: 223,   // approx. boiling point in K (\~223°C)
+        melting_point: -8.6,       // approx. melting point in K (-8.6°C)
+        mls: 0,
+        grams: 0,
+        v_v_percent: 0,
+        mg_per_ml: 0,
+        purity: 100,
+        basis: 'v_v_percent',
+        input: 0,
+        qsMode: false,
+        pricePerUnit: 0,
+        cas_no: '119-36-8',
+        log_p: 2.55,
+        formula: 'C8H8O3',
+        smiles: 'COC(=O)c1ccccc1O',
+        blurb: 'Methyl salicylate, also known as wintergreen oil, is an organic compound classified as an ester of salicylic acid. It has the molecular formula C8H8O3 and is a colorless to pale yellow viscous liquid with a characteristic sweet, minty, wintergreen odor. It is slightly soluble in water but highly soluble in organic solvents such as ethanol, ether, and oils. Methyl salicylate occurs naturally in many plants, particularly wintergreen (Gaultheria procumbens), and is produced synthetically by the esterification of salicylic acid with methanol. It is widely used in topical analgesics, flavorings, fragrances, and as a counterirritant due to its ability to produce a warming sensation when applied to the skin.'
     },
-    pubchemid: 8361,
-    self_id: 'phenyl_salicylate',
-    molecular_weight: 214.22,
-    density: 1.25,
-    viscosityArray: [null],  // Solid at room temperature; limited liquid viscosity data available
-    viscosityTempArray: [25],
-    evaporation_point: 173,   // Boiling point \~173°C at 12 mmHg, converted to K
-    melting_point: 41.5,       // Melting point \~41.5°C, converted to K
-    mls: 0,
-    grams: 0,
-    v_v_percent: 0,
-    mg_per_ml: 0,
-    purity: 100,
-    basis: 'q.s.',
-    input: 0,
-    qsMode: false,
-    pricePerUnit: 0,
-    cas_no: '118-55-8',
-    log_p: 3.8,
-    formula: 'C13H10O3',
-    smiles: 'OC1=CC=CC=C1C(=O)OC2=CC=CC=C2',
-    blurb: 'Phenyl salicylate, also known as salol, is an organic compound classified as an ester of salicylic acid and phenol. It has the molecular formula C13H10O3 and is a white crystalline solid with a pleasant aromatic odor. It is poorly soluble in water but soluble in organic solvents and oils. Phenyl salicylate is synthesized by the esterification of salicylic acid with phenol, often using phosphorus oxychloride as a dehydrating agent. Historically used as an internal antiseptic and analgesic, it is now primarily employed in the manufacture of polymers, lacquers, adhesives, waxes, polishes, and as a UV absorber in sunscreens and plastics.'
+    {
+        id: crypto.randomUUID(),
+        class: 'excipient',
+        name: 'phenyl salicylate',
+        translations: {
+            en: 'phenyl salicylate',
+            fr: "salicylate de phényle",
+            es: 'salicilato de fenilo',
+            de: 'Phenylsalicylat',
+            it: 'salicilato di fenile',
+            nl: 'fenylsalicylaat',
+            pt: 'salicilato de fenila',
+            ru: 'фенилсалицилат',
+            ja: 'サリチル酸フェニル',
+            zh: '水杨酸苯酯',
+            ko: '페닐 살리실레이트',
+            ar: 'فينيل ساليسيلات',
+            hi: 'फेनिल सैलिसाइलेट',
+            id: 'fenil salisilat',
+            tr: 'fenil salisilat',
+            pl: 'salicylan fenylu',
+            sv: 'fenylsalicylat',
+            da: 'phenylsalicylat',
+            no: 'fenylsalicylat',
+            cs: 'fenylsalicylát',
+            hu: 'fenil-szalicilát',
+            vi: 'phenyl salicylate'
+        },
+        pubchemid: 8361,
+        self_id: 'phenyl_salicylate',
+        molecular_weight: 214.22,
+        density: 1.25,
+        viscosityArray: [null],  // Solid at room temperature; limited liquid viscosity data available
+        viscosityTempArray: [25],
+        evaporation_point: 173,   // Boiling point \~173°C at 12 mmHg, converted to K
+        melting_point: 41.5,       // Melting point \~41.5°C, converted to K
+        mls: 0,
+        grams: 0,
+        v_v_percent: 0,
+        mg_per_ml: 0,
+        purity: 100,
+        basis: 'v_v_percent',
+        input: 0,
+        qsMode: false,
+        pricePerUnit: 0,
+        cas_no: '118-55-8',
+        log_p: 3.8,
+        formula: 'C13H10O3',
+        smiles: 'OC1=CC=CC=C1C(=O)OC2=CC=CC=C2',
+        blurb: 'Phenyl salicylate, also known as salol, is an organic compound classified as an ester of salicylic acid and phenol. It has the molecular formula C13H10O3 and is a white crystalline solid with a pleasant aromatic odor. It is poorly soluble in water but soluble in organic solvents and oils. Phenyl salicylate is synthesized by the esterification of salicylic acid with phenol, often using phosphorus oxychloride as a dehydrating agent. Historically used as an internal antiseptic and analgesic, it is now primarily employed in the manufacture of polymers, lacquers, adhesives, waxes, polishes, and as a UV absorber in sunscreens and plastics.'
+    },
+    {
+        id: crypto.randomUUID(),
+        class: 'excipient',
+        name: 'olive oil',
+        translations: {
+            en: 'olive oil',
+            fr: "huile d'olive",
+            es: 'aceite de oliva',
+            de: 'Olivenöl',
+            it: "olio d'oliva",
+            nl: 'olijfolie',
+            pt: 'óleo de oliva',
+            ru: 'оливковое масло',
+            ja: 'オリーブオイル',
+            zh: '橄榄油',
+            ko: '올리브 오일',
+            ar: 'زيت الزيتون',
+            hi: 'जैतून का तेल',
+            id: 'minyak zaitun',
+            tr: 'zeytinyağı',
+            pl: 'olej z oliwek',
+            sv: 'olivolja',
+            da: 'olivenolie',
+            no: 'olivenolje',
+            cs: 'olivový olej',
+            hu: 'olívaolaj',
+            vi: 'dầu ô liu'
+        },
+        cas_no: '8001-25-0',
+        pubchemid: null,
+        self_id: 'olive',
+        molecular_weight: null,
+        density: 0.915,
+        viscosityArray: [60],
+        viscosityTempArray: [25],
+        mls: 0,
+        grams: 0,
+        v_v_percent: 0,
+        mg_per_ml: 0,
+        purity: 100,
+        basis: 'q.s.',
+        input: 0,
+        qsMode: false,
+        pricePerUnit: 0,
+        mol2d: null,
+        mol3d: null,
+        image: null
     },
     {
         id: crypto.randomUUID(),
@@ -942,7 +990,7 @@ var compounds = [
         input: 0,
         qsMode: false,
         pricePerUnit: 1.2,
-        
+
         smiles: 'CCCCCCC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=C3C=CC(=C4)O)C',
         blurbHTML: `<p>
     Estradiol enanthate is a 17β-enanthate (heptanoate) ester of 17β-estradiol (prodrug/controlled release vehicle). This esterification significantly increases the lipophilicity of the molecule, allowing for the creation of an intramuscular oil depot that provides sustained release of active estradiol over an extended period.
@@ -1248,7 +1296,7 @@ var compounds = [
         input: 0,
         qsMode: false,
         pricePerUnit: 1,
-        
+
         smiles: 'CC(C)CCC(=O)OC1CCC2C1(CCC3C2CCC4=CC(=O)CCC34C)C',
         blurbHTML: `<p>
     Testosterone isocaproate is the oil-soluble 17β-(4-methylpentanoate) ester of the androgenic hormone testosterone (prodrug/controlled release vehicle). It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
@@ -1386,7 +1434,7 @@ var compounds = [
         input: 0,
         qsMode: false,
         pricePerUnit: 1,
-        
+
         cas_no: '1255-49-8',
         smiles: 'C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCC4=CC=CC=C4)CCC5=CC(=O)CC[C@]35C',
         blurbHTML: `<p>
@@ -1777,7 +1825,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 6.6,
-        
+
         cas_no: '10161-34-9',
         smiles: 'CC(=O)O[C@H]1CC[C@@H]2[C@@]1(C=CC3=C4CCC(=O)C=C4CC[C@@H]23)C'
     },
@@ -1825,7 +1873,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 9,
-        
+
         cas_no: '23454-33-3',
         smiles: 'C[C@]12C=CC3=C4CCC(=O)C=C4CC[C@H]3[C@@H]1CC[C@@H]2OC(=O)OCC5CCCCC5'
     },
@@ -1873,7 +1921,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 6.5,
-        
+
         smiles: 'CCCCCCC(=O)O[C@H]1CC[C@@H]2[C@@]1(C=CC3=C4CCC(=O)C=C4CC[C@@H]23)C',
         cas_no: '1629618-98-9'
     },
@@ -2023,7 +2071,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 15,
-        
+
         cas_no: '434-05-9',
         smiles: 'CCC1=CC(=O)C[C@H]2[C@]1([C@H]3CC[C@]4([C@H]([C@@H]3CC2)CC[C@@H]4OC(=O)C)C)C'
     },
@@ -2071,7 +2119,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 15,
-        
+
         cas_no: '303-42-4',
         smiles: 'C[C@@]12[C@@]3([C@]([C@]4([C@](C)(CC3)[C@@H](OC(CCCCCC)=O)CC4)[H])(CC[C@]1(CC(=O)C=C2C)[H])[H])[H]'
     },
@@ -2221,7 +2269,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 0.92,
-        
+
         cas_no: '360-70-3',
         smiles: 'CCCCCCCCCC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=CC(=O)CC[C@H]34)C'
     },
@@ -2322,7 +2370,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 1.65,
-        
+
         smiles: 'CC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=CC(=O)C=C[C@]34C)C',
         blurbHTML: `<p>
     Boldenone acetate is the oil-soluble 17β-acetate ester of boldenone (prodrug/controlled release vehicle). It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
@@ -2391,7 +2439,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 1.65,
-        
+
         smiles: 'C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCCCCCCCC=C)CCC4=CC(=O)C=C[C@]34C',
         blurbHTML: `<p>
     Boldenone undecylenate is the oil-soluble 17β-undec-10-enoate ester of boldenone (prodrug/controlled release vehicle). It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
@@ -2457,7 +2505,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 2,
-        
+
         cas_no: '65-06-5',
         smiles: 'C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCC4CCCC4)CCC5=CC(=O)C=C[C@]35C'
     },
@@ -2655,7 +2703,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 8.4,
-        
+
         cas_no: '2446-23-3',
         formula: 'C20H27ClO2',
         log_p: 3.61,
@@ -2757,7 +2805,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 3,
-        
+
         cas_no: '1424-00-6',
         parent_molecule: '17a-steroid',
         smiles: 'O=C4C[C@@H]3CC[C@@H]2[C@H](CC[C@]1(C)[C@@H](O)CC[C@H]12)[C@@]3(C)[C@@H](C)C4'
@@ -2854,7 +2902,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 0,
-        
+
         cas_no: '965-93-5',
         parent_molecule: '17a-steroid',
         smiles: 'C[C@@]1(CC[C@@H]2[C@@]1(C=CC3=C4CCC(=O)C=C4CC[C@@H]23)C)O'
@@ -3394,6 +3442,60 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
     }
 ]
 
+
+var solubility = [
+    {
+        id: crypto.randomUUID(),
+        class: 'solubility',
+        name: 'Long Length Esters',
+        self_id: 'long_length_esters',
+        low_solvent_range: [200, 300], // 0-10%
+        medium_solvent_range: [300, 400], // 20-30%
+        high_solvent_range: [400, 500], // 30-50%
+        co_solvent_self_id: 'benzyl_alcohol',
+        member_self_ids: [
+            'testosterone_decanoate',
+            'testosterone_undecanoate',
+            'dihydroboldenone_undecylenate',
+            'nandrolone_decanoate',
+        ]
+    },
+    {
+        id: crypto.randomUUID(),
+        class: 'solubility',
+        name: 'Medium Length Esters',
+        self_id: 'medium_length_esters',
+        low_solvent_range: [100, 150], // 0-10%
+        medium_solvent_range: [150, 250], // 20-30%
+        high_solvent_range: [250, 350], // 30-50%
+        co_solvent_self_id: 'benzyl_alcohol',
+        member_self_ids: [
+            'testosterone_cypionate',
+            'testosterone_enanthate',
+            'testosterone_phenylpropionate',
+            'nandrolone_phenylpropionate',
+            'dihydroboldenone_cypionate',
+            'drostanolone_enanthate',
+            'methenolone_enanthate',
+        ]
+    },
+    {
+        id: crypto.randomUUID(),
+        class: 'solubility',
+        name: 'Short Length Esters',
+        self_id: 'short_length_esters',
+        low_solvent_range: [0, 50], // 0-10%
+        medium_solvent_range: [50, 100], // 20-30%
+        high_solvent_range: [100, 150], // 30-50%
+        co_solvent_self_id: 'benzyl_alcohol',
+        member_self_ids: [
+            'testosterone_acetate',
+            'testosterone_propionate',
+            'trenbolone_acetate',
+            'methenolone_acetate',
+        ]
+    }
+]
 
 var solubility = [
     {

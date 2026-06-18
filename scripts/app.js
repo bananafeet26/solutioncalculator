@@ -26,21 +26,6 @@ function compoundApp() {
         init() {
             const ctx = document.getElementById('myChart').getContext('2d');
             this.chart = new Chart(ctx, chartSettings);
-            /*
-            // Initiate basic recipe
-            this.settings.compounds[0] = prepareCompound(1, this.settings.totalVolume, 0, 0, 0, 2, 100); //BA
-            this.settings.compounds[1] = prepareCompound(0, this.settings.totalVolume, 0, 0, 0, 20, 100); //BB
-            this.settings.compounds[2] = prepareCompound(2, this.settings.totalVolume, 0, 0, 0, 26, 100);
-            this.settings.compounds[3] = prepareCompound(3, this.settings.totalVolume, 0, 0, 0, 26, 100);
-
-            this.settings.compounds[4] = prepareCompound(16, this.settings.totalVolume, 0, 0, 250, 0, 93);
-            this.settings.compounds[4].purity = 93;
-
-            for (let compound of this.settings.compounds) {
-                if (compound.class === "ingredient") {
-                    compound.grams = compound.density * compound.mls;
-                }
-            }*/
 
             // Load recipe instead
             this.selectedRecipeId = 3;
@@ -78,6 +63,16 @@ function compoundApp() {
         changeTheme() {
             this.settings.theme = this.settings.theme === 'light' ? 'dark' : 'light';
             this.updateChart();
+        },
+        get getRecipeBlurb() {
+            return this.settings.recipes[this.settings.selectedRecipeId]
+                ? this.settings.recipes[this.settings.selectedRecipeId].blurb
+                : undefined;
+        },
+        get getRecipeSource() {
+            return this.settings.recipes[this.settings.selectedRecipeId]
+                ? this.settings.recipes[this.settings.selectedRecipeId].source
+                : undefined;
         },
         calculateRemainingVolume() {
             let mls = 0
