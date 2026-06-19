@@ -71,7 +71,8 @@
                 <div class=" p-3 mb-2 ">
                     <div class="input-group mb-1 col-12 col-md-4 col-lg-3">
                         <div class="input-group-prepend">
-                            <span x-text='translations.palette[settings.currentLanguage] +  " 🎨"' class="input-group-text" id=""></span>
+                            <span x-text='translations.palette[settings.currentLanguage] +  " 🎨"'
+                                  class="input-group-text" id=""></span>
                         </div>
                         <select
                                 class="form-select w-25 mb-3 rounded"
@@ -97,11 +98,12 @@
                     <!-- Language Selector -->
                     <div class="input-group mb-1 col-12 col-md-4 col-lg-3">
                         <div class="input-group-prepend">
-                            <span x-text="translations.language_label[settings.currentLanguage] + ' 🌐'" class="input-group-text" id=""></span>
+                            <span x-text="translations.language_label[settings.currentLanguage] + ' 🌐'"
+                                  class="input-group-text" id=""></span>
                         </div>
-                        <select    class="form-select w-25 mb-3 rounded"
-                                   x-model="settings.currentLanguage"
-                                   @change="changeLanguage()">
+                        <select class="form-select w-25 mb-3 rounded"
+                                x-model="settings.currentLanguage"
+                                @change="changeLanguage()">
 
                             <template x-for="language in availableLanguages">
                                 <option :value="language.code" :selected="language.code === settings.currentLanguage">
@@ -165,7 +167,8 @@
                                 x-model="settings.selectedRecipeId"
                                 @change="updateRecipe();"
                         >
-                            <option x-text="translations.load_recipe[settings.currentLanguage] + ' 👨‍🍳🍽️'" value=""></option>
+                            <option x-text="translations.load_recipe[settings.currentLanguage] + ' 👨‍🍳🍽️'"
+                                    value=""></option>
                             <template
                                     x-for="(recipeItem, index) in settings.recipes"
                                     :key="index">
@@ -181,23 +184,23 @@
                     </div>
                 </div>
                 <template x-if="typeof getRecipeBlurb !== 'undefined'">
-                    <div class="rounded p-2 text-wrap fst-italic">
-                        <div class="text-secondary lh-lg" x-html="getRecipeBlurb"></div>
+                    <div class="m-2 p-1 bg-warning-subtle  border rounded rounded  text-wrap fst-italic">
+                        <div class="lh-lg" x-html="getRecipeBlurb"></div>
+                        <template x-if="typeof getRecipeSource !== 'undefined'">
+                            <div>
+                                <small >
+                                    <a
+                                            :href="getRecipeSource"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="text-decoration-none"
+                                    >
+                                        View Reference
+                                    </a>
+                                </small>
+                            </div>
+                        </template>
                     </div>
-                    <template x-if="typeof getRecipeSource !== 'undefined'">
-                        <div class="p-2 mt-2">
-                            <small class="text-muted">
-                                <a
-                                        :href="getRecipeSource"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        class="text-decoration-none"
-                                >
-                                    View Reference
-                                </a>
-                            </small>
-                        </div>
-                    </template>
                 </template>
 
                 <!--------------------------------------- Drop down form control --------------------------------->
@@ -208,7 +211,8 @@
                                 x-model="settings.addRowSelectedCompoundId"
                                 @change="addCompoundRow('excipient'); settings.addRowSelectedCompoundId = '';updateChart();"
                         >
-                            <option x-text="translations.add_excipient[settings.currentLanguage] + ' 🍶'" value=""></option>
+                            <option x-text="translations.add_excipient[settings.currentLanguage] + ' 🍶'"
+                                    value=""></option>
                             <template
                                     x-for="compound in compounds.filter(c => c.basis !== 'mg_per_ml')"
                                     :key="compound.self_id"
@@ -225,7 +229,8 @@
                                 x-model="settings.addRowSelectedCompoundId"
                                 @change="addCompoundRow('ingredient'); settings.addRowSelectedCompoundId = '';updateChart();"
                         >
-                            <option x-text="translations.add_compound[settings.currentLanguage] + ' 🥣'" value=""></option>
+                            <option x-text="translations.add_compound[settings.currentLanguage] + ' 🥣'"
+                                    value=""></option>
 
                             <template
                                     x-for="compound in compounds.filter(c => c.basis === 'mg_per_ml')"
@@ -255,7 +260,8 @@
                     <!-- Volume -->
                     <div class="input-group mb-1">
                         <div class="input-group-prepend">
-                            <span x-text="translations.finished_volume[settings.currentLanguage] + ' ⚗️'" class="input-group-text" id=""></span>
+                            <span x-text="translations.finished_volume[settings.currentLanguage] + ' ⚗️'"
+                                  class="input-group-text" id=""></span>
                         </div>
                         <!-- mL -->
                         <input class="form-control rounded col-3"
@@ -275,7 +281,8 @@
                     <!-- v_v_percent -->
                     <div class="form-group">
                         <div class="d-flex align-items-center my-3">
-                            <span x-text="translations.solvents[settings.currentLanguage]" class="me-2 fw-semibold"></span>
+                            <span x-text="translations.solvents[settings.currentLanguage]"
+                                  class="me-2 fw-semibold"></span>
                             <div class="flex-grow-1 border-bottom"></div>
                         </div>
                         <template x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'v_v_percent')"
@@ -292,7 +299,8 @@
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-end">
                                             <li>
-                                                <button x-text="translations.buttons.delete[settings.currentLanguage]"  class="dropdown-item text-danger"
+                                                <button x-text="translations.buttons.delete[settings.currentLanguage]"
+                                                        class="dropdown-item text-danger"
                                                         @click="removeCompound(solutionEntry.self_id)">
                                                 </button>
                                             </li>
@@ -385,7 +393,8 @@
                                              x-text="translations.message_ba[settings.currentLanguage]"></div>
                                     </template>
                                     <template x-if="solutionEntry.self_id === 'benzyl_benzoate' ">
-                                        <div class="invalid-feedback" x-text="translations.message_bb[settings.currentLanguage]"></div>
+                                        <div class="invalid-feedback"
+                                             x-text="translations.message_bb[settings.currentLanguage]"></div>
                                     </template>
                                 </div>
                             </div>
@@ -394,7 +403,8 @@
                     <!-- q.s. -->
                     <div class="form-group">
                         <div class="d-flex align-items-center my-3">
-                            <span x-text="translations.excipients[settings.currentLanguage]" class="me-2 fw-semibold"></span>
+                            <span x-text="translations.excipients[settings.currentLanguage]"
+                                  class="me-2 fw-semibold"></span>
                             <div class="flex-grow-1 border-bottom"></div>
                         </div>
                         <template
@@ -420,7 +430,8 @@
                                                     <span x-text="solutionEntry.qsMode ? 'off' : 'on'"></span>
                                                 </button>
                                                 -->
-                                                <button x-text="translations.buttons.delete[settings.currentLanguage]"  class="dropdown-item text-danger"
+                                                <button x-text="translations.buttons.delete[settings.currentLanguage]"
+                                                        class="dropdown-item text-danger"
                                                         @click="removeCompound(solutionEntry.self_id)">
                                                 </button>
                                             </li>
@@ -519,7 +530,8 @@
                     <!-- mg_per_ml -->
                     <div class="form-group">
                         <div class="d-flex align-items-center my-3">
-                            <span x-text="translations.compounds[settings.currentLanguage]" class="me-2 fw-semibold"></span>
+                            <span x-text="translations.compounds[settings.currentLanguage]"
+                                  class="me-2 fw-semibold"></span>
                             <div class="flex-grow-1 border-bottom opacity-50"></div>
                         </div>
                         <template x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'mg_per_ml')"
@@ -538,7 +550,8 @@
                                         <ul class="dropdown-menu dropdown-menu-end">
 
                                             <li>
-                                                <button x-text="translations.buttons.delete[settings.currentLanguage]" class="dropdown-item text-danger"
+                                                <button x-text="translations.buttons.delete[settings.currentLanguage]"
+                                                        class="dropdown-item text-danger"
                                                         @click="removeCompound(solutionEntry.self_id)">
                                                 </button>
                                             </li>
@@ -641,7 +654,8 @@
         <div class="col-12 col-lg-4">
             <div class="border rounded pb-2">
                 <div class="p-2  bg-warning-subtle border-bottom">
-                    <h4 class="fw-bold text-center"><span x-text="translations.batch_totals[settings.currentLanguage]"></span>
+                    <h4 class="fw-bold text-center"><span
+                            x-text="translations.batch_totals[settings.currentLanguage]"></span>
                         <template x-if="typeof settings.selectedRecipeId !== 'undefined'">
                             <span x-text="' - ' + settings.recipes[settings.selectedRecipeId].name"></span>
                         </template>
@@ -739,7 +753,8 @@
                                      </span>
                                 </div>
                                 <!-- Melting point -->
-                                <template x-if="compound.basis === 'mg_per_ml' && compound.melting_point && !isNaN(compound.melting_point[0])">
+                                <template
+                                        x-if="compound.basis === 'mg_per_ml' && compound.melting_point && !isNaN(compound.melting_point[0])">
                                     <div class="d-flex justify-content-between small">
                                         <span x-text="translations.melting_point[settings.currentLanguage]"></span>
                                         <span
@@ -769,7 +784,8 @@
 
                         <!-- ===================== TOTALS ===================== -->
                         <div class="p-2 bg-warning-subtle border-bottom">
-                            <div x-text="translations.batch_totals[settings.currentLanguage]" class="fw-bold mb-2"></div>
+                            <div x-text="translations.batch_totals[settings.currentLanguage]"
+                                 class="fw-bold mb-2"></div>
 
                             <div class="d-flex justify-content-between">
                                 <span x-text="translations.total_displacement[settings.currentLanguage]"></span>
@@ -803,10 +819,12 @@
                 </template>
                 <br/>
                 <div class=" ">
-                    <button x-text="translations.buttons.download_batch[settings.currentLanguage] + ' 📄'" @click='downloadBatchText("txt")' class="m-1 btn btn-sm btn-secondary">
+                    <button x-text="translations.buttons.download_batch[settings.currentLanguage] + ' 📄'"
+                            @click='downloadBatchText("txt")' class="m-1 btn btn-sm btn-secondary">
                     </button>
 
-                    <button x-text="translations.buttons.download_pricing[settings.currentLanguage] + ' 📊'" @click='downloadBatchText("xls")' class="m-1 btn btn-sm btn-secondary">
+                    <button x-text="translations.buttons.download_pricing[settings.currentLanguage] + ' 📊'"
+                            @click='downloadBatchText("xls")' class="m-1 btn btn-sm btn-secondary">
                     </button>
                 </div>
             </div>
