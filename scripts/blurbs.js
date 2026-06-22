@@ -79,21 +79,48 @@ var blurbs = [
         // 4. Mechanistic Side Effects mapped directly to receptor vectors
         receptor_linked_side_effects: {
             er_alpha_driven: [
-                { side_effect: 'Endometrial Hyperplasia', mechanism: 'Unopposed ERα activation in the uterus drives runaway cellular proliferation, increasing the risk of endometrial carcinoma if not opposed by progesterone.' },
-                { side_effect: 'Gynecomastia (in males)', mechanism: 'ERα activation in mammary tissue stimulates ductal elongation and fat deposition, particularly when the systemic Androgen:Estrogen ratio falls.' },
-                { side_effect: 'Thromboembolism / DVT', mechanism: 'Hepatic ERα activation (especially from oral administration) heavily alters liver protein synthesis, upregulating clotting factors (VII, VIII, X) while downregulating antithrombin III.' }
+                {
+                    side_effect: 'Endometrial Hyperplasia',
+                    mechanism: 'Unopposed ERα activation in the uterus drives runaway cellular proliferation, increasing the risk of endometrial carcinoma if not opposed by progesterone.'
+                },
+                {
+                    side_effect: 'Gynecomastia (in males)',
+                    mechanism: 'ERα activation in mammary tissue stimulates ductal elongation and fat deposition, particularly when the systemic Androgen:Estrogen ratio falls.'
+                },
+                {
+                    side_effect: 'Thromboembolism / DVT',
+                    mechanism: 'Hepatic ERα activation (especially from oral administration) heavily alters liver protein synthesis, upregulating clotting factors (VII, VIII, X) while downregulating antithrombin III.'
+                }
             ],
             gper1_driven: [
-                { side_effect: 'Migraines / Vascular Headaches', mechanism: 'Rapid fluctuations in E2 levels trigger GPER1-mediated alterations in vascular tone (nitric oxide release), precipitating vasodilation-related headaches.' },
-                { side_effect: 'Fluid Retention / Edema', mechanism: 'Estrogen-induced capillary permeability and downstream secondary hyperaldosteronism (RAAS upregulation) leading to sodium and water retention.' }
+                {
+                    side_effect: 'Migraines / Vascular Headaches',
+                    mechanism: 'Rapid fluctuations in E2 levels trigger GPER1-mediated alterations in vascular tone (nitric oxide release), precipitating vasodilation-related headaches.'
+                },
+                {
+                    side_effect: 'Fluid Retention / Edema',
+                    mechanism: 'Estrogen-induced capillary permeability and downstream secondary hyperaldosteronism (RAAS upregulation) leading to sodium and water retention.'
+                }
             ]
         },
 
         // 5. Terminal Excretion Metabolites (Phase II Conjugation)
         terminal_urinary_metabolites: [
-            { name: 'Estradiol-3-glucuronide', stereoisomer: 'Regioisomer at C3', conjugate: 'Glucuronide (UGT-mediated)' },
-            { name: 'Estradiol-17-glucuronide', stereoisomer: 'Regioisomer at C17', conjugate: 'Glucuronide (UGT-mediated)' },
-            { name: '2-Methoxyestradiol', stereoisomer: 'Methylated Catechol', conjugate: 'COMT-mediated methylation (highly water-soluble)' }
+            {
+                name: 'Estradiol-3-glucuronide',
+                stereoisomer: 'Regioisomer at C3',
+                conjugate: 'Glucuronide (UGT-mediated)'
+            },
+            {
+                name: 'Estradiol-17-glucuronide',
+                stereoisomer: 'Regioisomer at C17',
+                conjugate: 'Glucuronide (UGT-mediated)'
+            },
+            {
+                name: '2-Methoxyestradiol',
+                stereoisomer: 'Methylated Catechol',
+                conjugate: 'COMT-mediated methylation (highly water-soluble)'
+            }
         ],
 
         // 6. Intracellular Signaling & Tissue Remodeling Pathologies
@@ -193,24 +220,53 @@ var blurbs = [
         // 4. Mechanistic Side Effects mapped directly to receptor and metabolite vectors
         receptor_linked_side_effects: {
             direct_ar_driven: [
-                { side_effect: 'Erythrocytosis / Polycythemia', mechanism: 'AR activation in the kidneys stimulates erythropoietin (EPO) transcription and suppresses hepatic hepcidin, driving up red blood cell mass and hematocrit.' },
-                { side_effect: 'HPTA Suppression', mechanism: 'Negative feedback loop: AR activation in the hypothalamus suppresses GnRH, halting pituitary LH/FSH pulsatility.' }
+                {
+                    side_effect: 'Erythrocytosis / Polycythemia',
+                    mechanism: 'AR activation in the kidneys stimulates erythropoietin (EPO) transcription and suppresses hepatic hepcidin, driving up red blood cell mass and hematocrit.'
+                },
+                {
+                    side_effect: 'HPTA Suppression',
+                    mechanism: 'Negative feedback loop: AR activation in the hypothalamus suppresses GnRH, halting pituitary LH/FSH pulsatility.'
+                }
             ],
             dht_amplified_driven: [
-                { side_effect: 'Androgenetic Alopecia', mechanism: 'Localized 5-alpha reduction in scalp follicles upregulates DHT, triggering miniaturization of sensitive hair follicles via prolonged telogen phases.' },
-                { side_effect: 'Benign Prostatic Hyperplasia (BPH)', mechanism: 'Accumulation of DHT in prostatic tissue drives robust cellular proliferation and prostate volume expansion.' },
-                { side_effect: 'Sebaceous Gland Hypertrophy (Acne)', mechanism: 'DHT amplification in the skin drastically upregulates sebum production, providing a vector for Propionibacterium acnes colonization.' }
+                {
+                    side_effect: 'Androgenetic Alopecia',
+                    mechanism: 'Localized 5-alpha reduction in scalp follicles upregulates DHT, triggering miniaturization of sensitive hair follicles via prolonged telogen phases.'
+                },
+                {
+                    side_effect: 'Benign Prostatic Hyperplasia (BPH)',
+                    mechanism: 'Accumulation of DHT in prostatic tissue drives robust cellular proliferation and prostate volume expansion.'
+                },
+                {
+                    side_effect: 'Sebaceous Gland Hypertrophy (Acne)',
+                    mechanism: 'DHT amplification in the skin drastically upregulates sebum production, providing a vector for Propionibacterium acnes colonization.'
+                }
             ],
             estrogen_receptor_driven: [
-                { side_effect: 'Gynecomastia', mechanism: 'Excessive CYP19A1 conversion pushes the systemic Androgen:Estrogen ratio out of balance, allowing ER activation in mammary tissue to drive glandular ductal growth.' },
-                { side_effect: 'Fluid Retention', mechanism: 'Elevated E2 upregulates renal sodium reabsorption mechanisms independently of the mineralocorticoid receptor.' }
+                {
+                    side_effect: 'Gynecomastia',
+                    mechanism: 'Excessive CYP19A1 conversion pushes the systemic Androgen:Estrogen ratio out of balance, allowing ER activation in mammary tissue to drive glandular ductal growth.'
+                },
+                {
+                    side_effect: 'Fluid Retention',
+                    mechanism: 'Elevated E2 upregulates renal sodium reabsorption mechanisms independently of the mineralocorticoid receptor.'
+                }
             ]
         },
 
         // 5. Terminal Excretion Metabolites (Phase II Glucuronidation)
         terminal_urinary_metabolites: [
-            { name: 'Androsterone', stereoisomer: '3alpha-hydroxy-5alpha-androstan-17-one', conjugate: 'Glucuronide & Sulfate' },
-            { name: 'Etiocholanolone', stereoisomer: '3alpha-hydroxy-5beta-androstan-17-one', conjugate: 'Glucuronide & Sulfate' }
+            {
+                name: 'Androsterone',
+                stereoisomer: '3alpha-hydroxy-5alpha-androstan-17-one',
+                conjugate: 'Glucuronide & Sulfate'
+            },
+            {
+                name: 'Etiocholanolone',
+                stereoisomer: '3alpha-hydroxy-5beta-androstan-17-one',
+                conjugate: 'Glucuronide & Sulfate'
+            }
         ],
 
         // 6. Intracellular Signaling & Tissue Remodeling Pathologies
@@ -310,16 +366,34 @@ var blurbs = [
         // 4. Mechanistic Side Effects mapped directly to your receptor array
         receptor_linked_side_effects: {
             androgen_receptor_driven: [
-                { side_effect: 'Virilization in females', mechanism: 'Dose-dependent activation of AR targets, though lower incidence than pure testosterones.' },
-                { side_effect: 'Dyslipidemia', mechanism: 'Downregulation of liver X receptor pathways via hepatic AR activation, dropping HDL and raising LDL.' }
+                {
+                    side_effect: 'Virilization in females',
+                    mechanism: 'Dose-dependent activation of AR targets, though lower incidence than pure testosterones.'
+                },
+                {
+                    side_effect: 'Dyslipidemia',
+                    mechanism: 'Downregulation of liver X receptor pathways via hepatic AR activation, dropping HDL and raising LDL.'
+                }
             ],
             estrogen_receptor_driven: [
-                { side_effect: 'Gynecomastia (in males)', mechanism: 'ERα activation in mammary tissue stimulates ductal elongation and fat deposition, particularly when the systemic Androgen:Estrogen ratio falls.' },
+                {
+                    side_effect: 'Gynecomastia (in males)',
+                    mechanism: 'ERα activation in mammary tissue stimulates ductal elongation and fat deposition, particularly when the systemic Androgen:Estrogen ratio falls.'
+                },
             ],
             progesterone_receptor_driven: [
-                { side_effect: 'Severe HPTA Shutdown', mechanism: 'Synergistic negative feedback loop where PR agonism pairs with AR agonism to suppress pituitary LH/FSH secretion to near-zero.' },
-                { side_effect: 'Progestogenic Erectile Dysfunction', mechanism: 'Elevated PR activation out of homeostasis without baseline DHT present to maintain cavernous smooth muscle tone.' },
-                { side_effect: 'Prolactin Amplification', mechanism: 'PR activation upregulates lactotroph sensitivity in the pituitary, potentially exacerbating mammary hypertrophy/gynaecomastia.' }
+                {
+                    side_effect: 'Severe HPTA Shutdown',
+                    mechanism: 'Synergistic negative feedback loop where PR agonism pairs with AR agonism to suppress pituitary LH/FSH secretion to near-zero.'
+                },
+                {
+                    side_effect: 'Progestogenic Erectile Dysfunction',
+                    mechanism: 'Elevated PR activation out of homeostasis without baseline DHT present to maintain cavernous smooth muscle tone.'
+                },
+                {
+                    side_effect: 'Prolactin Amplification',
+                    mechanism: 'PR activation upregulates lactotroph sensitivity in the pituitary, potentially exacerbating mammary hypertrophy/gynaecomastia.'
+                }
             ],
             mineralocorticoid_receptor_driven: [
                 {
@@ -335,8 +409,12 @@ var blurbs = [
 
         // 5. Terminal Excretion Metabolites
         terminal_urinary_metabolites: [
-            { name: '19-norandrosterone', stereoisomer: '3alpha-hydroxy-5alpha-estran-17-one', conjugate: 'Glucuronide' },
-            { name: '19-noretiocholanolone', stereoisomer: '3alpha-hydroxy-5beta-estran-17-one', conjugate: 'Glucuronide' }
+            {name: '19-norandrosterone', stereoisomer: '3alpha-hydroxy-5alpha-estran-17-one', conjugate: 'Glucuronide'},
+            {
+                name: '19-noretiocholanolone',
+                stereoisomer: '3alpha-hydroxy-5beta-estran-17-one',
+                conjugate: 'Glucuronide'
+            }
         ],
 
         // 6. Intracellular Signaling & Tissue Remodeling Pathologies
@@ -367,7 +445,7 @@ var blurbs = [
 
         // 7. Pathologies.
         downstream_pathologies: [
-            { pathology: "Cardiac Fibrosis", pathways: ["MR", "TGF-b1"], source_refs: ["marzilger_2016", "rocha_2022"] }
+            {pathology: "Cardiac Fibrosis", pathways: ["MR", "TGF-b1"], source_refs: ["marzilger_2016", "rocha_2022"]}
         ],
         blurbHTML: `<p>Nandrolone (19-nortestosterone) exhibits stereoisomerism due to the presence of multiple chiral centres in its tetracyclic steroid backbone. The key site of isomerism lies at the 5th carbon position, where the hydrogen atom can be oriented either above or below the plane of the ring system, giving rise to 5alpha- and 5beta-isomers.
         </p><p>Nandrolone is a widely used injectable androgen in the form of aliphatic fatty
@@ -511,20 +589,42 @@ Rheumatol 14(Suppl 3):32–39, 1995<br/>
         // 4. Mechanistic Side Effects mapped directly to receptor vectors
         receptor_linked_side_effects: {
             pure_ar_androgenic_driven: [
-                { side_effect: 'Androgenetic Alopecia (Severe)', mechanism: 'High-affinity AR binding in scalp hair follicles triggers rapid miniaturization of sensitive terminal hairs.' },
-                { side_effect: 'Benign Prostatic Hyperplasia (BPH)', mechanism: 'Direct, potent AR stimulation in prostatic tissue driving cellular proliferation.' },
-                { side_effect: 'CNS Amplification / Aggression', mechanism: 'DHT derivatives cross the blood-brain barrier efficiently, strongly binding to CNS androgen receptors to increase neural drive and alter neurotransmitter firing.' },
-                { side_effect: 'Virilization in Females', mechanism: 'Extreme risk of irreversible vocal cord deepening, clitoromegaly, and hirsutism due to unbuffered potent androgenic signaling.' }
+                {
+                    side_effect: 'Androgenetic Alopecia (Severe)',
+                    mechanism: 'High-affinity AR binding in scalp hair follicles triggers rapid miniaturization of sensitive terminal hairs.'
+                },
+                {
+                    side_effect: 'Benign Prostatic Hyperplasia (BPH)',
+                    mechanism: 'Direct, potent AR stimulation in prostatic tissue driving cellular proliferation.'
+                },
+                {
+                    side_effect: 'CNS Amplification / Aggression',
+                    mechanism: 'DHT derivatives cross the blood-brain barrier efficiently, strongly binding to CNS androgen receptors to increase neural drive and alter neurotransmitter firing.'
+                },
+                {
+                    side_effect: 'Virilization in Females',
+                    mechanism: 'Extreme risk of irreversible vocal cord deepening, clitoromegaly, and hirsutism due to unbuffered potent androgenic signaling.'
+                }
             ],
             anti_estrogenic_driven: [
-                { side_effect: 'Dyslipidemia (Severe HDL Crash)', mechanism: 'Without local tissue aromatization to E2 to buffer hepatic lipase, pure unaromatizable androgens aggressively upregulate Hepatic Triglyceride Lipase (HTGL), destroying HDL cholesterol and elevating LDL.' },
-                { side_effect: 'Joint Dessication / Pain', mechanism: 'Lack of local estrogen conversion deprives synovial fluid of water-retention signals, leading to "dry" and painful joints under heavy loads.' }
+                {
+                    side_effect: 'Dyslipidemia (Severe HDL Crash)',
+                    mechanism: 'Without local tissue aromatization to E2 to buffer hepatic lipase, pure unaromatizable androgens aggressively upregulate Hepatic Triglyceride Lipase (HTGL), destroying HDL cholesterol and elevating LDL.'
+                },
+                {
+                    side_effect: 'Joint Dessication / Pain',
+                    mechanism: 'Lack of local estrogen conversion deprives synovial fluid of water-retention signals, leading to "dry" and painful joints under heavy loads.'
+                }
             ]
         },
 
         // 5. Terminal Excretion Metabolites
         terminal_urinary_metabolites: [
-            { name: '2α-methyl-5α-androstan-3α-ol-17-one', stereoisomer: 'Reduced C3 ketone, oxidized C17', conjugate: 'Glucuronide & Sulfate' }
+            {
+                name: '2α-methyl-5α-androstan-3α-ol-17-one',
+                stereoisomer: 'Reduced C3 ketone, oxidized C17',
+                conjugate: 'Glucuronide & Sulfate'
+            }
         ],
 
         // 6. Intracellular Signaling & Tissue Remodeling Pathologies
@@ -557,9 +657,139 @@ Rheumatol 14(Suppl 3):32–39, 1995<br/>
     },
     {
         parent_molecule: 'methenolone',
-        mode_of_action: `An androgen receptor agonist`,
-        molecular_target: `Androgen receptor agonist`,
-        therapeutic_class: `Anabolic agents for systemic use `,
+        therapeutic_class: 'Anabolic agents for systemic use',
+
+        // 1. Structural Fingerprint
+        structural_backbone: '5alpha-androstane',
+        modifications: [
+            '5-alpha reduced (No C4-C5 double bond)',
+            '1-methyl group addition',
+            'Δ1 double bond (C1-C2)',
+            'C3 ketone group',
+            'C17 beta-hydroxyl group'
+        ],
+
+        // 2. The Multi-Receptor Binding Profile
+        receptor_interactions: [
+            {
+                target_receptor: 'Androgen Receptor (AR)',
+                action: 'Moderate Agonist',
+                binding_affinity_relative: 'Moderate (Higher anabolic:androgenic ratio than testosterone)',
+                downstream_effect: 'Promotes lean tissue accretion with relatively low androgenic side effects. Favors nitrogen retention and muscle preservation during caloric deficit.',
+                source_refs: ["saartok_1984"]   // Relative binding affinity study
+            },
+            {
+                target_receptor: 'Estrogen Receptor (ER)',
+                action: 'Negligible (No aromatization)',
+                binding_affinity_relative: '0%',
+                downstream_effect: 'Cannot be aromatized due to 5α-reduction and Δ1 unsaturation. Produces a "dry" anabolic effect without estrogenic activity.'
+            },
+            {
+                target_receptor: 'Progesterone / Glucocorticoid / Mineralocorticoid Receptors',
+                action: 'Negligible',
+                binding_affinity_relative: '< 0.1%',
+                downstream_effect: 'Minimal impact on fluid retention, prolactin, or cortisol pathways.'
+            }
+        ],
+
+        // 3. Metabolic State Transitions (The Enzymes & Electrons)
+        metabolic_pathways: [
+            {
+                enzyme: 'Aromatase (CYP19A1)',
+                reaction_type: 'Immune / No Reaction',
+                target_coordinate: 'Ring-A',
+                product: 'None',
+                clinical_note: 'Fully resistant to aromatization due to 5α-reduction and the Δ1 double bond. Zero estrogen conversion.'
+            },
+            {
+                enzyme: '5-alpha-reductase (SRD5A1 / SRD5A2)',
+                reaction_type: 'Immune / No Reaction',
+                target_coordinate: 'C4_C5',
+                product: 'None',
+                clinical_note: 'Already 5α-reduced. Does not undergo further amplification in prostate or scalp.'
+            },
+            {
+                enzyme: '3-alpha-Hydroxysteroid Dehydrogenase (3a-HSD)',
+                reaction_type: 'Partially Resistant to Reduction',
+                target_coordinate: 'C3',
+                product: 'Limited 3α-hydroxy metabolites',
+                clinical_note: 'The 1-methyl group and Δ1 double bond provide steric hindrance that slows (but does not completely prevent) deactivation in skeletal muscle.'
+            },
+            {
+                enzyme: '17-beta-Hydroxysteroid Dehydrogenase (17b-HSD)',
+                reaction_type: 'Oxidation',
+                target_coordinate: 'C17',
+                product: '1-methyl-5α-androst-1-ene-3,17-dione',
+                clinical_note: 'Reversible oxidation of the 17β-hydroxyl group to the 17-ketone.'
+            }
+        ],
+
+        // 4. Mechanistic Side Effects mapped directly to receptor vectors
+        receptor_linked_side_effects: {
+            mild_ar_androgenic_driven: [
+                {
+                    side_effect: 'Androgenetic Alopecia (Mild-Moderate)',
+                    mechanism: 'Moderate AR activation in scalp follicles; significantly lower risk than DHT derivatives like drostanolone.'
+                },
+                {side_effect: 'Acne and Oily Skin', mechanism: 'Mild stimulation of sebaceous glands via AR.'},
+                {
+                    side_effect: 'Virilization in Females',
+                    mechanism: 'Possible at high doses, but lower risk compared to stronger androgens (voice deepening, hirsutism).'
+                }
+            ],
+            lipid_profile_impact: [
+                {
+                    side_effect: 'Mild HDL Suppression',
+                    mechanism: 'Unaromatizable androgens reduce HDL, but effect is generally milder than with stronger DHT derivatives.'
+                }
+            ]
+        },
+
+        // 5. Terminal Excretion Metabolites
+        terminal_urinary_metabolites: [
+            {
+                name: '3α-hydroxy-1-methylen-5α-androstan-17-one',
+                stereoisomer: 'Major metabolite',
+                conjugate: 'Glucuronide',
+                source_refs: ["goudreault_1990"]
+            },
+            {
+                name: '1-methyl-5α-androst-1-ene-3,17-dione',
+                stereoisomer: 'Oxidized form',
+                conjugate: 'Free / Glucuronide'
+            },
+            {name: '3α-hydroxy-1α-methyl-5α-androstan-17-one', stereoisomer: 'Reduced form', conjugate: 'Glucuronide'},
+            {
+                name: '1β-methyl-5α-androstan-17-one-3ζ-sulfate',
+                stereoisomer: 'Long-term sulfated metabolite',
+                conjugate: 'Sulfate',
+                source_refs: ["albertsdottir_2020"]
+            }
+        ],
+
+        // 6. Intracellular Signaling & Tissue Remodeling Pathologies
+        downstream_signaling_cascades: {
+            muscle_protein_synthesis: {
+                activated_by: 'AR binding in skeletal muscle',
+                downstream_pathologies: [
+                    {
+                        side_effect: 'Lean Mass Preservation',
+                        mechanism: 'Strong nitrogen retention and anti-catabolic effects during caloric restriction with minimal water retention.'
+                    }
+                ]
+            },
+            lipid_metabolism_alteration: {
+                activated_by: 'Hepatic AR signaling (mild)',
+                downstream_pathologies: [
+                    {
+                        side_effect: 'Moderate Dyslipidemia',
+                        mechanism: 'Mild reduction in HDL cholesterol due to lack of estrogen buffering.'
+                    }
+                ]
+            }
+        },
+
+        blurb: `Methenolone (also known as Primobolan) is a synthetic dihydrotestosterone (DHT) derivative with a double bond between C1 and C2 and a methyl group at the C1 position. These modifications confer significant resistance to 3α-HSD metabolism in skeletal muscle, resulting in a favorable anabolic-to-androgenic ratio. Methenolone cannot be aromatized to estrogen and exhibits negligible progestogenic activity. It is prized in both clinical and performance settings for promoting high-quality, dry lean mass gains and muscle preservation during cutting phases with a relatively mild side-effect profile. Historically used for the treatment of muscle wasting, osteoporosis, and anemia, it remains one of the "mildest" injectable anabolic steroids.`,
     },
     {
         parent_molecule: 'boldenone',
@@ -610,16 +840,26 @@ Rheumatol 14(Suppl 3):32–39, 1995<br/>
         // 4. Mechanistic Side Effects
         receptor_linked_side_effects: {
             ar_driven: [
-                { side_effect: 'Erythrocytosis', mechanism: 'Strong stimulation of erythropoietin production in the kidneys, frequently causing hematocrit spikes greater than other anabolic agents.' }
+                {
+                    side_effect: 'Erythrocytosis',
+                    mechanism: 'Strong stimulation of erythropoietin production in the kidneys, frequently causing hematocrit spikes greater than other anabolic agents.'
+                }
             ],
             estrogenic_metabolite_driven: [
-                { side_effect: 'Estrogenic Side Effects', mechanism: 'Aromatization produces metabolites that can activate the ER, leading to risks of water retention and gynecomastia despite the structural double bond.' }
+                {
+                    side_effect: 'Estrogenic Side Effects',
+                    mechanism: 'Aromatization produces metabolites that can activate the ER, leading to risks of water retention and gynecomastia despite the structural double bond.'
+                }
             ]
         },
 
         // 5. Terminal Excretion Metabolites
         terminal_urinary_metabolites: [
-            { name: '17β-hydroxyandrost-1,4-dien-3-one', stereoisomer: 'Various reduced derivatives', conjugate: 'Glucuronide' }
+            {
+                name: '17β-hydroxyandrost-1,4-dien-3-one',
+                stereoisomer: 'Various reduced derivatives',
+                conjugate: 'Glucuronide'
+            }
         ],
 
         // 6. Intracellular Signaling & Pathology
@@ -706,20 +946,29 @@ Rheumatol 14(Suppl 3):32–39, 1995<br/>
         // 4. Mechanistic Side Effects
         receptor_linked_side_effects: {
             androgenic_driven: [
-                { side_effect: 'Mild Virilization', mechanism: 'Excessive conversion to Testosterone/DHT in target tissues (acne, hair growth) in predisposed individuals.' }
+                {
+                    side_effect: 'Mild Virilization',
+                    mechanism: 'Excessive conversion to Testosterone/DHT in target tissues (acne, hair growth) in predisposed individuals.'
+                }
             ],
             estrogenic_driven: [
-                { side_effect: 'Estrogen-mediated Gynaecomastia', mechanism: 'Systemic aromatization of conversion-products (Testosterone -> E2) can indirectly raise estrogen levels.' }
+                {
+                    side_effect: 'Estrogen-mediated Gynaecomastia',
+                    mechanism: 'Systemic aromatization of conversion-products (Testosterone -> E2) can indirectly raise estrogen levels.'
+                }
             ],
             neurosteroid_driven: [
-                { side_effect: 'Anxiogenic potential', mechanism: 'DHEA-S modulation of the GABA-A receptor can reduce inhibitory tone, potentially causing irritability or anxiety in high-dose scenarios.' }
+                {
+                    side_effect: 'Anxiogenic potential',
+                    mechanism: 'DHEA-S modulation of the GABA-A receptor can reduce inhibitory tone, potentially causing irritability or anxiety in high-dose scenarios.'
+                }
             ]
         },
 
         // 5. Terminal Excretion Metabolites
         terminal_urinary_metabolites: [
-            { name: 'Androsterone', stereoisomer: '5α-androstan-3α-ol-17-one', conjugate: 'Glucuronide' },
-            { name: 'Etiocholanolone', stereoisomer: '5β-androstan-3α-ol-17-one', conjugate: 'Glucuronide' }
+            {name: 'Androsterone', stereoisomer: '5α-androstan-3α-ol-17-one', conjugate: 'Glucuronide'},
+            {name: 'Etiocholanolone', stereoisomer: '5β-androstan-3α-ol-17-one', conjugate: 'Glucuronide'}
         ],
 
         // 6. Intracellular Signaling
@@ -803,12 +1052,26 @@ Rheumatol 14(Suppl 3):32–39, 1995<br/>
         // 4. Mechanistic Side Effects mapped directly to receptor vectors
         receptor_linked_side_effects: {
             ar_driven: [
-                { side_effect: 'Dyslipidemia (Cardiovascular Risk)', mechanism: 'Potent activation of hepatic lipase via AR significantly degrades High-Density Lipoprotein (HDL) while elevating Low-Density Lipoprotein (LDL), vastly accelerating atherogenesis.', source_refs: ['thompson_1989'] },
-                { side_effect: 'Virilization', mechanism: 'Despite a high anabolic-to-androgenic ratio, AR binding in susceptible tissues can still drive vocal cord thickening, clitoromegaly, and hirsutism in females.' }
+                {
+                    side_effect: 'Dyslipidemia (Cardiovascular Risk)',
+                    mechanism: 'Potent activation of hepatic lipase via AR significantly degrades High-Density Lipoprotein (HDL) while elevating Low-Density Lipoprotein (LDL), vastly accelerating atherogenesis.',
+                    source_refs: ['thompson_1989']
+                },
+                {
+                    side_effect: 'Virilization',
+                    mechanism: 'Despite a high anabolic-to-androgenic ratio, AR binding in susceptible tissues can still drive vocal cord thickening, clitoromegaly, and hirsutism in females.'
+                }
             ],
             non_genomic_and_structural: [
-                { side_effect: 'Joint Pain and Tendon Brittleness (Dry Joints)', mechanism: 'Acts as a powerful diuretic that flushes interstitial fluid out of the synovial spaces. While it stimulates collagen synthesis, it interferes with normal cross-linking and collagen maturation, making tendons stiffer and highly prone to rupture under heavy mechanical loads.', source_refs: ['marqueti_2006'] },
-                { side_effect: 'Hepatotoxicity', mechanism: 'The 17-alpha-alkylation forces the liver to process the molecule repeatedly without easily cleaving it. This induces intrahepatic cholestasis, elevated transaminases (AST/ALT), and potential peliosis hepatis.' }
+                {
+                    side_effect: 'Joint Pain and Tendon Brittleness (Dry Joints)',
+                    mechanism: 'Acts as a powerful diuretic that flushes interstitial fluid out of the synovial spaces. While it stimulates collagen synthesis, it interferes with normal cross-linking and collagen maturation, making tendons stiffer and highly prone to rupture under heavy mechanical loads.',
+                    source_refs: ['marqueti_2006']
+                },
+                {
+                    side_effect: 'Hepatotoxicity',
+                    mechanism: 'The 17-alpha-alkylation forces the liver to process the molecule repeatedly without easily cleaving it. This induces intrahepatic cholestasis, elevated transaminases (AST/ALT), and potential peliosis hepatis.'
+                }
             ]
         },
 
@@ -915,20 +1178,43 @@ Rheumatol 14(Suppl 3):32–39, 1995<br/>
         // 4. Mechanistic Side Effects mapped directly to receptor vectors
         receptor_linked_side_effects: {
             ar_driven: [
-                { side_effect: 'Severe Virilization & Androgenic Alopecia', mechanism: 'Due to its massive AR binding affinity, it exerts extreme androgenic effects on the skin, sebaceous glands, hair follicles, and vocal cords.' },
-                { side_effect: 'Prostate Hypertrophy', mechanism: 'Direct, potent AR activation in prostate tissue promotes rapid cellular proliferation.' }
+                {
+                    side_effect: 'Severe Virilization & Androgenic Alopecia',
+                    mechanism: 'Due to its massive AR binding affinity, it exerts extreme androgenic effects on the skin, sebaceous glands, hair follicles, and vocal cords.'
+                },
+                {
+                    side_effect: 'Prostate Hypertrophy',
+                    mechanism: 'Direct, potent AR activation in prostate tissue promotes rapid cellular proliferation.'
+                }
             ],
             glucocorticoid_and_structural_driven: [
-                { side_effect: 'Hypertension and Renal Strain', mechanism: 'By inhibiting renal 11β-HSD2, cortisol is allowed to bind to mineralocorticoid receptors in the kidneys (which normally only accept aldosterone). This drives unregulated sodium retention and potassium excretion, spiking blood pressure.' },
-                { side_effect: 'CNS Hyper-Activation (Aggression)', mechanism: 'The combination of extreme AR binding in the brain and altered cortisol levels drives profound neurological changes, often resulting in heightened irritability, competitive drive, and aggression.' },
-                { side_effect: 'Extreme Hepatotoxicity', mechanism: 'The tri-modified structure (methyl, fluoro, hydroxyl) resists hepatic clearance to such a degree that it rapidly induces elevations in liver transaminases (AST/ALT) and carries a high risk of drug-induced cholestasis.' }
+                {
+                    side_effect: 'Hypertension and Renal Strain',
+                    mechanism: 'By inhibiting renal 11β-HSD2, cortisol is allowed to bind to mineralocorticoid receptors in the kidneys (which normally only accept aldosterone). This drives unregulated sodium retention and potassium excretion, spiking blood pressure.'
+                },
+                {
+                    side_effect: 'CNS Hyper-Activation (Aggression)',
+                    mechanism: 'The combination of extreme AR binding in the brain and altered cortisol levels drives profound neurological changes, often resulting in heightened irritability, competitive drive, and aggression.'
+                },
+                {
+                    side_effect: 'Extreme Hepatotoxicity',
+                    mechanism: 'The tri-modified structure (methyl, fluoro, hydroxyl) resists hepatic clearance to such a degree that it rapidly induces elevations in liver transaminases (AST/ALT) and carries a high risk of drug-induced cholestasis.'
+                }
             ]
         },
 
         // 5. Terminal Excretion Metabolites (Phase II Conjugation)
         terminal_urinary_metabolites: [
-            { name: '6-beta-hydroxyfluoxymesterone', stereoisomer: 'Hydroxylated at C6', conjugate: 'Unconjugated and Glucuronide forms' },
-            { name: '9-alpha-fluoro-17-alpha-methyl-androstane-3-alpha,11-beta,17-beta-triol', stereoisomer: 'Fully reduced A-ring', conjugate: 'Glucuronide (UGT-mediated) and Sulfate' }
+            {
+                name: '6-beta-hydroxyfluoxymesterone',
+                stereoisomer: 'Hydroxylated at C6',
+                conjugate: 'Unconjugated and Glucuronide forms'
+            },
+            {
+                name: '9-alpha-fluoro-17-alpha-methyl-androstane-3-alpha,11-beta,17-beta-triol',
+                stereoisomer: 'Fully reduced A-ring',
+                conjugate: 'Glucuronide (UGT-mediated) and Sulfate'
+            }
         ],
 
         // 6. Intracellular Signaling & Tissue Remodeling Pathologies
@@ -1038,21 +1324,30 @@ Rheumatol 14(Suppl 3):32–39, 1995<br/>
         // 4. Mechanistic Side Effects mapped directly to enzyme inhibition and metabolite vectors
         receptor_linked_side_effects: {
             aromatase_inhibition_estrogen_depletion_driven: [
-                { side_effect: 'Hot flashes / Vasomotor symptoms', mechanism: 'Profound estrogen suppression disrupts hypothalamic thermoregulation.' },
-                { side_effect: 'Bone mineral density loss / Osteoporosis', mechanism: 'Estrogen deficiency accelerates osteoclast activity and bone resorption.' },
-                { side_effect: 'Arthralgia / Myalgia (joint/muscle pain)', mechanism: 'Estrogen withdrawal effects on musculoskeletal tissues.' },
-                { side_effect: 'Dyslipidemia', mechanism: 'Altered lipid metabolism due to low estrogen.' }
+                {
+                    side_effect: 'Hot flashes / Vasomotor symptoms',
+                    mechanism: 'Profound estrogen suppression disrupts hypothalamic thermoregulation.'
+                },
+                {
+                    side_effect: 'Bone mineral density loss / Osteoporosis',
+                    mechanism: 'Estrogen deficiency accelerates osteoclast activity and bone resorption.'
+                },
+                {
+                    side_effect: 'Arthralgia / Myalgia (joint/muscle pain)',
+                    mechanism: 'Estrogen withdrawal effects on musculoskeletal tissues.'
+                },
+                {side_effect: 'Dyslipidemia', mechanism: 'Altered lipid metabolism due to low estrogen.'}
             ],
             androgenic_metabolite_driven: [
-                { side_effect: 'Acne, mild virilization (rare)', mechanism: 'Weak AR activation by parent and 17β-DHE.' }
+                {side_effect: 'Acne, mild virilization (rare)', mechanism: 'Weak AR activation by parent and 17β-DHE.'}
             ]
         },
 
         // 5. Terminal Excretion Metabolites (Phase II)
         terminal_urinary_metabolites: [
-            { name: '17β-Dihydroexemestane glucuronide', conjugate: 'Primarily via UGT2B17' },
-            { name: 'Cysteine conjugates', conjugate: 'Via glutathione pathway (GSTA1 and downstream processing)' },
-            { name: 'Oxidized derivatives', conjugate: 'Glucuronide / Sulfate' }
+            {name: '17β-Dihydroexemestane glucuronide', conjugate: 'Primarily via UGT2B17'},
+            {name: 'Cysteine conjugates', conjugate: 'Via glutathione pathway (GSTA1 and downstream processing)'},
+            {name: 'Oxidized derivatives', conjugate: 'Glucuronide / Sulfate'}
         ],
 
         // 6. Intracellular Signaling & Tissue Effects
@@ -1174,7 +1469,7 @@ const steroidDataSources = [
         title: 'Stanozolol promotes osteogenic gene expression and apposition of bone mineral in vitro',
         author: 'Rachetti, A., et al.',
         type: 'In Vitro Study',
-        url:'https://pubmed.ncbi.nlm.nih.gov/30427473/',
+        url: 'https://pubmed.ncbi.nlm.nih.gov/30427473/',
         journal: 'Journal of Bone and Mineral Metabolism',
         description: 'Directly confirms that stanozolol modulates genes related to osteogenic differentiation, specifically upregulating the RUNX2 transcription factor.'
     },
@@ -1252,5 +1547,21 @@ const steroidDataSources = [
         type: "Database",
         url: "https://pubchem.ncbi.nlm.nih.gov/compound/Exemestane",
         description: "Chemical structure, IUPAC name, stereochemistry."
+    },
+    {
+        source_id: 'goudreault_1990',
+        title: "Studies on anabolic steroids--4. Identification of new urinary metabolites of methenolone acetate",
+        authors: "Goudreault D, Massé R",
+        year: 1990,
+        journal: "J Steroid Biochem",
+        url: "https://pubmed.ncbi.nlm.nih.gov/2242348/"
+    },
+    {
+        source_id: 'albertsdottir_2020',
+        title: "Searching for new long-term urinary metabolites of metenolone",
+        authors: "Albertsdóttir AD et al.",
+        year: 2020,
+        journal: "Drug Test Anal",
+        url: "https://pubmed.ncbi.nlm.nih.gov/32386339/"
     }
 ];

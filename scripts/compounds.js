@@ -2108,7 +2108,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         id: crypto.randomUUID(),
         class: 'ingredient',
         name: 'Methenolone acetate',
-        parent_molecule: 'drostanolone',
+        parent_molecule: 'methenolone',
         translations: {
             en: 'methenolone acetate',
             fr: 'acétate de méthénolone',
@@ -2156,7 +2156,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         id: crypto.randomUUID(),
         class: 'ingredient',
         name: 'Methenolone enanthate',
-        parent_molecule: 'drostanolone',
+        parent_molecule: 'methenolone',
         translations: {
             en: 'methenolone enanthate',
             fr: 'énanthate de méthénolone',
