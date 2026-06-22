@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Insert</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script src="https://unpkg.com/smiles-drawer@2/dist/smiles-drawer.min.js"></script>
+    <script src="../scripts/compounds.js"></script>
+    <script src="../scripts/blurbs.js"></script>
+    <script src="../scripts/insert.js"></script>
+</head>
+<body class="bg-white">
+
+<div class="container py-5" style="max-width: 1200px;" x-data="productData()">
+    <!-- Header -->
+    <div class="text-center border-bottom pb-4 mb-5">
+        <h1 class="display-6 fw-bold" x-text="compoundData.name"></h1>
+        <p class="lead text-muted">Summary of Product Characteristics</p>
+    </div>
+
+    <!-- Left Column -->
+    <div class="row">
+        <div class="col-lg-6">
+
+            <!-- Section 1 -->
+            <h5 class="h5 fw-bold border-bottom pb-2">1. Description</h5>
+            <div>
+                <canvas id="2dmole" style="max-height: 380px;"></canvas>
+            </div>
+
+            <span class="fw-bold text-secondary me-1">Empirical formula:</span> <span
+                x-text="compoundData.formula"></span><br/>
+            <span class="fw-bold text-secondary me-1">Molecular weight:</span> <span
+                x-text="compoundData.molecular_weight"></span> g/mol<br/>
+            <span class="fw-bold text-secondary me-1">Presentation:</span> Clear, yellowish oily solution for
+            intramuscular injection.<br/>
+            <span class="fw-bold text-secondary me-1">Excipients:</span>
+            <span x-text="formattedExcipients()"></span>
+            <br/>
+            <br/>
+            <p>1 mL contains <span class="me-1"><span x-text="compound.mg_per_ml"></span>mg</span><span
+                    class="fst-italic" x-text="compoundData.name"></span></p>
+            <!-- Section 2 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">2. Therapeutic Indications</h5>
+            <h6 class="h6 fw-bold"></h6>
+            <p><span class="fst-italic" x-text="compoundData.name"></span>
+               is used to support healing processes or prevent the harmful effects of catabolic processes. For example:
+                </p>
+            <ul>
+                <li>during convalescence</li>
+                <li>postoperative treatment</li>
+                <li>degenerative diseases</li>
+                <li>cachexia</li>
+                <li>radiation and cytostatic therapy</li>
+                <li>advanced breast and genital cancers in women</li>
+                <li>hematopoietic disorders</li>
+                <li>long-term corticosteroid treatment,</li>
+                <li>osteoporosis</li>
+                <li>protein deficiency in old age</li>
+                <li>chronic liver diseases</li>
+            </ul>
+
+            <div class="border-start border-3 border-secondary ps-3 fst-italic">
+                Not indicated for enhancement of muscle mass or athletic performance in healthy individuals.
+            </div>
+
+            <!-- Section 3 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">3. Dosage and Administration</h5>
+
+            <p></p>
+            <h6 class="h6 fw-bold"></h6>
+            <p>
+            <ul>
+                <li>Adult males: 100mg of <span class="fst-italic" x-text="compoundData.name"></span> intramuscularly
+                    every 2 weeks.
+                </li>
+                <li>In very thin women with a weight lower than their status, the dose of 50mg of <span
+                        class="fst-italic" x-text="compoundData.name"></span> intramuscular should not be exceeded every
+                    2-3 weeks.
+                </li>
+                <li>Teens with body weight greater than 50 kg (15-18 years): 50mg <span class="fst-italic"
+                                                                                        x-text="compoundData.name"></span>
+                    every 2 weeks.
+                </li>
+            </ul>
+            </p>
+
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-lg-6">
+
+            <!-- Section 4 -->
+            <h5 class="h5 fw-bold border-bottom pb-2">4. Contraindications</h5>
+            <ul>
+                <li>Hypersensitivity to <span class="fst-italic" x-text="compoundData.name"></span> or excipients</li>
+                <li>Male patients with carcinoma of the breast or with known or suspected carcinoma of the prostate.</li>
+               <li>Prostate or male breast carcinoma</li>
+                <li>Hypercalcaemia or past/present liver tumours</li>
+                <li>Pregnancy, because of masculinization of the fetus.</li>
+                <li>Nephrosis or the nephrotic phase of nephritis.</li>
+                <li>Children under 3 years (contains benzyl alcohol)</li>
+                <li>Liver and severe renal failure</li>
+            </ul>
+
+
+            <p>Patients with renal failure, hepatic failure, heart failure, coronary insufficiency, a history of myocardial infarction, arterial
+                hypertension, edema, epilepsy, migraine, benign prostatic hypertrophy, or urethral obstruction should be monitored with
+                special precautions.
+            </p>
+            <p>
+                Liver function tests should be monitored regularly. A clinically significant increase in liver function parameters or cholestasis
+                necessitates discontinuation of <span class="fst-italic" x-text="compoundData.name"></span>.
+            </p>
+
+            <!-- Section 5 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">5. Special Warnings and Precautions</h5>
+            <ul>
+                <li>Exclude prostate cancer before therapy. Regular monitoring required.</li>
+                <li>Monitor Hb/Hct, PSA, LFTs, and lipids.</li>
+                <li>Inject very slowly to avoid pulmonary microembolism.</li>
+                <li>Caution in cardiovascular disease, sleep apnoea, and hepatic/renal impairment.</li>
+            </ul>
+
+            <!-- Section 6 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">6. Pharmacodynamics & Interactions</h5>
+            <div class="mb-2">
+                <p class="mb-1"><span class="fw-bold text-secondary me-1">Therapeutic Class:</span> <span
+                        x-text="getParent.therapeutic_class"></span></p>
+                <p class="mb-1"><span class="fw-bold text-secondary me-1">Structural Backbone:</span> <span
+                        x-text="getParent.structural_backbone"></span></p>
+                <p class="mb-1"><span class="fw-bold text-secondary me-1">Modifications:</span> <span
+                        x-text="getParent.modifications?.join(', ')"></span></p>
+            </div>
+            <h6 class="fw-bold mt-4">Metabolism</h6>
+            <ul>
+                <template x-for="path in getParent.metabolic_pathways" :key="path.enzyme">
+                    <li><span class="fw-bold text-secondary me-1" x-text="path.enzyme"></span>: <span
+                            x-text="path.reaction_type"></span> → <span x-text="path.product"></span></li>
+                </template>
+            </ul>
+            <!-- Receptor Interactions (summarized) -->
+            <h6 class="fw-bold mt-4">Receptor Targets</h6>
+
+            <div class="row row-cols-1 row-cols-md-2 g-4 mb-2">
+                <template x-for="(receptor, rIndex) in getParent.receptor_interactions" :key="rIndex">
+                    <div class="col">
+                        <strong class="text-dark d-block mb-1" x-text="receptor.target_receptor"></strong>
+                        <span class="badge bg-secondary mb-2" x-text="receptor.action"></span>
+                        <span class="text-muted small d-block mb-2 fw-medium"
+                              x-text="'Affinity: ' + receptor.binding_affinity_relative"></span>
+                        <p class="small mb-0" x-text="receptor.downstream_effect"></p>
+
+                        <template x-if="receptor.source_refs">
+                            <div class="mt-2 small text-secondary fw-lighter">
+                                Refs:
+                                <template x-for="(source, sIndex) in receptor.source_refs"
+                                          :key="sIndex">
+                                    <div class="d-inline-block me-2">
+                                        <a :href="getSource(source)?.url || 'https://doi.org/' + getSource(source)?.doi"
+                                           x-text="getSource(source)?.title"
+                                           target="_blank"
+                                           class="text-decoration-none"></a></div>
+                                </template>
+                            </div>
+                        </template>
+
+                    </div>
+                </template>
+            </div>
+            <h6 class="fw-bold mt-4">Drug Interactions</h6>
+            <ul>
+                <li>Enzyme inducers: reduced effect</li>
+                <li>Oral anticoagulants: increased effect (monitor INR)</li>
+                <li>Insulin/hypoglycaemics: enhanced effect</li>
+            </ul>
+            <p>It has been shown that methyltestosterone increases cyclosporine plasma concentrations and may therefore lead to
+                nephrotoxicity. Other androgens may also exhibit the same effect. Interference with laboratory tests: Thyroxine-binding
+                globulin levels may be observed to be lower in patients treated with <span class="fst-italic" x-text="compoundData.name"></span>, which may lead to a decrease in total
+                serum T4 levels and an increase in T3 and T4 resin uptake. However, free thyroid hormone concentrations were unchanged,
+                and there was no clinical evidence of thyroid disorder.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <!-- Section 7 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">7. Fertility, Pregnancy and Lactation</h5>
+            <p>Suppresses spermatogenesis (usually reversible). Contraindicated in pregnancy and breastfeeding.</p>
+
+            <!-- Section 8 -->
+            <h5 class="h5 fw-bold border-bottom pb-2">8. Adverse Reactions</h5>
+
+            <div class="row">
+                <div class="col-md-6">
+
+                    <h6>Reproductive / Endocrine</h6>
+                    <ul>
+                        <li>Suppression of endogenous testosterone production</li>
+                        <li>Testicular atrophy</li>
+                        <li>Reduced sperm count (oligospermia)</li>
+                        <li>Reduced fertility</li>
+                        <li>Changes in libido (increased or decreased)</li>
+                    </ul>
+
+                    <h6>Cardiovascular & Lipids</h6>
+                    <ul>
+                        <li>Decreased HDL cholesterol</li>
+                        <li>Increased LDL cholesterol</li>
+                        <li>Potential increase in cardiovascular risk with prolonged use</li>
+                        <li>Possible elevation in blood pressure</li>
+                    </ul>
+
+                    <h6>Skin & Hair</h6>
+                    <ul>
+                        <li>Acne</li>
+                        <li>Oily skin</li>
+                        <li>Acceleration of male-pattern hair loss in genetically susceptible individuals</li>
+                    </ul>
+
+                    <h6>Central Nervous System</h6>
+                    <ul>
+                        <li>Mood changes</li>
+                        <li>Irritability</li>
+                        <li>Insomnia</li>
+                    </ul>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <h6>Women (Virilization)</h6>
+                    <ul>
+                        <li>Deepening of the voice</li>
+                        <li>Clitoral enlargement</li>
+                        <li>Increased body or facial hair growth</li>
+                        <li>Menstrual irregularities</li>
+                        <li>Some changes may be irreversible</li>
+                    </ul>
+
+                    <h6>Musculoskeletal & Laboratory Findings</h6>
+                    <ul>
+                        <li>Increased muscle mass and strength</li>
+                        <li>Elevated creatine kinase (CK/CPK)</li>
+                        <li>Increased serum creatinine due to greater muscle mass</li>
+                    </ul>
+
+                    <h6>Pediatric Use</h6>
+                    <ul>
+                        <li>Premature closure of growth plates</li>
+                        <li>Impaired final adult height</li>
+                    </ul>
+
+                    <h6>Hepatic</h6>
+                    <ul>
+                        <li>Liver toxicity is considered uncommon with injectable methenolone enanthate</li>
+                        <li>Rare liver-related adverse effects cannot be excluded</li>
+                    </ul>
+
+                </div>
+            </div>
+
+            <!-- Section 9 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">9. Pharmacokinetics</h5>
+
+            <div>
+                <!-- Loading State -->
+                <template x-if="pkLoading">
+                    <div class="text-center py-4">
+                        <div class="spinner-border spinner-border-sm text-secondary" role="status"></div>
+                        <span class="ms-2">Loading pharmacokinetic data...</span>
+                    </div>
+                </template>
+
+                <!-- Content when ready -->
+                <div x-show="!pkLoading" x-html="pharmacokineticsHTML"></div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+
+            <!-- Section 10 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">10. Overdose</h5>
+            <p>Supportive treatment. Low acute toxicity.</p>
+
+            <!-- Section 11 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">11. Storage and Handling</h5>
+            <ul>
+                <li>Store below 25°C. Protect from light.</li>
+                <li>Shelf life: Up to 5 years.</li>
+                <li>Use immediately after opening.</li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

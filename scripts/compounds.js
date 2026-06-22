@@ -1347,7 +1347,7 @@ var compounds = [
         input: 0,
         qsMode: false,
         pricePerUnit: 1,
-
+        formula: 'C25H38O3',
         smiles: 'CC(C)CCC(=O)OC1CCC2C1(CCC3C2CCC4=CC(=O)CCC34C)C',
         blurbHTML: `<p>
     Testosterone isocaproate is the oil-soluble 17β-(4-methylpentanoate) ester of the androgenic hormone testosterone (prodrug/controlled release vehicle). It is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
@@ -2049,8 +2049,6 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         qsMode: false,
         pricePerUnit: 6.5,
         cas_no: '58-19-5',
-
-
         log_p: 4.2051,
         formula: 'C20H32O2',
         smiles: 'CCC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CC[C@@H]4[C@@]3(C[C@H](C(=O)C4)C)C)C'
@@ -2110,7 +2108,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         id: crypto.randomUUID(),
         class: 'ingredient',
         name: 'Methenolone acetate',
-        parent_molecule: 'methenolone',
+        parent_molecule: 'drostanolone',
         translations: {
             en: 'methenolone acetate',
             fr: 'acétate de méthénolone',
@@ -2137,7 +2135,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         },
         pubchemid: null,
         self_id: 'methenolone_acetate',
-        molecular_weight: 0,
+        molecular_weight: 344.495,
         density: 1.0989010989010988,
         displacement: 0.91,
         melting_point: [141, 143],
@@ -2150,15 +2148,15 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 15,
-
+        formula: 'C22H32O3',
         cas_no: '434-05-9',
-        smiles: 'CCC1=CC(=O)C[C@H]2[C@]1([C@H]3CC[C@]4([C@H]([C@@H]3CC2)CC[C@@H]4OC(=O)C)C)C'
+        smiles: 'CC1=CC(=O)C[C@H]2[C@]1([C@H]3CC[C@]4([C@H]([C@@H]3CC2)CC[C@@H]4OC(=O)C)C)C'
     },
     {
         id: crypto.randomUUID(),
         class: 'ingredient',
         name: 'Methenolone enanthate',
-        parent_molecule: 'methenolone',
+        parent_molecule: 'drostanolone',
         translations: {
             en: 'methenolone enanthate',
             fr: 'énanthate de méthénolone',
@@ -2185,7 +2183,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         },
         pubchemid: null,
         self_id: 'methenolone_enanthate',
-        molecular_weight: 0,
+        molecular_weight: 414.630,
         density: 1.0526315789473684,
         displacement: 0.95,
         melting_point: [66, 71],
@@ -2198,9 +2196,9 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 15,
-
+        formula: 'C27H42O3',
         cas_no: '303-42-4',
-        smiles: 'C[C@@]12[C@@]3([C@]([C@]4([C@](C)(CC3)[C@@H](OC(CCCCCC)=O)CC4)[H])(CC[C@]1(CC(=O)C=C2C)[H])[H])[H]'
+        smiles: 'O=C2\\C=C(\\C)[C@@]3([C@H]1CC[C@@]4([C@@H](OC(=O)CCCCCC)CC[C@H]4[C@@H]1CC[C@H]3C2)C)C'
     },
     {
         id: crypto.randomUUID(),

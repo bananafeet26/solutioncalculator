@@ -525,8 +525,7 @@ function compoundApp() {
                 }
             });
 
-            const baseUrl = window.location.origin + window.location.pathname.replace(/[^/]+$/, `./docs/${mainCompound.parent_molecule}_insert.html`);
-            window.open(`${baseUrl}?${params.toString()}`, '_blank', 'noopener,noreferrer');
+            window.open(`./docs/${mainCompound.parent_molecule}_insert.html?${params.toString()}`, '_blank', 'noopener,noreferrer');
         },
         removeCompound(uuid) {
             let index = this.settings.compounds.findIndex(

@@ -830,7 +830,7 @@
                             @click='downloadBatchText("xls")' class="m-1 btn btn-sm btn-secondary">
                     </button>
 
-                    <template x-if="solutionMeasurements[0].compounds.find(s => s.parent_molecule === 'testosterone')">
+                    <template x-if="solutionMeasurements[0].compounds.find(s => s.parent_molecule === 'testosterone' || 'nandrolone') && solutionMeasurements[0].compounds?.filter(c => c.basis === 'mg_per_ml').length === 1">
                         <div>
                             <button x-text="translations.buttons.product_insert[settings.currentLanguage] + ' 📑'"
                                     @click='generateProductInsertUrl()' class="m-1 btn btn-sm btn-secondary">

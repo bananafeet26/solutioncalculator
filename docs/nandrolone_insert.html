@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Insert</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script src="https://unpkg.com/smiles-drawer@2/dist/smiles-drawer.min.js"></script>
+    <script src="../scripts/compounds.js"></script>
+    <script src="../scripts/blurbs.js"></script>
+
+
+</head>
+<body class="bg-white">
+
+<div class="container py-5" style="max-width: 1200px;" x-data="productData()">
+    <!-- Header -->
+    <div class="text-center border-bottom pb-4 mb-5">
+        <h1 class="display-6 fw-bold" x-text="compoundData.name"></h1>
+        <p class="lead text-muted">Summary of Product Characteristics</p>
+    </div>
+
+    <!-- Left Column -->
+    <div class="row">
+        <div class="col-lg-6">
+
+            <!-- Section 1 -->
+            <h5 class="h5 fw-bold border-bottom pb-2">1. Description</h5>
+            <div>
+                <canvas id="2dmole" style="max-height: 380px;"></canvas>
+            </div>
+
+            <span class="fw-bold text-secondary me-1">Empirical formula:</span> <span
+                x-text="compoundData.formula"></span><br/>
+            <span class="fw-bold text-secondary me-1">Molecular weight:</span> <span
+                x-text="compoundData.molecular_weight"></span> g/mol<br/>
+            <span class="fw-bold text-secondary me-1">Presentation:</span> Clear, yellowish oily solution for
+            intramuscular injection.<br/>
+            <span class="fw-bold text-secondary me-1">Excipients:</span>
+            <span x-text="formattedExcipients()"></span>
+            <br/>
+            <br/>
+            <p>1 mL contains <span class="me-1"><span x-text="compound.mg_per_ml"></span>mg</span><span
+                    class="fst-italic" x-text="compoundData.name"></span></p>
+            <!-- Section 2 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">2. Therapeutic Indications</h5>
+            <h6 class="h6 fw-bold">In Treatment of Post menopausal osteoporosis</h6>
+            <p><span class="fst-italic" x-text="compoundData.name"></span> helps strengthen bones and reduce the risk of fractures in women with postmenopausal osteoporosis. It supports bone density and may improve overall bone health, especially in those who are at high risk of bone loss after menopause. With regular use as advised by a doctor, it can help maintain mobility, reduce bone pain, and improve quality of life.
+            </p>
+
+            <h6 class="h6 fw-bold">In Treatment of Breast cancer</h6>
+            <p><span class="fst-italic" x-text="compoundData.name"></span> is used as part of supportive care in advanced breast cancer. It can help improve strength, maintain muscle mass, and support overall health, especially in patients experiencing weight loss or fatigue. Its use is determined by the doctor based on the individual’s condition and treatment goals.
+            </p>
+
+            <h6 class="h6 fw-bold">In Treatment of Anemia</h6>
+            <p><span class="fst-italic" x-text="compoundData.name"></span> supports red blood cell production and helps improve hemoglobin levels over time, aiding in the management of certain types of anemia. As oxygen delivery in the body improves, patients often experience reduced fatigue, better stamina, and less breathlessness, which improves their ability to perform daily activities more comfortably. Overall, this helps improve patients’ energy levels and quality of life.
+            </p>
+
+            <div class="border-start border-3 border-secondary ps-3 fst-italic">
+                Not indicated for enhancement of muscle mass or athletic performance in healthy individuals.
+            </div>
+
+            <!-- Section 3 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">3. Dosage and Administration</h5>
+            <p><span class="fst-italic" x-text="compoundData.name"></span> injection is intended for deep intramuscular injection only, into the gluteal muscle preferably.
+
+            <p></p>Dosage should be based on therapeutic response and consideration of the benefit to risk ratio. Duration of therapy will depend on the response of the condition and the appearance of adverse reactions. If possible, therapy should be intermittent.
+
+            <p></p><span class="fst-italic" x-text="compoundData.name"></span> should be regarded as adjunctive therapy and adequate quantities of nutrients should be consumed in order to obtain maximal therapeutic effects. For example, when it is used in the treatment of refractory anemia, adequate iron intake is required for a maximal response.</p>
+            <h6 class="h6 fw-bold">Anemia of Renal Disease</h6>
+            <p>
+                <ul>
+            <li>50 to 100 mg per week is recommended for women</li>
+            <li>100 to 200 mg per week for men</li>
+            <li>For children from 2 to 13 years of age, the average dose is 25 to 50 mg every 3 to 4 weeks.</li>
+        </ul>
+            Drug therapy should be discontinued if no hematologic improvement is seen within the first six months.
+            </p>
+
+            Parenteral drug products should be inspected visually for particulate matter and discoloration prior to administration, whenever the solution and container permit.
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-lg-6">
+
+            <!-- Section 4 -->
+            <h5 class="h5 fw-bold border-bottom pb-2">4. Contraindications</h5>
+            <ul>
+                <li>Hypersensitivity to <span class="fst-italic" x-text="compoundData.name"></span> or excipients</li>
+                <li>Male patients with carcinoma of the breast or with known or suspected carcinoma of the prostate.
+                </li>
+                <li>Prostate or male breast carcinoma</li>
+                <li>Hypercalcaemia or past/present liver tumours</li>
+                <li>Pregnancy, because of masculinization of the fetus.</li>
+                <li>Nephrosis or the nephrotic phase of nephritis.</li>
+                <li>Children under 3 years (contains benzyl alcohol)</li>
+            </ul>
+
+
+            <p>Hypercalcemia may develop both spontaneously and as a result of androgen therapy in women with
+                disseminated breast carcinoma. If it develops while on this agent, the drug should be discontinued.
+                Caution is required in administering these agents to patients with cardiac, renal or hepatic disease.
+                Cholestatic jaundice is associated with therapeutic use of anabolic and androgenic steroids. Edema may
+                occur occasionally with or without congestive heart failure. Concomitant administration of adrenal
+                steroids or ACTH may add to the edema.
+            </p>
+            <p>
+                In children, anabolic steroid treatment may accelerate bone maturation without producing compensatory
+                gain in linear growth. This adverse effect may result in compromised adult stature. The younger the
+                child the greater the risk of compromising final mature height. The effect on bone maturation should be
+                monitored by assessing bone age of the wrist and hand every six months.
+            </p>
+
+            <div class="bg-warning text-dark p-3 rounded small">
+                PELIOSIS HEPATIS, A CONDITION IN WHICH LIVER AND SOMETIMES SPLENIC TISSUE IS REPLACED WITH BLOOD-FILLED
+                CYSTS, HAS BEEN REPORTED IN PATIENTS RECEIVING ANDROGENIC ANABOLIC STEROID THERAPY. THESE CYSTS ARE
+                SOMETIMES PRESENT WITH MINIMAL HEPATIC DYSFUNCTION, BUT AT OTHER TIMES THEY HAVE BEEN ASSOCIATED WITH
+                LIVER FAILURE. THEY ARE OFTEN NOT RECOGNIZED UNTIL LIFE-THREATENING LIVER FAILURE OR INTRA-ABDOMINAL
+                HEMORRHAGE DEVELOPS. WITHDRAWAL OF DRUG USUALLY RESULTS IN COMPLETE DISAPPEARANCE OF LESIONS.
+                <br/>LIVER CELL TUMORS ARE ALSO REPORTED. MOST OFTEN THESE TUMORS ARE BENIGN AND ANDROGEN-DEPENDENT, BUT
+                FATAL MALIGNANT TUMORS HAVE BEEN REPORTED. WITHDRAWAL OF DRUG OFTEN RESULTS IN REGRESSION OR CESSATION
+                OF PROGRESSION OF THE TUMOR. HOWEVER, HEPATIC TUMORS ASSOCIATED WITH ANDROGENS OR ANABOLIC STEROIDS ARE
+                MUCH MORE VASCULAR THAN OTHER HEPATIC TUMORS AND MAY BE SILENT UNTIL LIFE-THREATENING INTRA-ABDOMINAL
+                HEMORRHAGE DEVELOPS.
+                <br/>BLOOD LIPID CHANGES THAT ARE KNOWN TO BE ASSOCIATED WITH INCREASED RISK OF ATHEROSCLEROSIS ARE SEEN
+                IN PATIENTS TREATED WITH ANDROGENS AND ANABOLIC STEROIDS. THESE CHANGES INCLUDE DECREASED HIGH-DENSITY
+                LIPOPROTEIN AND SOMETIMES INCREASED LOW-DENSITY LIPOPROTEIN. THE CHANGES MAY BE VERY MARKED AND COULD
+                HAVE A SERIOUS IMPACT ON THE RISK OF ATHEROSCLEROSIS AND CORONARY ARTERY DISEASE.
+            </div>
+
+            <!-- Section 5 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">5. Special Warnings and Precautions</h5>
+            <ul>
+                <li>Exclude prostate cancer before therapy. Regular monitoring required.</li>
+                <li>Monitor Hb/Hct, PSA, LFTs, and lipids.</li>
+                <li>Inject very slowly to avoid pulmonary microembolism.</li>
+                <li>Caution in cardiovascular disease, sleep apnoea, and hepatic/renal impairment.</li>
+            </ul>
+
+            <!-- Section 6 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">6. Pharmacodynamics & Interactions</h5>
+            <div class="mb-2">
+                <p class="mb-1"><span class="fw-bold text-secondary me-1">Therapeutic Class:</span> <span
+                        x-text="getParent.therapeutic_class"></span></p>
+                <p class="mb-1"><span class="fw-bold text-secondary me-1">Structural Backbone:</span> <span
+                        x-text="getParent.structural_backbone"></span></p>
+                <p class="mb-1"><span class="fw-bold text-secondary me-1">Modifications:</span> <span
+                        x-text="getParent.modifications?.join(', ')"></span></p>
+            </div>
+            <h6 class="fw-bold mt-4">Metabolism</h6>
+            <ul>
+                <template x-for="path in getParent.metabolic_pathways" :key="path.enzyme">
+                    <li><span class="fw-bold text-secondary me-1" x-text="path.enzyme"></span>: <span
+                            x-text="path.reaction_type"></span> → <span x-text="path.product"></span></li>
+                </template>
+            </ul>
+            <!-- Receptor Interactions (summarized) -->
+            <h6 class="fw-bold mt-4">Receptor Targets</h6>
+
+            <div class="row row-cols-1 row-cols-md-2 g-4 mb-2">
+                <template x-for="(receptor, rIndex) in getParent.receptor_interactions" :key="rIndex">
+                    <div class="col">
+                        <strong class="text-dark d-block mb-1" x-text="receptor.target_receptor"></strong>
+                        <span class="badge bg-secondary mb-2" x-text="receptor.action"></span>
+                        <span class="text-muted small d-block mb-2 fw-medium"
+                              x-text="'Affinity: ' + receptor.binding_affinity_relative"></span>
+                        <p class="small mb-0" x-text="receptor.downstream_effect"></p>
+
+                        <template x-if="receptor.source_refs">
+                            <div class="mt-2 small text-secondary fw-lighter">
+                                Refs:
+                                <template x-for="(source, sIndex) in receptor.source_refs"
+                                          :key="sIndex">
+                                    <div class="d-inline-block me-2">
+                                        <a :href="getSource(source)?.url || 'https://doi.org/' + getSource(source)?.doi"
+                                           x-text="getSource(source)?.title"
+                                           target="_blank"
+                                           class="text-decoration-none"></a></div>
+                                </template>
+                            </div>
+                        </template>
+
+                    </div>
+                </template>
+            </div>
+            <h6 class="fw-bold mt-4">Drug Interactions</h6>
+            <ul>
+                <li>Enzyme inducers: reduced effect</li>
+                <li>Oral anticoagulants: increased effect (monitor INR)</li>
+                <li>Insulin/hypoglycaemics: enhanced effect</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <!-- Section 7 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">7. Fertility, Pregnancy and Lactation</h5>
+            <p>Suppresses spermatogenesis (usually reversible). Contraindicated in pregnancy and breastfeeding.</p>
+
+            <!-- Section 8 -->
+            <h5 class="h5 fw-bold border-bottom pb-2">8. Adverse Reactions</h5>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Hepatic</h6>
+                    <ul>
+                        <li>Hepatocellular neoplasms</li>
+                        <li>Peliosis hepatis associated with long-term androgenic anabolic steroid therapy</li>
+                    </ul>
+
+                    <h6>Genitourinary System</h6>
+                    <ul>
+                        <li><strong>Men (Prepubertal):</strong> Phallic enlargement, increased frequency of erections</li>
+                        <li><strong>Men (Postpubertal):</strong> Inhibition of testicular function, testicular atrophy, oligospermia, impotence, chronic priapism, epididymitis, bladder irritability</li>
+                        <li><strong>Women:</strong> Clitoral enlargement, menstrual irregularities</li>
+                        <li><strong>Both sexes:</strong> Increased or decreased libido</li>
+                    </ul>
+
+                    <h6>Central Nervous System (CNS)</h6>
+                    <ul>
+                        <li>Habituation</li>
+                        <li>Excitation</li>
+                        <li>Insomnia</li>
+                        <li>Depression</li>
+                    </ul>
+
+                    <h6>Gastrointestinal</h6>
+                    <ul>
+                        <li>Nausea</li>
+                        <li>Vomiting</li>
+                        <li>Diarrhea</li>
+                    </ul>
+
+                    <h6>Hematologic</h6>
+                    <ul>
+                        <li>Bleeding in patients receiving concomitant anticoagulant therapy</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6">
+                    <h6>Breast</h6>
+                    <ul>
+                        <li>Gynecomastia</li>
+                    </ul>
+
+                    <h6>Larynx</h6>
+                    <ul>
+                        <li>Deepening of the voice in women</li>
+                    </ul>
+
+                    <h6>Hair</h6>
+                    <ul>
+                        <li>Hirsutism in women</li>
+                        <li>Male-pattern baldness in women</li>
+                    </ul>
+
+                    <h6>Skin</h6>
+                    <ul>
+                        <li>Acne (especially in women and prepubertal boys)</li>
+                    </ul>
+
+                    <h6>Skeletal</h6>
+                    <ul>
+                        <li>Premature closure of epiphyses in children</li>
+                    </ul>
+
+                    <h6>Fluid & Electrolytes</h6>
+                    <ul>
+                        <li>Edema</li>
+                        <li>Retention of sodium, chloride, potassium, phosphate, and calcium</li>
+                    </ul>
+
+                    <h6>Metabolic / Endocrine</h6>
+                    <ul>
+                        <li>Decreased glucose tolerance</li>
+                        <li>Increased LDL cholesterol levels</li>
+                        <li>Decreased HDL cholesterol levels</li>
+                        <li>Increased creatine and creatinine excretion</li>
+                        <li>Elevated creatinine phosphokinase (CPK)</li>
+                        <li>Potentially irreversible virilizing changes in women</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Section 9 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">9. Pharmacokinetics</h5>
+
+            <div>
+                <!-- Loading State -->
+                <template x-if="pkLoading">
+                    <div class="text-center py-4">
+                        <div class="spinner-border spinner-border-sm text-secondary" role="status"></div>
+                        <span class="ms-2">Loading pharmacokinetic data...</span>
+                    </div>
+                </template>
+
+                <!-- Content when ready -->
+                <div x-show="!pkLoading" x-html="pharmacokineticsHTML"></div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+
+            <!-- Section 10 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">10. Overdose</h5>
+            <p>Supportive treatment. Low acute toxicity.</p>
+
+            <!-- Section 11 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">11. Storage and Handling</h5>
+            <ul>
+                <li>Store below 25°C. Protect from light.</li>
+                <li>Shelf life: Up to 5 years.</li>
+                <li>Use immediately after opening.</li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<script>
+    function productData() {
+        return {
+            compound: {
+                name: "Testosterone Enanthate",
+                formula: "C26H40O3",
+                molecular_weight: "400.59",
+                mg_per_ml: 250,
+                parent_molecule: "testosterone",
+                self_id: "testosterone_enanthate",
+                excipients: ["benzyl_alcohol", "benzyl_benzoate"]
+                // add other fields
+            },
+            drawer: null,
+            compoundData: null,
+            pharmacokineticsHTML: '',
+            pkLoading: true,
+
+            init() {
+                this.drawer = new SmilesDrawer.Drawer({
+                    width: 380,
+                    height: 240,
+                    padding: 2,
+                    bondLength: 38,
+                    bondThickness: 2.2,
+                    shortBondLength: 0.75,
+                    themes: {
+                        light: {
+                            C: '#111111',
+                            O: '#e74c3c',
+                            // add other atoms if needed
+                        }
+                    }
+                });
+                this.loadFromURL();
+                this.loadPharmacokinetics();
+
+            },
+            async loadPharmacokinetics() {
+                try {
+                    const response = await fetch(`./pk_${this.compound.self_id}.html`);
+
+                    if (!response.ok) throw new Error();
+
+                    this.pharmacokineticsHTML = await response.text();
+                } catch (err) {
+                    this.pharmacokineticsHTML = `
+                                <p class="text-muted">Pharmacokinetic data coming soon for this compound.</p>
+                            `;
+                } finally {
+                    this.pkLoading = false;
+                }
+            },
+            draw2D(smiles) {
+                SmilesDrawer.parse(
+                    smiles,
+                    tree => {
+                        this.drawer.draw(
+                            tree,
+                            '2dmole',
+                            'light',
+                            false
+                        );
+                    },
+                    error => {
+                        console.error('SMILES parse error:', error);
+                    }
+                );
+            },
+            get getParent() {
+                const parentCompound = this.compoundData.parent_molecule;
+                console.log(`Parent compound for ${this.compoundData.name}: ${parentCompound}`);
+                return parentCompound
+                    ? blurbs.find(b => b.parent_molecule === parentCompound)
+                    : null;
+            },
+            getSource(source) {
+                return steroidDataSources.find(s => s.source_id === source);
+            },
+            loadFromURL() {
+                const params = new URLSearchParams(window.location.search);
+                console.log(params);
+                this.compound.excipients = [];
+                if (params.has('self_id')) this.compound.self_id = params.get('self_id');
+                if (params.has('mg')) this.compound.mg_per_ml = parseFloat(params.get('mg')) || 250;
+                if (params.has('excipient1')) this.compound.excipients.push(params.get('excipient1'));
+                if (params.has('excipient2')) this.compound.excipients.push(params.get('excipient2'));
+                if (params.has('excipient3')) this.compound.excipients.push(params.get('excipient3'));
+                if (params.has('excipient4')) this.compound.excipients.push(params.get('excipient4'));
+
+                this.compoundData = compounds.find(c => c.self_id === this.compound.self_id);
+                this.draw2D(this.compoundData.smiles);
+                // add more  params
+            },
+            formattedExcipients() {
+                if (!this.compound.excipients || this.compound.excipients.length === 0) {
+                    return "None listed";
+                }
+                return this.compound.excipients.join(', ');
+            }
+            ,
+        }
+    }
+</script>
+</body>
+</html>
