@@ -506,6 +506,28 @@ function compoundApp() {
                 });
             }
         },
+        generateProductInsertUrl() {
+            const params = new URLSearchParams();
+            let excipientCount = 1;
+            let mainCompound = null;
+            this.solutionMeasurements[0].compounds.forEach(compound => {
+                if (compound.basis === 'mg_per_ml') {
+                    params.set('self_id', compound.self_id);
+                    params.set('mg', compound.mg_per_ml);
+                    mainCompound = this.settings.compounds.find(c => c.self_id === compound.self_id)
+                }
+                if (compound.basis === 'v_v_percent') {
+                    params.set(`excipient${excipientCount}`, compound.name);
+                    excipientCount++;
+                }
+                if (compound.basis === 'q.s.') {
+                    params.set(`excipient${excipientCount}`, compound.name);
+                }
+            });
+
+            const baseUrl = window.location.origin + window.location.pathname.replace(/[^/]+$/, `./docs/${mainCompound.parent_molecule}_insert.html`);
+            window.open(`${baseUrl}?${params.toString()}`, '_blank', 'noopener,noreferrer');
+        },
         removeCompound(uuid) {
             let index = this.settings.compounds.findIndex(
                 c => c.self_id === uuid

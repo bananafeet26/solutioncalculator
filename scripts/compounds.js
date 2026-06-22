@@ -1226,12 +1226,10 @@ var compounds = [
         input: 0,
         qsMode: false,
         pricePerUnit: 0.75,
-
-
         cas_no: '58-22-0',
         smiles: 'O[C@H]1CC[C@@]2([H])[C@]3([H])CCC4=CC(CC[C@]4(C)[C@@]3([H])CC[C@@]21C)=O',
         log_p: 3.8791999999999995,
-        formula: 'C19H28O2'
+        formula: 'C19H28O2',
     },
     {
         id: crypto.randomUUID(),
@@ -1417,8 +1415,13 @@ var compounds = [
         qsMode: false,
         pricePerUnit: 0.67,
         cas_no: '57-85-2',
-
-
+        params: {
+            fit_dose: 150,
+            bioavailability: 0.84,
+            halflife: 1.0375,
+            cMax: 2600.0,
+            tMax: 1.0625,
+        },
         log_p: 4.8401,
         formula: 'C22H32O3',
         smiles: 'CCC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=CC(=O)CC[C@]34C)C',
@@ -1556,11 +1559,16 @@ var compounds = [
         qsMode: false,
         pricePerUnit: 0.84,
         cas_no: '58-20-8',
-
-
+        params: {
+            fit_dose: 200,
+            bioavailability: 1,//.7,
+            halflife: 6.9,
+            cMax: 1113.3012, // 38.6 ± 10.3 nmoL, ng/dL
+            tMax: 4.5,
+        },
         log_p: 6.4005,
         formula: 'C27H40O3',
-        smiles: 'CC12CCC(=O)C=C1CCC1C2CCC2(C)C(OC(=O)CCC3CCCC3)CCC12',
+        smiles: 'C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCC4CCCC4)CCC5=CC(=O)CC[C@]35C',
         blurbHTML: `<p>
     Testosterone Cypionate which is the oil-soluble 17 (beta)- cyclopentylpropionate ester of the androgenic hormone testosterone (prodrug/controlled release vehicle). 
 Testosterone Cypionate is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
@@ -1626,11 +1634,16 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         qsMode: false,
         pricePerUnit: 0.75,
         cas_no: '315-37-7',
-
-
         log_p: 6.4005,
         formula: 'C26H40O3',
         smiles: 'CCCCCCC(=O)OC1CCC2C3CCC4=CC(=O)CCC4(C)C3CCC12C',
+        params: {
+            fit_dose: 200,
+            bioavailability: .72,
+            halflife: 7.19,
+            cMax: 1130.95, // ng/dL
+            tMax: 1.3875,
+        },
         blurbHTML: `<p>
     Testosterone enanthate (TE) is a 17β-heptanoate ester of testosterone (prodrug/controlled release vehicle). This esterification increases the lipophilicity of the molecule, enabling the formation of an intramuscular or subcutaneous depot that provides sustained release of active testosterone over an extended period.
 </p>
@@ -1694,8 +1707,13 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         qsMode: false,
         pricePerUnit: 0.78,
         cas_no: '5721-91-5',
-
-
+        params: {
+            fit_dose: 400,
+            bioavailability: 0.65,
+            halflife: 21.3,
+            cMax: 1173.8694, // ?
+            tMax: 1.5125,
+        },
         log_p: 7.570799999999999,
         formula: 'C29H46O3',
         smiles: 'CCCCCCCCCC(=O)OC1CCC2C3CCC4=CC(=O)CCC4(C)C3CCC12C',
@@ -1751,7 +1769,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         },
         pubchemid: null,
         self_id: 'testosterone_undecanoate',
-        molecular_weight: 0,
+        molecular_weight: 456.711,
         density: 1.0309278350515465,
         displacement: 0.97,
         melting_point: [59, 61],
@@ -1766,6 +1784,14 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         pricePerUnit: 0.78,
         cas_no: '5949-44-0',
         smiles: 'CCCCCCCCCCC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=CC(=O)CC[C@]34C)C',
+        params: {
+            fit_dose: 1000,
+            bioavailability: .65,
+            halflife: 53,
+            cMax: 1211.364,// 42 nmol // devided by 100 because was for 1000mg
+            tMax: 7,
+        },
+        formula: 'C30H48O3',
         blurbHTML: `<p>
     Testosterone undecanoate (TU) is a long-chain fatty acid ester of testosterone designed for very slow release (prodrug/controlled release vehicle). Its high lipophilicity allows for extended-duration intramuscular depot injections.
 </p>

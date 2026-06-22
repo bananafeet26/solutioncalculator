@@ -235,7 +235,28 @@ var blurbs = [
             }
         },
 
-        blurb: `Testosterone is biosynthesized primarily from androstenedione through reduction of the C17 ketone group by 17β-hydroxysteroid dehydrogenase. Testosterone (17β-hydroxyandrost-4-en-3-one) is the principal endogenous androgen in humans. Its structure consists of the androstane steroid nucleus with a double bond between C4 and C5 and a ketone group at C3. Testosterone contains six stereogenic centres located at C8, C9, C10, C13, C14, and C17, giving rise to multiple possible stereoisomers, although only one stereochemical configuration occurs naturally and exhibits significant biological activity. The naturally occurring form possesses a 17β-hydroxyl group that is critical for high-affinity interaction with the androgen receptor. Testosterone can also undergo enzymatic conversion to dihydrotestosterone (DHT) or estradiol, extending its physiological effects in different tissues.`
+        blurb: `Testosterone is biosynthesized primarily from androstenedione through reduction of the C17 ketone group by 17β-hydroxysteroid dehydrogenase. Testosterone (17β-hydroxyandrost-4-en-3-one) is the principal endogenous androgen in humans. Its structure consists of the androstane steroid nucleus with a double bond between C4 and C5 and a ketone group at C3. Testosterone contains six stereogenic centres located at C8, C9, C10, C13, C14, and C17, giving rise to multiple possible stereoisomers, although only one stereochemical configuration occurs naturally and exhibits significant biological activity. The naturally occurring form possesses a 17β-hydroxyl group that is critical for high-affinity interaction with the androgen receptor. Testosterone can also undergo enzymatic conversion to dihydrotestosterone (DHT) or estradiol, extending its physiological effects in different tissues.`,
+        blurbHTML: `<p>Endogenous androgens are responsible for the normal growth and development of the male sex
+    organs and for maintenance of secondary sex characteristics. These effects include growth and
+    maturation of prostate, seminal vesicles, penis, and scrotum; development of male hair
+    distribution, such as beard, pubic, chest, and axillary hair; laryngeal enlargement; vocal chord
+    thickening; alterations in body musculature; and fat distribution.
+    Androgens also cause retention of nitrogen, sodium, potassium, and phosphorus, and decreased
+    urinary excretion of calcium. Androgens have been reported to increase protein anabolism and
+    decrease protein catabolism. </p><p>Nitrogen balance is improved only when there is sufficient intake of
+    calories and protein.
+    Androgens are responsible for the growth spurt of adolescence and for the eventual termination
+    of linear growth which is brought about by fusion of the epiphyseal growth centers. In children,
+    exogenous androgens accelerate linear growth rates but may cause a disproportionate
+    advancement in bone maturation. Use over long periods may result in fusion of the epiphyseal growth centers and termination of the growth process. </p><p>Androgens have been reported to
+    stimulate the production of red blood cells by enhancing the production of erythropoietic
+    stimulating factor.
+    During exogenous administration of androgens, endogenous testosterone release is inhibited
+    through feedback inhibition of pituitary luteinizing hormone (LH). At large doses of exogenous
+    androgens, spermatogenesis may also be suppressed through feedback inhibition of pituitary
+    follicle stimulating hormone (FSH).
+</p><p>There is a lack of substantial evidence that androgens are effective in fractures, surgery,
+    convalescence, and functional uterine bleeding.</p> <a href="./refs/009165s032lbl.pdf">View Source</a>`,
     },
     {
         parent_molecule: 'nandrolone',

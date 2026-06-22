@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Insert</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script src="https://unpkg.com/smiles-drawer@2/dist/smiles-drawer.min.js"></script>
+    <script src="../scripts/compounds.js"></script>
+    <script src="../scripts/blurbs.js"></script>
+
+
+</head>
+<body class="bg-white">
+
+<div class="container py-5" style="max-width: 1200px;" x-data="productData()">
+    <!-- Header -->
+    <div class="text-center border-bottom pb-4 mb-5">
+        <h1 class="display-6 fw-bold" x-text="compoundData.name"></h1>
+        <p class="lead text-muted">Summary of Product Characteristics</p>
+    </div>
+
+    <!-- Left Column -->
+    <div class="row">
+        <div class="col-lg-6">
+
+            <!-- Section 1 -->
+            <h5 class="h5 fw-bold border-bottom pb-2">1. Description</h5>
+            <div>
+                <canvas id="2dmole" style="max-height: 380px;"></canvas>
+            </div>
+
+            <span class="fw-bold text-secondary me-1">Empirical formula:</span> <span
+                x-text="compoundData.formula"></span><br/>
+            <span class="fw-bold text-secondary me-1">Molecular weight:</span> <span
+                x-text="compoundData.molecular_weight"></span> g/mol<br/>
+            <span class="fw-bold text-secondary me-1">Presentation:</span> Clear, yellowish oily solution for
+            intramuscular injection.<br/>
+            <span class="fw-bold text-secondary me-1">Excipients:</span>
+            <span x-text="formattedExcipients()"></span>
+            <br/>
+            <br/>
+            <p>1 mL contains <span class="me-1"><span x-text="compound.mg_per_ml"></span>mg</span><span
+                    class="fst-italic" x-text="compoundData.name"></span></p>
+            <!-- Section 2 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">2. Therapeutic Indications</h5>
+            <p>Androgen replacement therapy in adult males with confirmed testosterone deficiency (hypogonadism), based
+                on clinical symptoms and biochemical tests.</p>
+
+            <ul class="mb-4">
+                <li>Treatment of delayed puberty in boys</li>
+                <li>Suppression of excessive linear growth in boys (before age 14)</li>
+                <li>Masculinization in female-to-male transsexuals</li>
+                <li>Treatment of osteoporosis caused by androgen deficiency</li>
+            </ul>
+
+            <div class="border-start border-3 border-secondary ps-3 fst-italic">
+                Not indicated for enhancement of muscle mass or athletic performance in healthy individuals.
+            </div>
+
+            <!-- Section 3 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">3. Dosage and Administration</h5>
+            <h6 class="fw-bold">Adult Hypogonadism</h6>
+            <span class="fw-bold text-secondary me-1">Initial phase:</span> 250 mg (<span
+                x-text="250/compound.mg_per_ml"></span> mL) every 2–3 weeks.<br/>
+            <span class="fw-bold text-secondary me-1">Maintenance:</span> 250 mg (<span
+                x-text="250/compound.mg_per_ml"></span> mL) every 3–6 weeks (individualized).
+            <p></p>
+            <h6 class="fw-bold">Paediatric Population</h6>
+            <p>Safety and efficacy have not been fully established. Use under specialist supervision.</p>
+        </div>
+
+        <!-- Right Column -->
+        <div class="col-lg-6">
+
+            <!-- Section 4 -->
+            <h5 class="h5 fw-bold border-bottom pb-2">4. Contraindications</h5>
+            <ul>
+                <li>Hypersensitivity to <span class="fst-italic" x-text="compoundData.name"></span> or excipients</li>
+                <li>Prostate or male breast carcinoma</li>
+                <li>Hypercalcaemia or past/present liver tumours</li>
+                <li>Pregnancy</li>
+                <li>Children under 3 years (contains benzyl alcohol)</li>
+            </ul>
+
+            <!-- Section 5 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">5. Special Warnings and Precautions</h5>
+            <ul>
+                <li>Exclude prostate cancer before therapy. Regular monitoring required.</li>
+                <li>Monitor Hb/Hct, PSA, LFTs, and lipids.</li>
+                <li>Inject very slowly to avoid pulmonary microembolism.</li>
+                <li>Caution in cardiovascular disease, sleep apnoea, and hepatic/renal impairment.</li>
+            </ul>
+
+            <!-- Section 6 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">6. Pharmacodynamics & Interactions</h5>
+            <div class="mb-2">
+                <p class="mb-1"><span class="fw-bold text-secondary me-1">Therapeutic Class:</span> <span
+                        x-text="getParent.therapeutic_class"></span></p>
+                <p class="mb-1"><span class="fw-bold text-secondary me-1">Structural Backbone:</span> <span
+                        x-text="getParent.structural_backbone"></span></p>
+                <p class="mb-1"><span class="fw-bold text-secondary me-1">Modifications:</span> <span
+                        x-text="getParent.modifications?.join(', ')"></span></p>
+            </div>
+            <h6 class="fw-bold mt-4">Metabolism</h6>
+            <ul>
+                <template x-for="path in getParent.metabolic_pathways" :key="path.enzyme">
+                    <li><span class="fw-bold text-secondary me-1" x-text="path.enzyme"></span>: <span
+                            x-text="path.reaction_type"></span> → <span x-text="path.product"></span></li>
+                </template>
+            </ul>
+            <!-- Receptor Interactions (summarized) -->
+            <h6 class="fw-bold mt-4">Receptor Targets</h6>
+
+            <div class="row row-cols-1 row-cols-md-2 g-4 mb-2">
+                <template x-for="(receptor, rIndex) in getParent.receptor_interactions" :key="rIndex">
+                    <div class="col">
+                        <strong class="text-dark d-block mb-1" x-text="receptor.target_receptor"></strong>
+                        <span class="badge bg-secondary mb-2" x-text="receptor.action"></span>
+                        <span class="text-muted small d-block mb-2 fw-medium"
+                              x-text="'Affinity: ' + receptor.binding_affinity_relative"></span>
+                        <p class="small mb-0" x-text="receptor.downstream_effect"></p>
+
+                        <template x-if="receptor.source_refs">
+                            <div class="mt-2 small text-secondary fw-lighter">
+                                Refs:
+                                <template x-for="(source, sIndex) in receptor.source_refs"
+                                          :key="sIndex">
+                                    <div class="d-inline-block me-2">
+                                        <a :href="getSource(source)?.url || 'https://doi.org/' + getSource(source)?.doi"
+                                           x-text="getSource(source)?.title"
+                                           target="_blank"
+                                           class="text-decoration-none"></a></div>
+                                </template>
+                            </div>
+                        </template>
+
+                    </div>
+                </template>
+            </div>
+            <h6 class="fw-bold mt-4">Drug Interactions</h6>
+            <ul>
+                <li>Enzyme inducers: reduced effect</li>
+                <li>Oral anticoagulants: increased effect (monitor INR)</li>
+                <li>Insulin/hypoglycaemics: enhanced effect</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <!-- Section 7 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">7. Fertility, Pregnancy and Lactation</h5>
+            <p>Suppresses spermatogenesis (usually reversible). Contraindicated in pregnancy and breastfeeding.</p>
+
+            <!-- Section 8 -->
+            <h5 class="h5 fw-bold border-bottom pb-2">8. Adverse Effects</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Common</h6>
+                    <ul>
+                        <li>Injection site reactions</li>
+                        <li>Acne, oily skin, hair changes</li>
+                        <li>Polycythaemia</li>
+                        <li>Mood changes, libido alterations</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6>Other</h6>
+                    <ul>
+                        <li>Pulmonary microembolism symptoms</li>
+                        <li>Hepatic effects</li>
+                        <li>Gynecomastia, priapism, testicular atrophy</li>
+                        <li>Cardiovascular effects</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Section 9 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">9. Pharmacokinetics</h5>
+
+            <div>
+                <!-- Loading State -->
+                <template x-if="pkLoading">
+                    <div class="text-center py-4">
+                        <div class="spinner-border spinner-border-sm text-secondary" role="status"></div>
+                        <span class="ms-2">Loading pharmacokinetic data...</span>
+                    </div>
+                </template>
+
+                <!-- Content when ready -->
+                <div x-show="!pkLoading" x-html="pharmacokineticsHTML"></div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+
+            <!-- Section 10 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">10. Overdose</h5>
+            <p>Supportive treatment. Low acute toxicity.</p>
+
+            <!-- Section 11 -->
+            <h5 class="h5 fw-bold border-bottom pb-2 mt-5 mb-2 text-dark">11. Storage and Handling</h5>
+            <ul>
+                <li>Store below 25°C. Protect from light.</li>
+                <li>Shelf life: Up to 5 years.</li>
+                <li>Use immediately after opening.</li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<script>
+    function productData() {
+        return {
+            compound: {
+                name: "Testosterone Enanthate",
+                formula: "C26H40O3",
+                molecular_weight: "400.59",
+                mg_per_ml: 250,
+                parent_molecule: "testosterone",
+                self_id: "testosterone_enanthate",
+                excipients: ["benzyl_alcohol", "benzyl_benzoate"]
+                // add other fields
+            },
+            drawer: null,
+            compoundData: null,
+            pharmacokineticsHTML: '',
+            pkLoading: true,
+
+            init() {
+                this.drawer = new SmilesDrawer.Drawer({
+                    width: 380,
+                    height: 240,
+                    padding: 2,
+                    bondLength: 38,
+                    bondThickness: 2.2,
+                    shortBondLength: 0.75,
+                    themes: {
+                        light: {
+                            C: '#111111',
+                            O: '#e74c3c',
+                            // add other atoms if needed
+                        }
+                    }
+                });
+                this.loadFromURL();
+                this.loadPharmacokinetics();
+
+            },
+            async loadPharmacokinetics() {
+                try {
+                    const response = await fetch(`./pk_${this.compound.self_id}.html`);
+
+                    if (!response.ok) throw new Error();
+
+                    this.pharmacokineticsHTML = await response.text();
+                } catch (err) {
+                    this.pharmacokineticsHTML = `
+                                <p class="text-muted">Pharmacokinetic data coming soon for this compound.</p>
+                            `;
+                } finally {
+                    this.pkLoading = false;
+                }
+            },
+            draw2D(smiles) {
+                SmilesDrawer.parse(
+                    smiles,
+                    tree => {
+                        this.drawer.draw(
+                            tree,
+                            '2dmole',
+                            'light',
+                            false
+                        );
+                    },
+                    error => {
+                        console.error('SMILES parse error:', error);
+                    }
+                );
+            },
+            get getParent() {
+                const parentCompound = this.compoundData.parent_molecule;
+                console.log(`Parent compound for ${this.compoundData.name}: ${parentCompound}`);
+                return parentCompound
+                    ? blurbs.find(b => b.parent_molecule === parentCompound)
+                    : null;
+            },
+            getSource(source) {
+                return steroidDataSources.find(s => s.source_id === source);
+            },
+            loadFromURL() {
+                const params = new URLSearchParams(window.location.search);
+                console.log(params);
+                this.compound.excipients = [];
+                if (params.has('self_id')) this.compound.self_id = params.get('self_id');
+                if (params.has('mg')) this.compound.mg_per_ml = parseFloat(params.get('mg')) || 250;
+                if (params.has('excipient1')) this.compound.excipients.push(params.get('excipient1'));
+                if (params.has('excipient2')) this.compound.excipients.push(params.get('excipient2'));
+                if (params.has('excipient3')) this.compound.excipients.push(params.get('excipient3'));
+                if (params.has('excipient4')) this.compound.excipients.push(params.get('excipient4'));
+
+                this.compoundData = compounds.find(c => c.self_id === this.compound.self_id);
+                this.draw2D(this.compoundData.smiles);
+                // add more  params
+            },
+            formattedExcipients() {
+                if (!this.compound.excipients || this.compound.excipients.length === 0) {
+                    return "None listed";
+                }
+                return this.compound.excipients.join(', ');
+            }
+            ,
+        }
+    }
+</script>
+</body>
+</html>

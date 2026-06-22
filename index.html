@@ -159,6 +159,27 @@
                     <div class="hr"></div>
 
                 </div>
+                <!--------------------------------------- Blurb --------------------------------->
+
+                <template x-if="typeof getRecipeBlurb !== 'undefined'">
+                    <div class="m-2 p-1 text-wrap fst-italic">
+                        <div class="border-start border-3 border-secondary ps-3 fst-italic" x-html="getRecipeBlurb"></div>
+                        <template x-if="typeof getRecipeSource !== 'undefined'">
+                            <div>
+                                <small >
+                                    <a
+                                            :href="getRecipeSource"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="text-decoration-none"
+                                    >
+                                        View Reference
+                                    </a>
+                                </small>
+                            </div>
+                        </template>
+                    </div>
+                </template>
                 <!--------------------------------------- Select Recipe --------------------------------->
                 <div class="p-2 row">
                     <div class="d-flex gap-2">
@@ -183,25 +204,7 @@
 
                     </div>
                 </div>
-                <template x-if="typeof getRecipeBlurb !== 'undefined'">
-                    <div class="m-2 p-1 bg-warning-subtle  border rounded rounded  text-wrap fst-italic">
-                        <div class="lh-lg" x-html="getRecipeBlurb"></div>
-                        <template x-if="typeof getRecipeSource !== 'undefined'">
-                            <div>
-                                <small >
-                                    <a
-                                            :href="getRecipeSource"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="text-decoration-none"
-                                    >
-                                        View Reference
-                                    </a>
-                                </small>
-                            </div>
-                        </template>
-                    </div>
-                </template>
+
 
                 <!--------------------------------------- Drop down form control --------------------------------->
                 <div class="p-2 row">
@@ -826,6 +829,14 @@
                     <button x-text="translations.buttons.download_pricing[settings.currentLanguage] + ' 📊'"
                             @click='downloadBatchText("xls")' class="m-1 btn btn-sm btn-secondary">
                     </button>
+
+                    <template x-if="solutionMeasurements[0].compounds.find(s => s.parent_molecule === 'testosterone')">
+                        <div>
+                            <button x-text="translations.buttons.product_insert[settings.currentLanguage] + ' 📑'"
+                                    @click='generateProductInsertUrl()' class="m-1 btn btn-sm btn-secondary">
+                            </button>
+                        </div>
+                    </template>
                 </div>
             </div>
         </div>
