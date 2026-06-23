@@ -525,7 +525,7 @@ function compoundApp() {
                 }
             });
 
-            window.open(`./docs/${mainCompound.parent_molecule}_insert.html?${params.toString()}`, '_blank', 'noopener,noreferrer');
+            window.open(`./masonrycard.html?${params.toString()}`, '_blank', 'noopener,noreferrer');
         },
         removeCompound(uuid) {
             let index = this.settings.compounds.findIndex(

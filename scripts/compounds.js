@@ -2247,7 +2247,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
 
 
         cas_no: '434-22-0',
-        smiles: 'O=C4\\C=C2/[C@@H]([C@H]1CC[C@@]3([C@@H](O)CC[C@H]3[C@@H]1CC2)C)CC4',
+        smiles: 'C[C@@]12CC[C@]3([H])[C@@]4([H])CCC(=O)C=C4CC[C@@]3([H])[C@]2([H])CC[C@@H]1O',
         log_p: 3.4891000000000005,
         formula: 'C18H26O2'
     },
@@ -2346,8 +2346,8 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 0.92,
-
         cas_no: '360-70-3',
+        formula: 'C28H44O3',
         smiles: 'CCCCCCCCCC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=CC(=O)CC[C@H]34)C'
     },
     {
@@ -2516,7 +2516,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 1.65,
-
+        formula: 'C₃₀H₄₄O₃',
         smiles: 'C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCCCCCCCC=C)CCC4=CC(=O)C=C[C@]34C',
         blurbHTML: `<p>
     Boldenone undecylenate is the oil-soluble 17β-undec-10-enoate ester of boldenone (prodrug/controlled release vehicle). It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
@@ -2680,10 +2680,8 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 1.98,
-
-
         formula: 'C21H32O3',
-        parent_molecule: '17a-steroid',
+        parent_molecule: 'oxymetholone',
         smiles: 'CC12CC(=CO)C(=O)CC1CCC1C2CCC2(C)C1CCC2(C)O'
     },
     {
@@ -2832,10 +2830,8 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 1.95,
-
-
         formula: 'C21H32N2O',
-        smiles: 'CC12Cc3c[nH]nc3CC1CCC1C2CCC2(C)C1CCC2(C)O',
+        smiles: 'C[C@@]12Cc3cn[nH]c3C[C@]2([H])CC[C@]4([H])[C@]1([H])CC[C@@]5(C)[C@@]4([H])CC[C@]5(C)O',
         parent_molecule: 'stanozolol',
         blurb: `Stanozolol, chemically known as 17α-methyl-2'H-androst-2-eno[3,2-c]pyrazol-17β-ol, exhibits stereoisomerism due to the presence of multiple chiral centres in its steroidal structure. It is a synthetic derivative of dihydrotestosterone (DHT) characterized by a fused pyrazole ring at the A-ring and a 17α-methyl group. The molecule contains six stereocentres at positions C5, C8, C9, C10, C13, and C17, with the natural bioactive form possessing the 5α-reduced configuration and 17β-hydroxyl orientation. The unique pyrazole fusion and 17α-methylation significantly alter its metabolic stability and receptor binding profile compared to testosterone. As a DHT-derived steroid, it is not converted to estrogens by aromatase and therefore lacks estrogen-mediated pharmacological effects such as aromatization-associated gynecomastia. Historically, stanozolol has been used in the treatment of hereditary angioedema and certain catabolic conditions, although its medical use has become limited in many jurisdictions. \n Stanozolol undergoes extensive hepatic metabolism involving hydroxylation, reduction, and conjugation reactions, with metabolites excreted primarily in urine. The 17α-methyl substitution contributes to both oral activity and increased hepatic exposure. `,
     },

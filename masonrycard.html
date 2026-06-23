@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="../favicon3.ico">
+    <style>
+        .grid {
+            align-items: flex-start;
+            /* Optional: helps with more even distribution */
+        }
+    </style>
+</head>
+<body class="p-8">
+<div class="container py-5" x-data="productData()">
+    <!-- Header -->
+    <div class="text-center border-b pb-4 mb-8">
+        <h1 class="text-5xl font-bold tracking-tight" x-text="compoundData.name"></h1>
+        <p class="text-xl text-slate-500 mt-2">Summary of Product Characteristics</p>
+    </div>
+    <ul class="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4" x-data x-masonry.wait.600>
+        <!-- Description Section -->
+        <li class="col-span-1" >
+            <h5 class="text-xl font-bold border-b pb-2 mb-4">Description</h5>
+            <div class="mb-6">
+                <canvas id="2dmole" ></canvas>
+            </div>
+
+            <div class="space-y-2 text-slate-700">
+                <div>
+                    <span class="font-semibold text-slate-500">Empirical formula:</span>
+                    <span x-text="compoundData.formula"></span>
+                </div>
+
+                <div>
+                    <span class="font-semibold text-slate-500">Molecular weight:</span>
+                    <span x-text="compoundData.molecular_weight"></span> g/mol
+                </div>
+
+                <div>
+                    <span class="font-semibold text-slate-500">Presentation:</span>
+                    Clear, yellowish oily solution for intramuscular injection.
+                </div>
+
+                <div>
+                    <span class="font-semibold text-slate-500">Excipients:</span>
+                    <span x-text="formattedExcipients()"></span>
+                </div>
+            </div>
+
+            <p class="mt-6">
+                1 mL contains
+                <span class="font-medium"><span x-text="compound.mg_per_ml"></span> mg</span>
+                <span class="italic" x-text="compoundData.name"></span>
+            </p>
+        </li>
+
+        <!-- Pharmacokinetics -->
+        <li>
+            <h5 class="text-xl font-bold border-b pb-2 mt-8 mb-3 text-slate-900">Pharmacokinetics</h5>
+            <div>
+                <!-- Loading State -->
+                <template x-if="pkLoading">
+                    <div class="text-center py-4">
+                        <div class="spinner-border spinner-border-sm text-secondary" role="status"></div>
+                        <span class="ms-2">Loading pharmacokinetic data...</span>
+                    </div>
+                </template>
+
+                <!-- Content when ready -->
+                <div x-show="!pkLoading" x-html="pharmacokineticsHTML"></div>
+            </div>
+        </li>
+
+        <!-- Pharmacodynamics & Interactions -->
+        <li class="col-span-1" >
+            <h5 class="text-xl font-bold border-b pb-2 mt-8 mb-3 text-slate-900">Pharmacodynamics & Interactions</h5>
+            <div class="mb-6 space-y-3">
+                <p>
+                    <span class="font-semibold text-slate-500">Therapeutic Class:</span>
+                    <span x-text="getParent.therapeutic_class"></span>
+                </p>
+                <p>
+                    <span class="font-semibold text-slate-500">Structural Backbone:</span>
+                    <span x-text="getParent.structural_backbone"></span>
+                </p>
+                <p>
+                    <span class="font-semibold text-slate-500">Modifications:</span>
+                    <span x-text="getParent.modifications?.join(', ')"></span>
+                </p>
+            </div>
+
+            <h6 class="font-bold mt-6 mb-2 text-lg">Metabolism</h6>
+            <ul class="space-y-1 list-disc pl-5">
+                <template x-for="path in getParent.metabolic_pathways" :key="path.enzyme">
+                    <li>
+                        <span class="font-semibold text-slate-500" x-text="path.enzyme"></span>:
+                        <span x-text="path.reaction_type"></span> →
+                        <span x-text="path.product"></span>
+                    </li>
+                </template>
+            </ul>
+
+            <!-- Receptor Interactions -->
+            <h6 class="font-bold mt-8 mb-3 text-lg">Receptor Targets</h6>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <template x-for="(receptor, rIndex) in getParent.receptor_interactions" :key="rIndex">
+                    <div class="bg-slate-50 border border-slate-100 p-5 rounded-xl">
+                        <strong class="block mb-2 text-slate-900" x-text="receptor.target_receptor"></strong>
+
+                        <span class="inline-block px-3 py-1 text-xs font-medium bg-slate-200 text-slate-700 rounded-full mb-3"
+                              x-text="receptor.action"></span>
+
+                        <span class="block text-sm text-slate-500 mb-3"
+                              x-text="'Affinity: ' + receptor.binding_affinity_relative"></span>
+
+                        <p class="text-sm text-slate-600" x-text="receptor.downstream_effect"></p>
+
+                        <template x-if="receptor.source_refs">
+                            <div class="mt-4 text-xs text-slate-500">
+                                Refs:
+                                <template x-for="(source, sIndex) in receptor.source_refs" :key="sIndex">
+                        <span class="inline-block me-3">
+                            <a :href="getSource(source)?.url || 'https://doi.org/' + getSource(source)?.doi"
+                               x-text="getSource(source)?.title"
+                               target="_blank"
+                               class="hover:underline"></a>
+                        </span>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+            <h6 class="font-bold mt-6 mb-3 text-lg">Drug Interactions</h6>
+            <ul class="space-y-1 list-disc pl-5 text-slate-700">
+                <li>Enzyme inducers: reduced effect</li>
+                <li>Oral anticoagulants: increased effect (monitor INR)</li>
+                <li>Insulin/hypoglycaemics: enhanced effect</li>
+            </ul>
+        </li>
+        <template x-for="card in cards">
+            <li class="col-span-1" x-html="card"></li>
+        </template>
+    </ul>
+</div>
+
+<!-- Scripts -->
+<script defer src="https://unpkg.com/alpinejs-masonry@latest/dist/masonry.min.js"></script>
+<script src="https://unpkg.com/alpinejs" defer></script>
+<script src="https://unpkg.com/smiles-drawer@2/dist/smiles-drawer.min.js"></script>
+<script src="./scripts/compounds.js"></script>
+<script src="./scripts/blurbs.js"></script>
+<script src="./scripts/insert.js"></script>
+</body>
+</html>

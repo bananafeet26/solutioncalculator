@@ -1124,6 +1124,158 @@ Rheumatol 14(Suppl 3):32–39, 1995<br/>
         blurb: `Stanozolol is a synthetic anabolic-androgenic steroid (AAS) structurally derived from dihydrotestosterone (DHT) through the addition of a pyrazole ring at the A-ring and a 17α-methyl group. This unique heteropentacyclic architecture completely prevents aromatization into estrogen while significantly enhancing its anabolic-to-androgenic ratio [saartok_1984]. Stanozolol is notable for its profound impact on circulating transport proteins; specifically, oral administration exerts a powerful first-pass effect on the liver that drastically reduces Sex Hormone-Binding Globulin (SHBG) production, far exceeding the reduction seen with injected (intramuscular) formulations [sinnecker_1989, thompson_1989]. This massively increases the bioavailability of unbound steroid hormones in the bloodstream.\n\nAt the cellular level, stanozolol acts as an agonist at the androgen receptor (AR) and exhibits some affinity for the progesterone receptor (PR) as a low-affinity agonist, which modulates specific inflammatory and prostaglandin signaling cascades [ellis_1996]. In skeletal tissue, it directly stimulates osteoblast proliferation and differentiation by upregulating RUNX2 gene expression, promoting bone mineral apposition [nebot_2016, rachetti_2018]. However, its effects on connective tissue are paradoxical; while it stimulates certain pathways of collagen synthesis, it drastically alters osmotic balance by driving water out of the interstitial fluid [parr_2020]. This "drying" effect in the synovial spaces, combined with interference in normal collagen cross-linking, makes tendons less viscoelastic and highly susceptible to mechanical rupture during heavy loads [marqueti_2006]. Historically used to treat hereditary angioedema and osteoporosis, stanozolol is widely known in athletic contexts for its capacity to increase lean mass and strength without water retention, though its severe hepatotoxicity and deleterious effects on the lipid profile severely limit its clinical application.`
     },
     {
+        parent_molecule: 'oxymetholone',
+        therapeutic_class: 'Anabolic-Androgenic Steroids (AAS): Synthetic DHT derivative (17α-alkylated)',
+
+        // 1. Structural Fingerprint
+        structural_backbone: '5alpha-androstane',
+        modifications: [
+            '17α-methyl group (confers oral bioavailability and high hepatic resistance)',
+            '2-hydroxymethylene group (attached to C2, unique enol structure)',
+            'Absence of the Delta-4 double bond (already 5α-reduced)',
+            '3-keto group retained with C2 modification'
+        ],
+
+        // 2. The Multi-Receptor Binding Profile
+        receptor_interactions: [
+            {
+                target_receptor: 'Androgen Receptor (AR)',
+                action: 'Strong Agonist',
+                binding_affinity_relative: 'High (potent anabolic activity)',
+                downstream_effect: 'Powerful stimulation of protein synthesis, nitrogen retention, and erythropoietin production. Drives rapid increases in muscle mass and strength.',
+                source_refs: ['saartok_1984', 'pavlatos_2001']
+            },
+            {
+                target_receptor: 'Estrogen Receptors (ERα / ERβ)',
+                action: 'Indirect estrogenic activity (non-aromatizing)',
+                binding_affinity_relative: 'Negligible direct binding',
+                downstream_effect: 'Despite being non-aromatizable, oxymetholone causes significant estrogen-like effects (water retention, gynecomastia) likely through progestogenic activity, interference with estrogen clearance, or direct effects on ER signaling.',
+                source_refs: ['pavlatos_2001']
+            },
+            {
+                target_receptor: 'Progesterone Receptor (PR)',
+                action: 'Moderate Agonist / Modulator',
+                binding_affinity_relative: 'Moderate',
+                downstream_effect: 'Contributes to progestogenic side effects and may play a role in the paradoxical estrogenic activity observed clinically.',
+                source_refs: []
+            },
+            {
+                target_receptor: 'Sex Hormone-Binding Globulin (SHBG)',
+                action: 'Low affinity / Minimal suppression',
+                binding_affinity_relative: 'Very low (<5% of testosterone)',
+                downstream_effect: 'Minimal impact on SHBG compared to stanozolol.'
+            }
+        ],
+
+        // 3. Metabolic State Transitions (The Enzymes & Electrons)
+        metabolic_pathways: [
+            {
+                enzyme: 'Hepatic oxidation / reduction enzymes',
+                reaction_type: 'Oxidation at C2, reduction at C3, hydroxylation at C17',
+                target_coordinate: 'C2, C3, C17',
+                product: 'Mestanolone (major) + various hydroxylated metabolites',
+                clinical_note: 'The 17α-methyl group hinders rapid breakdown. The 2-hydroxymethylene group is readily oxidized, often leading to decarboxylation and formation of mestanolone (17α-methyl-DHT).',
+                source_refs: ['bi_1992', 'yamada_2008']
+            },
+            {
+                enzyme: 'Aromatase (CYP19A1)',
+                reaction_type: 'None (Structurally blocked)',
+                target_coordinate: 'A-ring',
+                product: 'N/A',
+                clinical_note: 'Cannot be aromatized due to 5α-reduction and structural modifications. Estrogenic effects occur via alternative pathways.'
+            },
+            {
+                enzyme: 'Cytochrome P450 enzymes',
+                reaction_type: 'Hydroxylation',
+                target_coordinate: 'Multiple positions',
+                product: 'Hydroxylated metabolites (including seco-steroids)',
+                clinical_note: 'Significant Phase I metabolism leads to a variety of acidic and hydroxylated metabolites.'
+            }
+        ],
+
+        // 4. Mechanistic Side Effects mapped directly to receptor vectors
+        receptor_linked_side_effects: {
+            ar_and_progestogenic_driven: [
+                {
+                    side_effect: 'Severe Water Retention & Gynecomastia',
+                    mechanism: 'Indirect estrogenic / progestogenic activity despite no aromatization. Causes significant sodium retention and bloating.',
+                    source_refs: ['pavlatos_2001']
+                },
+                {
+                    side_effect: 'Hepatotoxicity (Cholestatic Jaundice, Peliosis Hepatis)',
+                    mechanism: '17α-alkylation imposes heavy burden on the liver, leading to intrahepatic cholestasis, elevated liver enzymes, and in rare cases peliosis hepatis or hepatocellular tumors.',
+                    source_refs: []
+                }
+            ],
+            systemic_androgen_driven: [
+                {
+                    side_effect: 'Dyslipidemia (Severe HDL Suppression)',
+                    mechanism: 'Strong hepatic AR activation dramatically lowers HDL and raises LDL, increasing long-term cardiovascular risk.',
+                    source_refs: ['thompson_1989']
+                },
+                {
+                    side_effect: 'Hypertension & Cardiovascular Strain',
+                    mechanism: 'Fluid retention combined with adverse lipid changes and increased red blood cell mass.',
+                    source_refs: []
+                }
+            ]
+        },
+
+        // 5. Terminal Excretion Metabolites (Phase II Conjugation)
+        terminal_urinary_metabolites: [
+            {
+                name: 'Mestanolone (17α-methyl-DHT)',
+                stereoisomer: 'Major metabolite via decarboxylation',
+                conjugate: 'Glucuronide',
+                clinical_note: 'Formed by cleavage of the 2-hydroxymethylene group.'
+            },
+            {
+                name: '17β-hydroxy-17α-methyl-2,3-seco-5α-androstane-2,3-dioic acid',
+                stereoisomer: 'Seco-steroid (A-ring opened)',
+                conjugate: 'Free / Conjugated',
+                clinical_note: 'One of the major acidic metabolites resulting from oxidative cleavage.'
+            },
+            {
+                name: '3α,17β-dihydroxy-17α-methyl-5α-androstane-2β-carboxylic acid',
+                stereoisomer: 'Reduced form',
+                conjugate: 'Glucuronide',
+                clinical_note: 'Significant urinary metabolite.'
+            },
+            {
+                name: 'Various hydroxylated metabolites (C3\', C4, C16 etc.)',
+                stereoisomer: 'Multiple isomers',
+                conjugate: 'Glucuronide / Sulfate',
+                clinical_note: 'Used in doping control detection.'
+            }
+        ],
+
+        // 6. Intracellular Signaling & Tissue Remodeling Pathologies
+        downstream_signaling_cascades: {
+            erythropoiesis_stimulation: {
+                activated_by: 'AR signaling in bone marrow',
+                downstream_pathologies: [
+                    {
+                        side_effect: 'Increased Red Blood Cell Mass (Polycythemia)',
+                        mechanism: 'Potent stimulation of erythropoietin production, beneficial in anemia but increases blood viscosity and thrombosis risk.',
+                        source_refs: ['pavlatos_2001']
+                    }
+                ]
+            },
+            hepatic_stress: {
+                activated_by: '17α-alkylation burden',
+                downstream_pathologies: [
+                    {
+                        side_effect: 'Cholestasis & Hepatocellular Damage',
+                        mechanism: 'Impaired bile flow and direct hepatocyte toxicity from repeated hepatic processing.',
+                        source_refs: []
+                    }
+                ]
+            }
+        },
+
+        blurb: `Oxymetholone (Anadrol) is a potent 17α-alkylated synthetic derivative of dihydrotestosterone with a unique 2-hydroxymethylene substitution. It is one of the strongest oral anabolic steroids available, renowned for producing rapid and dramatic gains in muscle mass, strength, and body weight. Unlike many other AAS, it cannot be aromatized to estrogen, yet it produces significant estrogen-like effects (water retention, gynecomastia) through progestogenic activity and possible interference with estrogen metabolism. It is a powerful stimulator of erythropoiesis and was historically used to treat various anemias and muscle-wasting conditions. However, its extreme hepatotoxicity, adverse effects on lipids, and tendency to cause severe fluid retention make it one of the harshest oral AAS in clinical and non-clinical use.`,
+    },
+    {
         parent_molecule: 'fluoxymesterone',
         therapeutic_class: 'Anabolic-Androgenic Steroids (AAS): Halogenated 17α-alkylated derivative',
 
@@ -1563,5 +1715,14 @@ const steroidDataSources = [
         year: 2020,
         journal: "Drug Test Anal",
         url: "https://pubmed.ncbi.nlm.nih.gov/32386339/"
-    }
+    },
+    {
+        source_id: 'pavlatos_2001',
+        title: "Review of oxymetholone: a 17alpha-alkylated anabolic-androgenic steroid",
+        authors: "Pavlatos AM, Fultz O, Monberg MJ, Vootkur A",
+        year: 2001,
+        journal: "Clin Ther",
+        doi: "10.1016/s0149-2918(01)80070-9",
+        url: "https://pubmed.ncbi.nlm.nih.gov/11440282/"
+    },
 ];
