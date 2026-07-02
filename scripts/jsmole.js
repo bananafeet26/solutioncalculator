@@ -7,6 +7,9 @@ function jsmolApp() {
         drawer: null,
         contentHtml: '',
         spin: true,
+        blurbHTML: '',
+        steroidDataSources: steroidDataSources,
+        activeSources: [],
 
         init() {
             // Ensure the div with id="viewer" exists in your HTML
@@ -45,8 +48,14 @@ function jsmolApp() {
                     this.loadSelected();
                 });
             });
-            //zthis.$watch('selectedId', () => this.loadSelected());
 
+        },
+        // Numbered sources
+        get numberedSources() {
+            return this.steroidDataSources.map((s, i) => ({
+                ...s,
+                number: i + 1
+            }));
         },
 
         get selectedCompound() {
@@ -74,6 +83,24 @@ function jsmolApp() {
             <!-- 2 Load content -->
             console.log(`<!-- 2 Load content -->`);
             await this.loadContent(compound.self_id);
+            await this.loadBlurbHTML();
+
+            <!-- 2.1 Load content footnotes -->
+            document.querySelectorAll('.citation').forEach(el => {
+                const key = el.getAttribute('data-key');
+                const source = this.steroidDataSources.find(s => s.source_id === key);
+                console.log(`Source: ${key}`);
+                if (source) {
+                    const number = this.steroidDataSources.indexOf(source) + 1;
+                    el.textContent = `[${number}]`;
+                    el.classList.add('text-blue-600', 'cursor-pointer', 'hover:underline');
+                    el.title = source.title;
+                    source.number = number;
+                    this.activeSources.push(source);
+                } else {
+                    el.textContent = '[?]';
+                }
+            });
 
             <!-- 3 Draw 3D molecule -->
             try {
@@ -193,6 +220,21 @@ function jsmolApp() {
         },
         getSource(source) {
             return steroidDataSources.find(s => s.source_id === source);
+        },
+        async loadBlurbHTML() {
+            try {
+                const parentCompound = this.selectedCompound?.parent_molecule;
+                const response = await fetch(`./docs/${parentCompound}_blurb.html`);
+
+                if (!response.ok)
+                    throw new Error('3D file not found');
+
+                this.blurbHTML = await response.text();
+
+            } catch (error) {
+                console.error("Failed to load cards:", error);
+                this.cards = ['<div class="p-8 text-red-500">Failed to load html</div>'];
+            }
         },
         get getParent() {
             const parentCompound = this.selectedCompound?.parent_molecule;

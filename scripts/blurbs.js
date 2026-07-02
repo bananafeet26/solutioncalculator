@@ -447,76 +447,6 @@ var blurbs = [
         downstream_pathologies: [
             {pathology: "Cardiac Fibrosis", pathways: ["MR", "TGF-b1"], source_refs: ["marzilger_2016", "rocha_2022"]}
         ],
-        blurbHTML: `<p>Nandrolone (19-nortestosterone) exhibits stereoisomerism due to the presence of multiple chiral centres in its tetracyclic steroid backbone. The key site of isomerism lies at the 5th carbon position, where the hydrogen atom can be oriented either above or below the plane of the ring system, giving rise to 5alpha- and 5beta-isomers.
-        </p><p>Nandrolone is a widely used injectable androgen in the form of aliphatic fatty
-    acid esters in an oil vehicle, prescribed mainly for treatment of postmenopausal
-    osteoporosis, where it is effective at increasing bone density and reducing fracture rate.<span><sup>504,505</sup></span>
-</p>
-<p>
-<span> It is also the most popular androgen abused in sports doping and body building.
-    Nandrolone is a naturally occurring steroid but is not normally secreted in the human bloodstream,
-    although it occurs as an intermediate in the aromatization of testosterone to estradiol by the aromatase enzyme.</span><span><sup>506</sup></span>
-</p>
-<p>This enzyme complex undertakes two successive hydroxylations on the angular C19 methyl group of testosterone,
-    followed by a cleavage of the C10-C19 bond to release formic acid and aromatize the A-ring.
-<span><sup>507</sup></span>
-</p>
-<p>
-    Nandrolone represents a penultimate step of the molecule undergoing aromatization bound to the enzyme complex,
-    with the C19 methyl group excised but a still nonaromatized A-ring.
-    Paradoxically, despite being an intermediate in the aromatization reaction, nandrolone is virtually not aromatized after parenteral administration in men,</span>
-<span><sup>508,509</sup></span> presumably because it is a very poor substrate for the human aromatase enzyme.
-</p>
-<p>
-<span><sup>510</sup></span> It is susceptible to amplification by 5α-reductase with its 5α-reduced metabolites being moderately activated in androgenic potency.
-<span><sup>511</sup></span><span> The minimal aromatizability of nandrolone makes it suitable for treatment of osteoporosis in women in whom estrogen therapy is contraindicated because of
-    hormone-sensitive cancers (breast, uterus) or for older women, although virilization limits its acceptability.</span>
-<span><sup>512</sup></span>
-</p>
-
-504. Gennari C, AgnusDei D, Gonnelli S, et al: Effects of
-nandrolone decanoate therapy on bone mass and
-calcium metabolism in women with established post-
-menopausal osteoporosis: a double-blind placebo-
-controlled study, Maturitas 11:187–197, 1989.<br/>
-505. Frisoli A Jr, Chaves PH, Pinheiro MM, et al: The effect
-of nandrolone decanoate on bone mineral density,
-muscle mass, and hemoglobin levels in elderly women
-with osteoporosis: a double-blind, randomized, pla-
-cebo-controlled clinical trial, J Gerontol A Biol Sci Med
-Sci 60:648–653, 2005.<br/>
-506. Simpson ER, Mahendroo MS, Means GD, et al: Aroma-
-tase cytochrome P450, the enzyme responsible for
-estrogen biosynthesis, Endocr Rev 15:342–355,
-1994.<br/>
-507. Hong Y, Yu B, Sherman M, et al: Molecular basis for
-the aromatization reaction and exemestane-mediated
-irreversible inhibition of human aromatase, Mol Endo-
-crinol 21:401–414, 2007.<br/>
-508. Hobbs CJ, Jones RE, Plymate SR: Nandrolone, a
-19-nortestosterone, enhances insulin-independent
-glucose uptake in normal men, J Clin Endocrinol
-Metab 81:1582–1585, 1996.<br/>
-509. Behre HM, Kliesch S, Lemcke B, et al: Suppression of
-spermatogenesis to azoospermia by combined admin-
-istration of GnRH antagonist and 19-nortestosterone
-cannot be maintained by this non-aromatizable andro-
-gen alone, Hum Reprod 16:2570–2577, 2001.<br/>
-510. Attardi BJ, Pham TC, Radler LC, et al: Dimethandro-
-lone (7alpha,11beta-dimethyl-19-nortestosterone) and
-11beta-methyl-19-nortestosterone are not converted to
-aromatic A-ring products in the presence of recombi-
-nant human aromatase, J Steroid Biochem Mol Biol
-110:214–222, 2008.<br/>
-511. Lemus AE, Enriquez J, Garcia GA, et al: 5alpha-reduc-
-tion of norethisterone enhances its binding affinity for
-androgen receptors but diminishes its androgenic
-potency, J Steroid Biochem Mol Biol 60:121–129,
-1997.<br/>
-512. Geusens P: Nandrolone decanoate: pharmacological
-properties and therapeutic use in osteoporosis, Clin
-Rheumatol 14(Suppl 3):32–39, 1995<br/>
-        `
     },
     {
         parent_molecule: 'drostanolone',
@@ -788,8 +718,6 @@ Rheumatol 14(Suppl 3):32–39, 1995<br/>
                 ]
             }
         },
-
-        blurb: `Methenolone (also known as Primobolan) is a synthetic dihydrotestosterone (DHT) derivative with a double bond between C1 and C2 and a methyl group at the C1 position. These modifications confer significant resistance to 3α-HSD metabolism in skeletal muscle, resulting in a favorable anabolic-to-androgenic ratio. Methenolone cannot be aromatized to estrogen and exhibits negligible progestogenic activity. It is prized in both clinical and performance settings for promoting high-quality, dry lean mass gains and muscle preservation during cutting phases with a relatively mild side-effect profile. Historically used for the treatment of muscle wasting, osteoporosis, and anemia, it remains one of the "mildest" injectable anabolic steroids.`,
     },
     {
         parent_molecule: 'boldenone',
@@ -875,7 +803,6 @@ Rheumatol 14(Suppl 3):32–39, 1995<br/>
             }
         },
 
-        blurb: `Boldenone is a 1,4-diene derivative of testosterone. The C1-C2 double bond modification is the defining feature; it significantly decreases the rate of aromatization compared to testosterone and increases resistance to 5α-reduction. This modification results in a molecule that retains potent anabolic activity with a relatively lower androgenic profile. Because it is resistant to 5α-reductase (which normally converts testosterone to the potent DHT), it does not demonstrate the same degree of prostate or scalp androgenicity as testosterone.`
     },
     {
         parent_molecule: 'dihydroboldenone',
@@ -1120,9 +1047,7 @@ Rheumatol 14(Suppl 3):32–39, 1995<br/>
                 ]
             }
         },
-        blurbHTML: `<img src="./docs/17a.png" class="img-fluid rounded" alt="17-alpha-methyltestosterone chemical structure"/><br/> 17α-Alkylated anabolic-androgenic steroids (AAS) are synthetic derivatives of testosterone, dihydrotestosterone (DHT), or related androstane steroids that contain an alkyl substituent at the C17α position. This structural modification reduces first-pass hepatic metabolism and confers oral bioavailability. Members of this class retain the characteristic steroid nucleus and multiple stereogenic centres required for androgen receptor binding, while additional structural modifications influence their anabolic, androgenic, and metabolic properties. Although 17α-alkylation enhances oral activity and systemic exposure, it is also associated with increased hepatic burden compared with non-alkylated anabolic steroids.`,
-        blurb: `Stanozolol is a synthetic anabolic-androgenic steroid (AAS) structurally derived from dihydrotestosterone (DHT) through the addition of a pyrazole ring at the A-ring and a 17α-methyl group. This unique heteropentacyclic architecture completely prevents aromatization into estrogen while significantly enhancing its anabolic-to-androgenic ratio [saartok_1984]. Stanozolol is notable for its profound impact on circulating transport proteins; specifically, oral administration exerts a powerful first-pass effect on the liver that drastically reduces Sex Hormone-Binding Globulin (SHBG) production, far exceeding the reduction seen with injected (intramuscular) formulations [sinnecker_1989, thompson_1989]. This massively increases the bioavailability of unbound steroid hormones in the bloodstream.\n\nAt the cellular level, stanozolol acts as an agonist at the androgen receptor (AR) and exhibits some affinity for the progesterone receptor (PR) as a low-affinity agonist, which modulates specific inflammatory and prostaglandin signaling cascades [ellis_1996]. In skeletal tissue, it directly stimulates osteoblast proliferation and differentiation by upregulating RUNX2 gene expression, promoting bone mineral apposition [nebot_2016, rachetti_2018]. However, its effects on connective tissue are paradoxical; while it stimulates certain pathways of collagen synthesis, it drastically alters osmotic balance by driving water out of the interstitial fluid [parr_2020]. This "drying" effect in the synovial spaces, combined with interference in normal collagen cross-linking, makes tendons less viscoelastic and highly susceptible to mechanical rupture during heavy loads [marqueti_2006]. Historically used to treat hereditary angioedema and osteoporosis, stanozolol is widely known in athletic contexts for its capacity to increase lean mass and strength without water retention, though its severe hepatotoxicity and deleterious effects on the lipid profile severely limit its clinical application.`
-    },
+         },
     {
         parent_molecule: 'oxymetholone',
         therapeutic_class: 'Anabolic-Androgenic Steroids (AAS): Synthetic DHT derivative (17α-alkylated)',
@@ -1714,7 +1639,7 @@ const steroidDataSources = [
         authors: "Albertsdóttir AD et al.",
         year: 2020,
         journal: "Drug Test Anal",
-        url: "https://pubmed.ncbi.nlm.nih.gov/32386339/"
+        url: "./refs/albertsdottir2020.pdf"
     },
     {
         source_id: 'pavlatos_2001',
@@ -1723,6 +1648,36 @@ const steroidDataSources = [
         year: 2001,
         journal: "Clin Ther",
         doi: "10.1016/s0149-2918(01)80070-9",
-        url: "https://pubmed.ncbi.nlm.nih.gov/11440282/"
+        url: "./refs/pavlatos2001.pdf"
     },
+    {
+        source_id: 'okamoto_2011',
+        title: "Change in Thigh Muscle Cross-Sectional Area Through Administration " +
+            "of an Anabolic Steroid During Routine Stroke Rehabilitation in Hemiplegic Patients",
+        authors: "Okamoto S, Sonoda S, Tanino G, Tomida K, Okazaki H, Kondo I",
+        year: 2011,
+        journal: "Am. J. Phys. Med. Rehabil.",
+        doi: "10.1097/PHM.0b013e31820172bf",
+        url: "./refs/okamoto2011.pdf"
+    },
+    {
+        source_id: "thompson_1989",
+        title: "Contrasting effects of testosterone and stanozolol on serum lipoprotein levels",
+        author: "Thompson, P. D. et al.",
+        type: "Journal Article",
+        url: "https://pubmed.ncbi.nlm.nih.gov/2915439/",
+        description: "Classic 1989 study demonstrating the adverse effects of oral stanozolol on HDL cholesterol levels compared to injectable testosterone.",
+        year: 1989,
+        journal: "JAMA"
+    },
+    {
+        source_id: "sinnecker_1989",
+        title: "Sex hormone-binding globulin response to the anabolic steroid stanozolol: Evidence for its suitability as a biological androgen sensitivity test",
+        author: "Sinnecker, G., & Köhler, S.",
+        type: "Journal Article",
+        url: "https://pubmed.ncbi.nlm.nih.gov/2723028/",
+        description: "1989 study showing SHBG suppression by stanozolol as a biological test for androgen sensitivity.",
+        year: 1989,
+        journal: "J Clin Endocrinol Metab"
+    }
 ];

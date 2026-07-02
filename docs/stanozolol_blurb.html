@@ -1,0 +1,55 @@
+<p><img src="./docs/17a.png" class="img-fluid rounded" alt="17-alpha-methyltestosterone chemical structure"/><br/>
+    17α-Alkylated anabolic-androgenic steroids (AAS) are synthetic derivatives of testosterone, dihydrotestosterone (DHT),
+    or related androstane steroids that contain an alkyl substituent at the C17α position.
+    This structural modification reduces first-pass hepatic metabolism and confers oral bioavailability. Members of this
+    class retain the characteristic steroid nucleus and multiple stereogenic centres required for androgen receptor binding,
+    while additional structural modifications influence their anabolic, androgenic, and metabolic properties. Although
+    17α-alkylation enhances oral activity and systemic exposure, it is also associated with increased hepatic burden compared
+    with non-alkylated anabolic steroids. </p>
+<p>Stanozolol is a synthetic anabolic-androgenic steroid (AAS) structurally derived from dihydrotestosterone (DHT) through
+    the addition of a pyrazole ring at the A-ring and a 17α-methyl group. This unique heteropentacyclic architecture
+    completely prevents aromatization into estrogen while significantly enhancing its anabolic-to-androgenic ratio
+    <span class="citation" data-key="saartok_1984">[?]</span>.
+    </p>
+Stanozolol is notable for its profound impact on circulating transport proteins; specifically, oral administration
+exerts a powerful first-pass effect on the liver that drastically reduces Sex Hormone-Binding Globulin (SHBG) production,
+far exceeding the reduction seen with injected (intramuscular) formulations<span class="citation"
+                                                                                 data-key="sinnecker_1989">[?]</span>
+<span class="citation" data-key="thompson_1989">[?]</span>. </p>
+
+This massively increases the bioavailability of unbound steroid hormones in the bloodstream. At the cellular level,
+stanozolol acts as an agonist at the androgen receptor (AR) and exhibits some affinity for the progesterone receptor (PR)
+as a low-affinity agonist, which modulates specific inflammatory and prostaglandin signaling cascades
+<span class="citation" data-key="ellis_1996">[?]</span>.
+In skeletal tissue, it directly stimulates osteoblast proliferation and differentiation by upregulating RUNX2 gene expression,
+promoting bone mineral apposition
+<span class="citation" data-key="rachetti_2018">[?]</span><span class="citation" data-key="nebot_2016">[?]</span>.
+However, its effects on connective tissue are paradoxical;
+while it stimulates certain pathways of collagen synthesis, it drastically alters osmotic balance by driving water out
+of the interstitial fluid <span class="citation" data-key="parr_2020">[?]</span>.
+
+This "drying" effect in the synovial spaces, combined with interference in normal
+collagen cross-linking, makes tendons less viscoelastic and highly susceptible to mechanical rupture during heavy loads
+<span class="citation" data-key="marqueti_2006">[?]</span>. Historically used to treat hereditary
+angioedema and osteoporosis, stanozolol is widely known in
+athletic contexts for its capacity to increase lean mass and strength without water retention, though its severe
+hepatotoxicity and deleterious effects on the lipid profile severely limit its clinical application
+<span class="citation" data-key="sinnecker_1989">[?]</span>
+<span class="citation" data-key="thompson_1989">[?]</span>. </p>
+
+<!-- References Section -->
+<ul id="references-list" class="small" style="list-style: none; padding-left: 0;">
+    <template x-for="(source, index) in activeSources" :key="source.source_id">
+        <li style="margin-bottom: 1rem;">
+            <span style="font-weight: bold; color: #222;">
+                [<span x-text="source.number"></span>]
+            </span>
+            <span style="margin-left: 0.5rem;">
+                <span x-text="source.author"></span>,
+                “<span x-text="source.title"></span>”
+                <span style="color: #555;" x-text="source.type"></span>.
+                <a :href="source.url" target="_blank" style="color: #0066cc;">[Link]</a>
+            </span>
+        </li>
+    </template>
+</ul>

@@ -156,17 +156,21 @@
                                 <div x-text="selectedCompound.blurb"></div>
                             </div>
                         </template>
-                            <template x-if="selectedCompound.blurbHTML">
-                                <div x-html="selectedCompound.blurbHTML"></div>
-                            </template>
+                        <template x-if="selectedCompound.blurbHTML">
+                            <div x-html="selectedCompound.blurbHTML"></div>
+                        </template>
                     </div>
+                </template>
+                <template x-if="blurbHTML">
+                    <div x-html="blurbHTML"></div>
                 </template>
             </div>
         </template>
         <template x-if="getParent">
             <div>
                 <h4 class="h5 fw-bold border-bottom pb-2 mb-2 text-dark"><span
-                        style="text-transform: capitalize;" x-text="getParent.parent_molecule"></span> Pharmacology </h4>
+                        style="text-transform: capitalize;" x-text="getParent.parent_molecule"></span> Pharmacology
+                </h4>
 
                 <div class="mb-2">
                     <p class="mb-1"><span class="fw-bold text-secondary me-1">Therapeutic Class:</span> <span
