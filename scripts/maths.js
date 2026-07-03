@@ -817,5 +817,7 @@ function calculateSaturationTemperature(compounds) {
         if (soluteLiquidusC > maxLiquidusTempC) maxLiquidusTempC = soluteLiquidusC;
     });
 
-    return parseFloat(Math.max(-40, Math.min(maxLiquidusTempC, 160)).toFixed(1));
+    let satTemp = parseFloat(Math.max(-40, Math.min(maxLiquidusTempC, 160)).toFixed(1));
+    if (satTemp < 0) satTemp = 1;
+    return satTemp;
 }
