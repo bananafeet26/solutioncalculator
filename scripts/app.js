@@ -18,6 +18,8 @@ function compoundApp() {
             theme: localStorage.getItem('theme') || 'light',
             selectedPalette: localStorage.getItem('selectedPalette') || 'nature',
             currentLanguage: localStorage.getItem('currentLanguage') || "en",
+            saturationTemp: 0,
+            //meltingRating: meltingRating,
         },
         solutionData: {
             viscosity: 0
@@ -599,7 +601,33 @@ function compoundApp() {
         },
         get isHuge() {
             return window.innerWidth > 1020;
-        }, updateRecipe() {
+        },
+        // Main getter for saturation temperature
+        get saturationTemp() {
+            try {
+                this.settings.saturationTemp = calculateSaturationTemperature(
+                    this.compounds
+                );
+                return this.settings.saturationTemp;
+            } catch (e) {
+                console.warn("Saturation temp calculation failed:", e);
+                return null;
+            }
+        },
+
+        // Computed rating (0-100). Higher = better (lower melting point)
+        get meltingRating() {
+            const temp = this.settings.saturationTemp;
+            if (temp === undefined || temp === null) return 0;
+
+            // Any value > 40°C is bad
+            if (temp > 40) return 10;                    // Very bad
+
+            // Scale: 0°C → 100, 40°C → ~10
+            const rating = Math.max(10, 100 - ((temp - 15) * 3.5));
+            return Math.min(100, Math.max(0, Math.round(rating)));
+        },
+        updateRecipe() {
             /*
             {
                 id: crypto.randomUUID(),
@@ -710,6 +738,8 @@ function compoundApp() {
             this.chart.update();
             this.solutionMeasurements = [];
             this.anaylseBatch()
-        },
+            this.settings.saturationTemp = calculateSaturationTemperature(this.settings.compounds);
+
+            },
     }
 }

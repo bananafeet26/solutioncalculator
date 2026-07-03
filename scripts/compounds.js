@@ -1569,6 +1569,7 @@ var compounds = [
         log_p: 6.4005,
         formula: 'C27H40O3',
         smiles: 'C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCC4CCCC4)CCC5=CC(=O)CC[C@]35C',
+        enthalpyOfFusion: 22000,
         blurbHTML: `<p>
     Testosterone Cypionate which is the oil-soluble 17 (beta)- cyclopentylpropionate ester of the androgenic hormone testosterone (prodrug/controlled release vehicle). 
 Testosterone Cypionate is a white or creamy white crystalline powder, odorless or nearly so and stable in air. It is insoluble in water, freely soluble in alcohol, chloroform, dioxane, ether, and soluble in vegetable oils.
@@ -1637,6 +1638,8 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         log_p: 6.4005,
         formula: 'C26H40O3',
         smiles: 'CCCCCCC(=O)OC1CCC2C3CCC4=CC(=O)CCC4(C)C3CCC12C',
+        heatCapacityFusion: 110,
+        enthalpyOfFusion: 18000,
         params: {
             fit_dose: 200,
             bioavailability: .72,
@@ -1792,6 +1795,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
             tMax: 7,
         },
         formula: 'C30H48O3',
+        enthalpyOfFusion: 21000,
         blurbHTML: `<p>
     Testosterone undecanoate (TU) is a long-chain fatty acid ester of testosterone designed for very slow release (prodrug/controlled release vehicle). Its high lipophilicity allows for extended-duration intramuscular depot injections.
 </p>
@@ -1904,7 +1908,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 6.6,
-
+        enthalpyOfFusion: 23000,
         cas_no: '10161-34-9',
         smiles: 'CC(=O)O[C@H]1CC[C@@H]2[C@@]1(C=CC3=C4CCC(=O)C=C4CC[C@@H]23)C'
     },
@@ -2346,6 +2350,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 0.92,
+        enthalpyOfFusion: 19000,
         cas_no: '360-70-3',
         formula: 'C28H44O3',
         smiles: 'CCCCCCCCCC(=O)O[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CCC4=CC(=O)CC[C@H]34)C'
@@ -2516,6 +2521,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 1.65,
+        enthalpyOfFusion: 17500,
         formula: 'C₃₀H₄₄O₃',
         smiles: 'C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCCCCCCCC=C)CCC4=CC(=O)C=C[C@]34C',
         blurbHTML: `<p>
@@ -2632,6 +2638,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         qsMode: false,
         pricePerUnit: 2,
         formula: 'C23H36O2Si',
+        enthalpyOfFusion: 24500,
         parent_molecule: '17a-steroid',
         smiles: 'CO=C\\1\\C=C/[C@]4(/C(=C/1)CC[C@@H]3[C@@H]4CC[C@]2([C@H]3CC[C@@]2(O)C)C)C'
     },
@@ -2681,6 +2688,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         qsMode: false,
         pricePerUnit: 1.98,
         formula: 'C21H32O3',
+        enthalpyOfFusion: 26000,
         parent_molecule: 'oxymetholone',
         smiles: 'CC12CC(=CO)C(=O)CC1CCC1C2CCC2(C)C1CCC2(C)O'
     },
@@ -2830,6 +2838,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         input: 0,
         qsMode: false,
         pricePerUnit: 1.95,
+        enthalpyOfFusion: 28000,
         formula: 'C21H32N2O',
         smiles: 'C[C@@]12Cc3cn[nH]c3C[C@]2([H])CC[C@]4([H])[C@]1([H])CC[C@@]5(C)[C@@]4([H])CC[C@]5(C)O',
         parent_molecule: 'stanozolol',
@@ -2929,6 +2938,7 @@ cyclopentyl-1- oxopropoxy)-, (17β)-. </p><p> Esterification enhances lipophilic
         cas_no: '76-43-7',
         log_p: 3.3322,
         formula: 'C20H29FO3',
+        enthalpyOfFusion: 32000,
         parent_molecule: 'fluoxymesterone',
         smiles: 'C[C@]12CCC(=O)C=C1CC[C@@H]3[C@@]2([C@H](C[C@]4([C@H]3CC[C@]4(C)O)C)O)F'
     },

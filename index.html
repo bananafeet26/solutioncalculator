@@ -115,6 +115,30 @@
 
                     </div>
 
+                    <template x-if="settings.saturationTemp !== undefined">
+                        <div>
+        <span class="small"
+              x-text="translations.saturationTemp[settings.currentLanguage] + ': ' + (settings.saturationTemp ?? 0).toFixed(1) + '%'">
+        </span>
+
+                            <div class="progress mb-1" style="height: 20px;">
+                                <div class="progress-bar progress-bar-striped"
+                                     :class="{
+                    'bg-danger': settings.saturationTemp >= 75,   'bg-warning': settings.saturationTemp >= 50 && settings.saturationTemp < 75,
+                    'bg-info': settings.saturationTemp >= 25 && settings.saturationTemp < 50,
+                    'bg-success': settings.saturationTemp < 25    }"
+                                     :style="`width: ${settings.saturationTemp ?? 0}%`"
+                                     role="progressbar"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100">
+                                </div>
+                            </div>
+
+                            <span x-show="settings.saturationTemp >= 75" class="text-danger small">
+            ⚠️ High risk of crashing at room temperature
+        </span>
+                        </div>
+                    </template>
                     <template x-if="settings.solventPercentage !== 0">
                         <div>
                             <span class="small"

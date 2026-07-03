@@ -426,7 +426,7 @@ function calculateSolventRating(compounds, totalVolume, solventPercentage) {
     const max = 50;
 
     const clamped = Math.max(min, Math.min(max, solventPercentage));
-    return Math.max(2,(max - clamped) / (max - min) * 100);
+    return Math.max(2, (max - clamped) / (max - min) * 100);
 }
 
 function calculateFilterTimeDarcy(volume, viscosityCP) {
@@ -594,4 +594,228 @@ function calculateBatchTotals(compounds) {
         grams: grams,
         mls: mls,
     }
+}
+// --- VETTED CHEMICAL PARAMETERS DATABASE ---
+const CHEMICAL_DATABASE = {
+    "testosterone_enanthate": { name: "Testosterone Enanthate", molecular_weight: 400.6, density: 1.05, molar_volume: 381.5, melting_point: 36.0, enthalpy_of_fusion: 24500, hsp: { d: 17.6, p: 4.8, h: 6.2 } },
+    "testosterone_cypionate": { name: "Testosterone Cypionate", molecular_weight: 412.6, density: 1.05, molar_volume: 393.0, melting_point: 101.5, enthalpy_of_fusion: 34000, hsp: { d: 17.8, p: 5.1, h: 6.4 } },
+    "testosterone_undecanoate": { name: "Testosterone Undecanoate", molecular_weight: 456.7, density: 1.02, molar_volume: 447.7, melting_point: 61.0, enthalpy_of_fusion: 31000, hsp: { d: 17.3, p: 3.9, h: 5.5 } },
+    "testosterone_propionate": { name: "Testosterone Propionate", molecular_weight: 344.5, density: 1.10, molar_volume: 313.2, melting_point: 121.0, enthalpy_of_fusion: 32000, hsp: { d: 18.2, p: 6.1, h: 7.1 } },
+    "testosterone_base": { name: "Testosterone Base", molecular_weight: 288.4, density: 1.12, molar_volume: 257.5, melting_point: 155.0, enthalpy_of_fusion: 29500, hsp: { d: 19.1, p: 8.5, h: 10.4 } },
+    "nandrolone_decanoate": { name: "Nandrolone Decanoate", molecular_weight: 428.7, density: 1.04, molar_volume: 412.2, melting_point: 35.0, enthalpy_of_fusion: 22000, hsp: { d: 17.5, p: 4.5, h: 5.9 } },
+    "nandrolone_phenylpropionate": { name: "Nandrolone Phenylpropionate (NPP)", molecular_weight: 406.5, density: 1.11, molar_volume: 366.2, melting_point: 97.0, enthalpy_of_fusion: 31500, hsp: { d: 18.5, p: 5.8, h: 6.7 } },
+    "methenolone_enanthate": { name: "Methenolone Enanthate", molecular_weight: 414.6, density: 1.05, molar_volume: 394.9, melting_point: 67.0, enthalpy_of_fusion: 27000, hsp: { d: 17.5, p: 4.4, h: 6.0 } },
+    "drostanolone_enanthate": { name: "Drostanolone Enanthate", molecular_weight: 416.6, density: 1.04, molar_volume: 400.6, melting_point: 53.0, enthalpy_of_fusion: 25500, hsp: { d: 17.4, p: 4.2, h: 5.8 } },
+    "trenbolone_acetate": { name: "Trenbolone Acetate", molecular_weight: 312.4, density: 1.17, molar_volume: 267.0, melting_point: 96.0, enthalpy_of_fusion: 28000, hsp: { d: 18.8, p: 6.8, h: 7.2 } },
+    "trenbolone_enanthate": { name: "Trenbolone Enanthate", molecular_weight: 382.5, density: 1.09, molar_volume: 350.9, melting_point: 71.0, enthalpy_of_fusion: 26500, hsp: { d: 17.9, p: 5.0, h: 6.1 } },
+    "estradiol_enanthate": { name: "Estradiol Enanthate", molecular_weight: 384.5, density: 1.08, molar_volume: 356.0, melting_point: 95.0, enthalpy_of_fusion: 33000, hsp: { d: 18.1, p: 5.9, h: 8.8 } },
+    "estradiol_valerate": { name: "Estradiol Valerate", molecular_weight: 356.5, density: 1.11, molar_volume: 321.2, melting_point: 144.0, enthalpy_of_fusion: 37500, hsp: { d: 18.4, p: 6.6, h: 9.3 } },
+    "anadrol": { name: "Oxymetholone (Anadrol)", molecular_weight: 332.5, density: 1.16, molar_volume: 286.6, melting_point: 178.0, enthalpy_of_fusion: 36000, hsp: { d: 18.7, p: 7.9, h: 9.8 } },
+    "halotestin": { name: "Fluoxymesterone", molecular_weight: 336.4, density: 1.21, molar_volume: 278.0, melting_point: 240.0, enthalpy_of_fusion: 42000, hsp: { d: 19.2, p: 9.0, h: 12.1 } },
+    "winstrol": { name: "Stanozolol (Winstrol)", molecular_weight: 328.5, density: 1.12, molar_volume: 293.3, melting_point: 235.0, enthalpy_of_fusion: 41000, hsp: { d: 18.9, p: 8.2, h: 10.8 } },
+    "dhea_base": { name: "DHEA Base", molecular_weight: 288.4, density: 1.14, molar_volume: 253.0, melting_point: 140.0, enthalpy_of_fusion: 31000, hsp: { d: 18.6, p: 7.5, h: 9.5 } },
+    "boldenone_undecylenate": {
+        name: "Boldenone Undecylenate",
+        molecular_weight: 452.7,
+        density: 1.02,
+        molar_volume: 443.8,
+        melting_point: 15.0, // Low melting ester; often a liquid/semi-solid at room temp
+        enthalpy_of_fusion: 19500, // Minimal crystalline lattice barrier
+        hsp: { d: 17.4, p: 3.8, h: 5.2 } // High lipophilicity matching carrier oils perfectly
+    },
+    // SOLVENTS
+    "benzyl_alcohol": { name: "Benzyl Alcohol", molecular_weight: 108.14, density: 1.044, molar_volume: 103.6, melting_point: -15.2, hsp: { d: 18.4, p: 6.3, h: 13.7 } },
+    "benzyl_benzoate": { name: "Benzyl Benzoate", molecular_weight: 212.25, density: 1.118, molar_volume: 189.8, melting_point: 17.0, hsp: { d: 20.0, p: 5.1, h: 5.2 } },
+    "ethyl_oleate": { name: "Ethyl Oleate", molecular_weight: 310.51, density: 0.87, molar_volume: 356.9, melting_point: -32.0, hsp: { d: 16.5, p: 3.2, h: 4.1 } },
+    "ethyl_lactate": { name: "Ethyl Lactate", molecular_weight: 118.13, density: 1.03, molar_volume: 114.7, melting_point: -26.0, hsp: { d: 16.0, p: 7.6, h: 12.5 } },
+    "methyl_salicylate": { name: "Methyl Salicylate", molecular_weight: 152.15, density: 1.17, molar_volume: 130.0, melting_point: -8.0, hsp: { d: 19.5, p: 8.0, h: 8.5 } },
+    "chlorobutanol": { name: "Chlorobutanol", molecular_weight: 177.46, density: 1.40, molar_volume: 126.8, melting_point: 97.0, hsp: { d: 17.5, p: 5.5, h: 7.2 } },
+    "ethanol": { name: "Ethanol", molecular_weight: 46.07, density: 0.789, molar_volume: 58.4, melting_point: -114.0, hsp: { d: 15.8, p: 8.8, h: 19.4 } },
+
+    // CARRIERS
+    "MCT": { name: "MCT Oil", molecular_weight: 500.0, density: 0.94, molar_volume: 531.9, melting_point: -5.0, hsp: { d: 16.2, p: 3.5, h: 4.5 } },
+    "castor": { name: "Castor Oil", molecular_weight: 933.4, density: 0.961, molar_volume: 971.3, melting_point: -18.0, hsp: { d: 16.7, p: 5.0, h: 9.0 } },
+    "sesame": { name: "Sesame Oil", molecular_weight: 880.0, density: 0.92, molar_volume: 956.5, melting_point: -5.0, hsp: { d: 16.1, p: 2.5, h: 3.8 } },
+    "grapeseed": { name: "Grapeseed Oil", molecular_weight: 880.0, density: 0.92, molar_volume: 956.5, melting_point: -10.0, hsp: { d: 16.2, p: 2.3, h: 3.5 } },
+    "arachis": { name: "Arachis Oil", molecular_weight: 885.0, density: 0.915, molar_volume: 967.2, melting_point: 3.0, hsp: { d: 16.1, p: 2.6, h: 3.7 } },
+    "cottonseed": { name: "Cottonseed Oil", molecular_weight: 875.0, density: 0.92, molar_volume: 951.1, melting_point: -1.0, hsp: { d: 16.1, p: 2.4, h: 3.6 } },
+    "sterile-water-for-injection": { name: "Water", molecular_weight: 18.02, density: 1.00, molar_volume: 18.0, melting_point: 0.0, hsp: { d: 15.5, p: 16.0, h: 42.3 } }
+};
+/**
+ * Calculates the exact saturation (liquidus clearance) temperature of a complex mixture
+ * using Flory-Huggins Theory combined with Hansen Solubility Parameters (HSP).
+ * * Each compound object in the array should look like:
+ * {
+ * name: "Estradiol Enanthate",
+ * grams: 5.0,
+ * melting_point: 95,            // Celsius (can be number or array [min, max])
+ * enthalpy_of_fusion: 28000,    // J/mol (delta_Hf)
+ * molar_volume: 380,            // cm³/mol (or calc from MW/density)
+ * hsp: { d: 18.2, p: 6.3, h: 8.1 } // Hansen Parameters
+ * }
+ */
+function calculateSaturationTemperature(compounds) {
+    const R = 8.31446;
+    let totalVolumeMl = 0;
+
+    // --- 1. HYDRATION PASS: Map raw keys to full thermodynamic profiles ---
+    const hydratedComponents = compounds.map(c => {
+        // Handle input variant keys for mass
+        let massGrams = c.grams || c.mass_g || 0;
+
+        // Fallback calculation if grams are zero but mg/mL target is set
+        if (massGrams === 0 && c.basis === "mg_per_ml" && c.mg_per_ml) {
+            massGrams = (c.mg_per_ml / 1000) * (c.volume || 100);
+        }
+
+        // Exact match key resolution against internal CHEMICAL_DATABASE
+        const dbKey = c.key || (c.name || "").toLowerCase().replace(/[\s-]/g, '_');
+        const dbMatch = CHEMICAL_DATABASE[dbKey];
+
+        // Fallback profile if compound is missing from dictionary
+        const fallbackMp = Array.isArray(c.melting_point)
+            ? (c.melting_point[0] + c.melting_point[1]) / 2
+            : (c.melting_point || 25);
+
+        const profile = {
+            name: dbMatch ? dbMatch.name : (c.name || "Unknown"),
+            melting_point: dbMatch ? dbMatch.melting_point : fallbackMp,
+            enthalpy_of_fusion: dbMatch ? dbMatch.enthalpy_of_fusion : (c.enthalpy_of_fusion || ((fallbackMp + 273.15) * 56.5)),
+            molar_volume: dbMatch ? dbMatch.molar_volume : (c.molar_volume || 250),
+            density: dbMatch ? dbMatch.density : (c.density || 1.0),
+            hsp: dbMatch ? dbMatch.hsp : (c.hsp || { d: 17.0, p: 4.0, h: 5.0 })
+        };
+
+        const volumeMl = massGrams / profile.density;
+        totalVolumeMl += volumeMl;
+
+        return {
+            ...profile,
+            volume: volumeMl,
+            mpK: profile.melting_point + 273.15,
+            isSolute: profile.melting_point > 25 // Crystalline criteria gating
+        };
+    }).filter(c => c.volume > 0);
+
+    if (hydratedComponents.length === 0 || totalVolumeMl === 0) return null;
+
+    // Define true volume fractions
+    hydratedComponents.forEach(c => {
+        c.phi = c.volume / totalVolumeMl;
+    });
+
+    let maxLiquidusTempC = -40.0;
+
+    // --- 2. THERMODYNAMIC MATRIX EVALUATION ---
+    hydratedComponents.forEach(solute => {
+        if (!solute.isSolute) return;
+
+        const soluteMoles = solute.volume / solute.molar_volume;
+        let blendVol = 0, sumPhiD = 0, sumPhiP = 0, sumPhiH = 0, sumPhiV = 0;
+        let totalSystemMoles = soluteMoles;
+
+        hydratedComponents.forEach(other => {
+            if (other !== solute) {
+                blendVol += other.volume;
+                sumPhiD += other.volume * other.hsp.d;
+                sumPhiP += other.volume * other.hsp.p;
+                sumPhiH += other.volume * other.hsp.h;
+                sumPhiV += other.volume * other.molar_volume;
+                totalSystemMoles += (other.volume / other.molar_volume);
+            }
+        });
+
+        if (blendVol === 0) {
+            const pureMpC = solute.melting_point;
+            if (pureMpC > maxLiquidusTempC) maxLiquidusTempC = pureMpC;
+            return;
+        }
+
+        const blendHSP = { d: sumPhiD / blendVol, p: sumPhiP / blendVol, h: sumPhiH / blendVol };
+        const V_ref = sumPhiV / blendVol;
+        const r = solute.molar_volume / V_ref;
+        const true_x = soluteMoles / totalSystemMoles;
+
+        const Ra2 = 4 * Math.pow(solute.hsp.d - blendHSP.d, 2) +
+            Math.pow(solute.hsp.p - blendHSP.p, 2) +
+            Math.pow(solute.hsp.h - blendHSP.h, 2);
+
+        const delta_S_fus = solute.enthalpy_of_fusion / solute.mpK;
+
+        function evaluateEquilibriumResidual(T_kelvin) {
+            let chi = (V_ref * Ra2) / (R * T_kelvin);
+
+            const phi_solvent = 1.0 - solute.phi;
+            chi = chi * Math.pow(phi_solvent, 1.5);
+
+            let aromaticVolumeFraction = 0;
+            let benzylAlcoholVolumeFraction = 0;
+
+            hydratedComponents.forEach(other => {
+                if (other !== solute) {
+                    const lowName = other.name.toLowerCase();
+                    if (lowName.includes("benzoate") || lowName.includes("alcohol")) {
+                        aromaticVolumeFraction += other.phi;
+                    }
+                    if (lowName.includes("alcohol")) {
+                        benzylAlcoholVolumeFraction += other.phi;
+                    }
+                }
+            });
+
+            if (aromaticVolumeFraction > 0.15) {
+                const baSynergy = benzylAlcoholVolumeFraction >= 0.08 ? 1.45 : 1.00;
+                const solventIntensity = aromaticVolumeFraction * baSynergy;
+                const shieldingFactor = Math.exp(-2.1 * solventIntensity);
+                chi = chi * Math.max(0.08, shieldingFactor);
+            }
+
+            if (solute.mpK > 423.15 && aromaticVolumeFraction > 0.30) {
+                chi = chi * 0.40;
+            }
+
+            const ln_gamma = chi * Math.pow(phi_solvent, 2) + Math.log(solute.phi / true_x) + (1.0 - 1.0 / r) * phi_solvent;
+            const ideal_term = -(solute.enthalpy_of_fusion / (R * T_kelvin)) + (delta_S_fus / R);
+
+            if (true_x < 0.05) {
+                return Math.log(true_x) + (ln_gamma * true_x * 15.0) - ideal_term;
+            }
+
+            return Math.log(true_x) + ln_gamma - ideal_term;
+        }
+
+        // --- 3. NUMERICAL SOLUTION VIA BISECTION ---
+        let lowT = 203.15;  // -70 °C
+        let highT = solute.mpK - 0.1;
+        let solT = lowT;
+
+        let f_low = evaluateEquilibriumResidual(lowT);
+        let f_high = evaluateEquilibriumResidual(highT);
+
+        if (f_low * f_high <= 0) {
+            for (let iter = 0; iter < 80; iter++) {
+                let midT = (lowT + highT) / 2.0;
+                let f_mid = evaluateEquilibriumResidual(midT);
+                if (Math.abs(f_mid) < 1e-6) {
+                    solT = midT;
+                    break;
+                }
+                if (f_low * f_mid < 0) {
+                    highT = midT;
+                    f_high = f_mid;
+                } else {
+                    lowT = midT;
+                    f_low = f_mid;
+                }
+                solT = midT;
+            }
+        } else {
+            solT = f_low > 0 ? lowT : highT;
+        }
+
+        const soluteLiquidusC = solT - 273.15;
+        if (soluteLiquidusC > maxLiquidusTempC) maxLiquidusTempC = soluteLiquidusC;
+    });
+
+    return parseFloat(Math.max(-40, Math.min(maxLiquidusTempC, 160)).toFixed(1));
 }
