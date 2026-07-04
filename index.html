@@ -69,14 +69,14 @@
 
 
                 <!-------------------------------------- Palette Select  --------------------------------------->
-                <div class=" p-2 mb-2 ">
+                <div class=" p-1 mb-1 ">
                     <div class="input-group mb-1 col-12 col-md-4 col-lg-3">
                         <div class="input-group-prepend">
                             <span x-text='translations.palette[settings.currentLanguage] +  " 🎨"'
                                   class="input-group-text" id=""></span>
                         </div>
                         <select
-                                class="form-select w-25 mb-3 rounded"
+                                class="form-select w-25 mb-1 rounded"
                                 x-model="settings.selectedPalette"
                                 @change="changePalette()"
                         >
@@ -135,9 +135,9 @@
                                 </div>
                             </div>
 
-                            <span x-show="settings.saturationTemp >= 75" class="text-danger small">
-            ⚠️ High risk of crashing at room temperature
-        </span>
+                            <span x-text="translations.message_crashing[settings.currentLanguage]" x-show="settings.saturationTemp >= 75 && settings.saturationTemp < 100" class="text-danger small"></span>
+                            <span x-text="translations.message_in_vivo_crystallization[settings.currentLanguage]" x-show="settings.saturationTemp >= 100" class="text-danger small"></span>
+
                         </div>
                     </template>
                     <template x-if="settings.solventPercentage !== 0">
@@ -208,8 +208,8 @@
                     </div>
                 </template>
                 <!--------------------------------------- Select Recipe --------------------------------->
-                <div class="p-2 row">
-                    <div class="d-flex gap-2">
+                <div class="p-1 row">
+                    <div class="d-flex gap-1">
                         <select
                                 class="form-select"
                                 x-model="settings.selectedRecipeId"
@@ -234,8 +234,8 @@
 
 
                 <!--------------------------------------- Drop down form control --------------------------------->
-                <div class="p-2 row">
-                    <div class="d-flex gap-2">
+                <div class="p-1 row">
+                    <div class="d-flex gap-1">
                         <select
                                 class="form-select"
                                 x-model="settings.addRowSelectedCompoundId"
@@ -682,7 +682,7 @@
                 </div>
                 <!-- Hardware Recommendation Widget -->
                 <div class="mt-2">
-                    <div class="p-2">
+                    <div class="p-1">
                         <div class="border-start border-3 border-secondary ps-3">
                             <!-- Header & Dynamic Tier Badge -->
                             <div class="d-flex justify-content-between align-items-center mb-1">
@@ -706,7 +706,7 @@
                             <template x-for="config in settings.injectionReport.idealConfigurations"
                                       :key="config.barrel + '-' + config.gauge">
                                 <div class="col-12 col-sm-6">
-                                    <div class="p-2 border border-translucent rounded bg-body d-flex align-items-center justify-content-between text-nowrap"
+                                    <div class="p-1 border border-translucent rounded bg-body d-flex align-items-center justify-content-between text-nowrap"
                                          style="min-width: 0;">
                                         <div class="lh-sm min-w-0 flex-grow-1 overflow-hidden me-2">
                             <span class="fw-bold text-body text-nowrap"
@@ -739,7 +739,7 @@
         <!-------------------------------------- Batch --------------------------------------------------------->
         <div class="col-12 col-lg-4 mb-1">
             <div class="border rounded pb-3 p-1">
-                <div class="p-2  bg-warning-subtle border-bottom">
+                <div class="p-1  bg-warning-subtle border-bottom">
                     <h4 class="fw-bold text-center"><span
                             x-text="translations.batch_totals[settings.currentLanguage]"></span>
                         <template x-if="typeof settings.selectedRecipeId !== 'undefined'">
@@ -753,7 +753,7 @@
                         <template x-for="(compound, index) in solutionMeasurement.compounds" :key="compound.id">
 
                             <div
-                                    class="p-2 mb-0 "
+                                    class="p-1 mb-0 "
                                     :class="index % 2 === 0 ? 'bg-body-tertiary' : 'bg-body'"
                             >
                                 <!-- Compound Name -->
@@ -869,7 +869,7 @@
                         </template>
 
                         <!-- ===================== TOTALS ===================== -->
-                        <div class="p-2 bg-warning-subtle border-bottom">
+                        <div class="p-1 bg-warning-subtle border-bottom">
                             <div x-text="translations.batch_totals[settings.currentLanguage]"
                                  class="fw-bold mb-2"></div>
 

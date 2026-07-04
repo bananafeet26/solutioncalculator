@@ -523,8 +523,8 @@ var COMPOUNDS = [
         self_id: 'olive',
         molecular_weight: null,
         density: 0.915,
-        viscosityArray: [60],
-        viscosityTempArray: [25],
+        viscosityArray: [     34.1, 26.1, 15.7, 56.2, 60],
+        viscosityTempArray: [ 38,   50,   70,   26,   25, ],
         mls: 0,
         grams: 0,
         v_v_percent: 0,
@@ -570,8 +570,8 @@ var COMPOUNDS = [
         self_id: 'castor',
         molecular_weight: null,
         density: 0.96,
-        viscosityArray: [283, 36,580],
-        viscosityTempArray: [37, 79.4,27],
+        viscosityArray: [283,440,580,800, 36],
+        viscosityTempArray: [37,30,27,20, 79.4],
         melting_point: [-18, -10],
         mls: 0,
         grams: 0,
@@ -718,8 +718,8 @@ var COMPOUNDS = [
         self_id: 'safflower',
         molecular_weight: null, // Natural triglyceride mixture
         density: 0.922, // Standard density at 20-25°C in g/mL
-        viscosityArray: [31, 48], // Viscosity in cP at corresponding temperatures
-        viscosityTempArray: [37, 25], // Body temp (37°C) vs Room temp (25°C)
+        viscosityArray: [    29.9,23.9, 45.5], // Viscosity in cP at corresponding temperatures
+        viscosityTempArray: [38,  50,    26], // Body temp (37°C) vs Room temp (25°C)
         mls: 0,
         grams: 0,
         v_v_percent: 0,
@@ -766,8 +766,8 @@ var COMPOUNDS = [
         self_id: 'grapeseed',
         molecular_weight: null,
         density: 0.92,
-        viscosityArray: [87.8],
-        viscosityTempArray: [25],
+        viscosityArray:     [ 31.1,22.7,46.6,87.8,  ],
+        viscosityTempArray: [ 38,  50,  26,  25],
         mls: 0,
         grams: 0,
         v_v_percent: 0,
@@ -814,8 +814,8 @@ var COMPOUNDS = [
         self_id: 'arachis',
         molecular_weight: null,
         density: 0.9372,
-        viscosityArray: [35.2],
-        viscosityTempArray: [37],
+        viscosityArray:     [35.2, 38,  23.6],
+        viscosityTempArray: [37,   38,  54],
         mls: 0,
         grams: 0,
         v_v_percent: 0,
@@ -862,8 +862,8 @@ var COMPOUNDS = [
         self_id: 'sesame',
         molecular_weight: null,
         density: 0.92,
-        viscosityArray: [36.64, 45],
-        viscosityTempArray: [37, 25], //https://pmc.ncbi.nlm.nih.gov/articles/PMC11160314/table/T3/
+        viscosityArray:     [36.64,35.1,25.1,52.5, 45], //https://doi.org/10.1155/2014/234583
+        viscosityTempArray: [37,   38,  50,  26,   25], //https://pmc.ncbi.nlm.nih.gov/articles/PMC11160314/table/T3/
         mls: 0,
         grams: 0,
         v_v_percent: 0,

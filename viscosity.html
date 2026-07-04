@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Testosterone Base PK Curve</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        input { margin: 5px; padding: 6px; }
+    </style>
+</head>
+<body>
+<h2>Viscosity</h2>
+
+<label>Start temp: <input type="number" id="sTemp" value="0"></label><br><br>
+<label>End temp: <input type="number" id="eTemp" value="120"></label><br><br>
+
+<button onclick="calculateCurve()">Calculate Curve</button>
+
+<pre id="output"></pre>
+<canvas id="chart" width="900" height="450"></canvas>
+
+<script>
+    let chartInstance;
+
+    function calculateCurve() {
+        const sTemp = parseFloat(document.getElementById('sTemp').value) || 0;
+        const eTemp = parseFloat(document.getElementById('eTemp').value) || 120;
+        const data = [];
+
+        /**
+         * Castor Oil Dynamic Viscosity (cP) - Paper's best multi-constant model
+         * Viscosity decreases with increasing temperature, as expected.
+         * @param {number} celsius - Temperature in °C
+         * @returns {number} Viscosity in centipoise (cP)
+         */
+        function getCastorOilViscosity(celsius) {
+            if (celsius <= 18) return 0;
+            if (celsius >= 34) return 0;
+            const t = celsius
+            const A = -2238.88;
+            const B = 21547.23;
+            const C = 500.5564;
+            const D = 60258.99;
+            const E = -1.60718;
+            return A + (B/t) + (C*Math.log(t)) + (D*(Math.pow(t,E)));
+        }
+
+        const stepSize = 1;
+        for (let t = sTemp; t <= eTemp; t += stepSize) {
+            const viscosity = getCastorOilViscosity(t);
+            console.log(`${t}c - ${viscosity} cP`);
+            data.push({ x: t, y: viscosity });
+        }
+
+        document.getElementById('output').innerHTML = `
+            Temp range: ${sTemp}c to ${eTemp}c
+            Step: ${stepSize}c
+            Data points: ${data.length}
+      `;
+
+        if (chartInstance) chartInstance.destroy();
+
+        chartInstance = new Chart(document.getElementById('chart'), {
+            type: 'line',
+            data: { datasets: [{
+                    label: 'cP',
+                    data: data,
+                    borderColor: '#2563eb',
+                }]},
+            options: {
+                scales: {
+                    x: { type: "linear", title: { display: true, text: 'celcius' }},
+                    y: { title: { display: true, text: 'cP viscosity' }, min: 0 }
+                }
+            }
+        });
+    }
+
+    window.onload = calculateCurve;
+</script>
+</body>
+</html>
