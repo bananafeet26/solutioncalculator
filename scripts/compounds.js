@@ -3616,6 +3616,20 @@ var solubility = [
     {
         id: crypto.randomUUID(),
         class: 'solubility',
+        name: 'Long Length Esters',
+        self_id: 'long_length_esters_special',
+        putative_viscosity: 500, //cp
+        low_solvent_range: [100, 150], // 0-10%
+        medium_solvent_range: [150, 250], // 20-30%
+        high_solvent_range: [250, 350], // 30-50%
+        co_solvent_self_id: 'benzyl_alcohol',
+        member_self_ids: [
+            'testosterone_undecanoate', // special baby
+        ]
+    },
+    {
+        id: crypto.randomUUID(),
+        class: 'solubility',
         name: 'Short Length Esters',
         self_id: 'short_length_esters',
         putative_viscosity: 40, //cp
