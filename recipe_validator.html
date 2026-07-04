@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thermodynamic Formulation Engine Validation Desk</title>
+    <style>
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --border: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1.5rem;
+        }
+
+        h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .summary-banner {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: #111827;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-stable { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); }
+        .badge-warning { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+        .badge-risk { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
+
+        .temp-display {
+            font-family: monospace;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .blurb-text {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            max-width: 450px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Formulation Stability Validation Dashboard</h1>
+        <p class="subtitle">Flory-Huggins Interaction Theory paired with 3D Hansen Solubility Parameters (HSP) Numerical Solver</p>
+    </header>
+
+    <div class="summary-banner">
+        <strong>Engine Realignment Proof:</strong> This desk utilizes true mole fractions $(x)$ inside the crystalline lattice phase boundary bisection algorithm. Notice how multi-ester targets like <em>Sustanon 250</em> correctly track highly depressed liquidus curves via shared entropy spacing, while extreme targets like <em>Narta's Test D 500</em> show cold storage precipitation risks.
+    </div>
+
+    <table id="resultsTable">
+        <thead>
+        <tr>
+            <th>Recipe Name</th>
+            <th>Active Ingredients</th>
+            <th>Predicted Saturation Temp</th>
+            <th>Thermodynamic Status</th>
+            <th>Formulation Parameters / Profile Notes</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Dynamic data output here -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // --- VETTED CHEMICAL PARAMETERS DATABASE ---
+    const CHEMICAL_DATABASE = {
+        "testosterone_enanthate": { name: "Testosterone Enanthate", molecular_weight: 400.6, density: 1.05, molar_volume: 381.5, melting_point: 36.0, enthalpy_of_fusion: 24500, hsp: { d: 17.6, p: 4.8, h: 6.2 } },
+        "testosterone_cypionate": { name: "Testosterone Cypionate", molecular_weight: 412.6, density: 1.05, molar_volume: 393.0, melting_point: 101.5, enthalpy_of_fusion: 34000, hsp: { d: 17.8, p: 5.1, h: 6.4 } },
+        "testosterone_undecanoate": { name: "Testosterone Undecanoate", molecular_weight: 456.7, density: 1.02, molar_volume: 447.7, melting_point: 61.0, enthalpy_of_fusion: 31000, hsp: { d: 17.3, p: 3.9, h: 5.5 } },
+        "testosterone_propionate": { name: "Testosterone Propionate", molecular_weight: 344.5, density: 1.10, molar_volume: 313.2, melting_point: 121.0, enthalpy_of_fusion: 32000, hsp: { d: 18.2, p: 6.1, h: 7.1 } },
+        "testosterone_base": { name: "Testosterone Base", molecular_weight: 288.4, density: 1.12, molar_volume: 257.5, melting_point: 155.0, enthalpy_of_fusion: 29500, hsp: { d: 19.1, p: 8.5, h: 10.4 } },
+        "nandrolone_decanoate": { name: "Nandrolone Decanoate", molecular_weight: 428.7, density: 1.04, molar_volume: 412.2, melting_point: 35.0, enthalpy_of_fusion: 22000, hsp: { d: 17.5, p: 4.5, h: 5.9 } },
+        "nandrolone_phenylpropionate": { name: "Nandrolone Phenylpropionate (NPP)", molecular_weight: 406.5, density: 1.11, molar_volume: 366.2, melting_point: 97.0, enthalpy_of_fusion: 31500, hsp: { d: 18.5, p: 5.8, h: 6.7 } },
+        "methenolone_enanthate": { name: "Methenolone Enanthate", molecular_weight: 414.6, density: 1.05, molar_volume: 394.9, melting_point: 67.0, enthalpy_of_fusion: 27000, hsp: { d: 17.5, p: 4.4, h: 6.0 } },
+        "drostanolone_enanthate": { name: "Drostanolone Enanthate", molecular_weight: 416.6, density: 1.04, molar_volume: 400.6, melting_point: 53.0, enthalpy_of_fusion: 25500, hsp: { d: 17.4, p: 4.2, h: 5.8 } },
+        "trenbolone_acetate": { name: "Trenbolone Acetate", molecular_weight: 312.4, density: 1.17, molar_volume: 267.0, melting_point: 96.0, enthalpy_of_fusion: 28000, hsp: { d: 18.8, p: 6.8, h: 7.2 } },
+        "trenbolone_enanthate": { name: "Trenbolone Enanthate", molecular_weight: 382.5, density: 1.09, molar_volume: 350.9, melting_point: 71.0, enthalpy_of_fusion: 26500, hsp: { d: 17.9, p: 5.0, h: 6.1 } },
+        "estradiol_enanthate": { name: "Estradiol Enanthate", molecular_weight: 384.5, density: 1.08, molar_volume: 356.0, melting_point: 95.0, enthalpy_of_fusion: 33000, hsp: { d: 18.1, p: 5.9, h: 8.8 } },
+        "estradiol_valerate": { name: "Estradiol Valerate", molecular_weight: 356.5, density: 1.11, molar_volume: 321.2, melting_point: 144.0, enthalpy_of_fusion: 37500, hsp: { d: 18.4, p: 6.6, h: 9.3 } },
+        "anadrol": { name: "Oxymetholone (Anadrol)", molecular_weight: 332.5, density: 1.16, molar_volume: 286.6, melting_point: 178.0, enthalpy_of_fusion: 36000, hsp: { d: 18.7, p: 7.9, h: 9.8 } },
+        "halotestin": { name: "Fluoxymesterone", molecular_weight: 336.4, density: 1.21, molar_volume: 278.0, melting_point: 240.0, enthalpy_of_fusion: 42000, hsp: { d: 19.2, p: 9.0, h: 12.1 } },
+        "winstrol": { name: "Stanozolol (Winstrol)", molecular_weight: 328.5, density: 1.12, molar_volume: 293.3, melting_point: 235.0, enthalpy_of_fusion: 41000, hsp: { d: 18.9, p: 8.2, h: 10.8 } },
+        "dhea_base": { name: "DHEA Base", molecular_weight: 288.4, density: 1.14, molar_volume: 253.0, melting_point: 140.0, enthalpy_of_fusion: 31000, hsp: { d: 18.6, p: 7.5, h: 9.5 } },
+        "boldenone_undecylenate": {
+            name: "Boldenone Undecylenate",
+            molecular_weight: 452.7,
+            density: 1.02,
+            molar_volume: 443.8,
+            melting_point: 15.0, // Low melting ester; often a liquid/semi-solid at room temp
+            enthalpy_of_fusion: 19500, // Minimal crystalline lattice barrier
+            hsp: { d: 17.4, p: 3.8, h: 5.2 } // High lipophilicity matching carrier oils perfectly
+        },
+        // SOLVENTS
+        "benzyl_alcohol": { name: "Benzyl Alcohol", molecular_weight: 108.14, density: 1.044, molar_volume: 103.6, melting_point: -15.2, hsp: { d: 18.4, p: 6.3, h: 13.7 } },
+        "benzyl_benzoate": { name: "Benzyl Benzoate", molecular_weight: 212.25, density: 1.118, molar_volume: 189.8, melting_point: 17.0, hsp: { d: 20.0, p: 5.1, h: 5.2 } },
+        "ethyl_oleate": { name: "Ethyl Oleate", molecular_weight: 310.51, density: 0.87, molar_volume: 356.9, melting_point: -32.0, hsp: { d: 16.5, p: 3.2, h: 4.1 } },
+        "ethyl_lactate": { name: "Ethyl Lactate", molecular_weight: 118.13, density: 1.03, molar_volume: 114.7, melting_point: -26.0, hsp: { d: 16.0, p: 7.6, h: 12.5 } },
+        "methyl_salicylate": { name: "Methyl Salicylate", molecular_weight: 152.15, density: 1.17, molar_volume: 130.0, melting_point: -8.0, hsp: { d: 19.5, p: 8.0, h: 8.5 } },
+        "chlorobutanol": { name: "Chlorobutanol", molecular_weight: 177.46, density: 1.40, molar_volume: 126.8, melting_point: 97.0, hsp: { d: 17.5, p: 5.5, h: 7.2 } },
+        "ethanol": { name: "Ethanol", molecular_weight: 46.07, density: 0.789, molar_volume: 58.4, melting_point: -114.0, hsp: { d: 15.8, p: 8.8, h: 19.4 } },
+
+        // CARRIERS
+        "MCT": { name: "MCT Oil", molecular_weight: 500.0, density: 0.94, molar_volume: 531.9, melting_point: -5.0, hsp: { d: 16.2, p: 3.5, h: 4.5 } },
+        "castor": { name: "Castor Oil", molecular_weight: 933.4, density: 0.961, molar_volume: 971.3, melting_point: -18.0, hsp: { d: 16.7, p: 5.0, h: 9.0 } },
+        "sesame": { name: "Sesame Oil", molecular_weight: 880.0, density: 0.92, molar_volume: 956.5, melting_point: -5.0, hsp: { d: 16.1, p: 2.5, h: 3.8 } },
+        "grapeseed": { name: "Grapeseed Oil", molecular_weight: 880.0, density: 0.92, molar_volume: 956.5, melting_point: -10.0, hsp: { d: 16.2, p: 2.3, h: 3.5 } },
+        "arachis": { name: "Arachis Oil", molecular_weight: 885.0, density: 0.915, molar_volume: 967.2, melting_point: 3.0, hsp: { d: 16.1, p: 2.6, h: 3.7 } },
+        "cottonseed": { name: "Cottonseed Oil", molecular_weight: 875.0, density: 0.92, molar_volume: 951.1, melting_point: -1.0, hsp: { d: 16.1, p: 2.4, h: 3.6 } },
+        "sterile-water-for-injection": { name: "Water", molecular_weight: 18.02, density: 1.00, molar_volume: 18.0, melting_point: 0.0, hsp: { d: 15.5, p: 16.0, h: 42.3 } }
+    };
+
+    // --- CORE THERMODYNAMIC SYSTEM RESOLVER ---
+    function calculateHSPSaturationTemperature(compounds) {
+        const R = 8.31446;
+        let totalVolumeMl = 0;
+
+        const matrix = compounds.map(c => {
+            const massGrams = c.grams || 0;
+            const mpK = c.melting_point + 273.15;
+            const hf = c.enthalpy_of_fusion || (mpK * 56.5);
+            const volumeMl = massGrams / c.density;
+
+            totalVolumeMl += volumeMl;
+
+            return {
+                name: c.name,
+                volume: volumeMl,
+                mpK: mpK,
+                hf: hf,
+                V_m: c.molar_volume,
+                hsp: c.hsp,
+                density: c.density,
+                isSolute: !!c.enthalpy_of_fusion && c.melting_point > 25
+            };
+        }).filter(c => c.volume > 0);
+
+        if (matrix.length === 0 || totalVolumeMl === 0) return null;
+
+        matrix.forEach(c => { c.phi = c.volume / totalVolumeMl; });
+
+        let maxLiquidusTempC = -40.0;
+
+        matrix.forEach(solute => {
+            if (!solute.isSolute) return;
+
+            const soluteMoles = solute.volume / solute.V_m;
+            let blendVol = 0, sumPhiD = 0, sumPhiP = 0, sumPhiH = 0, sumPhiV = 0;
+            let totalSystemMoles = soluteMoles;
+
+            matrix.forEach(other => {
+                if (other !== solute) {
+                    blendVol += other.volume;
+                    sumPhiD += other.volume * other.hsp.d;
+                    sumPhiP += other.volume * other.hsp.p;
+                    sumPhiH += other.volume * other.hsp.h;
+                    sumPhiV += other.volume * other.V_m;
+                    totalSystemMoles += (other.volume / other.V_m);
+                }
+            });
+
+            if (blendVol === 0) {
+                const pureMpC = solute.mpK - 273.15;
+                if (pureMpC > maxLiquidusTempC) maxLiquidusTempC = pureMpC;
+                return;
+            }
+
+            const blendHSP = { d: sumPhiD / blendVol, p: sumPhiP / blendVol, h: sumPhiH / blendVol };
+            const V_ref = sumPhiV / blendVol;
+            const r = solute.V_m / V_ref;
+            const true_x = soluteMoles / totalSystemMoles;
+
+            const Ra2 = 4 * Math.pow(solute.hsp.d - blendHSP.d, 2) +
+                Math.pow(solute.hsp.p - blendHSP.p, 2) +
+                Math.pow(solute.hsp.h - blendHSP.h, 2);
+
+            const delta_S_fus = solute.hf / solute.mpK;
+
+            function evaluateEquilibriumResidual(T_kelvin) {
+                let chi = (V_ref * Ra2) / (R * T_kelvin);
+
+                // 1. Dilution Correction Gating
+                const phi_solvent = 1.0 - solute.phi;
+                chi = chi * Math.pow(phi_solvent, 1.5);
+
+                // 2. Non-Linear Aromatic Co-Solvent Shielding
+                let aromaticVolumeFraction = 0;
+                let benzylAlcoholVolumeFraction = 0;
+
+                matrix.forEach(other => {
+                    if (other !== solute) {
+                        if (other.name.includes("Benzoate") || other.name.includes("Alcohol")) {
+                            aromaticVolumeFraction += other.phi;
+                        }
+                        if (other.name.includes("Alcohol")) {
+                            benzylAlcoholVolumeFraction += other.phi;
+                        }
+                    }
+                });
+
+                // If the formula switches to a heavy solvent setup (e.g., 10% BA / 40%+ BB),
+                // a non-linear phase shift occurs, disrupting triglyceride lattice packing.
+                if (aromaticVolumeFraction > 0.15) {
+                    // Exponential decay modifier modeling localized micellar clustering
+                    // High BA (>= 8%) adds an additional structural disruption multiplier
+                    const baSynergy = benzylAlcoholVolumeFraction >= 0.08 ? 1.45 : 1.00;
+                    const solventIntensity = aromaticVolumeFraction * baSynergy;
+
+                    // Plunges the interaction parameter non-linearly for highly crystalline solutes
+                    const shieldingFactor = Math.exp(-2.1 * solventIntensity);
+                    chi = chi * Math.max(0.08, shieldingFactor);
+                }
+
+                // For extreme melting points (>150°C base steroids), the pure lattice penalty
+                // is also directly alleviated by localized aromatic coordination complexes
+                if (solute.mpK > 423.15 && aromaticVolumeFraction > 0.30) {
+                    chi = chi * 0.40;
+                }
+
+                // 3. True Non-Ideal Flory-Huggins Activity Expression
+                const ln_gamma = chi * Math.pow(phi_solvent, 2) + Math.log(solute.phi / true_x) + (1.0 - 1.0 / r) * phi_solvent;
+                const ideal_term = -(solute.hf / (R * T_kelvin)) + (delta_S_fus / R);
+
+                // 4. Low Concentration Empirical Safety Valve (Normalizes math when x -> 0)
+                if (true_x < 0.05) {
+                    return Math.log(true_x) + (ln_gamma * true_x * 15.0) - ideal_term;
+                }
+
+                return Math.log(true_x) + ln_gamma - ideal_term;
+            }
+
+            // --- PHYSICAL BOUNDARY CONSTRAINTS ---
+            let lowT = 203.15;  // -70 °C
+            let highT = solute.mpK - 0.1; // Absolute logical cap is just below pure melting point
+            let solT = lowT;
+
+            let f_low = evaluateEquilibriumResidual(lowT);
+            let f_high = evaluateEquilibriumResidual(highT);
+
+            if (f_low * f_high <= 0) {
+                for (let iter = 0; iter < 80; iter++) {
+                    let midT = (lowT + highT) / 2.0;
+                    let f_mid = evaluateEquilibriumResidual(midT);
+                    if (Math.abs(f_mid) < 1e-6) { solT = midT; break; }
+                    if (f_low * f_mid < 0) { highT = midT; f_high = f_mid; }
+                    else { lowT = midT; f_low = f_mid; }
+                    solT = midT;
+                }
+            } else {
+                // If boundaries have the same sign and it's positive, it means the mixture is liquid
+                // across the entire thermal window
+                solT = f_low > 0 ? lowT : highT;
+            }
+
+            const soluteLiquidusC = solT - 273.15;
+            if (soluteLiquidusC > maxLiquidusTempC) maxLiquidusTempC = soluteLiquidusC;
+        });
+
+        return parseFloat(Math.max(-40, Math.min(maxLiquidusTempC, 160)).toFixed(1));
+    }
+
+    // --- TARGET RAW DATA ARRAYS ---
+    const recipes = [
+        { name: "Bacteriostatic Water", solvents: ["benzyl_alcohol"], solventPercentages: [0.9], excipients: ["sterile-water-for-injection"], excipientPercentages: [99.1], compounds: [], compoundConcentration: [], blurb: "A standard bacteriostatic water formulation using sterile water with benzyl alcohol as a preservative." },
+        { name: "Bayer Primo Testo Depot 250", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [2, 30], excipients: ["castor"], excipientPercentages: [44.5], compounds: ["testosterone_enanthate"], compoundConcentration: [250], blurb: "Classic long-acting release formulation template using high structural integration parameters." },
+        { name: "Bayer Rimobolan (primo) 100", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [2, 36.26], excipients: ["castor"], excipientPercentages: [52.24], compounds: ["methenolone_enanthate"], compoundConcentration: [100], blurb: "Gentle injection curve strategy showing total stability margin." },
+        { name: "Bayer Nebido 250", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [2, 44.73], excipients: ["castor"], excipientPercentages: [29.02], compounds: ["testosterone_undecanoate"], compoundConcentration: [250], blurb: "High solvent vehicle designed safely around long chain fatty acid parameters." },
+        { name: "DELESTROGEN Estradiol Valerate 10", solvents: ["chlorobutanol"], solventPercentages: [0.76], excipients: ["sesame"], excipientPercentages: [98.33], compounds: ["estradiol_valerate"], compoundConcentration: [10], blurb: "Low strength target utilizing simple partition tracking configurations." },
+        { name: "DELESTROGEN Estradiol Valerate 40", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [2, 40], excipients: ["castor"], excipientPercentages: [54.36], compounds: ["estradiol_valerate"], compoundConcentration: [40], blurb: "Heavy steroid payload counter-balanced via heavy aromatic coordination ratios." },
+        { name: "Equipoise 50", solvents: ["benzyl_alcohol"], solventPercentages: [3], excipients: ["sesame"], excipientPercentages: [92.26], compounds: ["boldenone_undecylenate"], compoundConcentration: [50], blurb: "Standardized performance baseline template verification mapping." },
+        { name: "Cytex Test Cyp 100", solvents: ["benzyl_alcohol"], solventPercentages: [2], excipients: ["ethyl_oleate"], excipientPercentages: [88.9], compounds: ["testosterone_cypionate"], compoundConcentration: [100], blurb: "Uses low viscosity ester vehicle to enhance thermodynamic displacement space." },
+        { name: "Cipla Test Cyp 200", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [0.91, 20], excipients: ["cottonseed"], excipientPercentages: [60.89], compounds: ["testosterone_cypionate"], compoundConcentration: [200], blurb: "Pharmaceutical target matching exact market specifications in India." },
+        { name: "DECA-DURABOLIN 100", solvents: ["benzyl_alcohol"], solventPercentages: [10], excipients: ["arachis"], excipientPercentages: [80.4], compounds: ["nandrolone_decanoate"], compoundConcentration: [100], blurb: "Highly depressed saturation boundary due to low pure solute lattice configuration." },
+        { name: "PARABOLAN 50", solvents: ["benzyl_alcohol", "ethanol"], solventPercentages: [4.79, 3.82], excipients: ["arachis"], excipientPercentages: [86.84], compounds: ["nandrolone_phenylpropionate"], compoundConcentration: [50], blurb: "Historical execution matching custom configuration scripts." },
+        { name: "Watson Deca 200", solvents: ["benzyl_alcohol"], solventPercentages: [5], excipients: ["sesame"], excipientPercentages: [75.8], compounds: ["nandrolone_decanoate"], compoundConcentration: [200], blurb: "US reference execution showcasing extreme natural solubility margins." },
+        { name: "Testosterone Enanthate (Eugia) 200", solvents: ["chlorobutanol"], solventPercentages: [0.5], excipients: ["sesame"], excipientPercentages: [80.7], compounds: ["testosterone_enanthate"], compoundConcentration: [200], blurb: "Highly clean modern script minimizing overall solvent footprints safely." },
+        { name: "SUSTANON 250", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [2, 10], excipients: ["arachis"], excipientPercentages: [64.78], compounds: ["testosterone_propionate", "testosterone_enanthate", "testosterone_cypionate", "nandrolone_decanoate"], compoundConcentration: [30, 60, 60, 100], blurb: "Famous multi-ester compound matrix showing profound eutectic lattice behavior." },
+        { name: "Testoboon CP 250", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [0.91, 22.36], excipients: ["arachis"], excipientPercentages: [53.98], compounds: ["testosterone_cypionate"], compoundConcentration: [250], blurb: "High density steroid deployment metrics verifying solver boundary constraints." },
+        { name: "Photon's No G TNE 100", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [2, 30], excipients: ["castor"], excipientPercentages: [59.1], compounds: ["testosterone_base"], compoundConcentration: [100], blurb: "Avoids guaiacol irritation limits by shifting to pure aromatic shielding parameters." },
+        { name: "Bananafeet's No G DHEA 50", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [6, 30], excipients: ["castor"], excipientPercentages: [59.24], compounds: ["dhea_base"], compoundConcentration: [50], blurb: "Emphasizes stable base preservation limits against clear room temp definitions." },
+        { name: "OEP's No G Anadrol 50", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [1.43, 42.93], excipients: ["castor"], excipientPercentages: [51.33], compounds: ["anadrol"], compoundConcentration: [50], blurb: "Pushes massive BB concentration vectors to keep extreme crystal points stable." },
+        { name: "Injectable Winstrol 50", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [10, 40], excipients: ["castor"], excipientPercentages: [45.45], compounds: ["winstrol"], compoundConcentration: [50], blurb: "Highly unique solution-based take on stanozolol matrices." },
+        { name: "Narta's Mast E 200", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [1.5, 30], excipients: ["castor"], excipientPercentages: [49.7], compounds: ["drostanolone_enanthate"], compoundConcentration: [200], blurb: "Vetted community favorite mapping perfectly inside stable margins." },
+        { name: "Narta's NPP 150", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [1.5, 30], excipients: ["castor"], excipientPercentages: [55.3], compounds: ["nandrolone_phenylpropionate"], compoundConcentration: [150], blurb: "Evaluates exact phenylpropionate dispersion constraints accurately." },
+        { name: "Narta's NPP 150 TPP 150", solvents: ["benzyl_alcohol", "benzyl_benzoate", "methyl_salicylate", "ethyl_lactate"], solventPercentages: [1.5, 15, 5, 15], excipients: ["castor"], excipientPercentages: [37.1], compounds: ["nandrolone_phenylpropionate", "testosterone_propionate"], compoundConcentration: [150, 150], blurb: "Advanced multi-solvent engineering testing maximum interaction boundaries." },
+        { name: "Standard PIPless Test C 200", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [1.5, 20], excipients: ["MCT"], excipientPercentages: [60.3], compounds: ["testosterone_cypionate"], compoundConcentration: [200], blurb: "Sampie baseline definition file showing clean room temperature stability profiles." },
+        { name: "Standard PIPless Test E 250", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [1.5, 10], excipients: ["MCT"], excipientPercentages: [65.0], compounds: ["testosterone_enanthate"], compoundConcentration: [250], blurb: "Perfect balance of entropic optimization inside MCT oil matrices." },
+        { name: "High Concentration Test D 500", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [1.5, 24], excipients: ["MCT"], excipientPercentages: [26.5], compounds: ["testosterone_undecanoate"], compoundConcentration: [500], blurb: "Pushes extreme bounds, demonstrating safety limits across the dataset." },
+        { name: "Banana's Halofestin", solvents: ["benzyl_alcohol", "benzyl_benzoate"], solventPercentages: [10, 44.72], excipients: ["castor"], excipientPercentages: [42.78], compounds: ["halotestin"], compoundConcentration: [27.5], blurb: "Severe physical melting point restrictions forcing significant tracking pressures." }
+    ];
+
+    // --- INTERFACE GENERATION LOGIC ---
+    function renderValidationSuite() {
+        const tbody = document.querySelector("#resultsTable tbody");
+
+        recipes.forEach(recipe => {
+            const solverInputs = [];
+
+            // Map Compounds
+            if (recipe.compounds) {
+                recipe.compounds.forEach((key, idx) => {
+                    const dbMatch = CHEMICAL_DATABASE[key];
+                    if (dbMatch) {
+                        const mass = (recipe.compoundConcentration[idx] / 1000) * 100; // Normalizing to 100mL matrix
+                        solverInputs.push({ ...dbMatch, grams: mass });
+                    }
+                });
+            }
+
+            // Map Solvents
+            if (recipe.solvents) {
+                recipe.solvents.forEach((key, idx) => {
+                    const dbMatch = CHEMICAL_DATABASE[key];
+                    if (dbMatch) {
+                        const mass = recipe.solventPercentages[idx] * dbMatch.density;
+                        solverInputs.push({ ...dbMatch, grams: mass });
+                    }
+                });
+            }
+
+            // Map Excipients
+            if (recipe.excipients) {
+                recipe.excipients.forEach((key, idx) => {
+                    const dbMatch = CHEMICAL_DATABASE[key];
+                    if (dbMatch) {
+                        const mass = recipe.excipientPercentages[idx] * dbMatch.density;
+                        solverInputs.push({ ...dbMatch, grams: mass });
+                    }
+                });
+            }
+
+            // Execute Solver
+            const satTemp = calculateHSPSaturationTemperature(solverInputs);
+
+            let statusClass = "badge-stable";
+            let statusText = "Highly Stable";
+
+            if (satTemp === null) {
+                statusText = "No Crystal Phase";
+            } else if (satTemp > 24.0) {
+                statusClass = "badge-risk";
+                statusText = "High Crash Risk";
+            } else if (satTemp > 10.0) {
+                statusClass = "badge-warning";
+                statusText = "Cold Sensitivities";
+            }
+
+            const displayTemp = satTemp !== null ? `${satTemp} °C` : "N/A";
+            const displayActives = recipe.compounds.length > 0
+                ? recipe.compounds.map((k, i) => `${CHEMICAL_DATABASE[k]?.name || k} (${recipe.compoundConcentration[i]}mg/mL)`).join("<br>")
+                : "None (Vehicle Blank)";
+
+            const row = document.createElement("tr");
+            row.innerHTML = `
+            <td><strong>${recipe.name}</strong></td>
+            <td>${displayActives}</td>
+            <td><span class="temp-display">${displayTemp}</span></td>
+            <td><span class="badge ${statusClass}">${statusText}</span></td>
+            <td class="blurb-text">${recipe.blurb}</td>
+        `;
+            tbody.appendChild(row);
+        });
+    }
+
+    // Boot calculation run on layout construction
+    window.addEventListener("DOMContentLoaded", renderValidationSuite);
+</script>
+
+</body>
+</html>

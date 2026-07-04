@@ -151,7 +151,7 @@ function updateFields(solutionEntry, settings, fieldType) {
         return
     }
 
-    const d = compounds.find(c => c.self_id === solutionEntry.self_id)?.density
+    const d = COMPOUNDS.find(c => c.self_id === solutionEntry.self_id)?.density
     if (typeof d === "undefined") {
         if (DEBUG) console.warn(`maths.js -> updateFields() - Density not found`);
         return
@@ -238,7 +238,7 @@ const has = (v) => v !== undefined;
 function prepareCompound(id, totalVolume, mls, grams, mgsPerMl, v_v_percent, purity) {
     if (DEBUG) console.log(`maths.js -> prepareCompound(id: ${id}, totalVolume: ${totalVolume}, mls: ${mls}, grams: ${grams}, mgsPerMl: ${mgsPerMl}, v_v_percent: ${v_v_percent}, purity: ${purity})`);
 
-    let solutionEntry = compounds[id];
+    let solutionEntry = COMPOUNDS[id];
     if (totalVolume === 0) {
         alert("Please enter a total volume");
         return;
@@ -384,6 +384,16 @@ function calculateViscosity(compounds) {
         if (compounds[i].class === "excipient") {
             viscosity.push(compounds[i].viscosityArray[0]);
             volumes.push(compounds[i].mls);
+        } else if (compounds[i].class === "ingredient") {
+            compounds[i].viscosityTempArray = [];
+            compounds[i].viscosityArray = [];
+            compounds[i].viscosityTempArray.push(37);
+            compounds[i].viscosityArray.push(estimateCompoundViscosityBasedOnEster(compounds[i]));
+            console.log(`viscosityArray: ${compounds[i].viscosityArray[0]}, ester: ${compounds[i].viscosityTempArray[0]}`);
+            if (estimateCompoundViscosityBasedOnEster(compounds[i])) {
+                viscosity.push(compounds[i].viscosityArray[0]);
+                volumes.push(compounds[i].mls);
+            }
         }
     }
 
@@ -391,6 +401,13 @@ function calculateViscosity(compounds) {
     const totalVolume = volumes.reduce((a, b) => a + b, 0);
     const fractions = volumes.map(v => v / totalVolume);
     return calculateMixtureViscosity(viscosity, fractions);
+}
+function estimateCompoundViscosityBasedOnEster(compound) {
+    let esterLength = solubility.find(c =>
+        c.member_self_ids.includes(compound.self_id)
+    );
+    if (typeof esterLength === "undefined") return 0;
+    return esterLength?.putative_viscosity;
 }
 
 function viscosityRating(v) {
@@ -406,19 +423,20 @@ function viscosityRating(v) {
     return Math.max(2, Math.min(100, score));
 }
 
-function calculateSolventPercentage(compounds, totalVolume) {
+function calculateSolventPercentage(activeCompoundArray, totalVolume) {
     if (DEBUG) console.log(`maths.js -> calculateSolventPercentage(compounds: , totalVolume: ${totalVolume})`);
 
     let solventMls = 0;
-    for (let i = 0; i < compounds.length; i++) {
-        if (compounds[i].basis === "v_v_percent") {
-            solventMls += compounds[i].mls;
+    for (let i = 0; i < activeCompoundArray.length; i++) {
+        if (activeCompoundArray[i].basis === "v_v_percent") {
+            console.log(`   -> ${activeCompoundArray[i].name} : solvent mls: ${activeCompoundArray[i].mls}`);
+            solventMls += activeCompoundArray[i].mls;
         }
     }
     return (solventMls / totalVolume) * 100
 }
 
-function calculateSolventRating(compounds, totalVolume, solventPercentage) {
+function calculateSolventRating(totalVolume, solventPercentage) {
     if (DEBUG) console.log(`maths.js -> calculateSolventRating(compounds: , totalVolume: ${totalVolume}, solventPercentage: ${solventPercentage})`);
 
     //console.log(`solventPercentage: ${solventPercentage}`);
@@ -482,15 +500,16 @@ function classifySolventRange(p) {
     return "medium_solvent_range";
 }
 
-function estimateSaturationForCompound(compound, compounds, totalVolume) {
+function estimateSaturationForCompound(compound, activeCompoundArray, totalVolume) {
     if (DEBUG) console.log(`maths.js -> estimateSaturationForCompound(compound: , compounds: , totalVolume: ${totalVolume})`);
 
     if (typeof compound === "undefined") {
+        console.warn(`  -> estimateSaturationForCompound - compound is undefined`);
         return;
     }
     //console.log(`estimateSaturationForCompound: ${compound.name}, ${compound.mg_per_ml}, ${compound.basis}`)
-    let solventPercentage = calculateSolventPercentage(compounds, totalVolume);
-
+    let solventPercentage = calculateSolventPercentage(activeCompoundArray, totalVolume);
+    console.log(`   -> solventPercentage: ${solventPercentage}`);
     let solventRange = classifySolventRange(solventPercentage);
     //.log(compound);
     //console.log(`solventRange: ${solventRange}`);
@@ -500,22 +519,27 @@ function estimateSaturationForCompound(compound, compounds, totalVolume) {
     );
 
     let rangeForCompoundForThisConcentration = esterLength?.[solventRange];
-    return rangeForCompoundForThisConcentration;
+    if (rangeForCompoundForThisConcentration) {
+        console.log(`   -> rangeForCompoundForThisConcentration: ${rangeForCompoundForThisConcentration[0]} - ${rangeForCompoundForThisConcentration[1]}`);
+        return rangeForCompoundForThisConcentration;
+    }
+    return [0,0];
 }
 
-function checkSaturation(solutionEntry, compounds, totalVolume) {
+function checkSaturation(solutionEntry, activeCompoundArray, totalVolume) {
     if (DEBUG) console.log(`maths.js -> checkSaturation(solutionEntry: ${solutionEntry}, compounds: , totalVolume: ${totalVolume})`);
 
     const range = estimateSaturationForCompound(
         solutionEntry,
-        compounds,
+        activeCompoundArray,
         totalVolume
     );
+    console.log(`range: ${range} `)
     if (typeof range === "undefined") return ""
-    if (typeof mg_per_ml === "undefined") return ""
+    if (typeof solutionEntry.mg_per_ml === "undefined") return ""
 
     const value = solutionEntry.mg_per_ml;
-    console.log(`value: ${value}, range: ${range}`);
+    console.log(`   -> checkSaturationvalue: ${value}, range: ${range}`);
     if (value <= range[0]) {
         console.log("is-valid"); // the green tick is annoying
         return "";

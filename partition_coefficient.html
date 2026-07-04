@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Testosterone Base PK Curve</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        input { margin: 5px; padding: 6px; }
+    </style>
+</head>
+<body>
+<h2>Testosterone Base Oil Depot - Serum Level Estimator</h2>
+
+<label>Dose (mg): <input type="number" id="dose" value="100"></label><br>
+<label>P (Partition Coefficient): <input type="number" id="P" value="549"></label><br>
+<label>Injection Interval (days): <input type="number" id="interval" value="14"></label><br>
+<label>Simulation Days: <input type="number" id="days" value="90"></label><br><br>
+
+<button onclick="calculateCurve()">Calculate Curve</button>
+
+<pre id="output"></pre>
+<canvas id="chart" width="900" height="450"></canvas>
+
+<script>
+    let chartInstance;
+
+    function calculateCurve() {
+        const dose = parseFloat(document.getElementById('dose').value) || 100;
+        const P = parseFloat(document.getElementById('P').value) || 549;
+        const interval = parseFloat(document.getElementById('interval').value) || 14;
+        const simDays = parseFloat(document.getElementById('days').value) || 90;
+
+        // Tuned parameters for realistic levels
+        const absorptionRate = 0.085 / (1 + P / 650);   // slower absorption with high P
+        const eliminationRate = 0.069;                   // ~10 day half-life for test base
+
+        const data = [];
+        let maxLevel = 0;
+
+        for (let t = 0; t <= simDays; t += 0.5) {
+            let concentration = 0;
+
+            const numDoses = Math.floor(t / interval) + 1;
+            for (let d = 0; d < numDoses; d++) {
+                const timeSince = t - d * interval;
+                if (timeSince >= 0) {
+                    const contrib = dose * 18 * absorptionRate *
+                        (Math.exp(-eliminationRate * timeSince) - Math.exp(-absorptionRate * timeSince));
+                    concentration += contrib;
+                }
+            }
+
+            if (concentration > maxLevel) maxLevel = concentration;
+
+            data.push({ x: t, y: Math.round(concentration) });
+        }
+
+        document.getElementById('output').innerHTML = `
+Dose: ${dose} mg every ${interval} days
+P = ${P}
+
+Estimated Peak: ~${Math.round(maxLevel)} ng/dL
+Average steady-state (rough): ~${Math.round(maxLevel * 0.65)} ng/dL
+      `;
+
+        if (chartInstance) chartInstance.destroy();
+
+        chartInstance = new Chart(document.getElementById('chart'), {
+            type: 'line',
+            data: { datasets: [{
+                    label: 'Serum Testosterone (ng/dL)',
+                    data: data,
+                    borderColor: '#2563eb',
+                    tension: 0.35
+                }]},
+            options: {
+                scales: {
+                    x: { title: { display: true, text: 'Days' }},
+                    y: { title: { display: true, text: 'Serum Testosterone (ng/dL)' }, min: 0 }
+                }
+            }
+        });
+    }
+
+    window.onload = calculateCurve;
+</script>
+</body>
+</html>

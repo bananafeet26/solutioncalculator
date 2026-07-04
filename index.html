@@ -241,7 +241,7 @@
                             <option x-text="translations.add_excipient[settings.currentLanguage] + ' 🍶'"
                                     value=""></option>
                             <template
-                                    x-for="compound in compounds.filter(c => c.basis !== 'mg_per_ml')"
+                                    x-for="compound in COMPOUNDS.filter(c => c.basis !== 'mg_per_ml')"
                                     :key="compound.self_id"
                             >
                                 <option
@@ -260,7 +260,7 @@
                                     value=""></option>
 
                             <template
-                                    x-for="compound in compounds.filter(c => c.basis === 'mg_per_ml')"
+                                    x-for="compound in COMPOUNDS.filter(c => c.basis === 'mg_per_ml')"
                                     :key="compound.self_id"
                             >
                                 <option
@@ -345,7 +345,7 @@
                                     </template>
                                     <!-- v_v_percent -->
                                     <template x-if="solutionEntry.input === 0">
-                                        <input :class="checkSolvents(solutionEntry, compounds, settings.totalVolume) + ' form-control rounded '"
+                                        <input :class="checkSolvents(solutionEntry, settings.compounds, settings.totalVolume) + ' form-control rounded '"
                                                type="text"
                                                min="0.5"
                                                max="100"
@@ -359,7 +359,7 @@
                                         <input class="form-control rounded"
                                                min="0.5"
                                                type="text"
-                                               :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
+                                               :class="checkSaturation(solutionEntry, settings.compounds, settings.totalVolume)"
                                                inputmode="decimal"
                                                max="10000"
                                                step="2.5"
@@ -492,7 +492,7 @@
                                         <input class="form-control rounded"
                                                min="0.5"
                                                type="number"
-                                               :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
+                                               :class="checkSaturation(solutionEntry, settings.compounds, settings.totalVolume)"
                                                inputmode="text"
                                                max="10000"
                                                step="2.5"
@@ -589,7 +589,7 @@
                                         <input class="form-control rounded"
                                                min="0"
                                                type="number"
-                                               :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
+                                               :class="checkSaturation(solutionEntry, settings.compounds, settings.totalVolume)"
                                                inputmode="decimal"
                                                max="10000"
                                                step="2.5"
@@ -609,7 +609,7 @@
                                         <input class="form-control rounded"
                                                min="0"
                                                type="number"
-                                               :class="checkSaturation(solutionEntry, compounds, settings.totalVolume)"
+                                               :class="checkSaturation(solutionEntry, settings.compounds, settings.totalVolume)"
                                                inputmode="decimal"
                                                max="100"
                                                step="2.5"
@@ -657,11 +657,13 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <!-- buggy
                                     <div class="invalid-feedback"
-                                         x-text="'Range for %' + calculateSolventPercentage(compounds, settings.totalVolume) + ' solvent is ' + (estimateSaturationForCompound(solutionEntry, compounds, settings.totalVolume)[0] ?? 0)  + 'mg - ' + (estimateSaturationForCompound(solutionEntry, compounds, settings.totalVolume)[1] ?? 0) + 'mg.'  ">
+                                         x-text="translations.message_compound[settings.currentLanguage](
+                                             getLowerRangeForConcentration(solutionEntry),
+                                             getUpperRangeForConcentration(solutionEntry)
+                                         )">
                                     </div>
-                                    -->
+
                                 </div>
                             </div>
                         </template>

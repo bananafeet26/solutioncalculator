@@ -28,7 +28,6 @@ function compoundApp() {
         init() {
             const ctx = document.getElementById('myChart').getContext('2d');
             this.chart = new Chart(ctx, chartSettings);
-
             // Load recipe instead
             this.selectedRecipeId = 3;
             this.updateRecipe();
@@ -88,7 +87,7 @@ function compoundApp() {
             return (this.settings.totalVolume - mls)
         },
         addCompoundRow(type) {
-            let solutionId = compounds.findIndex(c => c.self_id === this.settings.addRowSelectedCompoundId)
+            let solutionId = COMPOUNDS.findIndex(c => c.self_id === this.settings.addRowSelectedCompoundId)
 
             let remainingVolume = this.calculateRemainingVolume();
             let mls = 0;
@@ -103,8 +102,8 @@ function compoundApp() {
                     mls = 10;
                 }
             } else if (type === "ingredient") {
-                if (typeof compounds[solutionId].mg_per_ml !== "undefined") {
-                    mg_per_ml = compounds[solutionId].mg_per_ml;
+                if (typeof COMPOUNDS[solutionId].mg_per_ml !== "undefined") {
+                    mg_per_ml = COMPOUNDS[solutionId].mg_per_ml;
                 } else {
                     mg_per_ml = 100;
                 }
@@ -575,8 +574,8 @@ function compoundApp() {
                 if (this.settings.compounds[i].class === "excipient") {
                     solutionCalculatedMeasurements.title += `${this.settings.compounds[i].name} ${this.settings.compounds[i].mls.toFixed(2)}ml, `;
                 }
-                let found = compounds.find(c => c.self_id === this.settings.compounds[i].self_id);
-                let newCompound = compounds.find(c => c.self_id === found.self_id);
+                let found = COMPOUNDS.find(c => c.self_id === this.settings.compounds[i].self_id);
+                let newCompound = COMPOUNDS.find(c => c.self_id === found.self_id);
                 newCompound.mls = this.settings.compounds[i].mls;
                 newCompound.v_v_percent = this.settings.compounds[i].v_v_percent;
                 newCompound.mg_per_ml = this.settings.compounds[i].mg_per_ml;
@@ -627,6 +626,22 @@ function compoundApp() {
             const rating = Math.max(10, 100 - ((temp - 15) * 3.5));
             return Math.min(100, Math.max(0, Math.round(rating)));
         },
+        getLowerRangeForConcentration(solutionEntry) {
+            let number= estimateSaturationForCompound(solutionEntry, this.settings.compounds, this.settings.totalVolume)[0];
+            if (number) {
+                return number;
+            } else {
+                return 0;
+            }
+        },
+        getUpperRangeForConcentration(solutionEntry) {
+            let number= estimateSaturationForCompound(solutionEntry, this.settings.compounds, this.settings.totalVolume)[1];
+            if (number) {
+                return number;
+            } else {
+                return 0;
+            }
+            },
         updateRecipe() {
             /*
             {
@@ -648,7 +663,7 @@ function compoundApp() {
             }
             for (let i = 0; i < recipe.solvents.length; i++) {
                 let solvent = recipe.solvents[i];
-                let compoundId = compounds.findIndex(c => c.self_id === solvent);
+                let compoundId = COMPOUNDS.findIndex(c => c.self_id === solvent);
                 console.log(`compoundId: ${compoundId} solvent: ${solvent}`);
                 let solventPercentage = recipe.solventPercentages[i];
                 console.log(`solvent: ${solvent}, solventPercentage: ${solventPercentage}`);
@@ -658,7 +673,7 @@ function compoundApp() {
             }
             for (let i = 0; i < recipe.excipients.length; i++) {
                 let excipient = recipe.excipients[i];
-                let compoundId = compounds.findIndex(c => c.self_id === excipient);
+                let compoundId = COMPOUNDS.findIndex(c => c.self_id === excipient);
                 console.log(`compoundId: ${compoundId} excipient: ${excipient}`);
                 let excipientPercentage = recipe.excipientPercentages[i];
                 console.log(`excipient: ${excipient}, excipientPercentage: ${excipientPercentage}`);
@@ -668,7 +683,7 @@ function compoundApp() {
             }
             for (let i = 0; i < recipe.compounds.length; i++) {
                 let compound = recipe.compounds[i];
-                let compoundId = compounds.findIndex(c => c.self_id === compound);
+                let compoundId = COMPOUNDS.findIndex(c => c.self_id === compound);
                 console.log(`compoundId: ${compoundId} compound: ${compound}`);
                 let compoundConcentration = recipe.compoundConcentration[i];
                 console.log(`compound: ${compound}, compoundConcentration: ${compoundConcentration}`);
@@ -705,7 +720,7 @@ function compoundApp() {
             this.settings.viscosity = viscosityData;
             this.settings.viscosityRating = viscosityRating(viscosityData);
             this.settings.solventPercentage = calculateSolventPercentage(this.settings.compounds, this.settings.totalVolume);
-            this.settings.solventPercentageRating = calculateSolventRating(this.settings.compounds, this.settings.totalVolume, this.settings.solventPercentage);
+            this.settings.solventPercentageRating = calculateSolventRating(this.settings.totalVolume, this.settings.solventPercentage);
             this.settings.stability = calculateStability(this.settings.solventPercentage);
 
             this.settings.remainingVolume = remainingVolume;

@@ -1,4 +1,4 @@
-var compounds = [
+var COMPOUNDS = [
     {
         id: crypto.randomUUID(),
         class: 'excipient',
@@ -3532,15 +3532,16 @@ var solubility = [
         class: 'solubility',
         name: 'Long Length Esters',
         self_id: 'long_length_esters',
+        putative_viscosity: 500, //cp
         low_solvent_range: [200, 300], // 0-10%
         medium_solvent_range: [300, 400], // 20-30%
         high_solvent_range: [400, 500], // 30-50%
         co_solvent_self_id: 'benzyl_alcohol',
         member_self_ids: [
             'testosterone_decanoate',
-            'testosterone_undecanoate',
-            'dihydroboldenone_undecylenate',
             'nandrolone_decanoate',
+            'testosterone_isocaproate',
+            'boldenone_undecylenate',
         ]
     },
     {
@@ -3548,6 +3549,7 @@ var solubility = [
         class: 'solubility',
         name: 'Medium Length Esters',
         self_id: 'medium_length_esters',
+        putative_viscosity: 120, //cp
         low_solvent_range: [100, 150], // 0-10%
         medium_solvent_range: [150, 250], // 20-30%
         high_solvent_range: [250, 350], // 30-50%
@@ -3559,7 +3561,9 @@ var solubility = [
             'nandrolone_phenylpropionate',
             'dihydroboldenone_cypionate',
             'drostanolone_enanthate',
-            'methenolone_enanthate',
+            'testosterone_undecanoate', // acts like a medium chain
+            'dihydroboldenone_cypionate',
+            "trenbolone_enanthate",
         ]
     },
     {
@@ -3567,6 +3571,7 @@ var solubility = [
         class: 'solubility',
         name: 'Short Length Esters',
         self_id: 'short_length_esters',
+        putative_viscosity: 40, //cp
         low_solvent_range: [0, 50], // 0-10%
         medium_solvent_range: [50, 100], // 20-30%
         high_solvent_range: [100, 150], // 30-50%
@@ -3576,60 +3581,55 @@ var solubility = [
             'testosterone_propionate',
             'trenbolone_acetate',
             'methenolone_acetate',
+            'drostanolone_propionate',
+            'methenolone_enanthate',
+            'methenolone_acetate',
+            "boldenone_acetate",
+            "estradiol_cypionate",
+            "estradiol_enanthate",
+            "estradiol_valerate",
+            "trenbolone_hexahydrobenzylcarbonate",
         ]
-    }
-]
+    },
+    {
+        id: crypto.randomUUID(),
+        class: 'solubility',
+        name: '17aa Orals',
+        self_id: '17aa',
+        putative_viscosity: 40, //cp
+        low_solvent_range: [0, 10], // 0-10%
+        medium_solvent_range: [10, 50], // 20-30%
+        high_solvent_range: [50, 100], // 30-50%
+        co_solvent_self_id: 'benzyl_alcohol',
+        member_self_ids: [
+            'anadrol',
+            'anavar',
+            'halotestin',
+            'Superdrol',
+            'arimidex',
+            'Halotestin',
+            'dianabol',
+            "turinabol",
+            "winstrol",
+            "proviron",
+            "methyltrienolone",
+            "methyl,1,testosterone",
+            "superdrol",
+            "methyl,dht",
+            "aromasin",
+            "letrozole",
+            "pramipexole",
+            "tamoxifen",
+            "clomiphene",
+            "estradiol_base",
+            "dhea_base",
+            "trenbolone_base",
+            "testosterone_base",
+            "boldenone_base",
+            "nandrolone_base",
+            "yk11",
+            "slu-pp-332"
 
-var solubility = [
-    {
-        id: crypto.randomUUID(),
-        class: 'solubility',
-        name: 'Long Length Esters',
-        self_id: 'long_length_esters',
-        low_solvent_range: [200, 300], // 0-10%
-        medium_solvent_range: [300, 400], // 20-30%
-        high_solvent_range: [400, 500], // 30-50%
-        co_solvent_self_id: 'benzyl_alcohol',
-        member_self_ids: [
-            'testosterone_decanoate',
-            'testosterone_undecanoate',
-            'dihydroboldenone_undecylenate',
-            'nandrolone_decanoate',
-        ]
-    },
-    {
-        id: crypto.randomUUID(),
-        class: 'solubility',
-        name: 'Medium Length Esters',
-        self_id: 'medium_length_esters',
-        low_solvent_range: [100, 150], // 0-10%
-        medium_solvent_range: [150, 250], // 20-30%
-        high_solvent_range: [250, 350], // 30-50%
-        co_solvent_self_id: 'benzyl_alcohol',
-        member_self_ids: [
-            'testosterone_cypionate',
-            'testosterone_enanthate',
-            'testosterone_phenylpropionate',
-            'nandrolone_phenylpropionate',
-            'dihydroboldenone_cypionate',
-            'drostanolone_enanthate',
-            'methenolone_enanthate',
-        ]
-    },
-    {
-        id: crypto.randomUUID(),
-        class: 'solubility',
-        name: 'Short Length Esters',
-        self_id: 'short_length_esters',
-        low_solvent_range: [0, 50], // 0-10%
-        medium_solvent_range: [50, 100], // 20-30%
-        high_solvent_range: [100, 150], // 30-50%
-        co_solvent_self_id: 'benzyl_alcohol',
-        member_self_ids: [
-            'testosterone_acetate',
-            'testosterone_propionate',
-            'trenbolone_acetate',
-            'methenolone_acetate',
         ]
     }
 ]

@@ -2,7 +2,7 @@ function jsmolApp() {
     return {
         selectedId: 'benzyl_benzoate',
         customSmiles: '',
-        compounds: compounds || [],
+        compounds: COMPOUNDS || [],
         viewer: null,
         drawer: null,
         contentHtml: '',

@@ -126,7 +126,7 @@ function productData() {
             console.log(params);
             this.compound.excipients = [];
             if (params.has('self_id')) this.compound.self_id = params.get('self_id');
-            this.compoundData = compounds.find(c => c.self_id === this.compound.self_id);
+            this.compoundData = COMPOUNDS.find(c => c.self_id === this.compound.self_id);
             this.compound = this.compoundData;if (params.has('mg')) this.compound.mg_per_ml = parseFloat(params.get('mg')) || 250;
             this.compound.excipients = [];
             if (params.has('excipient1')) this.compound.excipients.push(params.get('excipient1'));
