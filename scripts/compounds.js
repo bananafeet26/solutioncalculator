@@ -689,6 +689,53 @@ var COMPOUNDS = [
     {
         id: crypto.randomUUID(),
         class: 'excipient',
+        name: 'Safflower oil',
+        translations: {
+            en: 'Safflower oil',
+            fr: 'huile de carthame',
+            es: 'aceite de cártamo',
+            de: 'Distelöl',
+            it: 'olio di cartamo',
+            nl: 'saffloerolie',
+            pt: 'óleo de cártamo',
+            ru: 'сафлоровое масло',
+            ja: 'サフラワー油',
+            zh: '红花油',
+            ko: '홍화씨유',
+            ar: 'زيت القرطم',
+            hi: 'कुसुम का तेल',
+            id: 'minyak kesumba',
+            tr: 'aspir yağı',
+            pl: 'olej krokoszowy',
+            sv: 'tistelolja',
+            da: 'safflorolie',
+            no: 'safflorolje',
+            cs: 'svělicový olej',
+            hu: 'pórsáfrányolaj',
+            vi: 'dầu hồng hoa'
+        },
+        pubchemid: 92727,
+        self_id: 'safflower',
+        molecular_weight: null, // Natural triglyceride mixture
+        density: 0.922, // Standard density at 20-25°C in g/mL
+        viscosityArray: [31, 48], // Viscosity in cP at corresponding temperatures
+        viscosityTempArray: [37, 25], // Body temp (37°C) vs Room temp (25°C)
+        mls: 0,
+        grams: 0,
+        v_v_percent: 0,
+        mg_per_ml: 0,
+        purity: 100,
+        basis: 'q.s.',
+        input: 0,
+        qsMode: false,
+        pricePerUnit: 0,
+        mol2d: null,
+        mol3d: null,
+        image: null
+    },
+    {
+        id: crypto.randomUUID(),
+        class: 'excipient',
         name: 'grapeseed oil',
         translations: {
             en: 'grapeseed oil',

@@ -19,6 +19,34 @@ function compoundApp() {
             selectedPalette: localStorage.getItem('selectedPalette') || 'nature',
             currentLanguage: localStorage.getItem('currentLanguage') || "en",
             saturationTemp: 0,
+            injectionReport: {
+                viscosityTested: 50,
+                volumeTested: 1,
+                timeTestedSeconds: 30,
+                classification: {
+                    id: 1,
+                    name: "Tier 1: Ultra-Thin Fluent",
+                    description: "Insulin syringe or fine-gauge cosmetic needle highly viable.",
+                    recommendation: "Perfect for 27G, 29G, or 30G needles using either a 1mL or 3mL barrel. Low resistance."
+                },
+                idealConfigurations: [
+                    {
+                        barrel: "1mL",
+                        gauge: 29,
+                        forceN: 18.1
+                    },
+                    {
+                        barrel: "1mL",
+                        gauge: 27,
+                        forceN: 12.7
+                    },
+                    {
+                        barrel: "1mL",
+                        gauge: 25,
+                        forceN: 11.5
+                    }
+                ]
+            },
             //meltingRating: meltingRating,
         },
         solutionData: {
@@ -717,6 +745,7 @@ function compoundApp() {
             }
             /* rating system */
             let viscosityData = calculateViscosity(this.settings.compounds)
+            this.settings.injectionReport = evaluateInjectionTier(this.settings.viscosity, 1, 30, this.settings.currentLanguage);
             this.settings.viscosity = viscosityData;
             this.settings.viscosityRating = viscosityRating(viscosityData);
             this.settings.solventPercentage = calculateSolventPercentage(this.settings.compounds, this.settings.totalVolume);

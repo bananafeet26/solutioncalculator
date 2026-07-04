@@ -525,6 +525,97 @@ function estimateSaturationForCompound(compound, activeCompoundArray, totalVolum
     }
     return [0,0];
 }
+/**
+ * Evaluates a formulation's viscosity and categorizes the recommended
+ * syringe and needle combinations based on actual injection force thresholds.
+ * * @param {number} viscosityCp - Calculated viscosity of the blend at target temp (e.g., 56)
+ * @param {number} targetVolumeMl - Target volume to be injected (e.g., 1.0, 2.5, 4.0)
+ * @param {number} targetTimeSec - Desired duration of the injection in seconds (default 15s)
+ * @returns {Object} Recommendation tier and detailed hardware configurations
+ */
+function evaluateInjectionTier(viscosityCp, targetVolumeMl, targetTimeSec = 15, languageCode) {
+    const needleSpecs = [
+        { gauge: 30, id: 0.159, lengthMm: 12.7 },
+        { gauge: 29, id: 0.184, lengthMm: 12.7 },
+        { gauge: 27, id: 0.210, lengthMm: 12.7 },
+        { gauge: 25, id: 0.260, lengthMm: 25.4 },  // 1 inch
+        { gauge: 23, id: 0.337, lengthMm: 31.75 }, // 1.25 inch
+        { gauge: 21, id: 0.514, lengthMm: 38.1 }   // 1.5 inch
+    ];
+
+    const barrelSpecs = [
+        { size: "1mL", diameterMm: 4.7 },
+        { size: "3mL", diameterMm: 8.6 }
+    ];
+
+    const frictionForceN = 5.0;
+    let feasibleConfigs = [];
+
+    for (const barrel of barrelSpecs) {
+        for (const needle of needleSpecs) {
+            const mu = viscosityCp * 0.001;
+            const L = needle.lengthMm * 0.001;
+            const r = (needle.id * 0.001) / 2;
+            const Q = (targetVolumeMl * 1e-6) / targetTimeSec;
+            const barrelRadiusM = (barrel.diameterMm * 0.001) / 2;
+            const A = Math.PI * Math.pow(barrelRadiusM, 2);
+
+            const hydrodynamicForce = (8 * mu * Q * L * A) / (Math.PI * Math.pow(r, 4));
+            const totalForceN = hydrodynamicForce + frictionForceN;
+
+            // Keep configurations under a manageable threshold
+            if (totalForceN <= 35.0) {
+                feasibleConfigs.push({
+                    barrel: barrel.size,
+                    gauge: needle.gauge,
+                    forceN: parseFloat(totalForceN.toFixed(1))
+                });
+            }
+        }
+    }
+
+    // --- STRATEGY CHANGE: Ensure we get a mix of 1mL and 3mL hardware options ---
+    const configs1mL = feasibleConfigs.filter(c => c.barrel === "1mL").slice(0, 2);
+    const configs3mL = feasibleConfigs.filter(c => c.barrel === "3mL").slice(0, 2);
+
+    // Combine them to display up to 4 balanced options in your UI grid
+    const balancedConfigs = [...configs1mL, ...configs3mL];
+
+    const hasInsulinGauge = feasibleConfigs.some(c => c.gauge >= 27);
+    const hasMidGauge = feasibleConfigs.some(c => c.gauge === 25);
+
+    // --- REVISED VISCOSITY TIER BOUNDARIES ---
+    let tier = {
+        id: 3,
+        name: translations.injectionTiers[languageCode].t3_name,
+        description:  translations.injectionTiers[languageCode].t3_desc,
+        recommendation:  translations.injectionTiers[languageCode].t3_reco
+    };
+
+    if (viscosityCp <= 20) {
+        tier = {
+            id: 1,
+            name: translations.injectionTiers[languageCode].t1_name,
+            description:  translations.injectionTiers[languageCode].t1_desc,
+            recommendation:  translations.injectionTiers[languageCode].t1_reco
+        };
+    } else if (viscosityCp > 20 && viscosityCp <= 100) {
+        tier = {
+            id: 2,
+            name: translations.injectionTiers[languageCode].t2_name,
+            description:  translations.injectionTiers[languageCode].t2_desc,
+            recommendation:  translations.injectionTiers[languageCode].t2_reco
+        };
+    }
+
+    return {
+        viscosityTested: viscosityCp,
+        volumeTested: targetVolumeMl,
+        timeTestedSeconds: targetTimeSec,
+        classification: tier,
+        idealConfigurations: balancedConfigs // Returns balanced 1mL and 3mL choices
+    };
+}
 
 function checkSaturation(solutionEntry, activeCompoundArray, totalVolume) {
     if (DEBUG) console.log(`maths.js -> checkSaturation(solutionEntry: ${solutionEntry}, compounds: , totalVolume: ${totalVolume})`);

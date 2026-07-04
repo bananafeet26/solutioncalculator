@@ -183,14 +183,16 @@
                     <div class="hr"></div>
 
                 </div>
+
                 <!--------------------------------------- Blurb --------------------------------->
 
                 <template x-if="typeof getRecipeBlurb !== 'undefined'">
                     <div class="m-2 p-1 text-wrap fst-italic">
-                        <div class="border-start border-3 border-secondary ps-3 fst-italic" x-html="getRecipeBlurb"></div>
+                        <div class="border-start border-3 border-secondary ps-3 fst-italic"
+                             x-html="getRecipeBlurb"></div>
                         <template x-if="typeof getRecipeSource !== 'undefined'">
                             <div>
-                                <small >
+                                <small>
                                     <a
                                             :href="getRecipeSource"
                                             target="_blank"
@@ -677,7 +679,57 @@
                         </div>
                     </div>
                 </div>
+                <!-- Hardware Recommendation Widget -->
+                <div class="shadow-sm mt-2">
+                    <div class="border-start border-3 border-secondary ps-3">
+                        <!-- Header & Dynamic Tier Badge -->
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="mb-0 text-body-secondary fw-bold"
+                                x-text="translations.hardwareTitle[settings.currentLanguage] || 'Recommended Hardware'"></h6>
+                            <span class="badge px-2.5 py-1.5 rounded"
+                                  :class="{
+                      'bg-success-subtle text-success border border-success-subtle': settings.injectionReport.classification.id === 1,
+                      'bg-warning-subtle text-warning border border-warning-subtle': settings.injectionReport.classification.id === 2,
+                      'bg-danger-subtle text-danger border border-danger-subtle': settings.injectionReport.classification.id === 3
+                  }"
+                                  x-text="settings.injectionReport.classification.name">
+            </span>
+                        </div>
+
+                        <!-- Description text -->
+                        <p class="small text-body-secondary mb-3"
+                           x-text="settings.injectionReport.classification.description"></p>
+
+                        <!-- Configuration Breakdown Options -->
+                        <div class="row g-2">
+                            <template x-for="config in settings.injectionReport.idealConfigurations"
+                                      :key="config.barrel + '-' + config.gauge">
+                                <div class="col-12 col-sm-6">
+                                    <div class="p-2 border border-translucent rounded bg-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <span class="small fw-bold d-block text-body"
+                                                  x-text="config.gauge + 'G Needle'"></span>
+                                            <span class="small text-body-secondary"
+                                                  x-text="'Barrel: ' + config.barrel"></span>
+                                        </div>
+                                        <div>
+                                            <span class="badge bg-body-tertiary text-body border border-translucent"
+                                                  x-text="config.forceN + ' N force'"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Clinical Note / Warning Callout -->
+                        <div class="mt-2 text-body-secondary small border-top border-translucent pt-2 d-flex align-items-start">
+                            <span class="me-1">💡</span>
+                            <span x-text="settings.injectionReport.classification.recommendation"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
         <!-------------------------------------- Batch --------------------------------------------------------->
         <div class="col-12 col-lg-4">
@@ -856,7 +908,8 @@
                             @click='downloadBatchText("xls")' class="m-1 btn btn-sm btn-secondary">
                     </button>
 
-                    <template x-if="solutionMeasurements[0].compounds.find(s => s.parent_molecule === 'testosterone' || 'nandrolone') && solutionMeasurements[0].compounds?.filter(c => c.basis === 'mg_per_ml').length === 1">
+                    <template
+                            x-if="solutionMeasurements[0].compounds.find(s => s.parent_molecule === 'testosterone' || 'nandrolone') && solutionMeasurements[0].compounds?.filter(c => c.basis === 'mg_per_ml').length === 1">
                         <div>
                             <button x-text="translations.buttons.product_insert[settings.currentLanguage] + ' 📑'"
                                     @click='generateProductInsertUrl()' class="m-1 btn btn-sm btn-secondary">
