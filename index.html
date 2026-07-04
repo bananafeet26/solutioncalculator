@@ -43,7 +43,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
 </head>
-<body class="container-fluid " x-data="compoundApp()" x-init="init(); updateChart();" :data-bs-theme="settings.theme">
+<body class="container-fluid gx-2" x-data="compoundApp()" x-init="init(); updateChart();"
+      :data-bs-theme="settings.theme">
 <div>
     <h2 class="title text-center">
         <span x-text="translations.title[settings.currentLanguage]"></span>
@@ -57,10 +58,10 @@
 </span>
         </button>
     </h2>
-    <div class="row">
+    <div class="row gx-2">
         <!-------------------------------------- Chart --------------------------------------------------------->
         <div class="col-12 col-md-6 col-lg-4 mb-2 ">
-            <div class="border rounded">
+            <div class="border rounded pb-3 p-1">
                 <!-------------------------------------- Chart  --------------------------------------->
                 <div style="position: relative;">
                     <canvas id="myChart"></canvas>
@@ -68,7 +69,7 @@
 
 
                 <!-------------------------------------- Palette Select  --------------------------------------->
-                <div class=" p-3 mb-2 ">
+                <div class=" p-2 mb-2 ">
                     <div class="input-group mb-1 col-12 col-md-4 col-lg-3">
                         <div class="input-group-prepend">
                             <span x-text='translations.palette[settings.currentLanguage] +  " 🎨"'
@@ -283,7 +284,7 @@
         </div>
         <!-------------------------------------- Formulation Control Col --------------------------------------->
         <div class="col-12 col-md-6 col-lg-4 mb-2">
-            <div class="border rounded pb-3 p-2">
+            <div class="border rounded pb-3 p-1">
                 <!-- Formulation Control -->
                 <div>
                     <!-- Volume -->
@@ -680,60 +681,64 @@
                     </div>
                 </div>
                 <!-- Hardware Recommendation Widget -->
-                <div class="shadow-sm mt-2">
-                    <div class="border-start border-3 border-secondary ps-3">
-                        <!-- Header & Dynamic Tier Badge -->
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                            <h6 class="mb-0 text-body-secondary fw-bold"
-                                x-text="translations.hardwareTitle[settings.currentLanguage] || 'Recommended Hardware'"></h6>
-                            <span class="badge px-2.5 py-1.5 rounded"
-                                  :class="{
-                      'bg-success-subtle text-success border border-success-subtle': settings.injectionReport.classification.id === 1,
-                      'bg-warning-subtle text-warning border border-warning-subtle': settings.injectionReport.classification.id === 2,
-                      'bg-danger-subtle text-danger border border-danger-subtle': settings.injectionReport.classification.id === 3
-                  }"
-                                  x-text="settings.injectionReport.classification.name">
-            </span>
+                <div class="mt-2">
+                    <div class="p-2">
+                        <div class="border-start border-3 border-secondary ps-3">
+                            <!-- Header & Dynamic Tier Badge -->
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <h6 class="mb-0 text-body-secondary fw-bold"
+                                    x-text="translations.hardwareTitle[settings.currentLanguage] || 'Recommended Hardware'"></h6>
+                                <span class="badge px-2.5 py-1.5 rounded"
+                                      :class="{
+                                          'bg-success-subtle text-success border border-success-subtle': settings.injectionReport.classification.id === 1,
+                                          'bg-warning-subtle text-warning border border-warning-subtle': settings.injectionReport.classification.id === 2,
+                                          'bg-danger-subtle text-danger border border-danger-subtle': settings.injectionReport.classification.id === 3
+                                      }"
+                                      x-text="settings.injectionReport.classification.name">
+                                </span>
+                            </div>
                         </div>
 
-                        <!-- Description text -->
                         <p class="small text-body-secondary mb-3"
                            x-text="settings.injectionReport.classification.description"></p>
 
-                        <!-- Configuration Breakdown Options -->
                         <div class="row g-2">
                             <template x-for="config in settings.injectionReport.idealConfigurations"
                                       :key="config.barrel + '-' + config.gauge">
                                 <div class="col-12 col-sm-6">
-                                    <div class="p-2 border border-translucent rounded bg-body d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <span class="small fw-bold d-block text-body"
-                                                  x-text="config.gauge + 'G Needle'"></span>
-                                            <span class="small text-body-secondary"
+                                    <div class="p-2 border border-translucent rounded bg-body d-flex align-items-center justify-content-between text-nowrap"
+                                         style="min-width: 0;">
+                                        <div class="lh-sm min-w-0 flex-grow-1 overflow-hidden me-2">
+                            <span class="fw-bold text-body text-nowrap"
+                                  style="font-size: calc(0.85rem + 0.15vw);"
+                                  x-text="config.gauge + 'G Needle'"></span>
+                                            <span class="d-block text-body-secondary style-barrel-text"
+                                                  style="font-size: 0.75rem;"
                                                   x-text="'Barrel: ' + config.barrel"></span>
                                         </div>
-                                        <div>
-                                            <span class="badge bg-body-tertiary text-body border border-translucent"
-                                                  x-text="config.forceN + ' N force'"></span>
+                                        <div class="flex-shrink-0">
+                            <span class="badge border border-translucent font-monospace py-1 px-1.5"
+                                  style="font-size: 0.75rem;"
+                                  :class="getForceClassification(config.forceN)"
+                                  x-text="config.forceN + ' N'">
+</span>
                                         </div>
                                     </div>
                                 </div>
                             </template>
                         </div>
 
-                        <!-- Clinical Note / Warning Callout -->
-                        <div class="mt-2 text-body-secondary small border-top border-translucent pt-2 d-flex align-items-start">
+                        <div class="text-body-secondary small border-translucent pt-2 d-flex">
                             <span class="me-1">💡</span>
                             <span x-text="settings.injectionReport.classification.recommendation"></span>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
         <!-------------------------------------- Batch --------------------------------------------------------->
-        <div class="col-12 col-lg-4">
-            <div class="border rounded pb-2">
+        <div class="col-12 col-lg-4 mb-1">
+            <div class="border rounded pb-3 p-1">
                 <div class="p-2  bg-warning-subtle border-bottom">
                     <h4 class="fw-bold text-center"><span
                             x-text="translations.batch_totals[settings.currentLanguage]"></span>

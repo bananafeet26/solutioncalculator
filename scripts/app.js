@@ -718,7 +718,7 @@ function compoundApp() {
                 let compoundEntry = prepareCompound(compoundId, this.settings.totalVolume, 0, 0, compoundConcentration, 0, 100);
                 this.settings.compounds.push(compoundEntry);
             }
-
+            this.settings.injectionReport = evaluateInjectionTier(this.settings.viscosity, 1, 30, this.settings.currentLanguage);
             this.updateChart();
         }, verifyPercentage(percentage) {
             if (percentage > 100) {
@@ -728,6 +728,17 @@ function compoundApp() {
             } else {
                 return percentage;
             }
+        },
+        getForceClassification (force) {
+          if (force > 30) {
+              return 'bg-danger';
+          }  else if (force > 20) {
+              return 'bg-warning';
+          } else if (force > 10) {
+              return 'bg-primary';
+          }else {
+              return 'bg-success';
+          }
         },
         updateChart() {
             if (DEBUG) console.log(`app.js -> updateChart()`);
@@ -745,8 +756,8 @@ function compoundApp() {
             }
             /* rating system */
             let viscosityData = calculateViscosity(this.settings.compounds)
-            this.settings.injectionReport = evaluateInjectionTier(this.settings.viscosity, 1, 30, this.settings.currentLanguage);
             this.settings.viscosity = viscosityData;
+            this.settings.injectionReport = evaluateInjectionTier(this.settings.viscosity, 1, 30, this.settings.currentLanguage);
             this.settings.viscosityRating = viscosityRating(viscosityData);
             this.settings.solventPercentage = calculateSolventPercentage(this.settings.compounds, this.settings.totalVolume);
             this.settings.solventPercentageRating = calculateSolventRating(this.settings.totalVolume, this.settings.solventPercentage);
