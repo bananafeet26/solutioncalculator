@@ -67,274 +67,162 @@
                     <canvas id="myChart"></canvas>
                 </div>
 
-
                 <!-------------------------------------- Palette Select  --------------------------------------->
-                <div class=" p-1 mb-1 ">
-                    <div class="input-group mb-1 col-12 col-md-4 col-lg-3">
-                        <div class="input-group-prepend">
-                            <span x-text='translations.palette[settings.currentLanguage] +  " 🎨"'
-                                  class="input-group-text" id=""></span>
+                <div class="p-1">
+                    <div class="d-flex gap-3">
+
+                        <!-- Palette Selector -->
+                        <div class="flex-grow-1 border rounded p-1">
+                            <label style="font-size: 0.75rem;" class="form-label x-small text-muted mb-1">
+                                <span x-text="translations.palette[settings.currentLanguage]"></span> 🎨
+                            </label>
+                            <select class="form-select"
+                                    x-model="settings.selectedPalette"
+                                    @change="changePalette()">
+                                <option value="nature">Nature</option>
+                                <option value="ocean">Ocean</option>
+                                <option value="sunset">Sunset</option>
+                                <option value="neon">Neon</option>
+                                <option value="unique">Unique</option>
+                            </select>
                         </div>
-                        <select
-                                class="form-select w-25 mb-1 rounded"
-                                x-model="settings.selectedPalette"
-                                @change="changePalette()"
-                        >
-                            <option value="nature">Nature</option>
-                            <option value="ocean">Ocean</option>
-                            <option value="sunset">Sunset</option>
-                            <option value="neon">Neon</option>
-                            <option value="unique">Unique</option>
 
-                        </select>
-
-                        <template x-for="color in colours">
-                            <div
-                                    style="width:60px;height:60px;display:inline-block;margin:5px;border-radius:8px"
-                                    :style="`background:${color}`"
-                            ></div>
-                        </template>
+                        <!-- Language Selector -->
+                        <div class="flex-grow-1 border rounded p-1">
+                            <label style="font-size: 0.75rem;" class="form-label small text-muted mb-1">
+                                <span x-text="translations.language_label[settings.currentLanguage]"></span> 🌐
+                            </label>
+                            <select class="form-select"
+                                    x-model="settings.currentLanguage"
+                                    @change="changeLanguage()">
+                                <template x-for="language in availableLanguages">
+                                    <option :value="language.code"
+                                            :selected="language.code === settings.currentLanguage">
+                                        <span x-text="language.name"></span>
+                                    </option>
+                                </template>
+                            </select>
+                        </div>
 
                     </div>
-                    <!-- Language Selector -->
-                    <div class="input-group mb-1 col-12 col-md-4 col-lg-3">
-                        <div class="input-group-prepend">
-                            <span x-text="translations.language_label[settings.currentLanguage] + ' 🌐'"
-                                  class="input-group-text" id=""></span>
-                        </div>
-                        <select class="form-select w-25 mb-3 rounded"
-                                x-model="settings.currentLanguage"
-                                @change="changeLanguage()">
-
-                            <template x-for="language in availableLanguages">
-                                <option :value="language.code" :selected="language.code === settings.currentLanguage">
-                                    <span x-text="language.name"></span>
-                                </option>
-                            </template>
-
-                        </select>
-
-                    </div>
-
-                    <template x-if="settings.saturationTemp !== undefined">
-                        <div>
-        <span class="small"
-              x-text="translations.saturationTemp[settings.currentLanguage] + ': ' + (settings.saturationTemp ?? 0).toFixed(1) + '%'">
-        </span>
-
-                            <div class="progress mb-1" style="height: 20px;">
-                                <div class="progress-bar progress-bar-striped"
-                                     :class="{
-                    'bg-danger': settings.saturationTemp >= 75,   'bg-warning': settings.saturationTemp >= 50 && settings.saturationTemp < 75,
-                    'bg-info': settings.saturationTemp >= 25 && settings.saturationTemp < 50,
-                    'bg-success': settings.saturationTemp < 25    }"
-                                     :style="`width: ${settings.saturationTemp ?? 0}%`"
-                                     role="progressbar"
-                                     aria-valuemin="0"
-                                     aria-valuemax="100">
-                                </div>
-                            </div>
-
-                            <span x-text="translations.message_crashing[settings.currentLanguage]"
-                                  x-show="settings.saturationTemp >= 75 && settings.saturationTemp < 100"
-                                  class="text-danger small"></span>
-                            <span x-text="translations.message_in_vivo_crystallization[settings.currentLanguage]"
-                                  x-show="settings.saturationTemp >= 100" class="text-danger small"></span>
-
-                        </div>
-                    </template>
-                    <template x-if="settings.solventPercentage !== 0">
-                        <div>
-                            <span class="small"
-                                  x-text="translations.viscosity[settings.currentLanguage] + ' ' + ((settings.viscosity ?? 0).toFixed()) + ' cP'">
-                            </span>
-                            <div class="progress mb-1" style="height: 20px;">
-                                <div class="progress-bar progress-bar-striped"
-                                     :class="{
-                                          'bg-danger': settings.viscosityRating <= 25,
-                                          'bg-warning': settings.viscosityRating > 25 && settings.viscosityRating <= 50,
-                                          'bg-info': settings.viscosityRating > 50 && settings.viscosityRating <= 75,
-                                          'bg-success': settings.viscosityRating > 75
-                                       }"
-                                     :style="`width: ${settings.viscosityRating ?? 0}%`"
-                                     role="progressbar"
-                                     aria-valuemin="0"
-                                     aria-valuemax="100">
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                    <template x-if="settings.solventPercentage !== 0">
-                        <div>
-                            <span class="small"
-                                  x-text="translations.solvents[settings.currentLanguage] + ' ' + (settings.solventPercentage.toFixed()) + ' % v.v'"></span>
-                            <div class="progress mb-1" style="height: 20px;">
-                                <div class="progress-bar progress-bar-striped"
-                                     :class="{
-                      'bg-danger': settings.solventPercentageRating <= 25,
-                      'bg-warning': settings.solventPercentageRating > 25 && settings.solventPercentageRating <= 50,
-                      'bg-info': settings.solventPercentageRating > 50 && settings.solventPercentageRating <= 75,
-                      'bg-success': settings.solventPercentageRating > 75
-                   }"
-                                     :style="`width: ${settings.solventPercentageRating}%`"
-                                     role="progressbar"
-                                     aria-valuemin="0"
-                                     aria-valuemax="100">
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                    <div class="hr"></div>
-
                 </div>
 
-                <!--------------------------------------- Blurb --------------------------------->
-
-                <template x-if="typeof getRecipeBlurb !== 'undefined'">
-                    <div class="m-2 p-1 text-wrap fst-italic">
-                        <div class="border-start border-3 border-secondary ps-3 fst-italic"
-                             x-html="getRecipeBlurb"></div>
-                        <template x-if="typeof getRecipeSource !== 'undefined'">
-                            <div>
-                                <small>
-                                    <a
-                                            :href="getRecipeSource"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="text-decoration-none"
-                                    >
-                                        View Reference
-                                    </a>
-                                </small>
-                            </div>
-                        </template>
-                    </div>
-                </template>
                 <!--------------------------------------- Select Recipe --------------------------------->
-                <div class="p-1 row">
-                    <div class="d-flex gap-1">
-                        <select
-                                class="form-select"
-                                x-model="settings.selectedRecipeId"
-                                @change="updateRecipe();"
-                        >
-                            <option x-text="translations.load_recipe[settings.currentLanguage] + ' 👨‍🍳🍽️'"
-                                    :value="undefined" disabled></option>
-                            <template x-for="recipeType in RECIPETYPES" :key="recipeType">
-                                <!-- Use optgroup for the section headers -->
-                                <optgroup :label="recipeType.toUpperCase()">
-                                    <template
-                                            x-for="recipeItem in settings.recipes.filter(r => r.type === recipeType).sort((a, b) => a.name.localeCompare(b.name))"
-                                            :key="getRecipeIndex(recipeItem.id)">
+                <div class="p-1 border rounded ">
+                    <div class="d-flex gap-3">
+                        <div class="flex-grow-1 p-1">
+                            <label style="font-size: 0.75rem;" class="form-label small text-muted mb-1">
+                                <span x-text="translations.load_recipe[settings.currentLanguage]"></span> 🌐
+                            </label>
+                            <select
+                                    class="form-select"
+                                    x-model="settings.selectedRecipeId"
+                                    @change="updateRecipe();"
+                            >
+                                <option x-text="translations.load_recipe[settings.currentLanguage] + ' 👨‍🍳🍽️'"
+                                        :value="undefined" disabled></option>
+                                <template x-for="recipeType in RECIPETYPES" :key="recipeType">
+                                    <!-- Use optgroup for the section headers -->
+                                    <optgroup :label="recipeType.toUpperCase()">
+                                        <template
+                                                x-for="recipeItem in settings.recipes.filter(r => r.type === recipeType).sort((a, b) => a.name.localeCompare(b.name))"
+                                                :key="getRecipeIndex(recipeItem.id)">
 
-                                        <option
-                                                :value="getRecipeIndex(recipeItem.id)"
-                                                :selected="getRecipeIndex(recipeItem.id) === settings.selectedRecipeId"
-                                                x-text="recipeItem.name"
-                                                :disabled="getRecipeIndex(recipeItem.id) === settings.selectedRecipeId"
-                                                >
-                                        </option>
+                                            <option
+                                                    :value="getRecipeIndex(recipeItem.id)"
+                                                    :selected="getRecipeIndex(recipeItem.id) === settings.selectedRecipeId"
+                                                    x-text="recipeItem.name"
+                                                    :disabled="getRecipeIndex(recipeItem.id) === settings.selectedRecipeId"
+                                            >
+                                            </option>
 
-                                    </template>
-                                </optgroup>
-                            </template>
+                                        </template>
+                                    </optgroup>
+                                </template>
 
-                        </select>
+                            </select>
+                        </div>
+
                     </div>
+                    <!--------------------------------------- Blurb --------------------------------->
+                    <template x-if="typeof getRecipeBlurb !== 'undefined'">
+                        <div class="m-2 p-1 text-wrap fst-italic">
+                            <div class="border-start border-3 border-secondary ps-3 fst-italic"
+                                 x-html="getRecipeBlurb"></div>
+                            <template x-if="typeof getRecipeSource !== 'undefined'">
+                                <div>
+                                    <small>
+                                        <a
+                                                :href="getRecipeSource"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="text-decoration-none"
+                                        >
+                                            View Reference
+                                        </a>
+                                    </small>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
                 </div>
 
 
-                <!--------------------------------------- Drop down form control --------------------------------->
-                <div class="p-1 row">
-                    <div class="d-flex gap-1">
-                        <select
-                                class="form-select"
-                                x-model="settings.addRowSelectedCompoundId"
-                                @change="addCompoundRow('excipient'); settings.addRowSelectedCompoundId = '';updateChart();"
-                        >
-                            <option x-text="translations.add_excipient[settings.currentLanguage] + ' 🍶'"
-                                    value=""></option>
-                            <template
-                                    x-for="compound in COMPOUNDS.filter(c => c.basis !== 'mg_per_ml')"
-                                    :key="compound.self_id"
-                            >
-                                <option
-                                        :disabled="settings.compounds.some(c => c.self_id === compound.self_id)"
-                                        :value="compound.self_id"
-                                        x-text="compound.translations?.[settings.currentLanguage] || compound.name">
-                                </option>
+                <!-- Hardware Recommendation Widget -->
+                <div class="mt-2 border rounded">
+                    <div class="p-1">
+                        <div class="border-start border-3 border-secondary ps-3">
+                            <!-- Header & Dynamic Tier Badge -->
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <h6 class="mb-0 text-body-secondary fw-bold"
+                                    x-text="translations.hardwareTitle[settings.currentLanguage] || 'Recommended Hardware'"></h6>
+                                <span class="badge px-2.5 py-1.5 rounded"
+                                      :class="{
+                                          'bg-success-subtle text-success border border-success-subtle': settings.injectionReport.classification.id === 1,
+                                          'bg-warning-subtle text-warning border border-warning-subtle': settings.injectionReport.classification.id === 2,
+                                          'bg-danger-subtle text-danger border border-danger-subtle': settings.injectionReport.classification.id === 3
+                                      }"
+                                      x-text="settings.injectionReport.classification.name">
+                                </span>
+                            </div>
+                        </div>
+
+                        <p class="small text-body-secondary mb-3"
+                           x-text="settings.injectionReport.classification.description"></p>
+
+                        <div class="row g-2">
+                            <template x-for="config in settings.injectionReport.idealConfigurations"
+                                      :key="config.barrel + '-' + config.gauge">
+                                <div class="col-12 col-sm-6">
+                                    <div class="p-1 border border-translucent rounded bg-body d-flex align-items-center justify-content-between text-nowrap"
+                                         style="min-width: 0;">
+                                        <div class="lh-sm min-w-0 flex-grow-1 overflow-hidden me-2">
+                            <span class="fw-bold text-body text-nowrap"
+                                  style="font-size: calc(0.85rem + 0.15vw);"
+                                  x-text="config.gauge + 'G Needle'"></span>
+                                            <span class="d-block text-body-secondary style-barrel-text"
+                                                  style="font-size: 0.75rem;"
+                                                  x-text="'Barrel: ' + config.barrel"></span>
+                                        </div>
+                                        <div class="flex-shrink-0">
+                            <span class="badge border border-translucent font-monospace py-1 px-1.5"
+                                  style="font-size: 0.75rem;"
+                                  :class="getForceClassification(config.forceN)"
+                                  x-text="config.forceN + ' N'">
+</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </template>
-                        </select>
-                        <select
-                                class="form-select"
-                                x-model="settings.addRowSelectedCompoundId"
-                                @change="addCompoundRow('ingredient'); settings.addRowSelectedCompoundId = '';updateChart();"
-                        >
-                            <option x-text="translations.add_compound[settings.currentLanguage] + ' 🥣'"
-                                    value=""></option>
+                        </div>
 
-                            <template
-                                    x-for="compound in COMPOUNDS.filter(c => c.basis === 'mg_per_ml')"
-                                    :key="compound.self_id"
-                            >
-                                <option
-                                        :disabled="settings.compounds.some(c => c.self_id === compound.self_id)"
-                                        :value="compound.self_id"
-                                        x-text="compound.translations?.[settings.currentLanguage] || compound.name">
-                                </option>
-                            </template>
-                        </select>
-                        <!--
-                        <button class="btn btn-outline-secondary"
-                                @click="anaylseBatch()">Analyse
-                        </button>
-                        -->
-                    </div>
-                </div>
-                <div class="d-flex flex-wrap align-items-center gap-1 p-1  border rounded">
-
-                    <div class="d-flex gap-1" role="group" aria-label="Batch Actions">
-                        <button @click='downloadBatchText("txt")'
-                                class="btn btn-sm btn-outline-secondary py-1 px-2"
-                                :title="translations.buttons.download_batch[settings.currentLanguage]">
-                            ⬇️📄 <span class="d-none d-md-inline" x-text="translations.buttons.download_batch[settings.currentLanguage]"></span>
-                        </button>
-
-                        <button @click='downloadBatchText("xls")'
-                                class="btn btn-sm btn-outline-secondary py-1 px-2"
-                                :title="translations.buttons.download_pricing[settings.currentLanguage]">
-                            ⬇️📊 <span class="d-none d-md-inline" x-text="translations.buttons.download_pricing[settings.currentLanguage]"></span>
-                        </button>
-
-                        <button @click='downloadBanana()'
-                                class="btn btn-sm btn-outline-secondary py-1 px-2"
-                                title="Download Banana">
-                            ⬇️🍌
-                        </button>
-
-                        <template x-if="solutionMeasurements[0]?.compounds?.some(s => s.parent_molecule === 'testosterone' || s.parent_molecule === 'nandrolone') && solutionMeasurements[0].compounds.filter(c => c.basis === 'mg_per_ml').length === 1">
-                            <button @click='generateProductInsertUrl()'
-                                    class="btn btn-sm btn-outline-secondary py-1 px-2"
-                                    :title="translations.buttons.product_insert[settings.currentLanguage]">
-                                🔗📑
-                            </button>
-                        </template>
-                    </div>
-
-                    <div class="vr d-none d-sm-block my-1 mx-1 text-muted" style="height: 24px;"></div>
-
-                    <div style="max-width: 180px;" class="flex-grow-1">
-                        <div class="input-group input-group-sm">
-                            <input type="file"
-                                   id="batchFileUploader"
-                                   @change="loadLocalFile($event)"
-                                   class="form-control form-control-sm border-secondary-subtle"
-                                   style="font-size: 0.75rem;"
-                                   accept=".json,.banana">
+                        <div class="text-body-secondary small border-translucent pt-2 d-flex">
+                            <span class="me-1">💡</span>
+                            <span x-text="settings.injectionReport.classification.recommendation"></span>
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </div>
         <!-------------------------------------- Formulation Control Col --------------------------------------->
@@ -396,7 +284,7 @@
                                         <input class="form-control rounded "
                                                type="text"
                                                min="0.5"
-                                               step="2.5"
+                                               step="1"
                                                x-model.number="solutionEntry.mls"
                                                @change="updateFields(solutionEntry, settings, 'mls');updateChart();"
                                         >
@@ -407,7 +295,7 @@
                                                type="text"
                                                min="0.5"
                                                max="100"
-                                               step="2.5"
+                                               step="1"
                                                x-model.number="solutionEntry.v_v_percent"
                                                @change="updateFields(solutionEntry, settings, 'v_v_percent'); updateChart();"
                                         >
@@ -481,6 +369,27 @@
                                         <div class="invalid-feedback"
                                              x-text="translations.message_bb[settings.currentLanguage]"></div>
                                     </template>
+                                </div>
+                            </div>
+                        </template>
+                        <!--------------- Saturation Temp------------------>
+                        <template x-if="settings.solventPercentage !== 0">
+                            <div>
+                            <span class="small"
+                                  x-text="translations.solvents[settings.currentLanguage] + ' ' + (settings.solventPercentage.toFixed()) + ' % v.v'"></span>
+                                <div class="progress mb-1" style="height: 20px;">
+                                    <div class="progress-bar progress-bar-striped"
+                                         :class="{
+                                      'bg-danger': settings.solventPercentageRating <= 25,
+                                      'bg-warning': settings.solventPercentageRating > 25 && settings.solventPercentageRating <= 50,
+                                      'bg-info': settings.solventPercentageRating > 50 && settings.solventPercentageRating <= 75,
+                                      'bg-success': settings.solventPercentageRating > 75
+                                   }"
+                                         :style="`width: ${settings.solventPercentageRating}%`"
+                                         role="progressbar"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100">
+                                    </div>
                                 </div>
                             </div>
                         </template>
@@ -611,6 +520,28 @@
                                 </div>
                             </div>
                         </template>
+                        <!--------------- Saturation Temp------------------>
+                        <template x-if="settings.solventPercentage !== 0">
+                            <div>
+                            <span class="small"
+                                  x-text="translations.viscosity[settings.currentLanguage] + ' ' + ((settings.viscosity ?? 0).toFixed()) + ' cP'">
+                            </span>
+                                <div class="progress mb-1" style="height: 20px;">
+                                    <div class="progress-bar progress-bar-striped"
+                                         :class="{
+                                          'bg-danger': settings.viscosityRating <= 25,
+                                          'bg-warning': settings.viscosityRating > 25 && settings.viscosityRating <= 50,
+                                          'bg-info': settings.viscosityRating > 50 && settings.viscosityRating <= 75,
+                                          'bg-success': settings.viscosityRating > 75
+                                       }"
+                                         :style="`width: ${settings.viscosityRating ?? 0}%`"
+                                         role="progressbar"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
                     </div>
                     <!-- mg_per_ml -->
                     <div class="form-group">
@@ -733,59 +664,84 @@
                             </strong>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- Hardware Recommendation Widget -->
-                <div class="mt-2">
-                    <div class="p-1">
-                        <div class="border-start border-3 border-secondary ps-3">
-                            <!-- Header & Dynamic Tier Badge -->
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <h6 class="mb-0 text-body-secondary fw-bold"
-                                    x-text="translations.hardwareTitle[settings.currentLanguage] || 'Recommended Hardware'"></h6>
-                                <span class="badge px-2.5 py-1.5 rounded"
-                                      :class="{
-                                          'bg-success-subtle text-success border border-success-subtle': settings.injectionReport.classification.id === 1,
-                                          'bg-warning-subtle text-warning border border-warning-subtle': settings.injectionReport.classification.id === 2,
-                                          'bg-danger-subtle text-danger border border-danger-subtle': settings.injectionReport.classification.id === 3
-                                      }"
-                                      x-text="settings.injectionReport.classification.name">
+                        <!--------------- Saturation Temp------------------>
+                        <template x-if="settings.saturationTemp !== undefined">
+                            <div>
+                                <span class="small"
+                                x-text="translations.saturationTemp[settings.currentLanguage] + ': ' + (settings.saturationTemp ?? 0).toFixed(1) + '%'">
                                 </span>
-                            </div>
-                        </div>
 
-                        <p class="small text-body-secondary mb-3"
-                           x-text="settings.injectionReport.classification.description"></p>
-
-                        <div class="row g-2">
-                            <template x-for="config in settings.injectionReport.idealConfigurations"
-                                      :key="config.barrel + '-' + config.gauge">
-                                <div class="col-12 col-sm-6">
-                                    <div class="p-1 border border-translucent rounded bg-body d-flex align-items-center justify-content-between text-nowrap"
-                                         style="min-width: 0;">
-                                        <div class="lh-sm min-w-0 flex-grow-1 overflow-hidden me-2">
-                            <span class="fw-bold text-body text-nowrap"
-                                  style="font-size: calc(0.85rem + 0.15vw);"
-                                  x-text="config.gauge + 'G Needle'"></span>
-                                            <span class="d-block text-body-secondary style-barrel-text"
-                                                  style="font-size: 0.75rem;"
-                                                  x-text="'Barrel: ' + config.barrel"></span>
-                                        </div>
-                                        <div class="flex-shrink-0">
-                            <span class="badge border border-translucent font-monospace py-1 px-1.5"
-                                  style="font-size: 0.75rem;"
-                                  :class="getForceClassification(config.forceN)"
-                                  x-text="config.forceN + ' N'">
-</span>
-                                        </div>
+                                <div class="progress mb-1" style="height: 20px;">
+                                    <div class="progress-bar progress-bar-striped"
+                                         :class="{
+                                            'bg-danger': settings.saturationTemp >= 75,   'bg-warning': settings.saturationTemp >= 50 && settings.saturationTemp < 75,
+                                            'bg-info': settings.saturationTemp >= 25 && settings.saturationTemp < 50,
+                                            'bg-success': settings.saturationTemp < 25    }"
+                                         :style="`width: ${settings.saturationTemp ?? 0}%`"
+                                         role="progressbar"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100">
                                     </div>
                                 </div>
-                            </template>
-                        </div>
 
-                        <div class="text-body-secondary small border-translucent pt-2 d-flex">
-                            <span class="me-1">💡</span>
-                            <span x-text="settings.injectionReport.classification.recommendation"></span>
+                                <span x-text="translations.message_crashing[settings.currentLanguage]"
+                                      x-show="settings.saturationTemp >= 75 && settings.saturationTemp < 100"
+                                      class="text-danger small"></span>
+                                <span x-text="translations.message_in_vivo_crystallization[settings.currentLanguage]"
+                                      x-show="settings.saturationTemp >= 100" class="text-danger small"></span>
+
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                <!--------------------------------------- Drop down form control --------------------------------->
+                <div class="mt-2">
+                    <div class="d-flex gap-3">
+                        <div class="flex-grow-1">
+                            <select
+                                    class="form-select"
+                                    x-model="settings.addRowSelectedCompoundId"
+                                    @change="addCompoundRow('excipient'); settings.addRowSelectedCompoundId = '';updateChart();"
+                            >
+                                <option x-text="translations.add_excipient[settings.currentLanguage] + ' 🍶'"
+                                        value=""></option>
+                                <template
+                                        x-for="compound in COMPOUNDS.filter(c => c.basis !== 'mg_per_ml')"
+                                        :key="compound.self_id"
+                                >
+                                    <option
+                                            :disabled="settings.compounds.some(c => c.self_id === compound.self_id)"
+                                            :value="compound.self_id"
+                                            x-text="compound.translations?.[settings.currentLanguage] || compound.name">
+                                    </option>
+                                </template>
+                            </select>
+                        </div>
+                        <div class="flex-grow-1">
+                            <select
+                                    class="form-select"
+                                    x-model="settings.addRowSelectedCompoundId"
+                                    @change="addCompoundRow('ingredient'); settings.addRowSelectedCompoundId = '';updateChart();"
+                            >
+                                <option x-text="translations.add_compound[settings.currentLanguage] + ' 🥣'"
+                                        value=""></option>
+
+                                <template
+                                        x-for="compound in COMPOUNDS.filter(c => c.basis === 'mg_per_ml')"
+                                        :key="compound.self_id"
+                                >
+                                    <option
+                                            :disabled="settings.compounds.some(c => c.self_id === compound.self_id)"
+                                            :value="compound.self_id"
+                                            x-text="compound.translations?.[settings.currentLanguage] || compound.name">
+                                    </option>
+                                </template>
+                            </select>
+                            <!--
+                            <button class="btn btn-outline-secondary"
+                                    @click="anaylseBatch()">Analyse
+                            </button>
+                            -->
                         </div>
                     </div>
                 </div>
@@ -798,16 +754,21 @@
                     <h4 class="fw-bold text-center d-flex align-items-center justify-content-center gap-2">
                         <span x-text="translations.batch_totals[settings.currentLanguage]"></span>
 
-                        <template x-if="typeof settings.selectedRecipeId !== 'undefined' && settings.recipes[settings.selectedRecipeId]">
+
+                    </h4>
+                    <h7 class="fw-bold text-center d-flex align-items-center justify-content-center gap-2">
+                        <template
+                                x-if="typeof settings.selectedRecipeId !== 'undefined' && settings.recipes[settings.selectedRecipeId]">
                             <!-- Styled input that blends seamlessly into the h4 header -->
                             <input
                                     type="text"
                                     x-model="settings.recipes[settings.selectedRecipeId].name"
-                                    class="form-control-plaintext fw-bold text-center p-0 w-auto d-inline-block border-bottom border-dark border-opacity-10 focus-ring"
+                                    class="form-control-plaintext fw-bold text-center p-0 w-auto d-inline-block border border-opacity-10 focus-ring"
                                     style="min-width: 150px; outline: none;"
                             />
-                        </template>
-                    </h4>
+                        </template>✏️
+
+                    </h7>
                 </div>
                 <template x-for="solutionMeasurement in solutionMeasurements" :key="solutionMeasurement.id">
                     <div>
@@ -965,7 +926,63 @@
                         </div>
                     </div>
                 </template>
-                <br/>
+                <!--------------------------------------- Download group --------------------------------->
+                <div class="mt-2 border rounded">
+                    <div class=" d-flex flex-wrap align-items-center gap-2 p-1">
+
+                        <!-- Main Download Group -->
+                        <div class="d-flex gap-1 flex-wrap" role="group" aria-label="Batch Actions">
+
+                            <button @click='downloadBatchText("txt")'
+                                    class="btn btn-sm btn-primary py-1 px-2"
+                                    :title="translations.buttons.download_batch[settings.currentLanguage]">
+                                ⬇️📄 <span class=".d-none .d-sm-block"
+                                          x-text="translations.buttons.download_batch[settings.currentLanguage]"></span>
+                            </button>
+
+                            <button @click='downloadBatchText("xls")'
+                                    class="btn btn-sm btn-primary py-1 px-2"
+                                    :title="translations.buttons.download_pricing[settings.currentLanguage]">
+                                ⬇️📊 <span class=".d-none .d-sm-block"
+                                          x-text="translations.buttons.download_pricing[settings.currentLanguage]"></span>
+                            </button>
+
+                            <!-- Banana Download + Upload in one row -->
+                            <div class="d-flex gap-1">
+                                <button @click='downloadBanana()'
+                                        class="btn btn-sm btn-primary py-1 px-2"
+                                        :title="translations.buttons.download_recipe[settings.currentLanguage]">
+                                    ⬇️🍌 <span class=".d-none .d-sm-block"
+                                              x-text="translations.buttons.download_recipe[settings.currentLanguage]"></span>
+                                </button>
+
+                                <button type="button"
+                                        @click="$refs.batchFileUploader.click()"
+                                        class="btn btn-sm btn-primary py-1 px-2"
+                                        :title="translations.buttons.upload_recipe[settings.currentLanguage]">
+                                    ⬆️🍌 <span class=".d-none .d-sm-block "
+                                              x-text="translations.buttons.upload_recipe[settings.currentLanguage]"></span>
+                                </button>
+                            </div>
+
+                            <!-- Hidden File Input -->
+                            <input type="file"
+                                   x-ref="batchFileUploader"
+                                   @change="loadLocalFile($event)"
+                                   accept=".json,.banana"
+                                   class="d-none">
+                        </div>
+
+
+                    </div>
+                    <!-- Product Insert Link -->
+                    <a @click='generateProductInsertUrl()'
+                       class="  gap-1 text-decoration-none ms-auto"
+                       :title="translations.buttons.product_insert[settings.currentLanguage]">
+                        🔗 <span class=".d-none .d-sm-block"
+                                x-text="translations.buttons.product_insert[settings.currentLanguage]"></span>
+                    </a>
+                </div>
 
             </div>
         </div>

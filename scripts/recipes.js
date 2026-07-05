@@ -675,6 +675,19 @@ var recipes = [
         blurb: `This from from the 1958 patent "Injectable steroid hormone preparations and method of making same"; presented for educational purposes (really). `,
         source: `https://patents.google.com/patent/US2840508A/en`,
     },
+    {
+        id: crypto.randomUUID(),
+        type: "experimental",
+        name: "Banana's 100 blend",
+        solvents: ["benzyl_alcohol","benzyl_benzoate",],
+        solventPercentages: [10,44.72271914132378],
+        excipients: ["castor"],
+        excipientPercentages: [36.17132847772383,],
+        compounds: ["testosterone_base","proviron","dhea_base"],
+        compoundConcentration: [50,25,25],
+        blurb: `Experimental blend`,
+        source: undefined,
+    },
 ]
 ;
 

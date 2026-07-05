@@ -19,6 +19,7 @@ function compoundApp() {
             selectedPalette: localStorage.getItem('selectedPalette') || 'nature',
             currentLanguage: localStorage.getItem('currentLanguage') || "en",
             saturationTemp: 0,
+            recipeName: "edit me",
             injectionReport: {
                 viscosityTested: 50,
                 volumeTested: 1,
@@ -568,26 +569,51 @@ function compoundApp() {
                 compoundConcentration: [],
             }
             let ingredients = this.solutionMeasurements[0].compounds;
-            let name = this.settings.recipes[this.settings.selectedRecipeId].name || "unnamed banana";
+            //console.log(`recipeId: ${this.settings.selectedRecipeId} `);
+            let name = this.settings.recipeName || "unnamed banana";
+            let solventString = '';
+            let excipientString = '';
+            let solventPercentageString ='';
+            let excipientPercentageString = '';
+            let ingredientString = '';
+            let ingredientPercentageString = '';
             for (let i = 0; i < ingredients.length; i++) {
-                console.log(ingredients[i]);
+                //console.log(ingredients[i]);
                 if (ingredients[i].basis === 'v_v_percent') {
                     banana.solvents.push(ingredients[i].self_id);
                     banana.solventPercentages.push(ingredients[i].v_v_percent);
+                    solventString += '"' +ingredients[i].self_id + '"' + ",";
+                    solventPercentageString += ingredients[i].v_v_percent + ",";
                 }
                 if (ingredients[i].basis === 'q.s.') {
 
                     banana.excipients.push(ingredients[i].self_id);
                     banana.excipientPercentages.push(ingredients[i].v_v_percent);
+                    excipientString += '"' + ingredients[i].self_id + '"' + ",";
+                    excipientPercentageString += ingredients[i].v_v_percent + ",";
                 }
                 if (ingredients[i].basis === 'mg_per_ml') {
-
+                    ingredientString += '"' + ingredients[i].self_id + '"' +",";
+                    ingredientPercentageString += ingredients[i].mg_per_ml + ",";
                     banana.compounds.push(ingredients[i].self_id);
                     banana.compoundConcentration.push(ingredients[i].mg_per_ml);
                 }
             }
             banana.name = name;
-            console.log(banana);
+
+            console.log(`{
+             id: crypto.randomUUID(),
+             type: "experimental",
+             name: "${name}",
+             solvents: [${solventString}],
+             solventPercentages: [${solventPercentageString}],
+             excipients: [${excipientString}],
+             excipientPercentages: [${excipientPercentageString}],
+             compounds: [${ingredientString}],
+             compoundConcentration: [${ingredientPercentageString}],
+             blurb: \`Experimental blend\`,
+             source: undefined,
+             },`);
             let bananaJSON = JSON.stringify(banana);
             const lines = JSON.stringify(bananaJSON);
             // Create text blob
@@ -827,6 +853,7 @@ function compoundApp() {
                 let compoundEntry = prepareCompound(compoundId, this.settings.totalVolume, 0, 0, compoundConcentration, 0, 100);
                 this.settings.compounds.push(compoundEntry);
             }
+            this.settings.recipeName = recipe.name;
             this.settings.injectionReport = evaluateInjectionTier(this.settings.viscosity, 1, 30, this.settings.currentLanguage);
             this.updateChart();
         }, verifyPercentage(percentage) {
