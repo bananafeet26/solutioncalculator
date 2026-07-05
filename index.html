@@ -135,8 +135,11 @@
                                 </div>
                             </div>
 
-                            <span x-text="translations.message_crashing[settings.currentLanguage]" x-show="settings.saturationTemp >= 75 && settings.saturationTemp < 100" class="text-danger small"></span>
-                            <span x-text="translations.message_in_vivo_crystallization[settings.currentLanguage]" x-show="settings.saturationTemp >= 100" class="text-danger small"></span>
+                            <span x-text="translations.message_crashing[settings.currentLanguage]"
+                                  x-show="settings.saturationTemp >= 75 && settings.saturationTemp < 100"
+                                  class="text-danger small"></span>
+                            <span x-text="translations.message_in_vivo_crystallization[settings.currentLanguage]"
+                                  x-show="settings.saturationTemp >= 100" class="text-danger small"></span>
 
                         </div>
                     </template>
@@ -216,19 +219,57 @@
                                 @change="updateRecipe();"
                         >
                             <option x-text="translations.load_recipe[settings.currentLanguage] + ' 👨‍🍳🍽️'"
-                                    value=""></option>
+                                    :value="undefined" disabled></option>
+
+                            <option disabled>──────── USER RECIPES ───────</option>
+
                             <template
-                                    x-for="(recipeItem, index) in settings.recipes"
-                                    :key="index">
+                                    x-for="recipeItem in settings.recipes.filter(r => r.type === 'user').sort((a, b) => a.name.localeCompare(b.name))"
+                                    :key="recipeItem.id">
                                 <option
-                                        :disabled="settings.compounds.some(c => c.index === index)"
-                                        :value="index"
-                                        :selected="settings.selectedRecipeId === index"
+                                        :disabled="settings.compounds.some(c => c.index === settings.recipes.indexOf(recipeItem))"
+                                        :value="settings.recipes.indexOf(recipeItem)"
                                         x-text="recipeItem.name">
                                 </option>
                             </template>
-                        </select>
 
+                            <option disabled>────────── 17AA ──────────</option>
+
+                            <template
+                                    x-for="recipeItem in settings.recipes.filter(r => r.type === '17aa').sort((a, b) => a.name.localeCompare(b.name))"
+                                    :key="recipeItem.id">
+                                <option
+                                        :disabled="settings.compounds.some(c => c.index === settings.recipes.indexOf(recipeItem))"
+                                        :value="settings.recipes.indexOf(recipeItem)"
+                                        x-text="recipeItem.name">
+                                </option>
+                            </template>
+
+                            <option disabled>────────── PHARMA ──────────</option>
+
+                            <template
+                                    x-for="recipeItem in settings.recipes.filter(r => r.type === 'pharma').sort((a, b) => a.name.localeCompare(b.name))"
+                                    :key="recipeItem.id">
+                                <option
+                                        :disabled="settings.compounds.some(c => c.index === settings.recipes.indexOf(recipeItem))"
+                                        :value="settings.recipes.indexOf(recipeItem)"
+                                        x-text="recipeItem.name">
+                                </option>
+                            </template>
+
+                            <option disabled>────────── EXPERIMENTAL ──────────</option>
+
+                            <template
+                                    x-for="recipeItem in settings.recipes.filter(r => r.type === 'experimental').sort((a, b) => a.name.localeCompare(b.name))"
+                                    :key="recipeItem.id">
+                                <option
+                                        :disabled="settings.compounds.some(c => c.index === settings.recipes.indexOf(recipeItem))"
+                                        :value="settings.recipes.indexOf(recipeItem)"
+                                        x-text="recipeItem.name">
+                                </option>
+                            </template>
+
+                        </select>
                     </div>
                 </div>
 

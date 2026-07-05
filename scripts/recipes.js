@@ -1,6 +1,7 @@
 var recipes = [
     {
         id: crypto.randomUUID(),
+        type: "pharma",
         name: "Bacteriostatic Water",
         solvents: ["benzyl_alcohol"],
         solventPercentages: [0.9],
@@ -13,6 +14,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
+        type: "pharma",
         name: "Bayer Primo Testo Depot 250",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2, 30],
@@ -25,6 +27,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
+        type: "pharma",
         name: "Bayer Rimobolan (primo) 100",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2, 36.261180679785326],
@@ -38,6 +41,7 @@ var recipes = [
     {
         // Source: https://www.medicines.org.uk/emc/files/pil.14631.pdf
         id: crypto.randomUUID(),
+        type: "pharma",
         name: "Bayer Nebido 250",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2, 44.73],
@@ -51,6 +55,7 @@ var recipes = [
     {
         // Source: https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=e8f94df9-0692-4462-a7f0-fe019a0a3f07
         id: crypto.randomUUID(),
+        type: "pharma",
         name: "DELESTROGEN Estradiol Valerate 10",
         solvents: ["chlorobutanol"],
         solventPercentages: [0.76],
@@ -65,6 +70,7 @@ var recipes = [
         // Source: https://dailymed.nlm.nih.gov/dailymed/lookup.cfm?setid=e8f94df9-0692-4462-a7f0-fe019a0a3f07
         id: crypto.randomUUID(),
         name: "DELESTROGEN Estradiol Valerate 40",
+        type: "pharma",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2, 40],
         excipients: ["castor"],
@@ -78,6 +84,7 @@ var recipes = [
         // Source: https://www.drugs.com/vet/equipoise.html
         id: crypto.randomUUID(),
         name: "Equipoise 50",
+        type: "pharma",
         solvents: ["benzyl_alcohol"],
         solventPercentages: [3],
         excipients: ["sesame"],
@@ -90,6 +97,7 @@ var recipes = [
     {
         id: crypto.randomUUID(),
         name: "Cytex Test Cyp 100",
+        type: "pharma",
         solvents: ["benzyl_alcohol"],
         solventPercentages: [2],
         excipients: ["ethyl_oleate"],
@@ -102,6 +110,7 @@ var recipes = [
     {
         id: crypto.randomUUID(),
         name: "Cipla Test Cyp 200",
+        type: "pharma",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [0.91, 20],
         excipients: ["cottonseed"],
@@ -114,6 +123,7 @@ var recipes = [
     {
         id: crypto.randomUUID(),
         name: "DECA-DURABOLIN 100",
+        type: "pharma",
         solvents: ["benzyl_alcohol"],
         solventPercentages: [10],
         excipients: ["arachis"],
@@ -126,6 +136,7 @@ var recipes = [
     {
         id: crypto.randomUUID(),
         name: "PARABOLAN 50",
+        type: "pharma",
         solvents: ["benzyl_alcohol", "ethanol"],
         solventPercentages: [4.79, 3.82],
         excipients: ["arachis"],
@@ -139,6 +150,7 @@ var recipes = [
         // Source: https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=a586b484-1b46-40b9-9508-fd28002ad383&type=display
         id: crypto.randomUUID(),
         name: "Watson Deca 200",
+        type: "pharma",
         solvents: ["benzyl_alcohol"],
         solventPercentages: [5],
         excipients: ["sesame"],
@@ -151,6 +163,7 @@ var recipes = [
     {
         // Source: https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=82a98132-9d5f-40a5-8c4f-f52f2a5de60e
         id: crypto.randomUUID(),
+        type: "pharma",
         name: "Testosterone Enanthate (Eugia) 200",
         solvents: ["chlorobutanol"],
         solventPercentages: [0.5],
@@ -164,6 +177,7 @@ var recipes = [
     {
         // Source: https://www.medsafe.govt.nz/profs/datasheet/s/sustanoninj.pdf
         id: crypto.randomUUID(),
+        type: "pharma",
         name: "SUSTANON 250",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2, 10],
@@ -176,6 +190,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
+        type: "pharma",
         name: "Testoboon CP 250",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [0.91, 22.362],
@@ -188,6 +203,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
+        type: "user",
         name: "Photon's No G TNE 100",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2, 30],
@@ -200,6 +216,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
+        type: "user",
         name: "Bananafeet's No G DHEA 50",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [6, 30],
@@ -212,6 +229,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
+        type: "17aa",
         name: "OEP's No G Anadrol 50",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.4375, 42.9299],
@@ -224,6 +242,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
+        type: "17aa",
         name: "Injectable Winstrol 50",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [10, 40],
@@ -238,6 +257,7 @@ var recipes = [
         // original is weak. made it a bit stronger (double)
         // source https://web.archive.org/web/20210126120007/https://steroid.to/sten-testosterone-cypionate-propionate
         id: crypto.randomUUID(),
+        type: "pharma",
         name: "STEN recipe",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2.5, 20],
@@ -252,6 +272,7 @@ var recipes = [
     {
         // Source: https://thinksteroids.com/community/threads/castor-oil-experiments.134414781/
         id: crypto.randomUUID(),
+        type: "user",
         name: "Narta's Mast E 200",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 30],
@@ -265,6 +286,7 @@ var recipes = [
     {
         // Source: https://thinksteroids.com/community/threads/castor-oil-experiments.134414781/
         id: crypto.randomUUID(),
+        type: "user",
         name: "Narta's NPP 150",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 30],
@@ -278,6 +300,7 @@ var recipes = [
     {
         // Source: https://thinksteroids.com/community/threads/castor-oil-experiments.134414781/post-3409477
         id: crypto.randomUUID(),
+        type: "user",
         name: "Narta's NPP 150 TPP 150",
         solvents: ["benzyl_alcohol", "benzyl_benzoate", "methyl_salicylate", "ethyl_lactate"],
         solventPercentages: [1.5, 15, 5, 15],
@@ -291,6 +314,7 @@ var recipes = [
     {
         // Source: https://thinksteroids.com/community/threads/castor-oil-experiments.134414781/
         id: crypto.randomUUID(),
+        type: "user",
         name: "Narta's Test Iso 400",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 40],
@@ -304,6 +328,7 @@ var recipes = [
     {
         // Source: https://thinksteroids.com/community/threads/castor-oil-experiments.134414781/post-3409477
         id: crypto.randomUUID(),
+        type: "user",
         name: "Narta's Test Iso 400",
         solvents: ["benzyl_alcohol", "benzyl_benzoate", "methyl_salicylate", "ethyl_lactate"],
         solventPercentages: [1.5, 15, 5, 15],
@@ -318,6 +343,7 @@ var recipes = [
     {
         // Source: https://thinksteroids.com/community/threads/castor-oil-experiments.134414781/
         id: crypto.randomUUID(),
+        type: "user",
         name: "Narta's Test D 350",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 30],
@@ -331,6 +357,7 @@ var recipes = [
     {
         // Source: https://thinksteroids.com/community/threads/castor-oil-experiments.134414781/
         id: crypto.randomUUID(),
+        type: "user",
         name: "Narta's Test D 500",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 40],
@@ -344,6 +371,7 @@ var recipes = [
     {
         // Source: https://thinksteroids.com/community/threads/castor-oil-experiments.134414781/post-3409477
         id: crypto.randomUUID(),
+        type: "user",
         name: "Narta's Test D 500",
         solvents: ["benzyl_alcohol", "benzyl_benzoate", "methyl_salicylate", "ethyl_lactate"],
         solventPercentages: [1.5, 15, 5, 15],
@@ -358,6 +386,7 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232
         id: crypto.randomUUID(),
+        type: "user",
         name: "Standard PIPless Test C",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 20],
@@ -370,6 +399,8 @@ var recipes = [
     },
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
+        id: crypto.randomUUID(),
+        type: "user",
         name: "Standard PIPless Deca",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 20],
@@ -382,6 +413,8 @@ var recipes = [
     },
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
+        id: crypto.randomUUID(),
+        type: "user",
         name: "Standard PIPless Tren E",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 20],
@@ -395,6 +428,8 @@ var recipes = [
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
         name: "Standard PIPless Tren A",
+        id: crypto.randomUUID(),
+        type: "user",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 20],
         excipients: ["MCT"],
@@ -406,6 +441,8 @@ var recipes = [
     },
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
+        id: crypto.randomUUID(),
+        type: "user",
         name: "Standard PIPless NPP",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 20],
@@ -418,6 +455,8 @@ var recipes = [
     },
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
+        id: crypto.randomUUID(),
+        type: "user",
         name: "Standard PIPless Test Prop",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 20],
@@ -430,6 +469,8 @@ var recipes = [
     },
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
+        id: crypto.randomUUID(),
+        type: "user",
         name: "Standard PIPless EQ 500",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 18],
@@ -442,6 +483,8 @@ var recipes = [
     },
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
+        id: crypto.randomUUID(),
+        type: "user",
         name: "Standard PIPless Mast E 200",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 15],
@@ -454,6 +497,8 @@ var recipes = [
     },
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
+        id: crypto.randomUUID(),
+        type: "user",
         name: "Standard PIPless Test E 250",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 10],
@@ -466,6 +511,8 @@ var recipes = [
     },
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
+        id: crypto.randomUUID(),
+        type: "user",
         name: "Standard PIPless Primo E 200",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 10],
@@ -479,6 +526,8 @@ var recipes = [
 
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
+        id: crypto.randomUUID(),
+        type: "user",
         name: "High Concentration Test C 250",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 25],
@@ -491,6 +540,8 @@ var recipes = [
     },
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
+        id: crypto.randomUUID(),
+        type: "user",
         name: "High Concentration Mast E 300",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 22],
@@ -503,6 +554,8 @@ var recipes = [
     },
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
+        id: crypto.randomUUID(),
+        type: "user",
         name: "High Concentration Test D 500",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 24],
@@ -516,6 +569,8 @@ var recipes = [
 
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
+        id: crypto.randomUUID(),
+        type: "user",
         name: "High Concentration Test U 200",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 25],
@@ -528,6 +583,8 @@ var recipes = [
     },
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
+        id: crypto.randomUUID(),
+        type: "user",
         name: "High Concentration Test U 250",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 40],
@@ -540,6 +597,8 @@ var recipes = [
     },
     {
         // Source:    https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232     id: crypto.randomUUID(),
+        id: crypto.randomUUID(),
+        type: "user",
         name: "High Concentration Test U 350",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [1.5, 50],
@@ -552,6 +611,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
+        type: "user",
         name: "Banana's 250 test d",
         solvents: ["benzyl_alcohol"],
         solventPercentages: [5],
@@ -564,6 +624,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
+        type: "experimental",
         name: "Banana's E2 enanthate 20",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [2.5, 20],
@@ -576,6 +637,7 @@ var recipes = [
     },
     {
         id: crypto.randomUUID(),
+        type: "experimental",
         name: "Banana's 175",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [10, 44.72271914132378],
@@ -587,13 +649,14 @@ var recipes = [
         source: undefined,
     },{
         id: crypto.randomUUID(),
+        type: "experimental",
         name: "Banana's Halofestin",
         solvents: ["benzyl_alcohol", "benzyl_benzoate"],
         solventPercentages: [10, 44.72271914132378],
         excipients: ["castor"],
         excipientPercentages: [42.7750060634078],
         compounds: ["halotestin"],
-        compoundConcentration: [27.5],
+        compoundConcentration: [20],
         blurb: `Experimental blend`,
         source: undefined,
     },
@@ -601,6 +664,7 @@ var recipes = [
         // don't brew this
         // https://patents.google.com/patent/US2840508A/en
         id: crypto.randomUUID(),
+        type: "experimental",
         name: "US2840508A - Example 9",
         solvents: ["ethyl_lactate", "phenyl_salicylate"],
         solventPercentages: [19.41747572815534, 16],

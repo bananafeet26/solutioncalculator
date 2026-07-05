@@ -14,7 +14,7 @@ function compoundApp() {
             stability: 0,
             isSmall: true,
             recipes: recipes,
-            selectedRecipeId: 2,
+            selectedRecipeId: 44,
             theme: localStorage.getItem('theme') || 'light',
             selectedPalette: localStorage.getItem('selectedPalette') || 'nature',
             currentLanguage: localStorage.getItem('currentLanguage') || "en",
@@ -112,6 +112,9 @@ function compoundApp() {
                     }
                 }
             }
+            console.log(`mls: ${mls}`);
+            mls = Math.round(mls * 100) / 100;
+            console.log(`mls: ${mls}`);
             return (this.settings.totalVolume - mls)
         },
         addCompoundRow(type) {
@@ -683,10 +686,15 @@ function compoundApp() {
                 compoundConcentration: [250],
             }
              */
-            console.log(`Loading recipe: ${this.settings.selectedRecipeId}`)
             this.settings.compounds = [];
+            if (typeof this.settings.selectedRecipeId === "undefined") {
+                console.log(`No recipe selected`);
+                return;
+            }
+            console.log(`Loading recipe: ${this.settings.selectedRecipeId}`)
             let recipe = recipes[this.settings.selectedRecipeId];
             if (typeof recipe === "undefined") {
+                console.log(`No recipe selected`);
                 return;
             }
             for (let i = 0; i < recipe.solvents.length; i++) {
