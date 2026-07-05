@@ -52,6 +52,7 @@ function compoundApp() {
         solutionData: {
             viscosity: 0
         },
+        loadedData: null,
         solutionMeasurements: [],
         init() {
             const ctx = document.getElementById('myChart').getContext('2d');
@@ -538,6 +539,73 @@ function compoundApp() {
                 });
             }
         },
+        downloadBanana() {
+            /***
+             ,{
+             id: crypto.randomUUID(),
+             type: "experimental",
+             name: "Banana's Halofestin",
+             solvents: ["benzyl_alcohol", "benzyl_benzoate"],
+             solventPercentages: [10, 44.72271914132378],
+             excipients: ["castor"],
+             excipientPercentages: [42.7750060634078],
+             compounds: ["halotestin"],
+             compoundConcentration: [20],
+             blurb: `Experimental blend`,
+             source: undefined,
+             },
+
+             ***/
+            let banana = {
+                id: crypto.randomUUID(),
+                type: "user",
+                name: "TBA",
+                solvents: [],
+                solventPercentages: [],
+                excipients: [],
+                excipientPercentages: [],
+                compounds: [],
+                compoundConcentration: [],
+            }
+            let ingredients = this.solutionMeasurements[0].compounds;
+            let name = this.settings.recipes[this.settings.selectedRecipeId].name || "unnamed banana";
+            for (let i = 0; i < ingredients.length; i++) {
+                console.log(ingredients[i]);
+                if (ingredients[i].basis === 'v_v_percent') {
+                    banana.solvents.push(ingredients[i].self_id);
+                    banana.solventPercentages.push(ingredients[i].v_v_percent);
+                }
+                if (ingredients[i].basis === 'q.s.') {
+
+                    banana.excipients.push(ingredients[i].self_id);
+                    banana.excipientPercentages.push(ingredients[i].v_v_percent);
+                }
+                if (ingredients[i].basis === 'mg_per_ml') {
+
+                    banana.compounds.push(ingredients[i].self_id);
+                    banana.compoundConcentration.push(ingredients[i].mg_per_ml);
+                }
+            }
+            banana.name = name;
+            console.log(banana);
+            let bananaJSON = JSON.stringify(banana);
+            const lines = JSON.stringify(bananaJSON);
+            // Create text blob
+            const blob = new Blob([lines], {
+                type: 'text/plain'
+            });
+
+            // Download txt
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${name}.banana`;
+
+            document.body.appendChild(link);
+            link.click();
+
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+        },
         generateProductInsertUrl() {
             const params = new URLSearchParams();
             let excipientCount = 1;
@@ -658,7 +726,7 @@ function compoundApp() {
             return Math.min(100, Math.max(0, Math.round(rating)));
         },
         getLowerRangeForConcentration(solutionEntry) {
-            let number= estimateSaturationForCompound(solutionEntry, this.settings.compounds, this.settings.totalVolume)[0];
+            let number = estimateSaturationForCompound(solutionEntry, this.settings.compounds, this.settings.totalVolume)[0];
             if (number) {
                 return number;
             } else {
@@ -666,13 +734,46 @@ function compoundApp() {
             }
         },
         getUpperRangeForConcentration(solutionEntry) {
-            let number= estimateSaturationForCompound(solutionEntry, this.settings.compounds, this.settings.totalVolume)[1];
+            let number = estimateSaturationForCompound(solutionEntry, this.settings.compounds, this.settings.totalVolume)[1];
             if (number) {
                 return number;
             } else {
                 return 0;
             }
-            },
+        },
+        loadLocalFile(event) {
+            console.log("File detected!", event.target.files[0]);
+
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                let data = e.target.result;
+
+                // If the file content is a string, parse it
+                if (typeof data === 'string') {
+                    data = JSON.parse(data);
+                }
+
+                // If it's STILL a string (double-serialized), parse it again!
+                if (typeof data === 'string') {
+                    data = JSON.parse(data);
+                }
+
+                this.settings.recipes.push(data);
+                this.settings.selectedRecipeId = this.settings.recipes.length - 1;
+                this.updateRecipe()
+
+                // Now it is a clean JS Object
+                /**
+                console.log("Successfully parsed object:", data);
+                console.log("ID:", data.id); // Should no longer be undefined
+                console.log("Contents:", e.target.result);
+                    **/
+            };
+            reader.readAsText(file);
+        },
         updateRecipe() {
             /*
             {
@@ -737,16 +838,19 @@ function compoundApp() {
                 return percentage;
             }
         },
-        getForceClassification (force) {
-          if (force > 30) {
-              return 'bg-danger';
-          }  else if (force > 20) {
-              return 'bg-warning';
-          } else if (force > 10) {
-              return 'bg-primary';
-          }else {
-              return 'bg-success';
-          }
+        getForceClassification(force) {
+            if (force > 30) {
+                return 'bg-danger';
+            } else if (force > 20) {
+                return 'bg-warning';
+            } else if (force > 10) {
+                return 'bg-primary';
+            } else {
+                return 'bg-success';
+            }
+        },
+        getRecipeIndex(recipeId) {
+            return recipes.findIndex(r => r.id === recipeId);
         },
         updateChart() {
             if (DEBUG) console.log(`app.js -> updateChart()`);
@@ -803,6 +907,6 @@ function compoundApp() {
             this.anaylseBatch()
             this.settings.saturationTemp = calculateSaturationTemperature(this.settings.compounds);
 
-            },
+        },
     }
 }

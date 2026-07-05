@@ -394,7 +394,7 @@ var recipes = [
         excipientPercentages: [60.3],
         compounds: ["testosterone_cypionate"],
         compoundConcentration: [200],
-        blurb: "PIPless recipes designed or collected by Sampie and other community members.", 
+        blurb: "PIPless recipes designed or collected by Sampie and other community members.",
         source: `https://thinksteroids.com/community/threads/brew-recipes-bible.134426542/page-15#post-3678232`,
     },
     {
@@ -643,11 +643,11 @@ var recipes = [
         solventPercentages: [10, 44.72271914132378],
         excipients: ["castor"],
         excipientPercentages: [29.89728085867621],
-        compounds: ["testosterone_base","anadrol"],
+        compounds: ["testosterone_base", "anadrol"],
         compoundConcentration: [110, 65],
         blurb: `Experimental blend`,
         source: undefined,
-    },{
+    }, {
         id: crypto.randomUUID(),
         type: "experimental",
         name: "Banana's Halofestin",
@@ -675,4 +675,7 @@ var recipes = [
         blurb: `This from from the 1958 patent "Injectable steroid hormone preparations and method of making same"; presented for educational purposes (really). `,
         source: `https://patents.google.com/patent/US2840508A/en`,
     },
-];
+]
+;
+
+var RECIPETYPES = ['user', 'pharma', 'experimental', '17aa'];

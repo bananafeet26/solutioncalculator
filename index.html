@@ -220,53 +220,23 @@
                         >
                             <option x-text="translations.load_recipe[settings.currentLanguage] + ' 👨‍🍳🍽️'"
                                     :value="undefined" disabled></option>
+                            <template x-for="recipeType in RECIPETYPES" :key="recipeType">
+                                <!-- Use optgroup for the section headers -->
+                                <optgroup :label="recipeType.toUpperCase()">
+                                    <template
+                                            x-for="recipeItem in settings.recipes.filter(r => r.type === recipeType).sort((a, b) => a.name.localeCompare(b.name))"
+                                            :key="getRecipeIndex(recipeItem.id)">
 
-                            <option disabled>──────── USER RECIPES ───────</option>
+                                        <option
+                                                :value="getRecipeIndex(recipeItem.id)"
+                                                :selected="getRecipeIndex(recipeItem.id) === settings.selectedRecipeId"
+                                                x-text="recipeItem.name"
+                                                :disabled="getRecipeIndex(recipeItem.id) === settings.selectedRecipeId"
+                                                >
+                                        </option>
 
-                            <template
-                                    x-for="recipeItem in settings.recipes.filter(r => r.type === 'user').sort((a, b) => a.name.localeCompare(b.name))"
-                                    :key="recipeItem.id">
-                                <option
-                                        :disabled="settings.compounds.some(c => c.index === settings.recipes.indexOf(recipeItem))"
-                                        :value="settings.recipes.indexOf(recipeItem)"
-                                        x-text="recipeItem.name">
-                                </option>
-                            </template>
-
-                            <option disabled>────────── 17AA ──────────</option>
-
-                            <template
-                                    x-for="recipeItem in settings.recipes.filter(r => r.type === '17aa').sort((a, b) => a.name.localeCompare(b.name))"
-                                    :key="recipeItem.id">
-                                <option
-                                        :disabled="settings.compounds.some(c => c.index === settings.recipes.indexOf(recipeItem))"
-                                        :value="settings.recipes.indexOf(recipeItem)"
-                                        x-text="recipeItem.name">
-                                </option>
-                            </template>
-
-                            <option disabled>────────── PHARMA ──────────</option>
-
-                            <template
-                                    x-for="recipeItem in settings.recipes.filter(r => r.type === 'pharma').sort((a, b) => a.name.localeCompare(b.name))"
-                                    :key="recipeItem.id">
-                                <option
-                                        :disabled="settings.compounds.some(c => c.index === settings.recipes.indexOf(recipeItem))"
-                                        :value="settings.recipes.indexOf(recipeItem)"
-                                        x-text="recipeItem.name">
-                                </option>
-                            </template>
-
-                            <option disabled>────────── EXPERIMENTAL ──────────</option>
-
-                            <template
-                                    x-for="recipeItem in settings.recipes.filter(r => r.type === 'experimental').sort((a, b) => a.name.localeCompare(b.name))"
-                                    :key="recipeItem.id">
-                                <option
-                                        :disabled="settings.compounds.some(c => c.index === settings.recipes.indexOf(recipeItem))"
-                                        :value="settings.recipes.indexOf(recipeItem)"
-                                        x-text="recipeItem.name">
-                                </option>
+                                    </template>
+                                </optgroup>
                             </template>
 
                         </select>
@@ -320,6 +290,50 @@
                         </button>
                         -->
                     </div>
+                </div>
+                <div class="d-flex flex-wrap align-items-center gap-1 p-1  border rounded">
+
+                    <div class="d-flex gap-1" role="group" aria-label="Batch Actions">
+                        <button @click='downloadBatchText("txt")'
+                                class="btn btn-sm btn-outline-secondary py-1 px-2"
+                                :title="translations.buttons.download_batch[settings.currentLanguage]">
+                            ⬇️📄 <span class="d-none d-md-inline" x-text="translations.buttons.download_batch[settings.currentLanguage]"></span>
+                        </button>
+
+                        <button @click='downloadBatchText("xls")'
+                                class="btn btn-sm btn-outline-secondary py-1 px-2"
+                                :title="translations.buttons.download_pricing[settings.currentLanguage]">
+                            ⬇️📊 <span class="d-none d-md-inline" x-text="translations.buttons.download_pricing[settings.currentLanguage]"></span>
+                        </button>
+
+                        <button @click='downloadBanana()'
+                                class="btn btn-sm btn-outline-secondary py-1 px-2"
+                                title="Download Banana">
+                            ⬇️🍌
+                        </button>
+
+                        <template x-if="solutionMeasurements[0]?.compounds?.some(s => s.parent_molecule === 'testosterone' || s.parent_molecule === 'nandrolone') && solutionMeasurements[0].compounds.filter(c => c.basis === 'mg_per_ml').length === 1">
+                            <button @click='generateProductInsertUrl()'
+                                    class="btn btn-sm btn-outline-secondary py-1 px-2"
+                                    :title="translations.buttons.product_insert[settings.currentLanguage]">
+                                🔗📑
+                            </button>
+                        </template>
+                    </div>
+
+                    <div class="vr d-none d-sm-block my-1 mx-1 text-muted" style="height: 24px;"></div>
+
+                    <div style="max-width: 180px;" class="flex-grow-1">
+                        <div class="input-group input-group-sm">
+                            <input type="file"
+                                   id="batchFileUploader"
+                                   @change="loadLocalFile($event)"
+                                   class="form-control form-control-sm border-secondary-subtle"
+                                   style="font-size: 0.75rem;"
+                                   accept=".json,.banana">
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -780,11 +794,18 @@
         <!-------------------------------------- Batch --------------------------------------------------------->
         <div class="col-12 col-lg-4 mb-1">
             <div class="border rounded pb-3 p-1">
-                <div class="p-1  bg-warning-subtle border-bottom">
-                    <h4 class="fw-bold text-center"><span
-                            x-text="translations.batch_totals[settings.currentLanguage]"></span>
-                        <template x-if="typeof settings.selectedRecipeId !== 'undefined'">
-                            <span x-text="' - ' + settings.recipes[settings.selectedRecipeId].name"></span>
+                <div class="p-1 bg-warning-subtle border-bottom">
+                    <h4 class="fw-bold text-center d-flex align-items-center justify-content-center gap-2">
+                        <span x-text="translations.batch_totals[settings.currentLanguage]"></span>
+
+                        <template x-if="typeof settings.selectedRecipeId !== 'undefined' && settings.recipes[settings.selectedRecipeId]">
+                            <!-- Styled input that blends seamlessly into the h4 header -->
+                            <input
+                                    type="text"
+                                    x-model="settings.recipes[settings.selectedRecipeId].name"
+                                    class="form-control-plaintext fw-bold text-center p-0 w-auto d-inline-block border-bottom border-dark border-opacity-10 focus-ring"
+                                    style="min-width: 150px; outline: none;"
+                            />
                         </template>
                     </h4>
                 </div>
@@ -945,24 +966,7 @@
                     </div>
                 </template>
                 <br/>
-                <div class=" ">
-                    <button x-text="translations.buttons.download_batch[settings.currentLanguage] + ' 📄'"
-                            @click='downloadBatchText("txt")' class="m-1 btn btn-sm btn-secondary">
-                    </button>
 
-                    <button x-text="translations.buttons.download_pricing[settings.currentLanguage] + ' 📊'"
-                            @click='downloadBatchText("xls")' class="m-1 btn btn-sm btn-secondary">
-                    </button>
-
-                    <template
-                            x-if="solutionMeasurements[0].compounds.find(s => s.parent_molecule === 'testosterone' || 'nandrolone') && solutionMeasurements[0].compounds?.filter(c => c.basis === 'mg_per_ml').length === 1">
-                        <div>
-                            <button x-text="translations.buttons.product_insert[settings.currentLanguage] + ' 📑'"
-                                    @click='generateProductInsertUrl()' class="m-1 btn btn-sm btn-secondary">
-                            </button>
-                        </div>
-                    </template>
-                </div>
             </div>
         </div>
     </div>
