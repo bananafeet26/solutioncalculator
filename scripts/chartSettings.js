@@ -11,9 +11,7 @@ var chartSettings = {
     },
     options: {
         maintainAspectRatio: false,
-        layout: {
-            padding: 30,
-        },
+        layout: { padding: 8 },
         scales: {
             y: {
                 display: false,
@@ -34,14 +32,21 @@ var chartSettings = {
                     display: false,
                 },
             },
+        },// Make the pie take more space
+        elements: {
+            arc: {
+                borderWidth: 2
+            }
         },
         plugins: {
             legend: {
                 position: 'left', // 👈 moves legend to the left
+                align: 'center',
                 labels: {
-                    boxWidth: 20,
-                    padding: 15,
+                    boxWidth: 10,
+                    padding: 4,
                     color: theme_text,
+                    usePointStyle: true
                 }
             },
             tooltip: {
@@ -51,7 +56,9 @@ var chartSettings = {
                     }
                 }
             }
-        }
+        },
+        responsive: true,
+        //maintainAspectRatio: false   // ← often helps a lot
     },
 };
 function getThemeColors() {
