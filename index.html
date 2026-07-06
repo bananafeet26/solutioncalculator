@@ -61,7 +61,7 @@
     <div class="row gx-2">
         <!-------------------------------------- Chart --------------------------------------------------------->
         <div class="col-12 col-md-6 col-lg-4 mb-2 ">
-            <div class="border rounded pb-3 p-1">
+            <div class="border rounded p-1">
                 <!-------------------------------------- Chart  --------------------------------------->
                 <div style="position: relative; height: 20vh">
                     <canvas id="myChart"></canvas>
@@ -167,67 +167,66 @@
                     </template>
                 </div>
 
-
-                <!-- Hardware Recommendation Widget -->
-                <div class="mt-2 border rounded">
-                    <div class="p-1">
-                        <div class="border-start border-3 border-secondary ps-3">
-                            <!-- Header & Dynamic Tier Badge -->
-                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                <h6 class="mb-0 text-body-secondary fw-bold"
-                                    x-text="translations.hardwareTitle[settings.currentLanguage] || 'Recommended Hardware'"></h6>
-                                <span class="badge px-2.5 py-1.5 rounded"
-                                      :class="{
+            </div>
+            <!-- Hardware Recommendation Widget -->
+            <div class="mt-2 border rounded">
+                <div class="p-1">
+                    <div class="border-start border-3 border-secondary ps-3">
+                        <!-- Header & Dynamic Tier Badge -->
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="mb-0 text-body-secondary fw-bold"
+                                x-text="translations.hardwareTitle[settings.currentLanguage] || 'Recommended Hardware'"></h6>
+                            <span class="badge px-2.5 py-1.5 rounded"
+                                  :class="{
                                           'bg-success-subtle text-success border border-success-subtle': settings.injectionReport.classification.id === 1,
                                           'bg-warning-subtle text-warning border border-warning-subtle': settings.injectionReport.classification.id === 2,
                                           'bg-danger-subtle text-danger border border-danger-subtle': settings.injectionReport.classification.id === 3
                                       }"
-                                      x-text="settings.injectionReport.classification.name">
+                                  x-text="settings.injectionReport.classification.name">
                                 </span>
-                            </div>
                         </div>
+                    </div>
 
-                        <p class="small text-body-secondary mb-3"
-                           x-text="settings.injectionReport.classification.description"></p>
+                    <p class="small text-body-secondary mb-3"
+                       x-text="settings.injectionReport.classification.description"></p>
 
-                        <div class="row g-2">
-                            <template x-for="config in settings.injectionReport.idealConfigurations"
-                                      :key="config.barrel + '-' + config.gauge">
-                                <div class="col-12 col-sm-6">
-                                    <div class="p-1 border border-translucent rounded bg-body d-flex align-items-center justify-content-between text-nowrap"
-                                         style="min-width: 0;">
-                                        <div class="lh-sm min-w-0 flex-grow-1 overflow-hidden me-2">
+                    <div class="row g-2">
+                        <template x-for="config in settings.injectionReport.idealConfigurations"
+                                  :key="config.barrel + '-' + config.gauge">
+                            <div class="col-12 col-sm-6">
+                                <div class="p-1 border border-translucent rounded bg-body d-flex align-items-center justify-content-between text-nowrap"
+                                     style="min-width: 0;">
+                                    <div class="lh-sm min-w-0 flex-grow-1 overflow-hidden me-2">
                             <span class="fw-bold text-body text-nowrap"
                                   style="font-size: calc(0.85rem + 0.15vw);"
                                   x-text="config.gauge + 'G Needle'"></span>
-                                            <span class="d-block text-body-secondary style-barrel-text"
-                                                  style="font-size: 0.75rem;"
-                                                  x-text="'Barrel: ' + config.barrel"></span>
-                                        </div>
-                                        <div class="flex-shrink-0">
+                                        <span class="d-block text-body-secondary style-barrel-text"
+                                              style="font-size: 0.75rem;"
+                                              x-text="'Barrel: ' + config.barrel"></span>
+                                    </div>
+                                    <div class="flex-shrink-0">
                             <span class="badge border border-translucent font-monospace py-1 px-1.5"
                                   style="font-size: 0.75rem;"
                                   :class="getForceClassification(config.forceN)"
                                   x-text="config.forceN + ' N'">
 </span>
-                                        </div>
                                     </div>
                                 </div>
-                            </template>
-                        </div>
+                            </div>
+                        </template>
+                    </div>
 
-                        <div class="text-body-secondary small border-translucent pt-2 d-flex">
-                            <span class="me-1">💡</span>
-                            <span x-text="settings.injectionReport.classification.recommendation"></span>
-                        </div>
+                    <div class="text-body-secondary small border-translucent pt-2 d-flex">
+                        <span class="me-1">💡</span>
+                        <span x-text="settings.injectionReport.classification.recommendation"></span>
                     </div>
                 </div>
-
             </div>
+
         </div>
         <!-------------------------------------- Formulation Control Col --------------------------------------->
         <div class="col-12 col-md-6 col-lg-4 mb-2">
-            <div class="border rounded pb-3 p-1">
+            <div class="border rounded pt-0 pb-3 p-1">
                 <!-- Compounds Entry Group-->
                 <!-- v_v_percent -->
                 <div class="form-group">
@@ -676,10 +675,10 @@
             </div>
             <div class="border rounded pb-3 p-1 mt-2">
 
-                    <div class="flex-grow-1 p-1">
-                        <label style="font-size: 0.75rem;" class="form-label small text-muted mb-1">
-                            <span x-text="translations.finished_volume[settings.currentLanguage]"></span>
-                        </label>
+                <div class="flex-grow-1 p-1">
+                    <label style="font-size: 0.75rem;" class="form-label small text-muted mb-1">
+                        <span x-text="translations.finished_volume[settings.currentLanguage]"></span>
+                    </label>
                     <div class="input-group">
                         <!-- Number Input -->
                         <input class="form-control text-end"
@@ -749,7 +748,7 @@
         </div>
         <!-------------------------------------- Batch --------------------------------------------------------->
         <div class="col-12 col-lg-4 mb-1">
-            <div class="border rounded pb-3 p-1">
+            <div class="border rounded">
                 <div class="p-1 bg-warning-subtle border-bottom">
                     <h4 class="fw-bold text-center d-flex align-items-center justify-content-center gap-2">
                         <span x-text="translations.batch_totals[settings.currentLanguage]"></span>
@@ -924,62 +923,61 @@
                         </div>
                     </div>
                 </template>
-                <!--------------------------------------- Download group --------------------------------->
-                <div class="mt-2 border rounded">
-                    <div class=" d-flex flex-wrap align-items-center gap-2 p-1">
+            </div>
+            <!--------------------------------------- Download group --------------------------------->
+            <div class="mt-2 border rounded">
+                <div class=" d-flex flex-wrap align-items-center gap-2 p-1">
 
-                        <!-- Main Download Group -->
-                        <div class="d-flex gap-1 flex-wrap" role="group" aria-label="Batch Actions">
+                    <!-- Main Download Group -->
+                    <div class="d-flex gap-1 flex-wrap" role="group" aria-label="Batch Actions">
 
-                            <button @click='downloadBatchText("txt")'
-                                    class="btn btn-sm btn-primary py-1 px-2"
-                                    :title="translations.buttons.download_batch[settings.currentLanguage]">
-                                ⬇️📄 <span class=" 	.d-none .d-xl-block .d-xxl-none"
-                                          x-text="translations.buttons.download_batch[settings.currentLanguage]"></span>
-                            </button>
+                        <button @click='downloadBatchText("txt")'
+                                class="btn btn-sm btn-primary py-1 px-2"
+                                :title="translations.buttons.download_batch[settings.currentLanguage]">
+                            ⬇️📄 <span class=" 	.d-none .d-xl-block .d-xxl-none"
+                                      x-text="translations.buttons.download_batch[settings.currentLanguage]"></span>
+                        </button>
 
-                            <button @click='downloadBatchText("xls")'
-                                    class="btn btn-sm text-small btn-primary py-1 px-2"
-                                    :title="translations.buttons.download_pricing[settings.currentLanguage]">
-                                ⬇️📊 <span class=" 	.d-none .d-xl-block .d-xxl-none"
-                                          x-text="translations.buttons.download_pricing[settings.currentLanguage]"></span>
-                            </button>
+                        <button @click='downloadBatchText("xls")'
+                                class="btn btn-sm text-small btn-primary py-1 px-2"
+                                :title="translations.buttons.download_pricing[settings.currentLanguage]">
+                            ⬇️📊 <span class=" 	.d-none .d-xl-block .d-xxl-none"
+                                      x-text="translations.buttons.download_pricing[settings.currentLanguage]"></span>
+                        </button>
 
-                            <!-- Banana Download + Upload in one row -->
-                            <button @click='downloadBanana()'
-                                    class="btn btn-sm btn-primary py-1 px-2"
-                                    :title="translations.buttons.download_recipe[settings.currentLanguage]">
-                                ⬇️🍌 <span class=" 	.d-none .d-xl-block .d-xxl-none"
-                                          x-text="translations.buttons.download_recipe[settings.currentLanguage]"></span>
-                            </button>
+                        <!-- Banana Download + Upload in one row -->
+                        <button @click='downloadBanana()'
+                                class="btn btn-sm btn-primary py-1 px-2"
+                                :title="translations.buttons.download_recipe[settings.currentLanguage]">
+                            ⬇️🍌 <span class=" 	.d-none .d-xl-block .d-xxl-none"
+                                      x-text="translations.buttons.download_recipe[settings.currentLanguage]"></span>
+                        </button>
 
-                            <button type="button"
-                                    @click="$refs.batchFileUploader.click()"
-                                    class="btn btn-sm btn-primary py-1 px-2"
-                                    :title="translations.buttons.upload_recipe[settings.currentLanguage]">
-                                ⬆️🍌 <span class=" 	.d-none .d-xl-block .d-xxl-none"
-                                          x-text="translations.buttons.upload_recipe[settings.currentLanguage]"></span>
-                            </button>
+                        <button type="button"
+                                @click="$refs.batchFileUploader.click()"
+                                class="btn btn-sm btn-primary py-1 px-2"
+                                :title="translations.buttons.upload_recipe[settings.currentLanguage]">
+                            ⬆️🍌 <span class=" 	.d-none .d-xl-block .d-xxl-none"
+                                      x-text="translations.buttons.upload_recipe[settings.currentLanguage]"></span>
+                        </button>
 
-                            <!-- Hidden File Input -->
-                            <input type="file"
-                                   x-ref="batchFileUploader"
-                                   @change="loadLocalFile($event)"
-                                   accept=".json,.banana"
-                                   class="d-none">
-                        </div>
-
-
+                        <!-- Hidden File Input -->
+                        <input type="file"
+                               x-ref="batchFileUploader"
+                               @change="loadLocalFile($event)"
+                               accept=".json,.banana"
+                               class="d-none">
                     </div>
-                    <!-- Product Insert Link -->
-                    <a @click='generateProductInsertUrl()'
-                       class="  gap-1 text-decoration-none ms-auto"
-                       :title="translations.buttons.product_insert[settings.currentLanguage]">
-                        🔗 <span class=".d-none .d-sm-block"
-                                x-text="translations.buttons.product_insert[settings.currentLanguage]"></span>
-                    </a>
-                </div>
 
+
+                </div>
+                <!-- Product Insert Link -->
+                <a @click='generateProductInsertUrl()'
+                   class="  gap-1 text-decoration-none ms-auto"
+                   :title="translations.buttons.product_insert[settings.currentLanguage]">
+                    🔗 <span class=".d-none .d-sm-block"
+                            x-text="translations.buttons.product_insert[settings.currentLanguage]"></span>
+                </a>
             </div>
         </div>
     </div>
