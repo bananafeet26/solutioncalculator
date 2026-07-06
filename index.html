@@ -112,7 +112,7 @@
                     <div class="d-flex gap-3">
                         <div class="flex-grow-1 p-1">
                             <label style="font-size: 0.75rem;" class="form-label small text-muted mb-1">
-                                <span x-text="translations.load_recipe[settings.currentLanguage]"></span> 🌐
+                                <span x-text="translations.load_recipe[settings.currentLanguage]"></span>
                             </label>
                             <select
                                     class="form-select"
@@ -228,362 +228,340 @@
         <!-------------------------------------- Formulation Control Col --------------------------------------->
         <div class="col-12 col-md-6 col-lg-4 mb-2">
             <div class="border rounded pb-3 p-1">
-                <!-- Formulation Control -->
-                <div>
-                    <!-- Volume -->
-                    <div class="input-group mb-1">
-                        <div class="input-group-prepend">
-                            <span x-text="translations.finished_volume[settings.currentLanguage] + ' ⚗️'"
-                                  class="input-group-text" id=""></span>
-                        </div>
-                        <!-- mL -->
-                        <input class="form-control rounded col-3"
-                               type="number"
-                               min="0"
-                               step="5"
-                               x-model.number="settings.totalVolume"
-                               @change="updateVolume(settings.totalVolume, settings.compounds); updateChart();"
-                        >
-                        <!-- v_v_percent -->
-                        <div class="input-group-append">
-                            <span class="input-group-text">mL</span>
-                        </div>
-
-                    </div>
-                    <!-- Compounds Entry Group-->
-                    <!-- v_v_percent -->
-                    <div class="form-group">
-                        <div class="d-flex align-items-center my-3">
+                <!-- Compounds Entry Group-->
+                <!-- v_v_percent -->
+                <div class="form-group">
+                    <div class="d-flex align-items-center my-3">
                             <span x-text="translations.solvents[settings.currentLanguage]"
                                   class="me-2 fw-semibold"></span>
-                            <div class="flex-grow-1 border-bottom"></div>
-                        </div>
-                        <template x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'v_v_percent')"
-                                  :key="solutionEntry.self_id">
-                            <div>
-                                <label class="me-2 fst-italic"
-                                       x-text="`${solutionEntry.translations?.[settings.currentLanguage] || solutionEntry.name}` + ' ................'"></label>
-                                <div class="input-group mb-1 col-6 col-md-4 col-lg-3">
-                                    <div class="dropdown">
-                                        <button class="btn btn-outline-secondary dropdown-toggle"
-                                                type="button"
-                                                data-bs-toggle="dropdown">
-                                            ⋮
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li>
-                                                <button x-text="translations.buttons.delete[settings.currentLanguage]"
-                                                        class="dropdown-item text-danger"
-                                                        @click="removeCompound(solutionEntry.self_id)">
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- mL -->
-                                    <template x-if="solutionEntry.input === 1">
-                                        <input class="form-control rounded "
-                                               type="text"
-                                               min="0.5"
-                                               step="1"
-                                               x-model.number="solutionEntry.mls"
-                                               @change="updateFields(solutionEntry, settings, 'mls');updateChart();"
-                                        >
-                                    </template>
-                                    <!-- v_v_percent -->
-                                    <template x-if="solutionEntry.input === 0">
-                                        <input :class="checkSolvents(solutionEntry, settings.compounds, settings.totalVolume) + ' form-control rounded '"
-                                               type="text"
-                                               min="0.5"
-                                               max="100"
-                                               step="1"
-                                               x-model.number="solutionEntry.v_v_percent"
-                                               @change="updateFields(solutionEntry, settings, 'v_v_percent'); updateChart();"
-                                        >
-                                    </template>
-                                    <!-- mg_per_ml -->
-                                    <template x-if="solutionEntry.input === 2">
-                                        <input class="form-control rounded"
-                                               min="0.5"
-                                               type="text"
-                                               :class="checkSaturation(solutionEntry, settings.compounds, settings.totalVolume)"
-                                               inputmode="decimal"
-                                               max="10000"
-                                               step="2.5"
-                                               x-model.number="solutionEntry.mg_per_ml"
-                                               @change="updateFields(solutionEntry, settings, 'mg_per_ml'); updateChart();"
-                                        >
-                                    </template>
-                                    <div class="dropdown">
-                                        <button class="btn btn-outline-secondary dropdown-toggle"
-                                                type="button"
-                                                x-text="availableInputLabels(solutionEntry)[solutionEntry.input]"
-                                                data-bs-toggle="dropdown">
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li>
-                                                <button x-text='availableInputLabels(solutionEntry)[0]'
-                                                        class="dropdown-item text-danger"
-                                                        @click="solutionEntry.input = 0">
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button x-text='availableInputLabels(solutionEntry)[1]'
-                                                        class="dropdown-item text-danger"
-                                                        @click="solutionEntry.input = 1">
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button x-text='availableInputLabels(solutionEntry)[2]'
-                                                        class="dropdown-item text-danger"
-                                                        @click="solutionEntry.input = 2">
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="d-flex flex-column">
-                                        <button type="button"
-                                                class="btn btn-sm btn-outline-secondary py-0 px-2"
-                                                style="font-size:1rem; line-height:1;"
-                                                @click="
+                        <div class="flex-grow-1 border-bottom"></div>
+                    </div>
+                    <template x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'v_v_percent')"
+                              :key="solutionEntry.self_id">
+                        <div>
+                            <label class="me-2 fst-italic"
+                                   x-text="`${solutionEntry.translations?.[settings.currentLanguage] || solutionEntry.name}` + ' ................'"></label>
+                            <div class="input-group mb-1 col-6 col-md-4 col-lg-3">
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary dropdown-toggle"
+                                            type="button"
+                                            data-bs-toggle="dropdown">
+                                        ⋮
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <button x-text="translations.buttons.delete[settings.currentLanguage]"
+                                                    class="dropdown-item text-danger"
+                                                    @click="removeCompound(solutionEntry.self_id)">
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- mL -->
+                                <template x-if="solutionEntry.input === 1">
+                                    <input class="form-control rounded "
+                                           type="text"
+                                           min="0.5"
+                                           step="1"
+                                           x-model.number="solutionEntry.mls"
+                                           @change="updateFields(solutionEntry, settings, 'mls');updateChart();"
+                                    >
+                                </template>
+                                <!-- v_v_percent -->
+                                <template x-if="solutionEntry.input === 0">
+                                    <input :class="checkSolvents(solutionEntry, settings.compounds, settings.totalVolume) + ' form-control rounded '"
+                                           type="text"
+                                           min="0.5"
+                                           max="100"
+                                           step="1"
+                                           x-model.number="solutionEntry.v_v_percent"
+                                           @change="updateFields(solutionEntry, settings, 'v_v_percent'); updateChart();"
+                                    >
+                                </template>
+                                <!-- mg_per_ml -->
+                                <template x-if="solutionEntry.input === 2">
+                                    <input class="form-control rounded"
+                                           min="0.5"
+                                           type="text"
+                                           :class="checkSaturation(solutionEntry, settings.compounds, settings.totalVolume)"
+                                           inputmode="decimal"
+                                           max="10000"
+                                           step="2.5"
+                                           x-model.number="solutionEntry.mg_per_ml"
+                                           @change="updateFields(solutionEntry, settings, 'mg_per_ml'); updateChart();"
+                                    >
+                                </template>
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary dropdown-toggle"
+                                            type="button"
+                                            x-text="availableInputLabels(solutionEntry)[solutionEntry.input]"
+                                            data-bs-toggle="dropdown">
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <button x-text='availableInputLabels(solutionEntry)[0]'
+                                                    class="dropdown-item text-danger"
+                                                    @click="solutionEntry.input = 0">
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button x-text='availableInputLabels(solutionEntry)[1]'
+                                                    class="dropdown-item text-danger"
+                                                    @click="solutionEntry.input = 1">
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button x-text='availableInputLabels(solutionEntry)[2]'
+                                                    class="dropdown-item text-danger"
+                                                    @click="solutionEntry.input = 2">
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-secondary py-0 px-2"
+                                            style="font-size:1rem; line-height:1;"
+                                            @click="
                                                         solutionEntry.mls = Number(solutionEntry.mls || 0) + 2.5;
                                                         updateFields(solutionEntry, settings, 'mls');    updateChart();
                                                     ">
-                                            ▲
-                                        </button>
+                                        ▲
+                                    </button>
 
-                                        <button type="button"
-                                                class="btn btn-sm btn-outline-secondary py-0 px-2"
-                                                style="font-size:1rem; line-height:1;"
-                                                @click="
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-secondary py-0 px-2"
+                                            style="font-size:1rem; line-height:1;"
+                                            @click="
                                                     solutionEntry.mls = Math.max(0.5, Number(solutionEntry.mls || 0) - 2.5);
                                                     updateFields(solutionEntry, settings, 'mls');    updateChart();
                                                 ">
-                                            ▼
-                                        </button>
-                                    </div>
-                                    <template x-if="solutionEntry.self_id === 'benzyl_alcohol' ">
-                                        <div class="invalid-feedback"
-                                             x-text="translations.message_ba[settings.currentLanguage]"></div>
-                                    </template>
-                                    <template x-if="solutionEntry.self_id === 'benzyl_benzoate' ">
-                                        <div class="invalid-feedback"
-                                             x-text="translations.message_bb[settings.currentLanguage]"></div>
-                                    </template>
+                                        ▼
+                                    </button>
                                 </div>
+                                <template x-if="solutionEntry.self_id === 'benzyl_alcohol' ">
+                                    <div class="invalid-feedback"
+                                         x-text="translations.message_ba[settings.currentLanguage]"></div>
+                                </template>
+                                <template x-if="solutionEntry.self_id === 'benzyl_benzoate' ">
+                                    <div class="invalid-feedback"
+                                         x-text="translations.message_bb[settings.currentLanguage]"></div>
+                                </template>
                             </div>
-                        </template>
-                        <!--------------- Saturation Temp------------------>
-                        <template x-if="settings.solventPercentage !== 0">
-                            <div>
+                        </div>
+                    </template>
+                    <!--------------- Saturation Temp------------------>
+                    <template x-if="settings.solventPercentage !== 0">
+                        <div>
                             <span class="small"
                                   x-text="translations.solvents[settings.currentLanguage] + ' ' + (settings.solventPercentage.toFixed()) + ' % v.v'"></span>
-                                <div class="progress mb-1" style="height: 20px;">
-                                    <div class="progress-bar progress-bar-striped"
-                                         :class="{
+                            <div class="progress mb-1" style="height: 20px;">
+                                <div class="progress-bar progress-bar-striped"
+                                     :class="{
                                       'bg-danger': settings.solventPercentageRating <= 25,
                                       'bg-warning': settings.solventPercentageRating > 25 && settings.solventPercentageRating <= 50,
                                       'bg-info': settings.solventPercentageRating > 50 && settings.solventPercentageRating <= 75,
                                       'bg-success': settings.solventPercentageRating > 75
                                    }"
-                                         :style="`width: ${settings.solventPercentageRating}%`"
-                                         role="progressbar"
-                                         aria-valuemin="0"
-                                         aria-valuemax="100">
-                                    </div>
+                                     :style="`width: ${settings.solventPercentageRating}%`"
+                                     role="progressbar"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100">
                                 </div>
                             </div>
-                        </template>
-                    </div>
-                    <!-- q.s. -->
-                    <div class="form-group">
-                        <div class="d-flex align-items-center my-3">
+                        </div>
+                    </template>
+                </div>
+                <!-- q.s. -->
+                <div class="form-group">
+                    <div class="d-flex align-items-center my-3">
                             <span x-text="translations.excipients[settings.currentLanguage]"
                                   class="me-2 fw-semibold"></span>
-                            <div class="flex-grow-1 border-bottom"></div>
-                        </div>
-                        <template
-                                x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'q.s.')"
-                                :key="solutionEntry.self_id">
-                            <div>
-                                <label class="me-2 fst-italic"
-                                       x-text="((solutionEntry.translations?.[settings.currentLanguage] || solutionEntry.name) + (solutionEntry.qsMode ? ' q.s.' : '')) + ' ................'">
-                                </label>
-                                <div class="input-group mb-1 col-6 col-md-4 col-lg-3">
-                                    <div class="dropdown">
-                                        <button class="btn btn-outline-secondary dropdown-toggle"
-                                                type="button"
-                                                data-bs-toggle="dropdown">
-                                            ⋮
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li>
-                                                <!--
-                                                <button class="dropdown-item text-danger"
-                                                        @click="toggleQS(solutionEntry.self_id)">
-                                                    q.s.
-                                                    <span x-text="solutionEntry.qsMode ? 'off' : 'on'"></span>
-                                                </button>
-                                                -->
-                                                <button x-text="translations.buttons.delete[settings.currentLanguage]"
-                                                        class="dropdown-item text-danger"
-                                                        @click="removeCompound(solutionEntry.self_id)">
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- mL -->
-                                    <template x-if="solutionEntry.input === 0">
-                                        <input class="form-control rounded"
-                                               type="text"
-                                               min="0.5"
-                                               step="5"
-                                               :disabled="qsMode()"
-                                               x-model.number="solutionEntry.mls"
-                                               @change="updateFields(solutionEntry, settings, 'mls');updateChart();"
-                                        >
+                        <div class="flex-grow-1 border-bottom"></div>
+                    </div>
+                    <template
+                            x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'q.s.')"
+                            :key="solutionEntry.self_id">
+                        <div>
+                            <label class="me-2 fst-italic"
+                                   x-text="((solutionEntry.translations?.[settings.currentLanguage] || solutionEntry.name) + (solutionEntry.qsMode ? ' q.s.' : '')) + ' ................'">
+                            </label>
+                            <div class="input-group mb-1 col-6 col-md-4 col-lg-3">
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary dropdown-toggle"
+                                            type="button"
+                                            data-bs-toggle="dropdown">
+                                        ⋮
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <!--
+                                            <button class="dropdown-item text-danger"
+                                                    @click="toggleQS(solutionEntry.self_id)">
+                                                q.s.
+                                                <span x-text="solutionEntry.qsMode ? 'off' : 'on'"></span>
+                                            </button>
+                                            -->
+                                            <button x-text="translations.buttons.delete[settings.currentLanguage]"
+                                                    class="dropdown-item text-danger"
+                                                    @click="removeCompound(solutionEntry.self_id)">
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- mL -->
+                                <template x-if="solutionEntry.input === 0">
+                                    <input class="form-control rounded"
+                                           type="text"
+                                           min="0.5"
+                                           step="5"
+                                           :disabled="qsMode()"
+                                           x-model.number="solutionEntry.mls"
+                                           @change="updateFields(solutionEntry, settings, 'mls');updateChart();"
+                                    >
 
-                                    </template>
-                                    <!-- grams -->
-                                    <template x-if="solutionEntry.input === 1">
+                                </template>
+                                <!-- grams -->
+                                <template x-if="solutionEntry.input === 1">
 
-                                        <input class="form-control rounded"
-                                               type="text"
-                                               min="0.5"
-                                               step="5"
-                                               :disabled="qsMode()"
-                                               x-model.number="solutionEntry.grams"
-                                               @change="updateFields(solutionEntry, settings, 'grams');updateChart();">
-                                    </template>
-                                    <!-- mg_per_ml -->
-                                    <template x-if="solutionEntry.input === 2">
-                                        <input class="form-control rounded"
-                                               min="0.5"
-                                               type="number"
-                                               :class="checkSaturation(solutionEntry, settings.compounds, settings.totalVolume)"
-                                               inputmode="text"
-                                               max="10000"
-                                               step="2.5"
-                                               :disabled="qsMode()"
-                                               x-model.number="solutionEntry.mg_per_ml"
-                                               @change="updateFields(solutionEntry, settings, 'mg_per_ml'); updateChart();">
-                                    </template>
-                                    <div class="dropdown">
-                                        <button class="btn btn-outline-secondary dropdown-toggle"
-                                                type="button"
-                                                x-text="availableInputLabels(solutionEntry)[solutionEntry.input]"
-                                                data-bs-toggle="dropdown">
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li>
-                                                <button x-text='availableInputLabels(solutionEntry)[0]'
-                                                        class="dropdown-item text-danger"
-                                                        @click="solutionEntry.input = 0">
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button x-text='availableInputLabels(solutionEntry)[1]'
-                                                        class="dropdown-item text-danger"
-                                                        @click="solutionEntry.input = 1">
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button x-text='availableInputLabels(solutionEntry)[2]'
-                                                        class="dropdown-item text-danger"
-                                                        @click="solutionEntry.input = 2">
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="d-flex flex-column">
-                                        <button type="button"
-                                                class="btn btn-sm btn-outline-secondary py-0 px-2"
-                                                style="font-size:1rem; line-height:1;"
-                                                :disabled="qsMode()"
-                                                @click="
+                                    <input class="form-control rounded"
+                                           type="text"
+                                           min="0.5"
+                                           step="5"
+                                           :disabled="qsMode()"
+                                           x-model.number="solutionEntry.grams"
+                                           @change="updateFields(solutionEntry, settings, 'grams');updateChart();">
+                                </template>
+                                <!-- mg_per_ml -->
+                                <template x-if="solutionEntry.input === 2">
+                                    <input class="form-control rounded"
+                                           min="0.5"
+                                           type="number"
+                                           :class="checkSaturation(solutionEntry, settings.compounds, settings.totalVolume)"
+                                           inputmode="text"
+                                           max="10000"
+                                           step="2.5"
+                                           :disabled="qsMode()"
+                                           x-model.number="solutionEntry.mg_per_ml"
+                                           @change="updateFields(solutionEntry, settings, 'mg_per_ml'); updateChart();">
+                                </template>
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary dropdown-toggle"
+                                            type="button"
+                                            x-text="availableInputLabels(solutionEntry)[solutionEntry.input]"
+                                            data-bs-toggle="dropdown">
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <button x-text='availableInputLabels(solutionEntry)[0]'
+                                                    class="dropdown-item text-danger"
+                                                    @click="solutionEntry.input = 0">
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button x-text='availableInputLabels(solutionEntry)[1]'
+                                                    class="dropdown-item text-danger"
+                                                    @click="solutionEntry.input = 1">
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button x-text='availableInputLabels(solutionEntry)[2]'
+                                                    class="dropdown-item text-danger"
+                                                    @click="solutionEntry.input = 2">
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-secondary py-0 px-2"
+                                            style="font-size:1rem; line-height:1;"
+                                            :disabled="qsMode()"
+                                            @click="
                                                         solutionEntry.mls = Number(solutionEntry.mls || 0) + 2.5;
                                                         updateFields(solutionEntry, settings, 'mls');    updateChart();
                                                     ">
-                                            ▲
-                                        </button>
+                                        ▲
+                                    </button>
 
-                                        <button type="button"
-                                                class="btn btn-sm btn-outline-secondary py-0 px-2"
-                                                style="font-size:1rem; line-height:1;"
-                                                :disabled="qsMode()"
-                                                @click="
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-secondary py-0 px-2"
+                                            style="font-size:1rem; line-height:1;"
+                                            :disabled="qsMode()"
+                                            @click="
                                                     solutionEntry.mls = Math.max(0.5, Number(solutionEntry.mls || 0) - 2.5);
                                                     updateFields(solutionEntry, settings, 'mls');    updateChart();
                                                 ">
-                                            ▼
-                                        </button>
-                                    </div>
+                                        ▼
+                                    </button>
                                 </div>
                             </div>
-                        </template>
-                        <!--------------- Saturation Temp------------------>
-                        <template x-if="settings.solventPercentage !== 0">
-                            <div>
+                        </div>
+                    </template>
+                    <!--------------- Saturation Temp------------------>
+                    <template x-if="settings.solventPercentage !== 0">
+                        <div>
                             <span class="small"
                                   x-text="translations.viscosity[settings.currentLanguage] + ' ' + ((settings.viscosity ?? 0).toFixed()) + ' cP'">
                             </span>
-                                <div class="progress mb-1" style="height: 20px;">
-                                    <div class="progress-bar progress-bar-striped"
-                                         :class="{
+                            <div class="progress mb-1" style="height: 20px;">
+                                <div class="progress-bar progress-bar-striped"
+                                     :class="{
                                           'bg-danger': settings.viscosityRating <= 25,
                                           'bg-warning': settings.viscosityRating > 25 && settings.viscosityRating <= 50,
                                           'bg-info': settings.viscosityRating > 50 && settings.viscosityRating <= 75,
                                           'bg-success': settings.viscosityRating > 75
                                        }"
-                                         :style="`width: ${settings.viscosityRating ?? 0}%`"
-                                         role="progressbar"
-                                         aria-valuemin="0"
-                                         aria-valuemax="100">
-                                    </div>
+                                     :style="`width: ${settings.viscosityRating ?? 0}%`"
+                                     role="progressbar"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100">
                                 </div>
                             </div>
-                        </template>
-                    </div>
-                    <!-- mg_per_ml -->
-                    <div class="form-group">
-                        <div class="d-flex align-items-center my-3">
+                        </div>
+                    </template>
+                </div>
+                <!-- mg_per_ml -->
+                <div class="form-group">
+                    <div class="d-flex align-items-center my-3">
                             <span x-text="translations.compounds[settings.currentLanguage]"
                                   class="me-2 fw-semibold"></span>
-                            <div class="flex-grow-1 border-bottom opacity-50"></div>
-                        </div>
-                        <template x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'mg_per_ml')"
-                                  :key="solutionEntry.self_id">
-                            <div>
-                                <label class="me-2 fst-italic"
-                                       x-text="`${solutionEntry.translations?.[settings.currentLanguage] || solutionEntry.name}` + ' ................'"></label>
+                        <div class="flex-grow-1 border-bottom opacity-50"></div>
+                    </div>
+                    <template x-for="solutionEntry in settings.compounds.filter(c => c.basis === 'mg_per_ml')"
+                              :key="solutionEntry.self_id">
+                        <div>
+                            <label class="me-2 fst-italic"
+                                   x-text="`${solutionEntry.translations?.[settings.currentLanguage] || solutionEntry.name}` + ' ................'"></label>
 
-                                <div class="input-group mb-1 col-6 col-md-4 col-lg-3">
-                                    <div class="dropdown">
-                                        <button class="btn btn-outline-secondary dropdown-toggle"
-                                                type="button"
-                                                data-bs-toggle="dropdown">
-                                            ⋮
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
+                            <div class="input-group mb-1 col-6 col-md-4 col-lg-3">
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary dropdown-toggle"
+                                            type="button"
+                                            data-bs-toggle="dropdown">
+                                        ⋮
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
 
-                                            <li>
-                                                <button x-text="translations.buttons.delete[settings.currentLanguage]"
-                                                        class="dropdown-item text-danger"
-                                                        @click="removeCompound(solutionEntry.self_id)">
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!-- mg_per_ml -->
-                                    <template x-if="solutionEntry.input === 0">
-                                        <input class="form-control rounded"
-                                               min="0"
-                                               type="number"
-                                               :class="checkSaturation(solutionEntry, settings.compounds, settings.totalVolume)"
-                                               inputmode="decimal"
-                                               max="10000"
-                                               step="2.5"
-                                               x-model.number="solutionEntry.mg_per_ml"
-                                               @change="
+                                        <li>
+                                            <button x-text="translations.buttons.delete[settings.currentLanguage]"
+                                                    class="dropdown-item text-danger"
+                                                    @click="removeCompound(solutionEntry.self_id)">
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- mg_per_ml -->
+                                <template x-if="solutionEntry.input === 0">
+                                    <input class="form-control rounded"
+                                           min="0"
+                                           type="number"
+                                           :class="checkSaturation(solutionEntry, settings.compounds, settings.totalVolume)"
+                                           inputmode="decimal"
+                                           max="10000"
+                                           step="2.5"
+                                           x-model.number="solutionEntry.mg_per_ml"
+                                           @change="
                                                      const val = parseFloat(solutionEntry.mg_per_ml);
 
                                                      if (!isNaN(val) && val >= 0.5) {
@@ -592,106 +570,128 @@
 
                                                      updateChart();
                                                    ">
-                                    </template>
-                                    <!-- purity -->
-                                    <template x-if="solutionEntry.input === 2">
-                                        <input class="form-control rounded"
-                                               min="0"
-                                               type="number"
-                                               :class="checkSaturation(solutionEntry, settings.compounds, settings.totalVolume)"
-                                               inputmode="decimal"
-                                               max="100"
-                                               step="2.5"
-                                               x-model.number="solutionEntry.purity"
-                                               @change="
+                                </template>
+                                <!-- purity -->
+                                <template x-if="solutionEntry.input === 2">
+                                    <input class="form-control rounded"
+                                           min="0"
+                                           type="number"
+                                           :class="checkSaturation(solutionEntry, settings.compounds, settings.totalVolume)"
+                                           inputmode="decimal"
+                                           max="100"
+                                           step="2.5"
+                                           x-model.number="solutionEntry.purity"
+                                           @change="
                                                      const val = verifyPercentage(solutionEntry.purity);
                                                      solutionEntry.purity = val;
                                                      updateFields(solutionEntry, settings, 'purity');
                                                      updateChart();
                                                    ">
-                                    </template>
-                                    <!-- grams -->
-                                    <template x-if="solutionEntry.input === 1">
-                                        <input class="form-control rounded"
-                                               type="number"
-                                               step="5"
-                                               x-model.number="solutionEntry.grams"
-                                               @change="updateFields(solutionEntry, settings, 'grams');updateChart();"
-                                        >
-                                    </template>
-                                    <div class="dropdown">
-                                        <button class="btn btn-outline-secondary dropdown-toggle"
-                                                type="button"
-                                                x-text="availableInputLabels(solutionEntry)[solutionEntry.input]"
-                                                data-bs-toggle="dropdown">
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li>
-                                                <button x-text='availableInputLabels(solutionEntry)[0]'
-                                                        class="dropdown-item text-danger"
-                                                        @click="solutionEntry.input = 0">
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button x-text='availableInputLabels(solutionEntry)[1]'
-                                                        class="dropdown-item text-danger"
-                                                        @click="solutionEntry.input = 1">
-                                                </button>
-                                            </li>
-                                            <li>
-                                                <button x-text='"purity " + availableInputLabels(solutionEntry)[2]'
-                                                        class="dropdown-item text-danger"
-                                                        @click="solutionEntry.input = 2">
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="invalid-feedback"
-                                         x-text="translations.message_compound[settings.currentLanguage](
+                                </template>
+                                <!-- grams -->
+                                <template x-if="solutionEntry.input === 1">
+                                    <input class="form-control rounded"
+                                           type="number"
+                                           step="5"
+                                           x-model.number="solutionEntry.grams"
+                                           @change="updateFields(solutionEntry, settings, 'grams');updateChart();"
+                                    >
+                                </template>
+                                <div class="dropdown">
+                                    <button class="btn btn-outline-secondary dropdown-toggle"
+                                            type="button"
+                                            x-text="availableInputLabels(solutionEntry)[solutionEntry.input]"
+                                            data-bs-toggle="dropdown">
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <button x-text='availableInputLabels(solutionEntry)[0]'
+                                                    class="dropdown-item text-danger"
+                                                    @click="solutionEntry.input = 0">
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button x-text='availableInputLabels(solutionEntry)[1]'
+                                                    class="dropdown-item text-danger"
+                                                    @click="solutionEntry.input = 1">
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button x-text='"purity " + availableInputLabels(solutionEntry)[2]'
+                                                    class="dropdown-item text-danger"
+                                                    @click="solutionEntry.input = 2">
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="invalid-feedback"
+                                     x-text="translations.message_compound[settings.currentLanguage](
                                              getLowerRangeForConcentration(solutionEntry),
                                              getUpperRangeForConcentration(solutionEntry)
                                          )">
-                                    </div>
-
                                 </div>
-                            </div>
-                        </template>
-                        <div class="input-group">
-                            <div x-show="settings.remainingVolume < 0"
-                                 class="alert alert-danger" role="alert">
-                                ⚠️ <strong>
-                                <span x-text="Math.abs(settings.remainingVolume).toFixed(4)"></span> mL over volume
-                            </strong>
+
                             </div>
                         </div>
-                        <!--------------- Saturation Temp------------------>
-                        <template x-if="settings.saturationTemp !== undefined">
-                            <div>
+                    </template>
+                    <div class="input-group">
+                        <div x-show="settings.remainingVolume < 0"
+                             class="alert alert-danger" role="alert">
+                            ⚠️ <strong>
+                            <span x-text="Math.abs(settings.remainingVolume).toFixed(4)"></span> mL over volume
+                        </strong>
+                        </div>
+                    </div>
+                    <!--------------- Saturation Temp------------------>
+                    <template x-if="settings.saturationTemp !== undefined">
+                        <div>
                                 <span class="small"
-                                x-text="translations.saturationTemp[settings.currentLanguage] + ': ' + (settings.saturationTemp ?? 0).toFixed(1) + '%'">
+                                      x-text="translations.saturationTemp[settings.currentLanguage] + ': ' + (settings.saturationTemp ?? 0).toFixed(1) + '%'">
                                 </span>
 
-                                <div class="progress mb-1" style="height: 20px;">
-                                    <div class="progress-bar progress-bar-striped"
-                                         :class="{
+                            <div class="progress mb-1" style="height: 20px;">
+                                <div class="progress-bar progress-bar-striped"
+                                     :class="{
                                             'bg-danger': settings.saturationTemp >= 75,   'bg-warning': settings.saturationTemp >= 50 && settings.saturationTemp < 75,
                                             'bg-info': settings.saturationTemp >= 25 && settings.saturationTemp < 50,
                                             'bg-success': settings.saturationTemp < 25    }"
-                                         :style="`width: ${settings.saturationTemp ?? 0}%`"
-                                         role="progressbar"
-                                         aria-valuemin="0"
-                                         aria-valuemax="100">
-                                    </div>
+                                     :style="`width: ${settings.saturationTemp ?? 0}%`"
+                                     role="progressbar"
+                                     aria-valuemin="0"
+                                     aria-valuemax="100">
                                 </div>
-
-                                <span x-text="translations.message_crashing[settings.currentLanguage]"
-                                      x-show="settings.saturationTemp >= 75 && settings.saturationTemp < 100"
-                                      class="text-danger small"></span>
-                                <span x-text="translations.message_in_vivo_crystallization[settings.currentLanguage]"
-                                      x-show="settings.saturationTemp >= 100" class="text-danger small"></span>
-
                             </div>
-                        </template>
+
+                            <span x-text="translations.message_crashing[settings.currentLanguage]"
+                                  x-show="settings.saturationTemp >= 75 && settings.saturationTemp < 100"
+                                  class="text-danger small"></span>
+                            <span x-text="translations.message_in_vivo_crystallization[settings.currentLanguage]"
+                                  x-show="settings.saturationTemp >= 100" class="text-danger small"></span>
+
+                        </div>
+                    </template>
+                </div>
+
+
+            </div>
+            <div class="border rounded pb-3 p-1 mt-2">
+
+                    <div class="flex-grow-1 p-1">
+                        <label style="font-size: 0.75rem;" class="form-label small text-muted mb-1">
+                            <span x-text="translations.finished_volume[settings.currentLanguage]"></span>
+                        </label>
+                    <div class="input-group">
+                        <!-- Number Input -->
+                        <input class="form-control text-end"
+                               type="number"
+                               min="5"
+                               step="5"
+                               x-model.number="settings.totalVolume"
+                               @change="updateVolume(settings.totalVolume, settings.compounds); updateChart();"
+                               placeholder="0">
+
+                        <!-- Unit addon -->
+                        <span class="input-group-text">mL</span>
                     </div>
                 </div>
                 <!--------------------------------------- Drop down form control --------------------------------->
@@ -753,8 +753,6 @@
                 <div class="p-1 bg-warning-subtle border-bottom">
                     <h4 class="fw-bold text-center d-flex align-items-center justify-content-center gap-2">
                         <span x-text="translations.batch_totals[settings.currentLanguage]"></span>
-
-
                     </h4>
                     <h7 class="fw-bold text-center d-flex align-items-center justify-content-center gap-2">
                         <template
@@ -763,11 +761,11 @@
                             <input
                                     type="text"
                                     x-model="settings.recipes[settings.selectedRecipeId].name"
-                                    class="form-control-plaintext fw-bold text-center p-0 w-auto d-inline-block border border-opacity-10 focus-ring"
+                                    class="form-control-plaintext fw-bold text-center p-0 w-auto d-inline-block border focus-ring"
                                     style="min-width: 150px; outline: none;"
                             />
-                        </template>✏️
-
+                        </template>
+                        ✏️
                     </h7>
                 </div>
                 <template x-for="solutionMeasurement in solutionMeasurements" :key="solutionMeasurement.id">
@@ -936,34 +934,32 @@
                             <button @click='downloadBatchText("txt")'
                                     class="btn btn-sm btn-primary py-1 px-2"
                                     :title="translations.buttons.download_batch[settings.currentLanguage]">
-                                ⬇️📄 <span class=".d-none .d-sm-block"
+                                ⬇️📄 <span class=" 	.d-none .d-xl-block .d-xxl-none"
                                           x-text="translations.buttons.download_batch[settings.currentLanguage]"></span>
                             </button>
 
                             <button @click='downloadBatchText("xls")'
-                                    class="btn btn-sm btn-primary py-1 px-2"
+                                    class="btn btn-sm text-small btn-primary py-1 px-2"
                                     :title="translations.buttons.download_pricing[settings.currentLanguage]">
-                                ⬇️📊 <span class=".d-none .d-sm-block"
+                                ⬇️📊 <span class=" 	.d-none .d-xl-block .d-xxl-none"
                                           x-text="translations.buttons.download_pricing[settings.currentLanguage]"></span>
                             </button>
 
                             <!-- Banana Download + Upload in one row -->
-                            <div class="d-flex gap-1">
-                                <button @click='downloadBanana()'
-                                        class="btn btn-sm btn-primary py-1 px-2"
-                                        :title="translations.buttons.download_recipe[settings.currentLanguage]">
-                                    ⬇️🍌 <span class=".d-none .d-sm-block"
-                                              x-text="translations.buttons.download_recipe[settings.currentLanguage]"></span>
-                                </button>
+                            <button @click='downloadBanana()'
+                                    class="btn btn-sm btn-primary py-1 px-2"
+                                    :title="translations.buttons.download_recipe[settings.currentLanguage]">
+                                ⬇️🍌 <span class=" 	.d-none .d-xl-block .d-xxl-none"
+                                          x-text="translations.buttons.download_recipe[settings.currentLanguage]"></span>
+                            </button>
 
-                                <button type="button"
-                                        @click="$refs.batchFileUploader.click()"
-                                        class="btn btn-sm btn-primary py-1 px-2"
-                                        :title="translations.buttons.upload_recipe[settings.currentLanguage]">
-                                    ⬆️🍌 <span class=".d-none .d-sm-block "
-                                              x-text="translations.buttons.upload_recipe[settings.currentLanguage]"></span>
-                                </button>
-                            </div>
+                            <button type="button"
+                                    @click="$refs.batchFileUploader.click()"
+                                    class="btn btn-sm btn-primary py-1 px-2"
+                                    :title="translations.buttons.upload_recipe[settings.currentLanguage]">
+                                ⬆️🍌 <span class=" 	.d-none .d-xl-block .d-xxl-none"
+                                          x-text="translations.buttons.upload_recipe[settings.currentLanguage]"></span>
+                            </button>
 
                             <!-- Hidden File Input -->
                             <input type="file"
@@ -987,6 +983,8 @@
             </div>
         </div>
     </div>
+
+</div>
 </div>
 </body>
 </html>
