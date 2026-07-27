@@ -239,6 +239,19 @@ var recipes = [
             compoundConcentration: [50],
             blurb: "A DHEA injection concept emphasizing a guaiacol-free solvent system; based on Photon's original recipe.",
             source: undefined,
+        },{
+            // Source: https://thinksteroids.com/community/threads/castor-oil-experiments.134414781/
+            id: crypto.randomUUID(),
+            type: "user",
+            name: "Banana's Deca 350",
+            solvents: ["benzyl_alcohol", "benzyl_benzoate"],
+            solventPercentages: [2.5, 30],
+            excipients: ["castor"],
+            excipientPercentages: [33.9],
+            compounds: ["nandrolone_decanoate"],
+            compoundConcentration: [350],
+            blurb: "Based on Narta's original recipes.",
+            source: `https://thinksteroids.com/community/threads/castor-oil-experiments.134414781/`,
         },
         {
             id: crypto.randomUUID(),
