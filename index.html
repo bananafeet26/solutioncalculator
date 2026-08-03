@@ -46,6 +46,8 @@
     <!-- Custom styling -->
     <link href="./style/neo-brutalist.css"
           rel="stylesheet">
+    <link href="./style/opera.css"
+          rel="stylesheet">
 </head>
 <body class="container-fluid gx-2" x-data="compoundApp()" x-init="init(); updateChart();"
       :data-bs-theme="settings.theme">
@@ -58,9 +60,11 @@
         >
             <button class="btn btn-outline-secondary" @click="changeTheme()">
                 <span x-text="{
-                    'light': '🌙 ' + (translations.darkMode[settings.currentLanguage] || 'Dark Mode'),
-                    'dark': 'Neo Brutalist',
-                    'neo-brutalist': 'Light Mode'
+                    'light': 'Light Mode' ,
+                    'opera': 'OperaGX',
+                    'dark': '🌙 ' + (translations.darkMode[settings.currentLanguage] || 'Dark Mode'),
+                    'neo-brutalist': 'Neo Brutalist',
+
                 }[settings.theme] || '☀️ Theme'">
                 </span>
             </button>

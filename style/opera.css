@@ -1,0 +1,430 @@
+/* =========================================================
+   HACKER / OPERA GX SKIN – HIGH CONTRAST + FONTS
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Fira+Code:wght@400;500;600;700&display=swap');
+
+[data-bs-theme="opera"] {
+
+    /* === VARIABLES === */
+    --bg: #0a0a0f;
+    --card: #12121a;
+    --card-alt: #1a1a24;
+    --border: #00f0ff;
+    --text: #f0fbff;                 /* almost white */
+    --text-2: #b8e0ef;               /* bright secondary */
+    --text-3: #7ab4c8;
+    --red: #ff2a6d;
+    --red-soft: #2a0a14;
+    --blue: #00f0ff;
+    --blue-soft: #001a1f;
+    --green: #39ff14;
+    --green-soft: #0a1f0a;
+    --orange: #ff9f1c;
+    --orange-soft: #1f1400;
+    --purple: #bf00ff;
+    --purple-soft: #1a001f;
+    --yellow: #ffe600;
+    --yellow-soft: #1f1a00;
+
+    --shadow: 0 0 12px rgba(0, 240, 255, 0.35);
+    --shadow-sm: 0 0 8px rgba(0, 240, 255, 0.25);
+    --shadow-lg: 0 0 20px rgba(0, 240, 255, 0.45);
+    --radius: 2px;
+    --mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+
+    /* === GLOBAL === */
+    font-family: var(--mono) !important;
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Force Bootstrap text utilities to be readable */
+    .text-body,
+    .text-body-secondary,
+    .text-muted,
+    .text-secondary,
+    .text-black-50,
+    .text-white-50 {
+        color: var(--text-2) !important;
+        opacity: 1 !important;
+    }
+
+    .opacity-50,
+    .opacity-75 {
+        opacity: 1 !important;
+        color: var(--text-2) !important;
+    }
+
+    /* === HEADERS === */
+    h2.title {
+        background: var(--card) !important;
+        border: 2px solid var(--border) !important;
+        box-shadow: var(--shadow), inset 0 0 20px rgba(0, 240, 255, 0.05) !important;
+        padding: 16px 22px !important;
+        font-weight: 700 !important;
+        letter-spacing: 1px !important;
+        border-radius: var(--radius) !important;
+        margin-bottom: 24px !important;
+        text-transform: uppercase !important;
+        color: var(--blue) !important;
+    }
+
+    /* === PANELS & CARDS === */
+    .col-12 > .border.rounded,
+    .col-md-6 > .border.rounded,
+    .col-lg-4 > .border.rounded {
+        background: var(--card) !important;
+        border: 2px solid var(--border) !important;
+        padding: 16px !important;
+        box-shadow: var(--shadow) !important;
+        margin-bottom: 16px !important;
+        border-radius: var(--radius) !important;
+    }
+
+    .border.rounded .border.rounded,
+    .border.rounded .p-1.border,
+    .recipe-card,
+    .mt-2.border.rounded {
+        background: var(--card-alt) !important;
+        border: 1px solid rgba(0, 240, 255, 0.4) !important;
+        box-shadow: var(--shadow-sm) !important;
+        border-radius: var(--radius) !important;
+        padding: 12px !important;
+        margin-bottom: 12px !important;
+    }
+
+    /* === FORMS & INPUTS === */
+    .form-control, .form-select {
+        background-color: #0d0d14 !important;
+        border: 1px solid var(--border) !important;
+        color: var(--text) !important;
+        font-family: inherit !important;
+        font-size: 13px !important;
+        font-weight: 500 !important;
+        border-radius: var(--radius) !important;
+        box-shadow: inset 0 0 8px rgba(0, 240, 255, 0.08) !important;
+        padding: 8px 12px !important;
+        transition: border-color 0.2s, box-shadow 0.2s !important;
+    }
+
+    .form-control:focus, .form-select:focus {
+        outline: none !important;
+        border-color: var(--blue) !important;
+        box-shadow: 0 0 12px rgba(0, 240, 255, 0.4),
+        inset 0 0 8px rgba(0, 240, 255, 0.15) !important;
+        background-color: #0f0f18 !important;
+    }
+
+    .form-select {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300f0ff' stroke-width='2.5'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e") !important;
+        background-repeat: no-repeat !important;
+        background-position: right 12px center !important;
+        background-size: 14px !important;
+        padding-right: 36px !important;
+        appearance: none !important;
+    }
+
+    select option {
+        background-color: var(--card) !important;
+        color: var(--text) !important;
+        padding: 10px !important;
+        font-weight: 500 !important;
+    }
+
+    .input-group {
+        box-shadow: var(--shadow-sm) !important;
+        border-radius: var(--radius) !important;
+        margin-bottom: 8px !important;
+        flex-wrap: wrap !important;
+    }
+
+    .input-group > .form-control,
+    .input-group > .btn,
+    .input-group > .input-group-text {
+        box-shadow: none !important;
+        border-radius: var(--radius) !important;
+        margin: 0 !important;
+    }
+
+    .input-group > :not(:first-child):not(.invalid-feedback) {
+        margin-left: -1px !important;
+    }
+
+    .invalid-feedback {
+        width: 100% !important;
+        margin-top: 6px !important;
+        font-size: 10px !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        color: var(--red) !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    .input-group-text {
+        background: var(--card-alt) !important;
+        border: 1px solid var(--border) !important;
+        color: var(--blue) !important;
+        font-weight: 600 !important;
+    }
+
+    /* === BUTTONS === */
+    .btn {
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        border-radius: var(--radius) !important;
+        box-shadow: var(--shadow-sm) !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
+        transition: all 0.15s ease !important;
+        border-width: 1px !important;
+    }
+
+    .btn:hover:not(:disabled) {
+        transform: translateY(-1px) !important;
+        box-shadow: 0 0 16px rgba(0, 240, 255, 0.5) !important;
+        filter: brightness(1.15);
+    }
+
+    .btn:active:not(:disabled) {
+        transform: translateY(1px) !important;
+        box-shadow: 0 0 6px rgba(0, 240, 255, 0.3) !important;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #00c4d4, #0088aa) !important;
+        border-color: var(--blue) !important;
+        color: #000 !important;
+        text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn-outline-secondary {
+        background: transparent !important;
+        border-color: var(--border) !important;
+        color: var(--blue) !important;
+    }
+
+    .btn-outline-secondary:hover:not(:disabled) {
+        background: rgba(0, 240, 255, 0.1) !important;
+        color: #fff !important;
+    }
+
+    /* === TYPOGRAPHY & LABELS === */
+    label, .form-label, .fst-italic {
+        font-size: 11px !important;
+        font-weight: 700 !important;
+        color: var(--text-2) !important;
+        letter-spacing: 1.2px !important;
+        text-transform: uppercase !important;
+        font-style: normal !important;
+        display: block;
+        margin-bottom: 4px !important;
+    }
+
+    /* Keep body text bright */
+    p, span, div, small, .small {
+        color: inherit;
+    }
+
+    /* === PROGRESS BARS === */
+    .progress {
+        border: 1px solid var(--border) !important;
+        border-radius: 0 !important;
+        background: #0d0d14 !important;
+        box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.6),
+        var(--shadow-sm) !important;
+        height: 16px !important;
+        overflow: visible !important;
+    }
+
+    .progress-bar {
+        border-right: 1px solid rgba(0, 0, 0, 0.4) !important;
+        box-shadow: 0 0 10px currentColor !important;
+    }
+
+    .bg-success { background-color: var(--green) !important; }
+    .bg-info    { background-color: var(--blue) !important; }
+    .bg-warning { background-color: var(--yellow) !important; color: #000 !important; }
+    .bg-danger  { background-color: var(--red) !important; }
+
+    /* === ALERTS & BADGES === */
+    .alert {
+        background: var(--red-soft) !important;
+        border: 1px solid var(--red) !important;
+        border-left: 4px solid var(--red) !important;
+        font-weight: 600 !important;
+        color: var(--text) !important;
+        box-shadow: 0 0 12px rgba(255, 42, 109, 0.25) !important;
+        border-radius: var(--radius) !important;
+    }
+
+    .badge {
+        border: 1px solid var(--border) !important;
+        box-shadow: 0 0 8px rgba(0, 240, 255, 0.3) !important;
+        border-radius: var(--radius) !important;
+        font-weight: 700 !important;
+        color: var(--text) !important;
+        padding: 5px 10px !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    /* === DROPDOWNS === */
+    .dropdown-menu {
+        border: 1px solid var(--border) !important;
+        border-radius: var(--radius) !important;
+        box-shadow: var(--shadow-lg) !important;
+        padding: 0 !important;
+        background: var(--card) !important;
+    }
+
+    .dropdown-item {
+        font-weight: 600 !important;
+        font-size: 12px !important;
+        border-bottom: 1px solid rgba(0, 240, 255, 0.15) !important;
+        padding: 10px 14px !important;
+        color: var(--text) !important;
+        transition: background 0.15s !important;
+    }
+
+    .dropdown-item:last-child {
+        border-bottom: none !important;
+    }
+
+    .dropdown-item:hover {
+        background: rgba(0, 240, 255, 0.1) !important;
+        color: var(--blue) !important;
+    }
+
+    /* === RECIPE & BATCH TOTALS === */
+    .col-lg-4 > .border.rounded > .bg-warning-subtle:first-child {
+        background: linear-gradient(90deg, #1f1a00, #2a2200) !important;
+        border-bottom: 1px solid var(--yellow) !important;
+        color: var(--yellow) !important;
+        padding: 16px !important;
+        box-shadow: 0 0 12px rgba(255, 230, 0, 0.15) !important;
+    }
+
+    .bg-body-tertiary, .bg-body {
+        background: var(--card-alt) !important;
+        border: 1px solid rgba(0, 240, 255, 0.35) !important;
+        border-left: 4px solid var(--blue) !important;
+        margin: 12px 12px 16px 12px !important;
+        box-shadow: var(--shadow-sm) !important;
+        padding: 16px !important;
+        border-radius: var(--radius) !important;
+        transition: all 0.15s !important;
+    }
+
+    .bg-body-tertiary:hover, .bg-body:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 0 14px rgba(0, 240, 255, 0.4) !important;
+        border-color: var(--blue) !important;
+    }
+
+    .bg-body-tertiary + .bg-warning-subtle,
+    .bg-body + .bg-warning-subtle {
+        background: var(--yellow-soft) !important;
+        border: 1px solid var(--yellow) !important;
+        border-bottom: 3px solid var(--yellow) !important;
+        margin: 12px !important;
+        padding: 16px !important;
+        border-radius: var(--radius) !important;
+        box-shadow: 0 0 10px rgba(255, 230, 0, 0.2) !important;
+        color: var(--yellow) !important;
+    }
+
+    .border-dotted {
+        border-bottom: 1px dashed rgba(0, 240, 255, 0.35) !important;
+        opacity: 0.8 !important;
+        margin: 0 10px !important;
+    }
+
+    .bg-body-tertiary .d-flex.small,
+    .bg-body .d-flex.small {
+        margin-bottom: 4px !important;
+        font-weight: 600 !important;
+        color: var(--text-2) !important;
+    }
+
+    .bg-body-tertiary .d-flex.small span:last-child,
+    .bg-body .d-flex.small span:last-child {
+        color: var(--text) !important;
+        font-weight: 700 !important;
+    }
+
+    /* === BATCH REPORT HEADER === */
+    .batch-report-header {
+        background: linear-gradient(135deg, #1a1500, #2a2000) !important;
+        border: 1px solid var(--yellow) !important;
+        color: var(--yellow) !important;
+        padding: 14px !important;
+        margin: 12px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        box-shadow: 0 0 14px rgba(255, 230, 0, 0.25) !important;
+        border-radius: var(--radius) !important;
+    }
+
+    .batch-report-header h4,
+    .batch-report-header h7 {
+        margin: 0 !important;
+        line-height: 1.2 !important;
+        color: var(--yellow) !important;
+        text-shadow: 0 0 8px rgba(255, 230, 0, 0.4);
+    }
+
+    .batch-report-header input[type="text"] {
+        background: #0d0d14 !important;
+        border: 1px solid var(--yellow) !important;
+        color: var(--text) !important;
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        box-shadow: 0 0 8px rgba(255, 230, 0, 0.2) !important;
+        border-radius: var(--radius) !important;
+        width: auto !important;
+        display: inline-block !important;
+        outline: none !important;
+    }
+
+    .batch-report-header input[type="text"]:focus {
+        box-shadow: 0 0 12px rgba(255, 230, 0, 0.4) !important;
+    }
+    /* Danger / warning text */
+    .text-danger,
+    .text-danger.small,
+    span.text-danger {
+        color: var(--red) !important;               /* #ff2a6d */
+        font-weight: 600 !important;
+        text-shadow: 0 0 8px rgba(255, 42, 109, 0.45);
+    }
+
+    /* Make small text still readable */
+    .small,
+    small {
+        font-size: 0.85em !important;
+        color: inherit;
+    }
+
+    /* Optional: stronger warning style */
+    .text-danger.small {
+        letter-spacing: 0.3px;
+        background: rgba(255, 42, 109, 0.08);
+        padding: 2px 8px;
+        border-radius: 2px;
+        border-left: 3px solid var(--red);
+    }
+
+    /* Also cover Bootstrap alert-danger if you use it */
+    .alert-danger {
+        background: var(--red-soft) !important;
+        border: 1px solid var(--red) !important;
+        border-left: 4px solid var(--red) !important;
+        color: var(--text) !important;
+        box-shadow: 0 0 12px rgba(255, 42, 109, 0.25) !important;
+    }
+}

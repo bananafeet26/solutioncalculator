@@ -351,4 +351,42 @@
         display: inline-block !important;
         outline: none !important;
     }
+    /* Danger / warning text */
+    .text-danger,
+    .text-danger.small,
+    span.text-danger {
+        color: var(--red) !important;               /* #dc2626 */
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    /* Make small text still readable */
+    .small,
+    small {
+        font-size: 0.85em !important;
+        color: inherit;
+    }
+
+    /* Stronger warning style – brutalist version */
+    .text-danger.small {
+        background: var(--red-soft) !important;
+        border: 2px solid var(--red) !important;
+        border-left: 6px solid var(--red) !important;
+        padding: 4px 10px !important;
+        border-radius: var(--radius) !important;
+        box-shadow: var(--shadow-sm) !important;
+        display: inline-block;
+    }
+
+    /* Alert-danger */
+    .alert-danger {
+        background: var(--red-soft) !important;
+        border: 3px solid var(--red) !important;
+        border-left: 8px solid var(--red) !important;
+        color: var(--text) !important;
+        font-weight: 700 !important;
+        box-shadow: var(--shadow-sm) !important;
+        border-radius: var(--radius) !important;
+    }
 }

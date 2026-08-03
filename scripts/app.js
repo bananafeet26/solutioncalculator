@@ -93,7 +93,7 @@ function compoundApp() {
         },
         changeTheme() {
             // 1. Define your cycle order here (add as many as you want)
-            const themes = ['light', 'dark', 'neo-brutalist', 'bubblegum'];
+            const themes = ['light', 'neo-brutalist', 'dark', 'opera'];
 
             // 2. Find the current theme's index
             let currentIndex = themes.indexOf(this.settings.theme);
@@ -939,6 +939,7 @@ function compoundApp() {
             //console.log(this.chart.data);
             //console.log(this.settings.compounds);
             this.chart.options.plugins.legend.labels.color = (this.settings.theme === 'dark') ? '#ffffff' : '#000000';
+            this.chart.options.plugins.legend.labels.color = (this.settings.theme === 'opera') ? '#ffffff' : '#000000';
             this.chart.update();
             this.solutionMeasurements = [];
             this.anaylseBatch()
