@@ -42,6 +42,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet">
+
+    <!-- Custom styling -->
+    <link href="./style/neo-brutalist.css"
+          rel="stylesheet">
 </head>
 <body class="container-fluid gx-2" x-data="compoundApp()" x-init="init(); updateChart();"
       :data-bs-theme="settings.theme">
@@ -52,10 +56,14 @@
                 class="btn"
                 @click="changeTheme()"
         >
-        <span x-text="settings.theme === 'light'
-              ? '🌙 ' + (translations.darkMode[settings.currentLanguage] || 'Dark Mode')
-              : '☀️ ' +  (translations.lightMode[settings.currentLanguage] || 'Light Mode')">
-</span>
+            <button class="btn btn-outline-secondary" @click="changeTheme()">
+                <span x-text="{
+                    'light': '🌙 ' + (translations.darkMode[settings.currentLanguage] || 'Dark Mode'),
+                    'dark': 'Neo Brutalist',
+                    'neo-brutalist': 'Light Mode'
+                }[settings.theme] || '☀️ Theme'">
+                </span>
+            </button>
         </button>
     </h2>
     <div class="row gx-2">
@@ -749,7 +757,7 @@
         <!-------------------------------------- Batch --------------------------------------------------------->
         <div class="col-12 col-lg-4 mb-1">
             <div class="border rounded">
-                <div class="p-1 bg-warning-subtle border-bottom">
+                <div class="p-1 bg-warning-subtle border-bottom batch-report-header">
                     <h4 class="fw-bold text-center d-flex align-items-center justify-content-center gap-2">
                         <span x-text="translations.batch_totals[settings.currentLanguage]"></span>
                     </h4>

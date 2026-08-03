@@ -1,0 +1,354 @@
+/* =========================================================
+   NEO-BRUTALIST SKIN FOR INDEX.HTML (BOOTSTRAP 5 OVERRIDES)
+   ========================================================= */
+
+[data-bs-theme="neo-brutalist"] {
+
+    /* === VARIABLES === */
+    --bg: #f5f0e8;
+    --card: #fffdf8;
+    --card-alt: #f8f4ec;
+    --border: #1a1a1a;
+    --text: #1a1a1a;
+    --text-2: #555;
+    --text-3: #888;
+    --red: #dc2626;
+    --red-soft: #fef2f2;
+    --blue: #2563eb;
+    --blue-soft: #eff6ff;
+    --green: #16a34a;
+    --green-soft: #f0fdf4;
+    --orange: #ea580c;
+    --orange-soft: #fff7ed;
+    --purple: #9333ea;
+    --purple-soft: #faf5ff;
+    --yellow: #ca8a04;
+    --yellow-soft: #fefce8;
+
+    /* Shadows & Shapes */
+    --shadow: 4px 4px 0 #1a1a1a;
+    --shadow-sm: 3px 3px 0 #1a1a1a;
+    --shadow-lg: 6px 6px 0 #1a1a1a;
+    --radius: 0px;
+    --mono: 'Inter', system-ui, sans-serif;
+
+    /* === GLOBAL RESETS === */
+    font-family: var(--mono) !important;
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+
+    /* === HEADERS === */
+    h2.title {
+        background: var(--card) !important;
+        border: 3px solid var(--border) !important;
+        box-shadow: var(--shadow) !important;
+        padding: 16px 22px !important;
+        font-weight: 800 !important;
+        border-radius: var(--radius) !important;
+        margin-bottom: 24px !important;
+    }
+
+    /* === PANELS & CARDS === */
+    /* Target the main column wrappers to act as brutalist panels */
+    .col-12 > .border.rounded,
+    .col-md-6 > .border.rounded,
+    .col-lg-4 > .border.rounded {
+        background: var(--card) !important;
+        border: 3px solid var(--border) !important;
+        padding: 16px !important;
+        box-shadow: var(--shadow) !important;
+        margin-bottom: 16px !important;
+        border-radius: var(--radius) !important;
+    }
+
+    /* Inner sub-sections (acts as internal cards) */
+    .border.rounded .border.rounded,
+    .border.rounded .p-1.border,
+    .recipe-card,
+    .mt-2.border.rounded {
+        background: var(--card-alt) !important;
+        border: 3px solid var(--border) !important;
+        box-shadow: var(--shadow-sm) !important;
+        border-radius: var(--radius) !important;
+        padding: 12px !important;
+        margin-bottom: 12px !important;
+    }
+
+    /* === FORMS & INPUTS === */
+    .form-control, .form-select {
+        background-color: #fff !important;
+        border: 2px solid var(--border) !important; /* Reduced from 3px */
+        color: var(--text) !important;
+        font-family: inherit !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        border-radius: var(--radius) !important;
+        box-shadow: var(--shadow-sm) !important;
+        padding: 8px 12px !important;
+    }
+
+    .form-control:focus, .form-select:focus {
+        outline: none !important;
+        border-color: var(--blue) !important;
+        box-shadow: 3px 3px 0 var(--blue) !important; /* Reduced shadow to match */
+    }
+    /* Fix the repeating Chevron bug */
+    .form-select {
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='3'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e") !important;
+        background-repeat: no-repeat !important;
+        background-position: right 12px center !important;
+        background-size: 16px !important;
+        padding-right: 36px !important;
+        appearance: none !important;
+    }
+    /* Style the internal options to match the theme colors */
+    select option {
+        background-color: var(--card) !important;
+        color: var(--text) !important;
+        padding: 10px !important;
+        font-weight: 700 !important;
+    }
+    /* Input Groups */
+    .input-group {
+        box-shadow: var(--shadow-sm) !important;
+        border-radius: var(--radius) !important;
+        margin-bottom: 8px !important;
+        flex-wrap: wrap !important; /* CHANGED: Allows validation text to drop down naturally */
+    }
+
+    .input-group > .form-control,
+    .input-group > .btn,
+    .input-group > .input-group-text {
+        box-shadow: none !important;
+        border-radius: var(--radius) !important;
+        margin: 0 !important;
+    }
+
+    /* Only apply the negative margin to items that are actually inline, not the wrapped text */
+    .input-group > :not(:first-child):not(.invalid-feedback) {
+        margin-left: -2px !important;
+    }
+
+    /* Force the validation text to sit cleanly below the input */
+    .invalid-feedback {
+        width: 100% !important;
+        margin-top: 6px !important;
+        font-size: 10px !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+    }
+    .input-group-text {
+        background: var(--card-alt) !important;
+        border: 2px solid var(--border) !important; /* Reduced from 3px */
+        font-weight: 800 !important;
+    }
+
+    /* === BUTTONS === */
+    .btn {
+        font-size: 12px !important;
+        font-weight: 800 !important;
+        border-radius: var(--radius) !important;
+        box-shadow: var(--shadow-sm) !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        transition: all 0.15s !important;
+        border-width: 2px !important; /* Thinner button borders to match inputs */
+    }
+
+    .btn:hover:not(:disabled) {
+        transform: translate(-2px, -2px) !important;
+        box-shadow: 5px 5px 0 var(--border) !important;
+    }
+
+    .btn:active:not(:disabled) {
+        transform: translate(2px, 2px) !important;
+        box-shadow: 1px 1px 0 var(--border) !important;
+    }
+
+    .btn-primary {
+        background: var(--blue) !important;
+        color: #fff !important;
+    }
+
+    .btn-outline-secondary {
+        background: #fff !important;
+        color: var(--text) !important;
+    }
+
+    /* === TYPOGRAPHY & LABELS === */
+    label, .form-label, .fst-italic {
+        font-size: 10px !important;
+        font-weight: 800 !important;
+        color: var(--text-2) !important;
+        letter-spacing: 1px !important;
+        text-transform: uppercase !important;
+        font-style: normal !important; /* Strips the bootstrap italics */
+        display: block;
+        margin-bottom: 4px !important;
+    }
+
+    /* Batch list dashed line replacement */
+    .border-dotted {
+        border-bottom: 3px solid var(--border) !important;
+        opacity: 1 !important;
+    }
+
+    /* === PROGRESS BARS === */
+    .progress {
+        border: 3px solid var(--border) !important;
+        border-radius: 0 !important;
+        background: #fff !important;
+        box-shadow: var(--shadow-sm) !important;
+        height: 18px !important;
+        overflow: visible !important;
+    }
+
+    .progress-bar {
+        border-right: 3px solid var(--border) !important;
+    }
+
+    .bg-success { background-color: var(--green) !important; }
+    .bg-info { background-color: var(--blue) !important; }
+    .bg-warning { background-color: var(--yellow) !important; }
+    .bg-danger { background-color: var(--red) !important; }
+
+    /* === ALERTS & BADGES === */
+    .alert {
+        background: var(--red-soft) !important;
+        border: 3px solid var(--red) !important;
+        border-left: 8px solid var(--red) !important;
+        font-weight: 700 !important;
+        color: var(--text) !important;
+        box-shadow: var(--shadow-sm) !important;
+        border-radius: var(--radius) !important;
+    }
+
+    .badge {
+        border: 3px solid var(--border) !important;
+        box-shadow: 2px 2px 0 var(--border) !important;
+        border-radius: var(--radius) !important;
+        font-weight: 800 !important;
+        color: var(--text) !important;
+        padding: 6px 10px !important;
+    }
+
+    /* === DROPDOWNS === */
+    .dropdown-menu {
+        border: 3px solid var(--border) !important;
+        border-radius: 0 !important;
+        box-shadow: var(--shadow) !important;
+        padding: 0 !important;
+        background: #fff !important;
+    }
+
+    .dropdown-item {
+        font-weight: 800 !important;
+        font-size: 12px !important;
+        border-bottom: 3px solid var(--border) !important;
+        padding: 10px 14px !important;
+    }
+
+    .dropdown-item:last-child {
+        border-bottom: none !important;
+    }
+
+    .dropdown-item:hover {
+        background: var(--card-alt) !important;
+    }
+
+    /* === RECIPE & BATCH TOTALS LOGIC === */
+
+    /* Main Batch Header */
+    .col-lg-4 > .border.rounded > .bg-warning-subtle:first-child {
+        background: var(--yellow) !important;
+        border-bottom: 3px solid var(--border) !important;
+        color: var(--text) !important;
+        padding: 16px !important;
+    }
+
+    /* Compound Item Cards */
+    .bg-body-tertiary, .bg-body {
+        background: #fff !important;
+        border: 2px solid var(--border) !important; /* Thinner border for readability */
+        border-left: 6px solid var(--blue) !important;
+        margin: 12px 12px 16px 12px !important; /* Adds breathing room between cards */
+        box-shadow: 3px 3px 0 var(--border) !important; /* Softer shadow */
+        padding: 16px !important;
+        border-radius: var(--radius) !important;
+        transition: all 0.15s !important;
+    }
+
+    .bg-body-tertiary:hover, .bg-body:hover {
+        transform: translate(-1px, -1px);
+        box-shadow: 4px 4px 0 var(--border) !important;
+    }
+
+    /* Batch Totals Footer Block */
+    .bg-body-tertiary + .bg-warning-subtle,
+    .bg-body + .bg-warning-subtle {
+        background: var(--yellow-soft) !important;
+        border: 2px solid var(--border) !important;
+        border-bottom: 4px solid var(--border) !important;
+        margin: 12px !important;
+        padding: 16px !important;
+        border-radius: var(--radius) !important;
+        box-shadow: 2px 2px 0 var(--border) !important;
+    }
+
+    /* Dotted line overrides - making them subtle */
+    .border-dotted {
+        border-bottom: 2px dotted var(--text-3) !important;
+        opacity: 0.5 !important;
+        margin: 0 10px !important;
+    }
+
+    /* Clean up the labels inside the batch cards */
+    .bg-body-tertiary .d-flex.small, .bg-body .d-flex.small {
+        margin-bottom: 4px !important;
+        font-weight: 700 !important;
+        color: var(--text-2) !important;
+    }
+
+    .bg-body-tertiary .d-flex.small span:last-child,
+    .bg-body .d-flex.small span:last-child {
+        color: var(--text) !important;
+        font-weight: 800 !important;
+    }
+
+    /* === CUSTOM BATCH REPORT HEADER STYLING === */
+    .batch-report-header {
+        background: var(--yellow) !important;
+        border: 2px solid var(--border) !important;
+        color: var(--text) !important;
+        padding: 14px !important;
+        margin: 12px !important; /* Pulls it inward into a boxed card format */
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        box-shadow: var(--shadow-sm) !important; /* Adds the signature brutalist drop shadow */
+        border-radius: var(--radius) !important;
+    }
+
+    .batch-report-header h4,
+    .batch-report-header h7 {
+        margin: 0 !important;
+        line-height: 1.2 !important;
+        color: var(--text) !important;
+    }
+
+    .batch-report-header input[type="text"] {
+        background: #fff !important;
+        border: 2px solid var(--border) !important;
+        color: var(--text) !important;
+        padding: 6px 12px !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        box-shadow: 2px 2px 0 var(--border) !important;
+        border-radius: var(--radius) !important;
+        width: auto !important;
+        display: inline-block !important;
+        outline: none !important;
+    }
+}

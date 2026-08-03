@@ -402,6 +402,7 @@ function calculateViscosity(compounds) {
     const fractions = volumes.map(v => v / totalVolume);
     return calculateMixtureViscosity(viscosity, fractions);
 }
+
 function estimateCompoundViscosityBasedOnEster(compound) {
     let esterLength = solubility.find(c =>
         c.member_self_ids.includes(compound.self_id)
@@ -523,8 +524,9 @@ function estimateSaturationForCompound(compound, activeCompoundArray, totalVolum
         console.log(`   -> rangeForCompoundForThisConcentration: ${rangeForCompoundForThisConcentration[0]} - ${rangeForCompoundForThisConcentration[1]}`);
         return rangeForCompoundForThisConcentration;
     }
-    return [0,0];
+    return [0, 0];
 }
+
 /**
  * Evaluates a formulation's viscosity and categorizes the recommended
  * syringe and needle combinations based on actual injection force thresholds.
@@ -535,17 +537,17 @@ function estimateSaturationForCompound(compound, activeCompoundArray, totalVolum
  */
 function evaluateInjectionTier(viscosityCp, targetVolumeMl, targetTimeSec = 15, languageCode) {
     const needleSpecs = [
-        { gauge: 30, id: 0.159, lengthMm: 12.7 },
-        { gauge: 29, id: 0.184, lengthMm: 12.7 },
-        { gauge: 27, id: 0.210, lengthMm: 12.7 },
-        { gauge: 25, id: 0.260, lengthMm: 25.4 },  // 1 inch
-        { gauge: 23, id: 0.337, lengthMm: 31.75 }, // 1.25 inch
-        { gauge: 21, id: 0.514, lengthMm: 38.1 }   // 1.5 inch
+        {gauge: 30, id: 0.159, lengthMm: 12.7},
+        {gauge: 29, id: 0.184, lengthMm: 12.7},
+        {gauge: 27, id: 0.210, lengthMm: 12.7},
+        {gauge: 25, id: 0.260, lengthMm: 25.4},  // 1 inch
+        {gauge: 23, id: 0.337, lengthMm: 31.75}, // 1.25 inch
+        {gauge: 21, id: 0.514, lengthMm: 38.1}   // 1.5 inch
     ];
 
     const barrelSpecs = [
-        { size: "1mL", diameterMm: 4.7 },
-        { size: "3mL", diameterMm: 8.6 }
+        {size: "1mL", diameterMm: 4.7},
+        {size: "3mL", diameterMm: 8.6}
     ];
 
     const frictionForceN = 5.0;
@@ -588,23 +590,23 @@ function evaluateInjectionTier(viscosityCp, targetVolumeMl, targetTimeSec = 15, 
     let tier = {
         id: 3,
         name: translations.injectionTiers[languageCode].t3_name,
-        description:  translations.injectionTiers[languageCode].t3_desc,
-        recommendation:  translations.injectionTiers[languageCode].t3_reco
+        description: translations.injectionTiers[languageCode].t3_desc,
+        recommendation: translations.injectionTiers[languageCode].t3_reco
     };
 
     if (viscosityCp <= 20) {
         tier = {
             id: 1,
             name: translations.injectionTiers[languageCode].t1_name,
-            description:  translations.injectionTiers[languageCode].t1_desc,
-            recommendation:  translations.injectionTiers[languageCode].t1_reco
+            description: translations.injectionTiers[languageCode].t1_desc,
+            recommendation: translations.injectionTiers[languageCode].t1_reco
         };
     } else if (viscosityCp > 20 && viscosityCp <= 100) {
         tier = {
             id: 2,
             name: translations.injectionTiers[languageCode].t2_name,
-            description:  translations.injectionTiers[languageCode].t2_desc,
-            recommendation:  translations.injectionTiers[languageCode].t2_reco
+            description: translations.injectionTiers[languageCode].t2_desc,
+            recommendation: translations.injectionTiers[languageCode].t2_reco
         };
     }
 
@@ -710,52 +712,349 @@ function calculateBatchTotals(compounds) {
         mls: mls,
     }
 }
+
 // --- VETTED CHEMICAL PARAMETERS DATABASE ---
 const CHEMICAL_DATABASE = {
-    "testosterone_enanthate": { name: "Testosterone Enanthate", molecular_weight: 400.6, density: 1.05, molar_volume: 381.5, melting_point: 36.0, enthalpy_of_fusion: 24500, hsp: { d: 17.6, p: 4.8, h: 6.2 } },
-    "testosterone_cypionate": { name: "Testosterone Cypionate", molecular_weight: 412.6, density: 1.05, molar_volume: 393.0, melting_point: 101.5, enthalpy_of_fusion: 34000, hsp: { d: 17.8, p: 5.1, h: 6.4 } },
-    "testosterone_undecanoate": { name: "Testosterone Undecanoate", molecular_weight: 456.7, density: 1.02, molar_volume: 447.7, melting_point: 61.0, enthalpy_of_fusion: 31000, hsp: { d: 17.3, p: 3.9, h: 5.5 } },
-    "testosterone_propionate": { name: "Testosterone Propionate", molecular_weight: 344.5, density: 1.10, molar_volume: 313.2, melting_point: 121.0, enthalpy_of_fusion: 32000, hsp: { d: 18.2, p: 6.1, h: 7.1 } },
-    "testosterone_base": { name: "Testosterone Base", molecular_weight: 288.4, density: 1.12, molar_volume: 257.5, melting_point: 155.0, enthalpy_of_fusion: 29500, hsp: { d: 19.1, p: 8.5, h: 10.4 } },
-    "nandrolone_decanoate": { name: "Nandrolone Decanoate", molecular_weight: 428.7, density: 1.04, molar_volume: 412.2, melting_point: 35.0, enthalpy_of_fusion: 22000, hsp: { d: 17.5, p: 4.5, h: 5.9 } },
-    "nandrolone_phenylpropionate": { name: "Nandrolone Phenylpropionate (NPP)", molecular_weight: 406.5, density: 1.11, molar_volume: 366.2, melting_point: 97.0, enthalpy_of_fusion: 31500, hsp: { d: 18.5, p: 5.8, h: 6.7 } },
-    "methenolone_enanthate": { name: "Methenolone Enanthate", molecular_weight: 414.6, density: 1.05, molar_volume: 394.9, melting_point: 67.0, enthalpy_of_fusion: 27000, hsp: { d: 17.5, p: 4.4, h: 6.0 } },
-    "drostanolone_enanthate": { name: "Drostanolone Enanthate", molecular_weight: 416.6, density: 1.04, molar_volume: 400.6, melting_point: 53.0, enthalpy_of_fusion: 25500, hsp: { d: 17.4, p: 4.2, h: 5.8 } },
-    "trenbolone_acetate": { name: "Trenbolone Acetate", molecular_weight: 312.4, density: 1.17, molar_volume: 267.0, melting_point: 96.0, enthalpy_of_fusion: 28000, hsp: { d: 18.8, p: 6.8, h: 7.2 } },
-    "trenbolone_enanthate": { name: "Trenbolone Enanthate", molecular_weight: 382.5, density: 1.09, molar_volume: 350.9, melting_point: 71.0, enthalpy_of_fusion: 26500, hsp: { d: 17.9, p: 5.0, h: 6.1 } },
-    "estradiol_enanthate": { name: "Estradiol Enanthate", molecular_weight: 384.5, density: 1.08, molar_volume: 356.0, melting_point: 95.0, enthalpy_of_fusion: 33000, hsp: { d: 18.1, p: 5.9, h: 8.8 } },
-    "estradiol_valerate": { name: "Estradiol Valerate", molecular_weight: 356.5, density: 1.11, molar_volume: 321.2, melting_point: 144.0, enthalpy_of_fusion: 37500, hsp: { d: 18.4, p: 6.6, h: 9.3 } },
-    "anadrol": { name: "Oxymetholone (Anadrol)", molecular_weight: 332.5, density: 1.16, molar_volume: 286.6, melting_point: 178.0, enthalpy_of_fusion: 36000, hsp: { d: 18.7, p: 7.9, h: 9.8 } },
-    "halotestin": { name: "Fluoxymesterone", molecular_weight: 336.4, density: 1.21, molar_volume: 278.0, melting_point: 240.0, enthalpy_of_fusion: 42000, hsp: { d: 19.2, p: 9.0, h: 12.1 } },
-    "winstrol": { name: "Stanozolol (Winstrol)", molecular_weight: 328.5, density: 1.12, molar_volume: 293.3, melting_point: 235.0, enthalpy_of_fusion: 41000, hsp: { d: 18.9, p: 8.2, h: 10.8 } },
-    "dhea_base": { name: "DHEA Base", molecular_weight: 288.4, density: 1.14, molar_volume: 253.0, melting_point: 140.0, enthalpy_of_fusion: 31000, hsp: { d: 18.6, p: 7.5, h: 9.5 } },
+    "testosterone_enanthate": {
+        name: "Testosterone Enanthate",
+        self_id: 'testosterone_enanthate',
+        molecular_weight: 400.6,
+        density: 1.05,
+        molar_volume: 381.5,
+        melting_point: 36.0,
+        enthalpy_of_fusion: 24500,
+        hsp: {d: 17.6, p: 4.8, h: 6.2}
+    },
+    "testosterone_cypionate": {
+        name: "Testosterone Cypionate",
+        self_id: 'testosterone_cypionate',
+        molecular_weight: 412.6,
+        density: 1.05,
+        molar_volume: 393.0,
+        melting_point: 101.5,
+        enthalpy_of_fusion: 34000,
+        hsp: {d: 17.8, p: 5.1, h: 6.4}
+    },
+    "testosterone_undecanoate": {
+        name: "Testosterone Undecanoate",
+        self_id: 'testosterone_undecanoate',
+        molecular_weight: 456.7,
+        density: 1.02,
+        molar_volume: 447.7,
+        melting_point: 61.0,
+        enthalpy_of_fusion: 31000,
+        hsp: {d: 17.3, p: 3.9, h: 5.5}
+    },
+    "testosterone_propionate": {
+        name: "Testosterone Propionate",
+        self_id: 'testosterone_propionate',
+        molecular_weight: 344.5,
+        density: 1.10,
+        molar_volume: 313.2,
+        melting_point: 121.0,
+        enthalpy_of_fusion: 32000,
+        hsp: {d: 18.2, p: 6.1, h: 7.1}
+    },
+    "testosterone_base": {
+        name: "Testosterone Base",
+        self_id: 'testosterone_base',
+        molecular_weight: 288.4,
+        density: 1.12,
+        molar_volume: 257.5,
+        melting_point: 155.0,
+        enthalpy_of_fusion: 29500,
+        hsp: {d: 19.1, p: 8.5, h: 10.4}
+    },
+    "nandrolone_decanoate": {
+        name: "Nandrolone Decanoate",
+        self_id: 'nandrolone_decanoate',
+        molecular_weight: 428.7,
+        density: 1.04,
+        molar_volume: 412.2,
+        melting_point: 35.0,
+        enthalpy_of_fusion: 22000,
+        hsp: {d: 17.5, p: 4.5, h: 5.9}
+    },
+    "testosterone_decanoate": {
+        name: "Testosterone Decanoate",
+        self_id: 'testosterone_decanoate',
+        molecular_weight: 442.6737,
+        density: 1.0416666666666667,
+        molar_volume: 443.4,
+        melting_point: 47,
+        enthalpy_of_fusion: 8598,
+        hsp: {d: 17.5, p: 4.5, h: 5.9}
+    },
+    "nandrolone_phenylpropionate": {
+        name: "Nandrolone Phenylpropionate (NPP)",
+        self_id: 'nandrolone_phenylpropionate',
+        molecular_weight: 406.5,
+        density: 1.11,
+        molar_volume: 366.2,
+        melting_point: 97.0,
+        enthalpy_of_fusion: 31500,
+        hsp: {d: 18.5, p: 5.8, h: 6.7}
+    },
+    "methenolone_enanthate": {
+        name: "Methenolone Enanthate",
+        self_id: 'methenolone_enanthate',
+        molecular_weight: 414.6,
+        density: 1.05,
+        molar_volume: 394.9,
+        melting_point: 67.0,
+        enthalpy_of_fusion: 27000,
+        hsp: {d: 17.5, p: 4.4, h: 6.0}
+    },
+    "drostanolone_enanthate": {
+        name: "Drostanolone Enanthate",
+        self_id: 'drostanolone_enanthate',
+        molecular_weight: 416.6,
+        density: 1.04,
+        molar_volume: 400.6,
+        melting_point: 53.0,
+        enthalpy_of_fusion: 25500,
+        hsp: {d: 17.4, p: 4.2, h: 5.8}
+    },
+    "trenbolone_acetate": {
+        name: "Trenbolone Acetate",
+        self_id: 'trenbolone_acetate',
+        molecular_weight: 312.4,
+        density: 1.17,
+        molar_volume: 267.0,
+        melting_point: 96.0,
+        enthalpy_of_fusion: 28000,
+        hsp: {d: 18.8, p: 6.8, h: 7.2}
+    },
+    "trenbolone_enanthate": {
+        name: "Trenbolone Enanthate",
+        self_id: 'trenbolone_enanthate',
+        molecular_weight: 382.5,
+        density: 1.09,
+        molar_volume: 350.9,
+        melting_point: 71.0,
+        enthalpy_of_fusion: 26500,
+        hsp: {d: 17.9, p: 5.0, h: 6.1}
+    },
+    "estradiol_enanthate": {
+        name: "Estradiol Enanthate",
+        self_id: 'estradiol_enanthate',
+        molecular_weight: 384.5,
+        density: 1.08,
+        molar_volume: 356.0,
+        melting_point: 95.0,
+        enthalpy_of_fusion: 33000,
+        hsp: {d: 18.1, p: 5.9, h: 8.8}
+    },
+    "estradiol_valerate": {
+        name: "Estradiol Valerate",
+        self_id: 'estradiol_valerate',
+        molecular_weight: 356.5,
+        density: 1.11,
+        molar_volume: 321.2,
+        melting_point: 144.0,
+        enthalpy_of_fusion: 37500,
+        hsp: {d: 18.4, p: 6.6, h: 9.3}
+    },
+    "anadrol": {
+        name: "Oxymetholone (Anadrol)",
+        self_id: 'anadrol',
+        molecular_weight: 332.5,
+        density: 1.16,
+        molar_volume: 286.6,
+        melting_point: 178.0,
+        enthalpy_of_fusion: 36000,
+        hsp: {d: 18.7, p: 7.9, h: 9.8}
+    },
+    "halotestin": {
+        name: "Fluoxymesterone",
+        self_id: 'halotestin',
+        molecular_weight: 336.4,
+        density: 1.21,
+        molar_volume: 278.0,
+        melting_point: 240.0,
+        enthalpy_of_fusion: 42000,
+        hsp: {d: 19.2, p: 9.0, h: 12.1}
+    },
+    "winstrol": {
+        name: "Stanozolol (Winstrol)",
+        self_id: 'winstrol',
+        molecular_weight: 328.5,
+        density: 1.12,
+        molar_volume: 293.3,
+        melting_point: 228,                 // compromise
+        enthalpy_of_fusion: 38000,          // significantly reduced from 67.3 kJ
+        hsp: { d: 18.9, p: 8.2, h: 10.8 }
+    },
+    "dhea_base": {
+        name: "DHEA Base",
+        self_id: 'dhea_base',
+        molecular_weight: 288.4,
+        density: 1.14,
+        molar_volume: 253.0,
+        melting_point: 140.0,
+        enthalpy_of_fusion: 31000,
+        hsp: {d: 18.6, p: 7.5, h: 9.5}
+    },
     "boldenone_undecylenate": {
         name: "Boldenone Undecylenate",
+        self_id: 'boldenone_undecylenate',
         molecular_weight: 452.7,
         density: 1.02,
         molar_volume: 443.8,
         melting_point: 15.0, // Low melting ester; often a liquid/semi-solid at room temp
         enthalpy_of_fusion: 19500, // Minimal crystalline lattice barrier
-        hsp: { d: 17.4, p: 3.8, h: 5.2 } // High lipophilicity matching carrier oils perfectly
+        hsp: {d: 17.4, p: 3.8, h: 5.2} // High lipophilicity matching carrier oils perfectly
     },
     // SOLVENTS
-    "benzyl_alcohol": { name: "Benzyl Alcohol", molecular_weight: 108.14, density: 1.044, molar_volume: 103.6, melting_point: -15.2, hsp: { d: 18.4, p: 6.3, h: 13.7 } },
-    "benzyl_benzoate": { name: "Benzyl Benzoate", molecular_weight: 212.25, density: 1.118, molar_volume: 189.8, melting_point: 17.0, hsp: { d: 20.0, p: 5.1, h: 5.2 } },
-    "ethyl_oleate": { name: "Ethyl Oleate", molecular_weight: 310.51, density: 0.87, molar_volume: 356.9, melting_point: -32.0, hsp: { d: 16.5, p: 3.2, h: 4.1 } },
-    "ethyl_lactate": { name: "Ethyl Lactate", molecular_weight: 118.13, density: 1.03, molar_volume: 114.7, melting_point: -26.0, hsp: { d: 16.0, p: 7.6, h: 12.5 } },
-    "methyl_salicylate": { name: "Methyl Salicylate", molecular_weight: 152.15, density: 1.17, molar_volume: 130.0, melting_point: -8.0, hsp: { d: 19.5, p: 8.0, h: 8.5 } },
-    "chlorobutanol": { name: "Chlorobutanol", molecular_weight: 177.46, density: 1.40, molar_volume: 126.8, melting_point: 97.0, hsp: { d: 17.5, p: 5.5, h: 7.2 } },
-    "ethanol": { name: "Ethanol", molecular_weight: 46.07, density: 0.789, molar_volume: 58.4, melting_point: -114.0, hsp: { d: 15.8, p: 8.8, h: 19.4 } },
+    "benzyl_alcohol": {
+        name: "Benzyl Alcohol",
+        self_id: 'benzyl_alcohol',
+        molecular_weight: 108.14,
+        density: 1.044,
+        molar_volume: 103.6,
+        melting_point: -15.2,
+        hsp: {d: 18.4, p: 6.3, h: 13.7}
+    },
+    "benzyl_benzoate": {
+        name: "Benzyl Benzoate",
+        self_id: 'benzyl_benzoate',
+        molecular_weight: 212.25,
+        density: 1.118,
+        molar_volume: 189.8,
+        melting_point: 17.0,
+        hsp: {d: 20.0, p: 5.1, h: 5.2}
+    },
+    "ethyl_oleate": {
+        name: "Ethyl Oleate",
+        self_id: 'ethyl_oleate',
+        molecular_weight: 310.51,
+        density: 0.87,
+        molar_volume: 356.9,
+        melting_point: -32.0,
+        hsp: {d: 16.5, p: 3.2, h: 4.1}
+    },
+    "ethyl_lactate": {
+        name: "Ethyl Lactate",
+        self_id: 'ethyl_lactate',
+        molecular_weight: 118.13,
+        density: 1.03,
+        molar_volume: 114.7,
+        melting_point: -26.0,
+        hsp: {d: 16.0, p: 7.6, h: 12.5}
+    },
+    "methyl_salicylate": {
+        name: "Methyl Salicylate",
+        self_id: 'methyl_salicylate',
+        molecular_weight: 152.15,
+        density: 1.17,
+        molar_volume: 130.0,
+        melting_point: -8.0,
+        hsp: {d: 19.5, p: 8.0, h: 8.5}
+    },
+    "chlorobutanol": {
+        name: "Chlorobutanol",
+        self_id: 'chlorobutanol',
+        molecular_weight: 177.46,
+        density: 1.40,
+        molar_volume: 126.8,
+        melting_point: 97.0,
+        hsp: {d: 17.5, p: 5.5, h: 7.2}
+    },
+    "ethanol": {
+        name: "Ethanol",
+        self_id: 'ethanol',
+        molecular_weight: 46.07,
+        density: 0.789,
+        molar_volume: 58.4,
+        melting_point: -114.0,
+        hsp: {d: 15.8, p: 8.8, h: 19.4}
+    },
 
     // CARRIERS
+    /* older values
     "MCT": { name: "MCT Oil", molecular_weight: 500.0, density: 0.94, molar_volume: 531.9, melting_point: -5.0, hsp: { d: 16.2, p: 3.5, h: 4.5 } },
     "castor": { name: "Castor Oil", molecular_weight: 933.4, density: 0.961, molar_volume: 971.3, melting_point: -18.0, hsp: { d: 16.7, p: 5.0, h: 9.0 } },
     "sesame": { name: "Sesame Oil", molecular_weight: 880.0, density: 0.92, molar_volume: 956.5, melting_point: -5.0, hsp: { d: 16.1, p: 2.5, h: 3.8 } },
     "grapeseed": { name: "Grapeseed Oil", molecular_weight: 880.0, density: 0.92, molar_volume: 956.5, melting_point: -10.0, hsp: { d: 16.2, p: 2.3, h: 3.5 } },
     "arachis": { name: "Arachis Oil", molecular_weight: 885.0, density: 0.915, molar_volume: 967.2, melting_point: 3.0, hsp: { d: 16.1, p: 2.6, h: 3.7 } },
     "cottonseed": { name: "Cottonseed Oil", molecular_weight: 875.0, density: 0.92, molar_volume: 951.1, melting_point: -1.0, hsp: { d: 16.1, p: 2.4, h: 3.6 } },
-    "sterile-water-for-injection": { name: "Water", molecular_weight: 18.02, density: 1.00, molar_volume: 18.0, melting_point: 0.0, hsp: { d: 15.5, p: 16.0, h: 42.3 } }
+*/
+    // CARRIERS — revised for better MCT vs LCT ranking
+    "MCT": {
+        name: "MCT Oil (Miglyol 812 type)",
+        self_id: 'MCT',
+        molecular_weight: 500.0,
+        density: 0.94,
+        molar_volume: 531.9,
+        melting_point: -5.0,
+        hsp: {d: 16.3, p: 4.0, h: 5.2}   // raised p & h
+    },
+    "castor": {
+        name: "Castor Oil",
+        self_id: 'castor',
+        molecular_weight: 933.4,
+        density: 0.961,
+        molar_volume: 971.3,
+        melting_point: -18.0,
+        hsp: {d: 16.8, p: 5.2, h: 9.2}   // still the clear outlier on δH
+    },
+    "sesame": {
+        name: "Sesame Oil",
+        self_id: 'sesame',
+        molecular_weight: 880.0,
+        density: 0.92,
+        molar_volume: 956.5,
+        melting_point: -5.0,
+        hsp: {d: 16.1, p: 2.3, h: 3.5}   // lowered
+    },
+    "grapeseed": {
+        name: "Grapeseed Oil",
+        self_id: 'grapeseed',
+        molecular_weight: 880.0,
+        density: 0.92,
+        molar_volume: 956.5,
+        melting_point: -10.0,
+        hsp: {d: 16.2, p: 2.2, h: 3.3}   // lowered
+    },
+    "arachis": {
+        name: "Arachis Oil",
+        self_id: 'arachis',
+        molecular_weight: 885.0,
+        density: 0.915,
+        molar_volume: 967.2,
+        melting_point: 3.0,
+        hsp: {d: 16.1, p: 2.4, h: 3.4}   // lowered
+    },
+    "olive": {
+        name: "Olive Oil",
+        self_id: 'olive',
+        molecular_weight: 884.0,
+        density: 0.915,
+        molar_volume: 960,
+        melting_point: 10,
+        hsp: {d: 16.1, p: 2.4, h: 3.4}   // lowered
+    },
+    "cottonseed": {
+        name: "Cottonseed Oil",
+        self_id: 'cottonseed',
+        molecular_weight: 875.0,
+        density: 0.92,
+        molar_volume: 951.1,
+        melting_point: -1.0,
+        hsp: {d: 16.1, p: 2.3, h: 3.4}   // lowered
+    },
+
+    "sterile-water-for-injection": {
+        name: "Water",
+        self_id: 'sterile-water-for-injection',
+        molecular_weight: 18.02,
+        density: 1.00,
+        molar_volume: 18.0,
+        melting_point: 0.0,
+        hsp: {d: 15.5, p: 16.0, h: 42.3}
+    }
 };
+
 /**
  * Calculates the exact saturation (liquidus clearance) temperature of a complex mixture
  * using Flory-Huggins Theory combined with Hansen Solubility Parameters (HSP).
@@ -784,9 +1083,10 @@ function calculateSaturationTemperature(compounds) {
         }
 
         // Exact match key resolution against internal CHEMICAL_DATABASE
-        const dbKey = c.key || (c.name || "").toLowerCase().replace(/[\s-]/g, '_');
+        // Safely check key -> self_id -> formatted name
+        const dbKey = c.key || c.self_id || (c.name || "").toLowerCase().replace(/[\s-]/g, '_');
         const dbMatch = CHEMICAL_DATABASE[dbKey];
-
+        console.log("Looking up:", dbKey, "→ found:", !!dbMatch, dbMatch?.hsp);
         // Fallback profile if compound is missing from dictionary
         const fallbackMp = Array.isArray(c.melting_point)
             ? (c.melting_point[0] + c.melting_point[1]) / 2
@@ -798,7 +1098,7 @@ function calculateSaturationTemperature(compounds) {
             enthalpy_of_fusion: dbMatch ? dbMatch.enthalpy_of_fusion : (c.enthalpy_of_fusion || ((fallbackMp + 273.15) * 56.5)),
             molar_volume: dbMatch ? dbMatch.molar_volume : (c.molar_volume || 250),
             density: dbMatch ? dbMatch.density : (c.density || 1.0),
-            hsp: dbMatch ? dbMatch.hsp : (c.hsp || { d: 17.0, p: 4.0, h: 5.0 })
+            hsp: dbMatch ? dbMatch.hsp : (c.hsp || {d: 17.0, p: 4.0, h: 5.0})
         };
 
         const volumeMl = massGrams / profile.density;
@@ -846,7 +1146,7 @@ function calculateSaturationTemperature(compounds) {
             return;
         }
 
-        const blendHSP = { d: sumPhiD / blendVol, p: sumPhiP / blendVol, h: sumPhiH / blendVol };
+        const blendHSP = {d: sumPhiD / blendVol, p: sumPhiP / blendVol, h: sumPhiH / blendVol};
         const V_ref = sumPhiV / blendVol;
         const r = solute.molar_volume / V_ref;
         const true_x = soluteMoles / totalSystemMoles;
@@ -856,6 +1156,10 @@ function calculateSaturationTemperature(compounds) {
             Math.pow(solute.hsp.h - blendHSP.h, 2);
 
         const delta_S_fus = solute.enthalpy_of_fusion / solute.mpK;
+
+        console.log("Ra² MCT blend:", Ra2);
+        console.log("blend HSP:", blendHSP);
+        console.log("solute HSP:", solute.hsp);
 
         function evaluateEquilibriumResidual(T_kelvin) {
             let chi = (V_ref * Ra2) / (R * T_kelvin);

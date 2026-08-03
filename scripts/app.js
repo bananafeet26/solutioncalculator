@@ -92,7 +92,17 @@ function compoundApp() {
             //settings.currentLanguage = this.settings.currentLanguage === 'en' ? 'de' : 'en';
         },
         changeTheme() {
-            this.settings.theme = this.settings.theme === 'light' ? 'dark' : 'light';
+            // 1. Define your cycle order here (add as many as you want)
+            const themes = ['light', 'dark', 'neo-brutalist', 'bubblegum'];
+
+            // 2. Find the current theme's index
+            let currentIndex = themes.indexOf(this.settings.theme);
+
+            // 3. Calculate the next index (the % loops it back to 0 at the end)
+            let nextIndex = (currentIndex + 1) % themes.length;
+
+            // 4. Apply it
+            this.settings.theme = themes[nextIndex];
             this.updateChart();
         },
         get getRecipeBlurb() {
